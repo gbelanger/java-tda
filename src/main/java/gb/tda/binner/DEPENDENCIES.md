@@ -1,0 +1,9 @@
+import cern.colt.list.DoubleArrayList;
+import cern.jet.random.Poisson;
+import cern.jet.random.engine.MersenneTwister64;
+import hep.aida.IAnalysisFactory;
+import hep.aida.IAxis;
+import hep.aida.IHistogram1D;
+import hep.aida.IHistogramFactory;
+import hep.aida.ITree;
+import org.apache.log4j.Logger;

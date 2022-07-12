@@ -1,0 +1,23 @@
+(base) gbelanger@esa-MacBook-Pro aida % ltr
+total 176
+-rw-r--r--  1 gbelanger   6.0K 21 Feb  2008 iplotter-paramaters.txt
+-rw-r--r--  1 gbelanger   2.3K 25 Jan  2017 sineFuncWithScatter.qdp
+-rw-r--r--  1 gbelanger   6.5K 25 Jan  2017 testFitting.qdp
+-rw-r--r--  1 gbelanger   1.5K 12 Jul 15:17 BeltEntryAltitudeFunction.java
+-rw-r--r--  1 gbelanger   1.0K 12 Jul 15:17 ChiSquareFunction.java
+-rw-r--r--  1 gbelanger   1.0K 12 Jul 15:17 ContinuousPoissonFunction.java
+-rw-r--r--  1 gbelanger   1.1K 12 Jul 15:17 LogNormalFunction.java
+-rw-r--r--  1 gbelanger   996B 12 Jul 15:17 PoissonFunction.java
+-rw-r--r--  1 gbelanger   4.2K 12 Jul 15:17 RadiationBeltExitAltitudeFunction.java
+-rw-r--r--  1 gbelanger   1.3K 12 Jul 15:17 SimpleRadiationBeltAltitudeFunction.java
+-rw-r--r--  1 gbelanger   1.0K 12 Jul 15:17 SineFunction.java
+-rw-r--r--  1 gbelanger   1.4K 12 Jul 15:17 BeltEntryAltitudeFunction.class
+-rw-r--r--  1 gbelanger   1.0K 12 Jul 15:17 ChiSquareFunction.class
+-rw-r--r--  1 gbelanger   1.0K 12 Jul 15:17 ContinuousPoissonFunction.class
+-rw-r--r--  1 gbelanger   1.0K 12 Jul 15:17 LogNormalFunction.class
+-rw-r--r--  1 gbelanger   1.0K 12 Jul 15:17 PoissonFunction.class
+-rw-r--r--  1 gbelanger   1.6K 12 Jul 15:17 RadiationBeltExitAltitudeFunction.class
+-rw-r--r--  1 gbelanger   1.3K 12 Jul 15:17 SimpleRadiationBeltAltitudeFunction.class
+-rw-r--r--  1 gbelanger   1.0K 12 Jul 15:17 SineFunction.class
+(base) gbelanger@esa-MacBook-Pro aida % rm *.java
+

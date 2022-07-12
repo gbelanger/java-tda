@@ -1,0 +1,69 @@
+! Filename: codedmask-time-series1.qdp
+! Time series class: CodedMaskTimeSeries
+! Produced by: QDPTimeSeriesFileWriter
+! Date: Mon Jun 06 20:08:12 CEST 2022
+! Author: G. Belanger
+! Target Name: TARGET_NAME
+! Target RA: 266.400
+! Target Dec: -29.010
+! Telescope: TELESCOPE
+! Instrument: INSTRUMENT
+! Max distance for full coding: 8.33
+! Energy range min: 20.0
+! Energy range max: 40.0
+! TStart: 5.0
+! Duration: 10 s
+! Number of observations = 10
+! Number fully coded = 9
+! Sum of pointings: 5 s
+! Exposure on target: 0 s
+! Mean Intensity: 4.800 +/- 0.389
+! Detection Significance: 12.348
+! Columns: binCentres, halfBinWidths, intensities, uncertainties
+!
+DEV /XS
+READ SERR 1 2
+PLOT VERT
+LAB F
+TIME OFF
+LW 3
+CS 1.1
+LAB OT TELESCOPE/INSTRUMENT Time Series (20-40 keV)
+LAB T TARGET_NAME (RA=266.40, Dec=-29.01)
+MA 17 on 2
+MA 2 ON 3
+CO 2 ON 3
+CO OFF 1 4 5 6 7
+LAB X Time (s since MJD 5.787037037037037E-5)
+LAB Y2 Intensity (per 1.00 s)
+LAB Y3 Angle (deg)
+R Y2 2.000 8.000
+R Y3 -2 17
+R X -0.500 10.500
+VIEW 0.1 0.2 0.9 0.8
+WIN 3
+LOC 0 0.1 1 0.4
+LAB 100 POS -0.39 4.15 LINE 0 0.98 "
+LAB 100 LS 4 JUST CEN
+LAB 101 VPOS 0.12 0.23 "10%" CS 0.55 JUST CEN
+LAB 102 VPOS 0.12 0.207 "90%" CS 0.55 JUST CEN
+WIN 2
+LOC 0 0.22 1 0.92
+LAB 200 VPOS 0.12 0.75 "Target Name: TARGET_NAME" CS 0.55 JUST LEFT
+LAB 201 VPOS 0.12 0.73 "Mean Rate = 4.800 +/- 0.389 s\u-1\d" CS 0.55 JUST LEFT
+LAB 202 VPOS 0.12 0.71 "Detection Significance = 12.348" CS 0.55 JUST LEFT
+LAB 203 VPOS 0.88 0.75 "Number of observations = 10" CS 0.55 JUST RIGHT
+LAB 204 VPOS 0.88 0.73 "Time series duration = 10 s" CS 0.55 JUST RIGHT
+LAB 205 VPOS 0.88 0.71 "Sum of pointings = 5 s" CS 0.55 JUST RIGHT
+LAB 206 VPOS 0.88 0.69 "Exposure on target = 0 s" CS 0.55 JUST RIGHT
+!
+0.5	0.5	5.0	1.0	5.0
+1.5	0.5	3.0	1.0	7.0
+2.5	0.5	4.0	1.0	3.0
+3.5	0.5	6.0	1.0	2.0
+4.5	0.5	7.0	1.0	6.0
+5.5	0.5	4.0	1.0	8.0
+6.5	0.5	6.0	1.0	12.0
+7.5	0.5	4.0	1.0	3.0
+8.5	0.5	4.0	1.0	2.0
+9.5	0.5	5.0	1.0	3.0

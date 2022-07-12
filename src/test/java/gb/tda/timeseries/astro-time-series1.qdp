@@ -1,0 +1,61 @@
+! Filename: astro-time-series1.qdp
+! Time series class: AstroTimeSeries
+! Produced by: QDPTimeSeriesFileWriter
+! Date: Mon Jun 06 20:08:12 CEST 2022
+! Author: G. Belanger
+! Target Name: TARGET_NAME
+! Target RA: 266.400
+! Target Dec: -29.010
+! Telescope: TELESCOPE
+! Instrument: INSTRUMENT
+! Energy range min: 20.0
+! Energy range max: 40.0
+! Relative time error: 0.006
+! Absolute time error: 0.012
+! TStart: 5.0
+! MJD Ref: 52000.0
+! Duration: 10 s
+! Number of observations = 10
+! Sum of pointings: 10 s
+! Ontime: 1234 s
+! Livetime: 1234 s
+! Exposure on target: 1234 s
+! Mean Intensity: 4.800 +/- 0.389
+! Detection Significance: 12.348
+! Columns: binCentres, halfBinWidths, intensities, uncertainties
+!
+DEV /XS
+READ SERR 1 2
+LAB F
+TIME OFF
+LW 3
+CS 1.1
+LAB OT TELESCOPE/INSTRUMENT Time Series (20-40 keV)
+LAB T TARGET_NAME (RA=266.40, Dec=-29.01)
+MA 17 on 2
+CO OFF 1 4 5 6 7
+LAB X Time (s  since 5.0)
+LAB Y2 Intensity (per 1.00 s)
+R Y2 2.000 8.000
+R X -0.500 10.500
+VIEW 0.1 0.2 0.9 0.8
+WIN 2
+LOC 0 0.22 1 0.92
+LAB 200 VPOS 0.12 0.75 "Target Name: TARGET_NAME" CS 0.55 JUST LEFT
+LAB 201 VPOS 0.12 0.73 "Mean Rate = 4.800 +/- 0.389 s\u-1\d" CS 0.55 JUST LEFT
+LAB 202 VPOS 0.12 0.71 "Detection Significance = 12.348" CS 0.55 JUST LEFT
+LAB 203 VPOS 0.88 0.75 "Number of observations = 10" CS 0.55 JUST RIGHT
+LAB 204 VPOS 0.88 0.73 "Time series duration = 10 s" CS 0.55 JUST RIGHT
+LAB 205 VPOS 0.88 0.71 "Sum of pointings = 12345 s" CS 0.55 JUST RIGHT
+LAB 206 VPOS 0.88 0.69 "Exposure on target = 1234 s" CS 0.55 JUST RIGHT
+!
+0.5	0.5	5.0	1.0
+1.5	0.5	3.0	1.0
+2.5	0.5	4.0	1.0
+3.5	0.5	6.0	1.0
+4.5	0.5	7.0	1.0
+5.5	0.5	4.0	1.0
+6.5	0.5	6.0	1.0
+7.5	0.5	4.0	1.0
+8.5	0.5	4.0	1.0
+9.5	0.5	5.0	1.0

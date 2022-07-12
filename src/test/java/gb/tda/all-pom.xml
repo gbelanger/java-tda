@@ -1,0 +1,227 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>gb.codetda</groupId>
+	<artifactId>codetda</artifactId>
+	<packaging>pom</packaging>
+	<name>codetda</name>
+	<version>1.0-SNAPSHOT</version>
+
+	<properties>
+		<log4j.version>1.2.15</log4j.version>
+	</properties>
+
+	<modules>
+		<module>./aida</module>
+		<module>./util</module>
+		<!-- <module>./binner</module> -->
+		<!-- <module>./eventlist</module> -->
+		<!-- <module>./io</module> -->
+		<!-- <module>./likelihood</module> -->
+		<!-- <module>./montecarlo</module> -->
+		<!-- <module>./periodogram</module> -->
+		<!-- <module>./test</module> -->
+		<!-- <module>./timeseries</module> -->
+		<!-- <module>./timing</module> -->
+		<!-- <module>./tools</module> -->
+		<!-- <module>./transients</module> -->
+	</modules>
+
+	<build>
+		<finalName>${project.name}</finalName>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.2.2</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<addClasspath>true</addClasspath>
+								<classpathLayoutType>repository</classpathLayoutType>
+							</manifest>
+						</archive>
+					</configuration>
+					<!-- <configuration>
+						<includes>
+							<include>src/main/java/*</include>
+						</includes>
+					</configuration> -->
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.5.1</version>
+					<configuration>
+						<source>1.9</source>
+						<target>1.9</target>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.2.0</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+<!-- 
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>3.0.0</version>
+					<configuration>
+						<rules>
+							<bannedDependencies>
+								<excludes>
+									<exclude>junit:junit</exclude>
+									<exclude>junit:junit-dep</exclude>
+								</excludes>
+							</bannedDependencies>
+							<dependencyConvergence />
+						</rules>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>enforce</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+ -->
+				<plugin>
+					<groupId>org.owasp</groupId>
+					<artifactId>dependency-check-maven</artifactId>
+					<version>5.2.2</version>
+					<configuration>
+						<suppressionFiles>
+							<suppressionFile>owasp-suppressions.xml</suppressionFile>
+						</suppressionFiles>
+						<failBuildOnCVSS>8</failBuildOnCVSS>
+						<assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+						<failOnError>true</failOnError>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>   
+
+				<plugin>
+					<groupId>com.github.spotbugs</groupId>
+					<artifactId>spotbugs-maven-plugin</artifactId>
+					<version>3.1.12.2</version>
+					<dependencies>
+						<dependency>
+						<groupId>com.github.spotbugs</groupId>
+						<artifactId>spotbugs</artifactId>
+						<version>4.0.0-beta4</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.5</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>colt</groupId>
+				<artifactId>colt</artifactId>
+				<version>1.2.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>gov.nasa.gsfc.heasarc</groupId>
+				<artifactId>nom-tam-fits</artifactId>
+				<version>1.15.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>jsky</groupId>
+				<artifactId>coords</artifactId>
+				<version>2.6</version>
+				<scope>compile</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>gov.nist.math</groupId> 
+				<artifactId>jama</artifactId>
+				<version>1.0.3</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.freehep</groupId>
+				<artifactId>freehep-base</artifactId>
+				<version>2.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.freehep.math</groupId>
+				<artifactId>minuit</artifactId>
+				<version>3.5</version>
+			</dependency>
+
+			<dependency>
+				<groupId>hep.aida.ref</groupId>
+				<artifactId>optimizer</artifactId>
+				<version>2.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>hep.aida.ref</groupId>
+				<artifactId>histogram</artifactId>
+				<version>2.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openide.util</groupId>
+				<artifactId>openide-lookup</artifactId>
+				<version>7.7.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>hep.aida</groupId>
+				<artifactId>aida-dev</artifactId>
+				<version>3.3</version>
+			</dependency>
+
+			<dependency>
+				<groupId>hep.aida</groupId>
+				<artifactId>aida</artifactId>
+				<version>3.5</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+</project>

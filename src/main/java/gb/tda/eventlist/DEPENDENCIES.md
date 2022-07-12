@@ -1,0 +1,11 @@
+cern.colt.list.DoubleArrayList;
+cern.colt.list.IntArrayList;
+hep.aida.ref.histogram.Histogram1D;
+nom.tam.fits.BasicHDU;
+nom.tam.fits.BinaryTableHDU;
+nom.tam.fits.Fits;
+nom.tam.fits.FitsException;
+nom.tam.fits.TruncatedFileException;
+nom.tam.util.ArrayFuncs;
+nom.tam.util.BufferedDataInputStream;
+org.apache.log4j.Logger;
