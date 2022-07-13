@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import gb.tda.eventlist.EventList;
 import gb.tda.eventlist.EventListSelector;
 import gb.tda.eventlist.EventListException;
-import gb.tda.tools.DataUtils;
 import gb.tda.binner.Binner;
 
 public class AstroTimeSeriesFactory {
@@ -124,7 +123,7 @@ public class AstroTimeSeriesFactory {
         // }
 
         //  Return the TimeSeries
-        double[] zeroedBinEdges = DataUtils.resetToZero(binEdges);
+        double[] zeroedBinEdges = Utils.resetToZero(binEdges);
         return new AstroTimeSeries(new CountsTimeSeries(evlist.tStart(), zeroedBinEdges, counts));
     }
 
