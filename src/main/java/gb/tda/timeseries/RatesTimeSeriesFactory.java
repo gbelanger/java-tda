@@ -3,8 +3,6 @@ package gb.tda.timeseries;
 import cern.colt.list.DoubleArrayList;
 import org.apache.log4j.Logger;
 
-
-
 import java.util.Arrays;
 
 public class RatesTimeSeriesFactory {
@@ -69,7 +67,7 @@ public class RatesTimeSeriesFactory {
         }
         RatesTimeSeries ts = new RatesTimeSeries(tStart, goodBinEdges.elements(), goodRates.elements(), goodErrors.elements());
         if ( ts.thereAreNaNs() ) {
-            ts = TimeSeriesUtils.dropLeadingAndTrailingNaNs(ts);
+            ts = (RatesTimeSeries) TimeSeriesUtils.dropLeadingAndTrailingNaNs(ts);
         }
         return ts;
     }
