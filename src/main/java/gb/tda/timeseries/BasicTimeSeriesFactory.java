@@ -8,4 +8,20 @@ public class BasicTimeSeriesFactory {
     public static BasicTimeSeries create(BasicTimeSeries ts) {
         return new BasicTimeSeries(ts);
     }
+
+    public static BasicTimeSeries create(double[] times, double[] intensities) {
+        return new BasicTimeSeries(times, intensities);
+    }
+
+    public static BasicTimeSeries create(double tstart, double[] times, double[] intensities) {
+        return new BasicTimeSeries(tstart, times, intensities);
+    }
+
+    public static BasicTimeSeries create(double[] times, double[] intensities, double[] uncertainties) {
+        return new BasicTimeSeries(times, intensities, uncertainties);
+    }
+
+    public static BasicTimeSeries create(double tstart, double[] times, double[] intensities, double[] uncertainties) {
+        return new BasicTimeSeries(tstart, times, intensities, uncertainties);
+    }
 }
