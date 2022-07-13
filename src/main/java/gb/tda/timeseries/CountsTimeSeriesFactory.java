@@ -9,14 +9,20 @@ public class CountsTimeSeriesFactory {
         return new CountsTimeSeries(ts);
     }
 
-    public static CountsTimeSeries create(double[] binEdges, double[] counts) {
-        double tStart = binEdges[0];
-        double[] zeroedBinEdges = Utils.resetToZero(binEdges);
-        CountsTimeSeries ts = new CountsTimeSeries(tStart, zeroedBinEdges, counts);
-        if ( ts.thereAreNaNs() ) {
-            ts = (CountsTimeSeries) TimeSeriesUtils.dropLeadingAndTrailingNaNs(ts);
-        }
-        return ts;
+    public static CountsTimeSeries create(double[] binEdges, double[] intensities) {
+        double tstart = binEdges[0];
+        return create(tstart, binEdges, intensities);
     }
 
+    public static CountsTimeSeries create(double tstart, double[] binEdges, double[] intensities) {
+        return new CountsTimeSeries(tstart, binEdges, intensities);
+    }
+
+    public static CountsTimeSeries create(double[] binEdges, double[] intensities, double[] uncertainties) {
+        return new CountsTimeSeries(binEdges, intensities, uncertainties);
+    }
+
+    public static CountsTimeSeries create(double tstart, double[] binEdges, double[] intensities, double[] uncertainties) {
+        return new CountsTimeSeries(tstart, binEdges, intensities, uncertainties);
+    }
 }
