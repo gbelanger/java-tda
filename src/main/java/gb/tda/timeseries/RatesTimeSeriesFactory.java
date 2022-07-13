@@ -3,12 +3,14 @@ package gb.tda.timeseries;
 import cern.colt.list.DoubleArrayList;
 import org.apache.log4j.Logger;
 
+
+
 import java.util.Arrays;
 
 public class RatesTimeSeriesFactory {
     private static final Logger logger  = Logger.getLogger(RatesTimeSeriesFactory.class);
 
-    public static RatesTimeSeries create(RatesTimeSeries ts) {
+    public static RatesTimeSeries create(IRatesTimeSeries ts) {
         return new RatesTimeSeries(ts);
     }
 
@@ -89,6 +91,5 @@ public class RatesTimeSeriesFactory {
         }
         return create(binCentres, halfBinWidths, rates, errorsOnRates);
     }
-
 
 }

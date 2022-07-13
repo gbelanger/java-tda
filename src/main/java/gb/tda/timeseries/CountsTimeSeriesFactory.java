@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 public class CountsTimeSeriesFactory {
     private static final Logger logger  = Logger.getLogger(CountsTimeSeriesFactory.class);
 
-    public static CountsTimeSeries create(CountsTimeSeries ts) {
+    public static CountsTimeSeries create(ICountsTimeSeries ts) {
         return new CountsTimeSeries(ts);
     }
 
