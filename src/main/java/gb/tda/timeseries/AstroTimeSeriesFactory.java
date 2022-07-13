@@ -12,7 +12,15 @@ import gb.tda.binner.Binner;
 public class AstroTimeSeriesFactory {
     private static final Logger logger  = Logger.getLogger(AstroTimeSeriesFactory.class);
 
-    public static AstroTimeSeries create(AstroTimeSeries ts) {
+    public static AstroTimeSeries create(IAstroTimeSeries ts) {
+        return new AstroTimeSeries(ts);
+    }
+
+    public static AstroTimeSeries create(ICountsTimeSeries ts) {
+        return new AstroTimeSeries(ts);
+    }
+
+    public static AstroTimeSeries create(IRatesTimeSeries ts) {
         return new AstroTimeSeries(ts);
     }
 
