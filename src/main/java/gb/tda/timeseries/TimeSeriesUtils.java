@@ -5,13 +5,10 @@ import cern.colt.list.DoubleArrayList;
 import hep.aida.ref.histogram.Histogram1D;
 import org.apache.log4j.Logger;
 
-import gb.tda.binner.BinningException;
-import gb.tda.binner.BinningUtils;
 import gb.tda.periodogram.WindowFunction;
 import gb.tda.periodogram.WindowFunctionException;
 import gb.tda.tools.Converter;
 import gb.tda.tools.DataSmoother;
-import gb.tda.tools.DataUtils;
 import gb.tda.tools.DistributionFunc;
 
 
@@ -30,7 +27,7 @@ public final class TimeSeriesUtils {
     // 	DoubleArrayList newBinHeightsList = new DoubleArrayList();
     // 	// Go through ts and apply sampling pattern
     // 	double[] binEdges = ts.getBinEdges();
-    // 	double[] intensities = ts.getBinHeights();
+    // 	double[] intensities = ts.getIntensities();
     // 	int nbins = ts.nbins();
     // 	int i = 0;
     // 	int k = 0;
@@ -71,19 +68,19 @@ public final class TimeSeriesUtils {
     // }
 
 
-    public static double[] getRandomArrivalTimes(TimeSeries ts, int nEvents) {
+    public static double[] getRandomArrivalTimes(IBinnedTimeSeries ts, int nEvents) {
 		double tzero = ts.tStart();
 		double binTime = ts.duration()/ts.nBins();
-		Histogram1D lcHisto = Converter.array2histo("light curve", tzero, binTime, ts.getRates());
+		Histogram1D lcHisto = Converter.array2histo("light curve", tzero, binTime, ts.getIntensities());
 		Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
 		double[] times = DistributionFunc.getRandom(cdfHisto, nEvents);
 		Arrays.sort(times);
 		return times;
     }
 
-    public static TimeSeries dropLeadingAndTrailingNaNs(TimeSeries ts) {
+    public static BinnedTimeSeries dropLeadingAndTrailingNaNs(IBinnedTimeSeries ts) {
 		logger.warn("Dropping leading and trailing NaNs");
-		TimeSeries newTimeSeries = new TimeSeries(ts);
+		BinnedTimeSeries newTimeSeries = new BinnedTimeSeries(ts);
 
 		int nLeadingNaNs = countLeadingNaNs(ts);
 		int nTrailingNaNs = countTrailingNaNs(ts);
@@ -94,13 +91,13 @@ public final class TimeSeriesUtils {
 		    newTimeSeries =  dropTrailingBins(ts, nTrailingNaNs);
 		}
 		else if ( nLeadingNaNs != 0 && nTrailingNaNs != 0 ) {
-		    TimeSeries tmp = dropLeadingBins(ts, nLeadingNaNs);
+		    BinnedTimeSeries tmp = dropLeadingBins(ts, nLeadingNaNs);
 		    newTimeSeries = dropTrailingBins(tmp, nTrailingNaNs);
 		}
 		return newTimeSeries;
     }
 
-    public static TimeSeries dropLeadingBins(TimeSeries ts, int nBinsToDrop) {
+    public static BinnedTimeSeries dropLeadingBins(IBinnedTimeSeries ts, int nBinsToDrop) {
 		logger.info("Dropping the first "+nBinsToDrop+" bins");
 		double[] binEdges = ts.getBinEdges();
 
@@ -109,35 +106,35 @@ public final class TimeSeriesUtils {
 		double newTStart = ts.tStart() + leftEdgeOfFirstGoodBin;
 
 		//  Define new binEdges
-		double[] shiftedBinEdges = DataUtils.shift(binEdges, -leftEdgeOfFirstGoodBin);
+		double[] shiftedBinEdges = Utils.shift(binEdges, -leftEdgeOfFirstGoodBin);
 		double[] newBinEdges = new double[binEdges.length - 2*nBinsToDrop];
 		for ( int i=0; i < newBinEdges.length; i++ ) {
 		    newBinEdges[i] = shiftedBinEdges[i+2*nBinsToDrop];
 		}
 		
 		//  Define new binHeights and construct the new TimeSeries
-		if ( ts.errorsAreSet() ) {
-		    double[] rates = ts.getRates();
-		    double[] errors = ts.getErrorsOnRates();
+		if ( ts.uncertaintiesAreSet() ) {
+		    double[] rates = ts.getIntensities();
+		    double[] errors = ts.getUncertainties();
 		    double[] newRates = new double[rates.length - nBinsToDrop];
 		    double[] newErrors = new double[newRates.length];
 		    for ( int i=0; i < newRates.length; i++ ) {
 			newRates[i] = rates[i+nBinsToDrop];
 			newErrors[i] = errors[i+nBinsToDrop];
 		    }
-		    return new TimeSeries(newTStart, newBinEdges, newRates, newErrors);
+		    return new BinnedTimeSeries(newTStart, newBinEdges, newRates, newErrors);
 		}
 		else {
-		    double[] binHeights = ts.getBinHeights();
+		    double[] binHeights = ts.getIntensities();
 		    double[] newBinHeights = new double[binHeights.length - nBinsToDrop];
 		    for ( int i=0; i < newBinHeights.length; i++ ) {
 			newBinHeights[i] = binHeights[i+nBinsToDrop];
 		    }
-		    return new TimeSeries(newTStart, newBinEdges, newBinHeights);
+		    return new BinnedTimeSeries(newTStart, newBinEdges, newBinHeights);
 		}
     }
 
-    public static TimeSeries dropTrailingBins(TimeSeries ts, int nBinsToDrop) {
+    public static BinnedTimeSeries dropTrailingBins(IBinnedTimeSeries ts, int nBinsToDrop) {
 		logger.info("Dropping the last "+nBinsToDrop+" bins");
 		double[] binEdges = ts.getBinEdges();
 
@@ -148,29 +145,29 @@ public final class TimeSeriesUtils {
 		}
 
 		//  Define new binHeights and construct the new TimeSeries
-		if ( ts.errorsAreSet() ) {
-		    double[] rates = ts.getRates();
-		    double[] errors = ts.getErrorsOnRates();
+		if ( ts.uncertaintiesAreSet() ) {
+		    double[] rates = ts.getIntensities();
+		    double[] errors = ts.getUncertainties();
 		    double[] newRates = new double[rates.length - nBinsToDrop];
 		    double[] newErrors = new double[newRates.length];
 		    for ( int i=0; i < newRates.length; i++ ) {
 			newRates[i] = rates[i];
 			newErrors[i] = errors[i];
 		    }
-		    return new TimeSeries(ts.tStart(), newBinEdges, newRates, newErrors);
+		    return new BinnedTimeSeries(ts.tStart(), newBinEdges, newRates, newErrors);
 		}
 		else {
-		    double[] binHeights = ts.getBinHeights();
+		    double[] binHeights = ts.getIntensities();
 		    double[] newBinHeights = new double[binHeights.length - nBinsToDrop];
 		    for ( int i=0; i < newBinHeights.length; i++ ) {
 			newBinHeights[i] = binHeights[i];
 		    }
-		    return new TimeSeries(ts.tStart(), newBinEdges, newBinHeights);
+		    return new BinnedTimeSeries(ts.tStart(), newBinEdges, newBinHeights);
 		}
     }
 
-    public static int countLeadingNaNs(TimeSeries ts) {
-		double[] binHeights = ts.getBinHeights();
+    public static int countLeadingNaNs(IBinnedTimeSeries ts) {
+		double[] binHeights = ts.getIntensities();
 		int nLeadingNaNs = 0;
 		int k=0;
 		while ( Double.isNaN(binHeights[k]) ) {
@@ -186,8 +183,8 @@ public final class TimeSeriesUtils {
 		return nLeadingNaNs;
     }
 
-    public static int countTrailingNaNs(TimeSeries ts) {
-		double[] binHeights = ts.getBinHeights();
+    public static int countTrailingNaNs(IBinnedTimeSeries ts) {
+		double[] binHeights = ts.getIntensities();
 		int nTrailingNaNs = 0;
 		int k=binHeights.length-1;
 		while ( Double.isNaN(binHeights[k]) ) {
@@ -204,7 +201,7 @@ public final class TimeSeriesUtils {
     }
 
 
-    public static TimeSeries removeGaps(TimeSeries ts) throws BinningException {
+    public static BinnedTimeSeries removeGaps(IBinnedTimeSeries ts) throws BinningException {
 		logger.info("Removing data gaps");
 		double[] binCentres = ts.getBinCentres();
 		double[] binEdges = ts.getBinEdges();
@@ -216,9 +213,9 @@ public final class TimeSeriesUtils {
 		DoubleArrayList newBinWidthsList = new DoubleArrayList();
 		DoubleArrayList newBinHeightsList = new DoubleArrayList();
 
-		if ( ts.errorsAreSet() ) {
-		    double[] rates = ts.getRates();
-		    double[] errors = ts.getErrorsOnRates();
+		if ( ts.uncertaintiesAreSet() ) {
+		    double[] rates = ts.getIntensities();
+		    double[] errors = ts.getUncertainties();
 		    int k=0;
 		    int i=0;
 		    while ( i < ts.nBins() ) {
@@ -242,10 +239,10 @@ public final class TimeSeriesUtils {
 		    double[] newErrors = newErrorsList.elements();
 		    double[] newBinWidths = newBinWidthsList.elements();
 		    double[] newBinEdges = BinningUtils.getBinEdges(0, newBinWidths);
-		    return new TimeSeries(ts.tStart(), newBinEdges, newRates, newErrors);
+		    return new BinnedTimeSeries(ts.tStart(), newBinEdges, newRates, newErrors);
 		}
 		else {
-		    double[] binHeights = ts.getBinHeights();
+		    double[] binHeights = ts.getIntensities();
 		    int k=0;
 		    int i=0;
 		    while ( i < ts.nBins() ) {
@@ -266,11 +263,12 @@ public final class TimeSeriesUtils {
 		    double[] newBinHeights = newBinHeightsList.elements();
 		    double[] newBinWidths = newBinWidthsList.elements();
 		    double[] newBinEdges = BinningUtils.getBinEdges(0, newBinWidths);
-		    return new TimeSeries(ts.tStart(), newBinEdges, newBinHeights);
+		    return new BinnedTimeSeries(ts.tStart(), newBinEdges, newBinHeights);
 		}
     }
 
-    public static TimeSeries fillGapsWithZeros(TimeSeries ts) {
+    public static BinnedTimeSeries fillGapsWithZeros(IBinnedTimeSeries ts) {
+		logger.info("Filling gaps with zeros");
 		int nDataBins = ts.nBins();
 		int nnewBins = ts.nSamplingFunctionBins();
 		//System.out.println("nDataBins = "+nDataBins);
@@ -286,9 +284,9 @@ public final class TimeSeriesUtils {
 		//System.out.println("nZeros = "+nZeros);
 		//System.out.println("nOnes = "+nOnes);
 		//System.out.println("nDataBins+nZeros = "+(nDataBins+nZeros)+" = nnewBins = "+nnewBins);
-		if ( ts.errorsAreSet() ) {
-		    double[] rates = ts.getRates();
-		    double[] errors = ts.getErrorsOnRates();
+		if ( ts.uncertaintiesAreSet() ) {
+		    double[] rates = ts.getIntensities();
+		    double[] errors = ts.getUncertainties();
 		    double[] newRates = new double[nnewBins];
 		    double[] newErrors = new double[nnewBins];
 		    int k=0;
@@ -303,10 +301,10 @@ public final class TimeSeriesUtils {
 			    newErrors[i] = 0;
 			}
 		    }
-		    return new TimeSeries(ts.tStart(), samplingFuncBinEdges, newRates, newErrors);
+		    return new BinnedTimeSeries(ts.tStart(), samplingFuncBinEdges, newRates, newErrors);
 		}
 		else {
-		    double[] binHeights = ts.getBinHeights();
+		    double[] binHeights = ts.getIntensities();
 		    double[] newBinHeights = new double[nnewBins];
 		    int k=0;
 		    for ( int i=0; i < samplingFuncValues.length; i++ ) {
@@ -318,123 +316,112 @@ public final class TimeSeriesUtils {
 			    newBinHeights[i] = 0;
 			}
 		    }
-		    return new TimeSeries(ts.tStart(), samplingFuncBinEdges, newBinHeights);
+		    return new BinnedTimeSeries(ts.tStart(), samplingFuncBinEdges, newBinHeights);
 		}
     }
 
 
-    public static TimeSeries fillGaps(TimeSeries ts) {
+    public static BinnedTimeSeries fillGaps(IBinnedTimeSeries ts) {
 		/** There is a bug here:
 		     We take out the NaNs from the rates but keep the original times.
 		     This needs fixing.
 		**/
 		logger.info("Filling data gaps");
-		if ( ts.errorsAreSet() ) {
-		    double[] newRates = DataUtils.fillDataGaps(ts.getRates());
-		    double[] newErrors = DataUtils.fillDataGaps(ts.getErrorsOnRates());
-		    return new TimeSeries(ts.tStart(), ts.getBinEdges(), newRates, newErrors);
+		if ( ts.uncertaintiesAreSet() ) {
+		    double[] newRates = Utils.fillDataGaps(ts.getIntensities());
+		    double[] newErrors = Utils.fillDataGaps(ts.getUncertainties());
+		    return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newRates, newErrors);
 		}
 		else {
-		    double[] newBinHeights = DataUtils.fillDataGaps(ts.getBinHeights());
-		    return new TimeSeries(ts.tStart(), ts.getBinEdges(), newBinHeights);
+		    double[] newBinHeights = Utils.fillDataGaps(ts.getIntensities());
+		    return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newBinHeights);
 		}
     }
 
-    public static TimeSeries scale(TimeSeries ts, double scalingFactor) {
-		logger.info("Scaling TimeSeries by a factor of "+scalingFactor);
-		if ( ts.errorsAreSet() ) {
-		    double[] newRates = ts.getRates();
-		    double[] newErrors = ts.getErrorsOnRates();
+    public static BinnedTimeSeries scale(IBinnedTimeSeries ts, double scalingFactor) {
+		logger.info("Scaling by a factor of "+scalingFactor);
+		if ( ts.uncertaintiesAreSet() ) {
+		    double[] newIntensities = ts.getIntensities();
+		    double[] newUncertainties = ts.getUncertainties();
 		    for ( int i=0; i < ts.nBins(); i++ ) {
-			newRates[i] *= scalingFactor;
-			newErrors[i] *= scalingFactor;
+				newIntensities[i] *= scalingFactor;
+				newUncertainties[i] *= scalingFactor;
 		    }
-		    return new TimeSeries(ts.tStart(), ts.getBinEdges(), newRates, newErrors);
+		    return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newIntensities, newUncertainties);
 		}
 		else {
-		    double[] newBinHeights = ts.getBinHeights();
+		    double[] newIntensities = ts.getIntensities();
 		    for ( int i=0; i < ts.nBins(); i++ ) {
-			newBinHeights[i] *= scalingFactor;
+				newIntensities[i] *= scalingFactor;
 		    }
-		    return new TimeSeries(ts.tStart(), ts.getBinEdges(), newBinHeights);
+		    return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newIntensities);
 		}
     }
 
-    public static TimeSeries addOffset(TimeSeries ts, double offset) {
-		logger.info("Adding offset of "+offset+" to TimeSeries");
-		if ( ts.errorsAreSet() ) {
-		    double[] newRates = ts.getRates();
-		    double[] newErrors = ts.getErrorsOnRates();
-		    for ( int i=0; i < ts.nBins(); i++ ) {
-				newRates[i] += offset;
-				newErrors[i] += offset;
-		    }
-		    return new TimeSeries(ts.tStart(), ts.getBinEdges(), newRates, newErrors);
+    public static BinnedTimeSeries addOffset(IBinnedTimeSeries ts, double offset) {
+		logger.info("Adding offset of "+offset);
+		double[] newIntensities = ts.getIntensities();
+		for ( int i=0; i < ts.nBins(); i++ ) {
+			newIntensities[i] += offset;
+		}
+		if (ts.uncertaintiesAreSet()) {
+			return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newIntensities, ts.getUncertainties());
 		}
 		else {
-		    double[] newBinHeights = ts.getBinHeights();
-		    for ( int i=0; i < ts.nBins(); i++ ) {
-				newBinHeights[i] += offset;
-		    }
-		    return new TimeSeries(ts.tStart(), ts.getBinEdges(), newBinHeights);
+			return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newIntensities);
 		}
     }
 
-    public static TimeSeries detrend(TimeSeries ts) {
-	logger.info("Detrending TimeSeries");
-	if ( ts.errorsAreSet() ) {
-	    double[] newRates = DataSmoother.detrend(ts.getBinCentres(), ts.getRates());
-	    return new TimeSeries(ts.tStart(), ts.getBinEdges(), newRates, ts.getErrorsOnRates());
-	}
-	else {
-	    double[] newBinHeights = DataSmoother.detrend(ts.getBinCentres(), ts.getBinHeights());
-	    return new TimeSeries(ts.tStart(), ts.getBinEdges(), newBinHeights);
-	}
+    public static BinnedTimeSeries detrend(IBinnedTimeSeries ts) {
+		logger.info("Detrending");
+		double[] newIntensities = DataSmoother.detrend(ts.getTimes(), ts.getIntensities());
+		if ( ts.uncertaintiesAreSet() ) {
+			return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newIntensities, ts.getUncertainties());
+		}
+		else {
+			return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newIntensities);
+		}
     }
 
-    public static TimeSeries kalmanFilter(TimeSeries lc, double processRMS) {
-	logger.info("Kalman filtering TimeSeries");
-		double[] kalmanRates = DataSmoother.kalmanFilter(lc.getRates(), lc.getErrorsOnRates(), processRMS);
-		return new TimeSeries(lc.tStart(), lc.getBinEdges(), kalmanRates, lc.getErrorsOnRates());
+    public static BinnedTimeSeries kalmanFilter(IBinnedTimeSeries ts, double processRMS) {
+		logger.info("Kalman filtering");
+		double[] kalmanRates = DataSmoother.kalmanFilter(ts.getIntensities(), ts.getUncertainties(), processRMS);
+		return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), kalmanRates, ts.getUncertainties());
     }
 
-    public static TimeSeries smooth(TimeSeries ts, int nBins) throws BinningException {
+    public static BinnedTimeSeries smooth(IBinnedTimeSeries ts, int nBins) throws BinningException {
 		if ( nBins > ts.nBins() ) {
-		    throw new BinningException("Smoothing window size is too large. nBins must be less than bins in TimeSeries");
+		    throw new BinningException("Smoothing window size is too large. nBins must be less than bins in time series");
 		}
 		logger.info("Smoothing TimeSeries");
-
-		if ( ts.errorsAreSet() ) {
-		    double[] newRates = DataSmoother.smooth(ts.getRates(), nBins);
-		    return new TimeSeries(ts.tStart(), ts.getBinEdges(), newRates, ts.getErrorsOnRates());
+		double[] newIntensities = DataSmoother.smooth(ts.getIntensities(), nBins);
+		if ( ts.uncertaintiesAreSet() ) {
+		    return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newIntensities, ts.getUncertainties());
 		}
 		else {
-		    double[] newBinHeights = DataSmoother.smooth(ts.getBinHeights(), nBins);
-		    return new TimeSeries(ts.tStart(), ts.getBinEdges(), newBinHeights);
+		    return new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newIntensities);
 		}
     }
 
-    public static TimeSeries applyWindowFunction(TimeSeries ts, String windowName) throws WindowFunctionException {
+    public static BinnedTimeSeries applyWindowFunction(IBinnedTimeSeries ts, String windowName) throws WindowFunctionException {
 		logger.info("Applying window function to intensities (binheights or rates)");
 		WindowFunction window = new WindowFunction(windowName);
 		double[] binCentres = ts.getBinCentres();
 		double duration = ts.duration();
-		double integralBefore = ts.sumOfBinHeights();
+		double integralBefore = ts.sumOfIntensities();
 		double integralAfter = 0;
-		TimeSeries ts_windowed;
-		if ( ts.errorsAreSet() ) {
-		    double[] newRates = window.apply(ts.getRates(), binCentres, duration);
-		    ts_windowed = new TimeSeries(ts.tStart(), ts.getBinEdges(), newRates, ts.getErrorsOnRates());
-		    integralAfter = ts_windowed.sumOfBinHeights();
+		double[] newIntensities = window.apply(ts.getIntensities(), binCentres, duration);
+		BinnedTimeSeries tsWindowed;
+		if ( ts.uncertaintiesAreSet() ) {
+			tsWindowed = new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newIntensities, ts.getUncertainties());
 		}
 		else {
-		    double[] newBinHeights = window.apply(ts.getBinHeights(), binCentres, duration);
-		    ts_windowed = new TimeSeries(ts.tStart(), ts.getBinEdges(), newBinHeights);
-		    integralAfter = ts_windowed.sumOfBinHeights();
-		}	
+			tsWindowed = new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), newIntensities);
+		}
+		integralAfter = tsWindowed.sumOfIntensities();
 		double areaScalingFactor = integralBefore/integralAfter;
 		areaScalingFactor = 1;
-		return TimeSeriesUtils.scale(ts_windowed, areaScalingFactor);
+		return TimeSeriesUtils.scale(tsWindowed, areaScalingFactor);
 	}
 
 
@@ -451,9 +438,9 @@ public final class TimeSeriesUtils {
 // 	double[] paddedCounts = new double[nNewBins];
 // 	double[] paddedRates = new double[nNewBins];
 // 	double[] paddedErrors = new double[nNewBins];
-// 	double[] counts = ts.getBinHeights();
-// 	double[] rates = ts.getRates();
-// 	double[] errors = ts.getErrorsOnRates();
+// 	double[] counts = ts.getIntensities();
+// 	double[] rates = ts.getIntensities();
+// 	double[] errors = ts.getUncertainties();
 // 	for ( int i=0; i < nBinsBeforePadding; i++ ) {
 // 	    paddedCounts[i] = counts[i];
 // 	    paddedRates[i] = rates[i];
@@ -477,7 +464,7 @@ public final class TimeSeriesUtils {
 // 	double[] binEdges = ts.getBinEdges();
 // 	double[] newBinEdges = BinningUtils.getBinEdges(binEdges[0], binEdges[binEdges.length-1]+addedTime, nNewBins);
 
-// 	if ( ts.errorsAreSet() ) {
+// 	if ( ts.uncertaintiesAreSet() ) {
 // 	    return new TimeSeries(ts.tStart(), newBinEdges, paddedRates, paddedErrors);
 // 	}
 // 	else {
@@ -495,7 +482,7 @@ public final class TimeSeriesUtils {
 // 	//  Get lc data
 // 	double duration = lc.getDuration();
 // 	double[] times = lc.getTimes();
-// 	double[] rate = lc.getRates();
+// 	double[] rate = lc.getIntensities();
 // 	double[] error = lc.getErrors();
 // 	double[] binEdges = lc.getBinEdges();
 // 	double binWidth = 0;
