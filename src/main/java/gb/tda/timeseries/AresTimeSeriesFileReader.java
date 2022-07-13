@@ -1,7 +1,5 @@
 package gb.tda.timeseries;
 
-import gb.tda.binner.BinningException;
-import gb.tda.binner.BinningUtils;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -54,7 +52,7 @@ class AresTimeSeriesFileReader implements ITimeSeriesFileReader {
             measurements[i] = measurementsList.get(i).doubleValue();
         }
         // Make time series
-        return TimeSeriesFactory.makeTimeSeries(timeInSeconds,measurements);
+        return BasicTimeSeriesFactory.create(timeInSeconds, measurements);
     }
     
 }

@@ -3,8 +3,6 @@ package gb.tda.timeseries;
 import java.io.IOException;
 import org.apache.log4j.Logger;
 
-import gb.tda.binner.BinningException;
-import gb.tda.binner.BinningUtils;
 import gb.tda.eventlist.AsciiEventFileException;
 import gb.tda.eventlist.AsciiEventFileReader;
 import gb.tda.eventlist.EventList;
@@ -63,7 +61,7 @@ class AsciiTimeSeriesFileReader implements ITimeSeriesFileReader {
 		// Back to reading the file
 		int ncols = dataFile.getNDataCols();
 		if ( ncols == 1 ) {
-			//  If there is only 1 column, I assume that it is an event list
+			//  If there is only 1 column, assume event list
 			try {
 				return TimeSeriesFactory.makeTimeSeries(new AsciiEventFileReader().readEventFile(filename));
 			}
