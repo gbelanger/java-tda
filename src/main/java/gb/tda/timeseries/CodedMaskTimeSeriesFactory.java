@@ -41,10 +41,11 @@ public class CodedMaskTimeSeriesFactory {
         }
         double tStart = binEdges[0];
         if ( tStart < 0 ) { tStart = 0; }
-        double[] zeroedBinEdges = DataUtils.resetToZero(binEdges);
+        double[] zeroedBinEdges = Utils.resetToZero(binEdges);
         return new CodedMaskTimeSeries(targetRaDec, energyMinMax, telescope, instrument, maxDistForFullCoding, tStart, zeroedBinEdges,
                 effectivePointingDurations, rates, errors, raDecsOfPointings, exposuresOnTarget);
     }
+
 
     // Adding optional targetName
     public static CodedMaskTimeSeries create(
@@ -62,7 +63,6 @@ public class CodedMaskTimeSeriesFactory {
         ts.setTargetName(targetName);
         return ts;
     }
-
 
     // Using leftBinEdges and rightBinEdges
     public static CodedMaskTimeSeries create(
@@ -120,7 +120,7 @@ public class CodedMaskTimeSeriesFactory {
         Point2D.Double energyMinMax = new Point2D.Double(emin, emax);
         double tStart = binEdges[0];
         if ( tStart < 0 ) { tStart = 0; }
-        double[] zeroedBinEdges = DataUtils.resetToZero(binEdges);
+        double[] zeroedBinEdges = Utils.resetToZero(binEdges);
         return new CodedMaskTimeSeries(targetRaDec, energyMinMax, telescope, instrument, maxDistForFullCoding, tStart, zeroedBinEdges,
                 effectivePointingDurations, rates, errors, distToPointingAxis);
     }
