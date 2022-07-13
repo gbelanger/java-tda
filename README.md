@@ -1,38 +1,54 @@
-# The _gb.tda.eventlist_ package
+# This is the `java-tda` project
+
+A pure java codebase for time domain analysis (tda). 
+The package root name is `gb.tda`, where GB are the initials of the primary author. The project consists of the following packages (in alphabetical order):
+- `aida`
+- `binner`
+- `eventlist`
+- `io`
+- `likelihood`
+- `montecarlo`
+- `periodogram` 
+- `timeseries` 
+- `tools`
+- `transients` 
+- `utils`
+
+## Package `gb.tda.eventlist`
 
 This package contains java objects to represent and work with event lists.
 
 The main objects are:
-- IEventFileReader.java is an interface that defines a method for reading event files.
-- EventList.java is the representation of an event list
-- AsciiEventFileReader.java to read event lists in ascii format
-- FitsEventFileReader.java to read event lists in fits format
-- EventFileReader.java to loop on all specific file readers
-- EventListWriter.java to write event lists
-- EventListSelector.java to perform various selections
+- `IEventFileReader` is an interface that defines a method for reading event files.
+- `EventList` is the representation of an event list
+- `AsciiEventFileReader` to read event lists in ascii format
+- `FitsEventFileReader` to read event lists in fits format
+- `EventFileReader` to loop on all specific file readers
+- `EventListWriter` to write event lists
+- `EventListSelector` to perform various selections
 
 The exception handlers are:
-- EventListException.java
-- EventFileException.java
-- EventFileFormatException.java
-- AsciiEventFileException.java
-- AsciiEventFileFormatException.java
-- FitsEventFileException.java
-- FitsEventFileFormatException.java
+- `EventListException`
+- `EventFileException`
+- `EventFileFormatException`
+- `AsciiEventFileException`
+- `AsciiEventFileFormatException`
+- `FitsEventFileException`
+- `FitsEventFileFormatException`
 
 Unit testing classes include:
-- AsciiEventFileReaderTest.java
-- EventFileReaderTest.java
-- EventListSelectorTest.java
-- EventListTest.java
-- EventListWriterTest.java
-- FitsEventFileReaderTest.java# The _gb.tda.timeseries_ package
+- `AsciiEventFileReaderTest`
+- `EventFileReaderTest`
+- `EventListSelectorTest`
+- `EventListTest`
+- `EventListWriterTest`
+- `FitsEventFileReaderTest`
 
-# The _gb.tda.timeseries_ package
+## Package `gb.tda.timeseries`
 
 This package contains classes to work with time series.
 
-## Basic time series
+### Basic time series
 
 At the base of the class hierarchy we have:
 
@@ -50,7 +66,7 @@ A `BasicTimeSeries` can have uncertainties, while being a set of time-ordered po
 
 The only requirement of a `BasicTimeSeries` is that it has time-stamped intensities.
 
-## Binned time series
+### Binned time series
 
 The next level in the hierarchy is where are have defined:
 
@@ -70,7 +86,7 @@ If we counted 10 people passing in front of the door in an hour, we do not have 
 
 Binned time series require special handling of the bin edges and gaps (the sampling function). Intensities can be either absolute quantities that are counted and cannot be divided, like a certain number of discrete things or events like people or sunny days; or they can be a density or rate, like breaths per minute or counts per second. Any of these can but don't need to have uncertainties.
 
-## Counts and rates time series
+### Counts and rates time series
 
 The third level is for binned time series in counts or rates. Here we have defined:
 
@@ -83,7 +99,7 @@ The two pairs of interfaces and concrete classes that both extend `BinnedTimeSer
 
 However, a `CountsTimeSeries` will provide access to information about what will be referred to as _equivalent rates_, and a `RatesTimeSeries` will provide access to what will be referred to as _equivalent counts_. This is used to distinguish and emphasize the fact that they are computed from the primary data and are thus secondary in their value compared to the primary data used to define the object. There is a natural mapping between the methods that give access to intensity information in the parent class to those accessing counts and rates.
 
-## Astrophysics and astronomy time series
+### Astrophysics and astronomy time series
 
 The fourth level has the astronomy related time series interface and classes:
 
@@ -93,7 +109,7 @@ The fourth level has the astronomy related time series interface and classes:
 
 They define a set of properties and methods specific to astronomy, things like the telescope, instrument, target name and coordinates, etc. To allow for the most general framework, `AbstractAstroTimeSeries` implements, in addition to `IAstroTimeSeries`, also the two interfaces in the previous levels, `ICountsTimeSeries` and `IRatesTimeSeries`. This is specifically required to handle high-energy time series of event data in X-rays and Gamma-rays, together with any other kind of astronomical time series, like energy flux density, we find in optical and infrared astronomy.
 
-## Class hierarchy
+### Class hierarchy
 - `ITimeSeries`
 - `AbstractTimeSeries` implements `ITimeSeries`
 - `BasicTimeSeries` extends `AbstractTimeSeries`
