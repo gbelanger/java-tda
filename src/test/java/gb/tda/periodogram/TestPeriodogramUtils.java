@@ -28,7 +28,7 @@ public class TestPeriodogramUtils {
 	assert (fftFreqs[0] == 1/duration);
 	assert (fftFreqs[fftFreqs.length-1] == nbins/(2*duration));
 	int i=0; 
-	while ( i < fftFreqs.length ) {
+	while (i < fftFreqs.length) {
 	    logger.info(index.format(i)+"	"+exp.format(fftFreqs[i]));
 	    i++;
 	}
@@ -40,7 +40,7 @@ public class TestPeriodogramUtils {
 	double nuMax = 1/(2*dt);
 	double[] freqs = null;
 	logger.info("Testing static method getFourierFrequencies(nuMin="+nuMin+", nuMax="+nuMax+", duration="+duration+", oversampling)");
-	for ( int j=1; j <= 1; j++ ) {
+	for (int j=1; j <= 1; j++) {
 	    int oversampling = j;
 	    logger.info("Oversampling factor = "+oversampling);
 	    freqs = PeriodogramUtils.getFourierFrequencies(nuMin, nuMax, duration, oversampling);
@@ -49,7 +49,7 @@ public class TestPeriodogramUtils {
 	    double df = 1/(duration*oversampling);
 	    assert (freqs[freqs.length-1] == nbins/(2*duration) + (oversampling-1)*df);
 	    i=0; 
-	    while ( i < freqs.length ) {
+	    while (i < freqs.length) {
 		System.out.println(index.format(i)+"	"+exp.format(freqs[i]));
 		i++;
 	    }
@@ -64,7 +64,7 @@ public class TestPeriodogramUtils {
 	double pMax = 1/nuMin;
 	double[] periods = null;
 	logger.info("Testing static method getFourierPeriods(pMin="+pMin+", pMax="+pMax+", duration="+duration+", oversampling)");
-	for ( int j=1; j <= 3; j++ ) {
+	for (int j=1; j <= 3; j++) {
 	    int oversampling = j;
 	    logger.info("Oversampling factor = "+oversampling);
 	    periods = PeriodogramUtils.getFourierPeriods(pMin, pMax, duration, oversampling);
@@ -72,7 +72,7 @@ public class TestPeriodogramUtils {
 	    assert (periods[0] == 1/freqs[freqs.length-1]);
 	    assert (periods[periods.length-1] == 1/freqs[0]);
 	    i=0; 
-	    while ( i < periods.length ) {
+	    while (i < periods.length) {
 		System.out.println(index.format(i)+"	"+exp.format(periods[i]));
 		i++;
 	    }

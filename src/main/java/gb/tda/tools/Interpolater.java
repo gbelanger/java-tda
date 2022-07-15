@@ -32,17 +32,17 @@ public class Interpolater {
 
 		//  Define and initialise interpValues
 		float[][] interpValues = new float[2*xsize][2*ysize];
-		for ( int n=0; n < ysize; n++ ) 
-		    for ( int m=0; m < xsize; m++ ) interpValues[m][n] = 0;
+		for (int n=0; n < ysize; n++) 
+		    for (int m=0; m < xsize; m++) interpValues[m][n] = 0;
 
 		//  Interpolate data[][] and construct interpValue[][]
 		InterpolationBicubic2 interpolator = new InterpolationBicubic2(8);
 		int i = 0, j = 0;
 		int xfirst = x1, xlast = x2;
 		int yfirst = y1, ylast = y2;
-		for ( int y = yfirst; y < ylast; y++ ) {
-		    while ( j < 2*ysize ) {
-				for ( int x = xfirst; x < xlast; x++ ) {
+		for (int y = yfirst; y < ylast; y++) {
+		    while (j < 2*ysize) {
+				for (int x = xfirst; x < xlast; x++) {
 				    interpValues[i][j] = interpolator.interpolate
 					(data[y-1][x-1], data[y][x-1], data[y+1][x-1], data[y+2][x-1],
 					 data[y-1][x], data[y][x], data[y+1][x], data[y+2][x], 

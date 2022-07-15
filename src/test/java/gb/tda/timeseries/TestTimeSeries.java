@@ -13,7 +13,7 @@ public class TestTimeSeries {
         // String[] excellent_obsID = new String[]{"0153950601", "0158971201", "0502030101"};
         // String[] excellent_filename = new String[excellent_obsID.length];
         // TimeSeries[] ts_ex = new TimeSeries[excellent_obsID.length];
-        // for ( int i=0; i < excellent_obsID.length; i++ ) {
+        // for (int i=0; i < excellent_obsID.length; i++) {
         //     excellent_filename[i] = dir+"Mkn421."+excellent_obsID[i]+".lc.qdp";
         //     ts_ex[i] = (TimeSeries) TimeSeriesMaker.makeTimeSeries(excellent_filename[i]);
         // }
@@ -81,12 +81,12 @@ public class TestTimeSeries {
 	double[] decs = new double[ts.nBins()];	
 	double[] onTarget = new double[ts.nBins()];	
 	double[] dt = ts.getBinWidths();
-	for ( int i=0; i < ts.nBins(); i++ ) {
+	for (int i=0; i < ts.nBins(); i++) {
 	    double ra = 5*(random.nextGaussian()-0.5) + targetRA;
 	    double dec = 5*(random.nextGaussian()-0.5) + targetDec;
 	    ras[i] = ra;
 	    decs[i] = dec;
-	    double d = Math.sqrt( Math.pow(ra-targetRA,2) + Math.pow(dec-targetDec,2) );
+	    double d = Math.sqrt(Math.pow(ra-targetRA,2) + Math.pow(dec-targetDec,2));
 	    onTarget[i] = dt[i]*(1 - d/15);
 	}
 	

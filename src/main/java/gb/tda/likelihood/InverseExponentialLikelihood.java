@@ -16,7 +16,7 @@ public class InverseExponentialLikelihood extends OneParameterLikelihood {
     public double getMLE(double[] data) {
 	double sum = 0;
 	int n = data.length;
-	for ( int i=0; i < n; i++ ) sum += 1/data[i];
+	for (int i=0; i < n; i++) sum += 1/data[i];
 	return n/sum;
     }
 
@@ -28,7 +28,7 @@ public class InverseExponentialLikelihood extends OneParameterLikelihood {
 
 	BinningUtils.checkArrayLengthsAreEqual(model, data);
 	double logLikelihood = 0;
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    logLikelihood += getLogLikelihood(model[i], data[i]);
 	}
 	return logLikelihood;

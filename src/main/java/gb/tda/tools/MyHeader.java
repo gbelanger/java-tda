@@ -23,7 +23,7 @@ public class MyHeader implements WCSKeywordProvider {
     /** Return true if the given keyword was found */
     public boolean findKey(String key) {
     String keyValue = hdr.findKey(key);
-        if ( keyValue == null ) return false;
+        if (keyValue == null) return false;
         else return true;   
     }
 
@@ -35,7 +35,7 @@ public class MyHeader implements WCSKeywordProvider {
     /** Return the value of the given keyword as a String, or null if not found. */
     public String getStringValue(String key, String defaultValue) {
         String keyValue = hdr.getStringValue(key);
-        if ( keyValue == null ) return defaultValue;
+        if (keyValue == null) return defaultValue;
         else return keyValue;
     }
 

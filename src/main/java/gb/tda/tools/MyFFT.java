@@ -23,14 +23,14 @@ public class MyFFT {
      * @param number
      */
 
-    public static boolean isPowOf2( double num ) {
+    public static boolean isPowOf2(double num) {
 	boolean ans = false;
 	double hval  = num;
 	double eps   = 1.0e-6;
 	while (hval > 2.0) {
 	    hval /= 2.0 ;
 	}
-	if ( Math.abs(hval-2.0) <= eps ) {
+	if (Math.abs(hval-2.0) <= eps) {
 	    ans = true;
 	}
 	return ans;
@@ -41,14 +41,14 @@ public class MyFFT {
      * @param number
      */
 
-    public static boolean isPowOf2( int num ) {
+    public static boolean isPowOf2(int num) {
 	boolean ans = false;
 	double hval  = (double)num;
 	double eps   = 1.0e-6;
 	while (hval > 2.0) {
 	    hval /= 2.0 ;
 	}
-	if ( Math.abs(hval-2.0) <= eps ) {
+	if (Math.abs(hval-2.0) <= eps) {
 	    ans = true;
 	}
 	return ans;
@@ -62,7 +62,7 @@ public class MyFFT {
      * @return Fourier transform
      */
     
-    public static double[] fft( double[] data_in, int nn, int isign ) {
+    public static double[] fft(double[] data_in, int nn, int isign) {
 
 	/**
 	 ** Computes the fast fourier transform.
@@ -87,7 +87,7 @@ public class MyFFT {
 	 **            into the pairing needed for FFT.fft
 	 **
 	 ** nn      -- The total number of complex points.
-	 **            This is (data_in.length / 2 )
+	 **            This is (data_in.length / 2)
 	 **
 	 ** isign   -- +1 for forward transform
 	 **            -1 for reverse (inverse) transform
@@ -98,8 +98,8 @@ public class MyFFT {
 
 	// first must test to make sure we have a power of 2
 
-	if ( isPowOf2(nn) == false ) {
-	    System.out.println( "FFT.java ERROR: The length of the input data vector must be a power of 2");
+	if (isPowOf2(nn) == false) {
+	    System.out.println("FFT.java ERROR: The length of the input data vector must be a power of 2");
 	    double[] err_vals = new double[2];
 	    err_vals[0] = 0.0F;
 	    err_vals[1] = 0.0F;
@@ -114,14 +114,14 @@ public class MyFFT {
 
 	double[] data = new double[n+1];
 
-	for ( i=1; i<=n; i++ ){
+	for (i=1; i<=n; i++){
 	    data[i] = data_in[i-1];
 	}
 
 	j = 1;
 
-	for ( i=1; i<n; i+=2 ) {
-	    if ( j > i ) {
+	for (i=1; i<n; i+=2) {
+	    if (j > i) {
 		temp = data[j];
 		data[j] = data[i];
 		data[i] = temp;
@@ -130,7 +130,7 @@ public class MyFFT {
 		data[i+1] = temp;
 	    }
 	    m = n >> 1;
-	    while( m >= 2 && j > m ) {
+	    while(m >= 2 && j > m) {
 		j -= m;
 		m >>= 1;
 	    }
@@ -138,16 +138,16 @@ public class MyFFT {
 	}
 
 	mmax = 2;
-	while ( n > mmax ) {
+	while (n > mmax) {
 	    istep = mmax << 1;
 	    theta = isign * (6.28318530717959/mmax);
-	    wtemp = Math.sin( 0.5 * theta );
+	    wtemp = Math.sin(0.5 * theta);
 	    wpr = -2.0 * wtemp * wtemp;
-	    wpi = Math.sin( theta );
+	    wpi = Math.sin(theta);
 	    wr = 1.0;
 	    wi = 0.0;
-	    for ( m = 1; m<mmax; m+=2 ) {
-		for ( i=m; i<=n; i+=istep) {
+	    for (m = 1; m<mmax; m+=2) {
+		for (i=m; i<=n; i+=istep) {
 		    j = i + mmax;
 		    tempr = wr*data[j]-wi*data[j+1];
 		    tempi = wr*data[j+1]+wi*data[j];
@@ -156,19 +156,19 @@ public class MyFFT {
 		    data[i] += tempr;
 		    data[i+1] += tempi;
 		}
-		wr = ( wtemp=wr) * wpr - wi * wpi + wr;
+		wr = (wtemp=wr) * wpr - wi * wpi + wr;
 		wi = wi * wpr + wtemp * wpi + wi;
 	    }
 	    mmax = istep;
 	}
 
 	double oon = 1.0F;
-	if ( isign > 0 ) {
+	if (isign > 0) {
 	    oon = nn;
 	}
 
 	double[] rdata = new double[n];
-	for ( i=1; i<=n; i++ ){
+	for (i=1; i<=n; i++){
 	    rdata[i-1] = data[i] / oon;
 	}
 	return rdata;

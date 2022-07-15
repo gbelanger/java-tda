@@ -10,9 +10,9 @@ public final class BasicStats {
 
     public static double[] getAvgAndVarOfDiffsBetweenBins(DoubleArrayList dataList) {
 	DoubleArrayList diffsList = new DoubleArrayList();
-	for ( int k=0; k < dataList.size()-1; k++ ) {
+	for (int k=0; k < dataList.size()-1; k++) {
 	    double diff = Math.abs(dataList.getQuick(k+1) - dataList.getQuick(k));
-	    if ( !Double.isNaN(diff) ) {
+	    if (!Double.isNaN(diff)) {
 		diffsList.add(diff);
 	    }
 	}
@@ -22,9 +22,9 @@ public final class BasicStats {
 
     public static double[] getDiffsBetweenAdjacentBins(double[] data) {
 	DoubleArrayList diffsList = new DoubleArrayList();
-	for ( int k=1; k < data.length-1; k++ ) {
+	for (int k=1; k < data.length-1; k++) {
 	    double diff = Math.abs(data[k+1] - data[k]);
-	    if ( !Double.isNaN(diff) ) {
+	    if (!Double.isNaN(diff)) {
 		diffsList.add(diff);
 		System.out.println(data[k+1]+"	"+data[k]+"	"+diff);
 	    }
@@ -35,15 +35,15 @@ public final class BasicStats {
 
     public static double getSum(double[] data) {
 	double sum = 0;
-	for ( int i=0; i < data.length; i++ )
-	    if ( !Double.isNaN(data[i]) ) sum += data[i];
+	for (int i=0; i < data.length; i++)
+	    if (!Double.isNaN(data[i])) sum += data[i];
 	return sum;
     }
 
     public static double getSumOfSquares(double[] data) {
 	double sumOfSquares = 0;
-	for ( int i=0; i < data.length; i++ ) {
-	    if ( !Double.isNaN(data[i]) ) sumOfSquares += data[i]*data[i];
+	for (int i=0; i < data.length; i++) {
+	    if (!Double.isNaN(data[i])) sumOfSquares += data[i]*data[i];
 	}
 	return sumOfSquares;
     }
@@ -66,9 +66,9 @@ public final class BasicStats {
 	double sum = 0;
 	double dataValue = 0;
 	int n = 0;
-	for ( int i=0; i < dataVector.size(); i++ ) {
+	for (int i=0; i < dataVector.size(); i++) {
 	    dataValue = ((Double) dataVector.elementAt(i)).doubleValue();
-	    if ( !Double.isNaN(dataValue) ) {
+	    if (!Double.isNaN(dataValue)) {
 		sum += dataValue;
 		n++;
 	    }
@@ -86,8 +86,8 @@ public final class BasicStats {
     public static float getMean(float[] data) {
 	float sum = 0;
 	int n = 0;
-	for ( int i=0; i < data.length; i++ ) {
-	    if ( !Float.isNaN(data[i]) ) {//&& data[i] != 0.0 ) {
+	for (int i=0; i < data.length; i++) {
+	    if (!Float.isNaN(data[i])) {//&& data[i] != 0.0) {
 		sum += data[i];
 		n++;
 	    }
@@ -105,8 +105,8 @@ public final class BasicStats {
     public static double getMean(int[] data) {
 	double sum = 0;
 	int n = 0;
-	for ( int i=0; i < data.length; i++ ) {
-	    if ( !Double.isNaN(data[i]) ) { //&& data[i] != 0 ) {
+	for (int i=0; i < data.length; i++) {
+	    if (!Double.isNaN(data[i])) { //&& data[i] != 0) {
 		sum += data[i];
 		n++;
 	    }
@@ -125,9 +125,9 @@ public final class BasicStats {
 	double sumOfWeights = 0;
 	double wsum = 0;
 	double weight = 0;
-	for ( int i=0;  i < data.length; i++ ) {
-	    if ( !Double.isNaN(error[i]) && !Double.isNaN(data[i]) ) {
-		if ( error[i] == 0.0 ) 
+	for (int i=0;  i < data.length; i++) {
+	    if (!Double.isNaN(error[i]) && !Double.isNaN(data[i])) {
+		if (error[i] == 0.0) 
 		    weight = 1d/(0.5*0.5);
 		else  
 		    weight = 1d/Math.pow(error[i],2);
@@ -142,9 +142,9 @@ public final class BasicStats {
 	double sumOfWeights = 0;
 	double wsum = 0;
 	double weight = 0;
-	for ( int i=0;  i < data.length; i++ ) {
-	    if ( !Double.isNaN(error[i]) && !Double.isNaN(data[i]) ) {
-		if ( error[i] == 0.0 ) 
+	for (int i=0;  i < data.length; i++) {
+	    if (!Double.isNaN(error[i]) && !Double.isNaN(data[i])) {
+		if (error[i] == 0.0) 
 		    weight = 1d/(0.5*0.5);
 		else  
 		    weight = 1d/Math.pow(error[i],2);
@@ -160,8 +160,8 @@ public final class BasicStats {
     public static double[] getWMeanAndError_weights(double[] data, double[] weight) {
 	double sumOfWeights = 0;
 	double wsum = 0;
-	for ( int i=0;  i < data.length; i++ ) {
-	    if ( !Double.isNaN(weight[i]) && !Double.isNaN(data[i]) ) {
+	for (int i=0;  i < data.length; i++) {
+	    if (!Double.isNaN(weight[i]) && !Double.isNaN(data[i])) {
 		sumOfWeights += weight[i];
 		wsum += weight[i]*data[i];
 	    }
@@ -174,8 +174,8 @@ public final class BasicStats {
     public static double getWMean_weights(double[] data, double[] weight) {
 	double sumOfWeights = 0;
 	double wsum = 0;
-	for ( int i=0;  i < data.length; i++ ) {
-	    if ( !Double.isNaN(weight[i]) && !Double.isNaN(data[i]) ) {
+	for (int i=0;  i < data.length; i++) {
+	    if (!Double.isNaN(weight[i]) && !Double.isNaN(data[i])) {
 		wsum += weight[i]*data[i];
 		sumOfWeights += weight[i];
 	    }
@@ -194,8 +194,8 @@ public final class BasicStats {
     public static double getWMean(float[] data, float[] error) {
 	double sumOfWeights = 0;
 	double wsum = 0;
-	for ( int i=0;  i < data.length; i++ ) {
-	    if ( !Float.isNaN(error[i]) && !Float.isNaN(data[i]) ) { //&& data[i] != 0.0 ) {
+	for (int i=0;  i < data.length; i++) {
+	    if (!Float.isNaN(error[i]) && !Float.isNaN(data[i])) { //&& data[i] != 0.0) {
 		double weight = 1/Math.pow(error[i], 2);
 		sumOfWeights += weight;
 		wsum += weight*data[i];
@@ -215,8 +215,8 @@ public final class BasicStats {
     public static double getWMean(int[] data, int[] error) {
 	double sumOfWeights = 0;
 	double wsum = 0;
-	for ( int i=0;  i < data.length; i++ ) {
-	    if ( !Double.isNaN(error[i]) && !Double.isNaN(data[i]) ) { //&& data[i] != 0.0 ) {
+	for (int i=0;  i < data.length; i++) {
+	    if (!Double.isNaN(error[i]) && !Double.isNaN(data[i])) { //&& data[i] != 0.0) {
 		double weight = 1/Math.pow(error[i], 2);
 		sumOfWeights += weight;
 		wsum += weight*data[i];
@@ -237,8 +237,8 @@ public final class BasicStats {
 	double mean = getMean(data);
 	double sum = 0;
 	int n = 0;
-	for ( int i=0;  i < data.length; i++ ) {
-	    if ( !Double.isNaN(data[i]) ) { //&& data[i] != 0.0 ) {
+	for (int i=0;  i < data.length; i++) {
+	    if (!Double.isNaN(data[i])) { //&& data[i] != 0.0) {
 		sum += Math.pow(data[i] - mean, 2);
 		n++;
 	    }
@@ -252,9 +252,9 @@ public final class BasicStats {
 	double sum = 0;
 	double dataValue = 0;
 	int n = 0;
-	for ( int i=0;  i < dataVector.size(); i++ ) {
+	for (int i=0;  i < dataVector.size(); i++) {
 	    dataValue = ((Double) dataVector.elementAt(i)).doubleValue();
-	    if ( !Double.isNaN(dataValue) ) { //&& dataValue != 0.0 ) {
+	    if (!Double.isNaN(dataValue)) { //&& dataValue != 0.0) {
 		sum += Math.pow(dataValue - mean, 2);
 		n++;
 	    }
@@ -273,8 +273,8 @@ public final class BasicStats {
 	double mean = getMean(data);
 	double sum = 0;
 	int n = 0;
-	for ( int i=0;  i < data.length; i++ ) {
-	    if ( !Float.isNaN(data[i]) ) { //&& data[i] != 0.0 ) {
+	for (int i=0;  i < data.length; i++) {
+	    if (!Float.isNaN(data[i])) { //&& data[i] != 0.0) {
 		sum += Math.pow(data[i] - mean, 2);
 		n++;
 	    }
@@ -293,8 +293,8 @@ public final class BasicStats {
 	double mean = getMean(data);
 	double sum = 0;
 	int n = 0;
-	for ( int i=0;  i < data.length; i++ ) {
-	    if ( !Double.isNaN(data[i]) ) { //&& data[i] != 0.0 ) {
+	for (int i=0;  i < data.length; i++) {
+	    if (!Double.isNaN(data[i])) { //&& data[i] != 0.0) {
 		sum += Math.pow(data[i] - mean, 2);
 		n++;
 	    }
@@ -312,9 +312,9 @@ public final class BasicStats {
 	double wmean = getWMean(data, error);
 	double wsum = 0;
 	double sumOfWeights = 0, sumOfSqrdWeights = 0;
-	for ( int i=0;  i < data.length; i++ ) {
+	for (int i=0;  i < data.length; i++) {
 	    double weight = 0;
-	    if ( !Double.isNaN(error[i]) && !Double.isNaN(data[i]) && data[i] != 0.0 ) { 
+	    if (!Double.isNaN(error[i]) && !Double.isNaN(data[i]) && data[i] != 0.0) { 
 		weight = 1/Math.pow(error[i], 2);
 		wsum += weight*Math.pow(data[i] - wmean, 2);
 		sumOfWeights += weight;
@@ -330,9 +330,9 @@ public final class BasicStats {
 	double wmean = getWMean(data, error);
 	double wsum = 0;
 	double sumOfWeights = 0, sumOfSqrdWeights = 0;
-	for ( int i=0;  i < data.length; i++ ) {
+	for (int i=0;  i < data.length; i++) {
 	    double weight = 0;
-	    if ( !Double.isNaN(error[i]) && !Double.isNaN(data[i]) && data[i] != 0.0 ) { 
+	    if (!Double.isNaN(error[i]) && !Double.isNaN(data[i]) && data[i] != 0.0) { 
 		weight = 1/Math.pow(error[i],2);
 		wsum += weight*Math.pow(data[i] - wmean, 2);
 		sumOfWeights += weight;
@@ -348,9 +348,9 @@ public final class BasicStats {
 	double wmean = getWMean(data, error);
 	double wsum = 0;
 	double sumOfWeights = 0, sumOfSqrdWeights = 0;
-	for ( int i=0;  i < data.length; i++ ) {
+	for (int i=0;  i < data.length; i++) {
 	    double weight = 0;
-	    if ( !Double.isNaN(error[i]) && !Double.isNaN(data[i]) && data[i] != 0.0 ) { 
+	    if (!Double.isNaN(error[i]) && !Double.isNaN(data[i]) && data[i] != 0.0) { 
 		weight = 1/Math.pow(error[i],2);
 		wsum += weight*Math.pow(data[i] - wmean, 2);
 		sumOfWeights += weight;
@@ -368,7 +368,7 @@ public final class BasicStats {
 
     public static double[] getRunningAvgAndVar(double[] data) {
 	double firstValue = data[0];
-	if ( Double.isNaN(new Double(data[0])) ) {
+	if (Double.isNaN(new Double(data[0]))) {
 	    firstValue = 0;
 	}
 	double sum = firstValue;
@@ -377,9 +377,9 @@ public final class BasicStats {
 	double var = Math.pow((firstValue - ave), 2);
 	double runAve = ave;
 	double runVar = 0;
-	if ( data.length > 1 ) {
-	    for ( int i=1;  i < data.length; i++ ) {
-		if ( !Double.isNaN(new Double(data[i])) && data[i] != 0.0 ) {
+	if (data.length > 1) {
+	    for (int i=1;  i < data.length; i++) {
+		if (!Double.isNaN(new Double(data[i])) && data[i] != 0.0) {
 		    runAve = ave + (data[i] - ave)/(n+1);
 		    runVar = var + (data[i] - runAve)*(data[i] - ave);
 		    sum += data[i];
@@ -401,7 +401,7 @@ public final class BasicStats {
 	double m2 = 0;
 	double m3 = 0;
 	double m4 = 0;
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    int n1 = n;
 	    n++;
 	    double delta = data[i] - mean;
@@ -433,8 +433,8 @@ public final class BasicStats {
 	double sum = 0;
 	int n=0;
 	int nDataPoints = Math.min(x.length, y.length);
-	for ( int i=0;  i < nDataPoints; i++ ) {
-	    if ( !Double.isNaN(x[i]) && !Double.isNaN(y[i]) ) {
+	for (int i=0;  i < nDataPoints; i++) {
+	    if (!Double.isNaN(x[i]) && !Double.isNaN(y[i])) {
 		sum += (x[i] - meanX)*(y[i] - meanY);
 		n++;
 	    }
@@ -453,7 +453,7 @@ public final class BasicStats {
 	double correlationCoeff = covariance/(sigX*sigY);
 
 	int sampleSize = x.length;
-	double z = 0.5*Math.log( (1+correlationCoeff)/(1-correlationCoeff) );
+	double z = 0.5*Math.log((1+correlationCoeff)/(1-correlationCoeff));
 	double zVar = 1.0/(sampleSize-3);
 	double zSigma = Math.sqrt(zVar);
 	double zLow = z - zSigma;
@@ -468,10 +468,10 @@ public final class BasicStats {
 
     public static double[] getAutocorrelationFunction(double[] data) {
 	double[] rhos = new double[data.length];
-	for ( int i=0; i < data.length; i++ ) {
-	    for ( int j=0; j < data.length; j++ ) {
+	for (int i=0; i < data.length; i++) {
+	    for (int j=0; j < data.length; j++) {
 		int index = j+i;
-		if ( index >= data.length ) {
+		if (index >= data.length) {
 		    index -= data.length;
 		}
 		rhos[i] += data[j]*data[index];
@@ -532,8 +532,8 @@ public final class BasicStats {
 	
     public static double getErrOnWMean(double[] error) {
 	double sumOfWeights = 0;
-	for ( int i=0; i < error.length; i++ ) {
-	    if ( !Double.isNaN(error[i])  && error[i] != 0.0 ) { 
+	for (int i=0; i < error.length; i++) {
+	    if (!Double.isNaN(error[i])  && error[i] != 0.0) { 
 		double weight = 1/Math.pow(error[i], 2);
 		sumOfWeights += weight;
 	    }
@@ -584,7 +584,7 @@ public final class BasicStats {
 	double wmean = getWMean(data, error);
 	double wsum = 0;
 	double sumOfWeights = 0, sumOfSqrdWeights = 0;
-	for ( int i=0;  i < data.length; i++ ) {
+	for (int i=0;  i < data.length; i++) {
 	    double weight = 1/Math.pow(error[i], 2);
 	    wsum += weight*Math.pow(data[i] - wmean, 2);
 	    sumOfWeights += weight;
@@ -598,7 +598,7 @@ public final class BasicStats {
 	double wmean = getWMean(data, error);
 	double wsum = 0;
 	double sumOfWeights = 0, sumOfSqrdWeights = 0;
-	for ( int i=0;  i < data.length; i++ ) {
+	for (int i=0;  i < data.length; i++) {
 	    double weight = 1/Math.pow(error[i], 2);
 	    wsum += weight*Math.pow(data[i] - wmean, 2);
 	    sumOfWeights += weight;
@@ -612,7 +612,7 @@ public final class BasicStats {
 	double wmean = getWMean(data, error);
 	double wsum = 0;
 	double sumOfWeights = 0, sumOfSqrdWeights = 0;
-	for ( int i=0;  i < data.length; i++ ) {
+	for (int i=0;  i < data.length; i++) {
 	    double weight = 1/Math.pow(error[i], 2);
 	    wsum += weight*Math.pow(data[i] - wmean, 2);
 	    sumOfWeights += weight;

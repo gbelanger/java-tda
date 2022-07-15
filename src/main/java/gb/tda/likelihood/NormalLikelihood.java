@@ -14,7 +14,7 @@ public class NormalLikelihood extends TwoParameterLikelihood {
 
     public double getLogLikelihood(double mu, double sigma, double x) {
 	double s2 = sigma*sigma;
-	return -0.5*( Math.log(2*Math.PI) + Math.log(s2) + Math.pow((x-mu)/sigma, 2) );
+	return -0.5*(Math.log(2*Math.PI) + Math.log(s2) + Math.pow((x-mu)/sigma, 2));
     }    
 
 }

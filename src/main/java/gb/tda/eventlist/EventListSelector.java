@@ -31,11 +31,11 @@ public final class EventListSelector {
 		IntArrayList selectedXCoords = new IntArrayList();
 		IntArrayList selectedYCoords = new IntArrayList();
 
-		if ( evlist.patternsAreSet() ) {
+		if (evlist.patternsAreSet()) {
 			int[] patterns = evlist.getPatterns();
 			IntArrayList selectedPatterns = new IntArrayList();
-			for ( int i=0; i < evlist.nEvents(); i++ ) {
-				if ( flags[i] >= min && flags[i] <= max ) {
+			for (int i=0; i < evlist.nEvents(); i++) {
+				if (flags[i] >= min && flags[i] <= max) {
 					selectedTimes.add(times[i]);
 					selectedEnergies.add(energies[i]);
 					selectedXCoords.add(xCoords[i]);
@@ -54,8 +54,8 @@ public final class EventListSelector {
 			return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements(), selectedPatterns.elements());
 		}
 		else {
-			for ( int i=0; i < evlist.nEvents(); i++ ) {
-				if ( flags[i] >= min && flags[i] <= max ) {
+			for (int i=0; i < evlist.nEvents(); i++) {
+				if (flags[i] >= min && flags[i] <= max) {
 					selectedTimes.add(times[i]);
 					selectedEnergies.add(energies[i]);
 					selectedXCoords.add(xCoords[i]);
@@ -84,7 +84,7 @@ public final class EventListSelector {
 		DoubleArrayList selectedTimes = new DoubleArrayList();
 		DoubleArrayList selectedEnergies = new DoubleArrayList();
 
-		if ( evlist.patternsAreSet() ) {  // Everything is defined
+		if (evlist.patternsAreSet()) {  // Everything is defined
 			int[] xCoords = evlist.getXCoords();
 			int[] yCoords = evlist.getYCoords();
 			int[] flags = evlist.getFlags();
@@ -112,15 +112,15 @@ public final class EventListSelector {
 			logger.info(selectedTimes.size() + " events were selected. Fraction selected is " + ((double) selectedTimes.size() / evlist.nEvents()));
 			return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements(), selectedPatterns.elements());
 		}
-		else if ( evlist.flagsAreSet() ) {  // Everything except pattern
+		else if (evlist.flagsAreSet()) {  // Everything except pattern
 			int[] xCoords = evlist.getXCoords();
 			int[] yCoords = evlist.getYCoords();
 			int[] flags = evlist.getFlags();
 			IntArrayList selectedXCoords = new IntArrayList();
 			IntArrayList selectedYCoords = new IntArrayList();
 			IntArrayList selectedFlags = new IntArrayList();
-			for ( int i=0; i < evlist.nEvents(); i++ ) {
-				if ( energies[i] >= min && energies[i] <= max ) {
+			for (int i=0; i < evlist.nEvents(); i++) {
+				if (energies[i] >= min && energies[i] <= max) {
 					selectedTimes.add(times[i]);
 					selectedEnergies.add(energies[i]);
 					selectedXCoords.add(xCoords[i]);
@@ -137,13 +137,13 @@ public final class EventListSelector {
 			return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements());
 		}
 		else { //  Coords could be set but not necessarily
-			if ( evlist.coordsAreSet() ) {
+			if (evlist.coordsAreSet()) {
 				int[] xCoords = evlist.getXCoords();
 				int[] yCoords = evlist.getYCoords();
 				IntArrayList selectedXCoords = new IntArrayList();
 				IntArrayList selectedYCoords = new IntArrayList();
-				for ( int i=0; i < evlist.nEvents(); i++ ) {
-					if ( energies[i] >= min && energies[i] <= max ) {
+				for (int i=0; i < evlist.nEvents(); i++) {
+					if (energies[i] >= min && energies[i] <= max) {
 						selectedTimes.add(times[i]);
 						selectedEnergies.add(energies[i]);
 						selectedXCoords.add(xCoords[i]);
@@ -158,8 +158,8 @@ public final class EventListSelector {
 				return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements());
 			}
 			else {  //  Only the times and energies are defined
-				for ( int i=0; i < evlist.nEvents(); i++ ) {
-					if ( energies[i] >= min && energies[i] <= max ) {
+				for (int i=0; i < evlist.nEvents(); i++) {
+					if (energies[i] >= min && energies[i] <= max) {
 						selectedTimes.add(times[i]);
 						selectedEnergies.add(energies[i]);
 					}
@@ -190,8 +190,8 @@ public final class EventListSelector {
 		IntArrayList selectedXCoords = new IntArrayList();
 		IntArrayList selectedYCoords = new IntArrayList();
 		IntArrayList selectedFlags = new IntArrayList();
-		for ( int i=0; i < evlist.nEvents(); i++ ) {
-			if ( patterns[i] >= min && patterns[i] <= max ) {
+		for (int i=0; i < evlist.nEvents(); i++) {
+			if (patterns[i] >= min && patterns[i] <= max) {
 				selectedTimes.add(times[i]);
 				selectedEnergies.add(energies[i]);
 				selectedXCoords.add(xCoords[i]);
@@ -215,14 +215,14 @@ public final class EventListSelector {
 		DoubleArrayList selected = new DoubleArrayList();
 		double[] arrivalTimes = evlist.getArrivalTimes();
 		int i=0;
-		if ( arrivalTimes[i] < t1 ) {
-			while ( i < evlist.nEvents() && arrivalTimes[i] < t1 ) {
+		if (arrivalTimes[i] < t1) {
+			while (i < evlist.nEvents() && arrivalTimes[i] < t1) {
 			i++;
 			}
 		}
 		selected.add(arrivalTimes[i]);
 		i++;
-		while ( i < evlist.nEvents() && arrivalTimes[i] < t2 ) {
+		while (i < evlist.nEvents() && arrivalTimes[i] < t2) {
 			selected.add(arrivalTimes[i]);
 			i++;
 		}
@@ -232,7 +232,7 @@ public final class EventListSelector {
 
 	public static double[] getArrivalTimesRandomSegment(IEventList evlist, double segmentLength) throws EventListException {
 		double durationOfEventList = evlist.duration();
-		if ( durationOfEventList < segmentLength ) {
+		if (durationOfEventList < segmentLength) {
 			throw new EventListException("The requested segment is longer than the entire event list");
 		}
 		int nWholeSegments = (int) Math.floor(durationOfEventList / segmentLength);
@@ -254,12 +254,12 @@ public final class EventListSelector {
 //     }
 
 	 public static double[] getArrivalTimesInEnergyRange(AstroEventList evlist, double min, double max) throws EventListException {
-		if ( evlist.energiesAreSet() ) {
+		if (evlist.energiesAreSet()) {
 			double[] arrivalTimes = evlist.getArrivalTimes();
 			double[] energies = evlist.getEnergies();
 			DoubleArrayList selected = new DoubleArrayList();
-			for ( int i=0; i < evlist.nEvents(); i++ ) {
-				if ( energies[i] >= min && energies[i] <= max ) {
+			for (int i=0; i < evlist.nEvents(); i++) {
+				if (energies[i] >= min && energies[i] <= max) {
 					selected.add(arrivalTimes[i]);
 				}
 			}
@@ -272,15 +272,15 @@ public final class EventListSelector {
     }
 
     public static double[] getArrivalTimesInCoordinateRange(AstroEventList evlist, double xmin, double xmax, double ymin, double ymax) throws EventListException {
-		if ( evlist.coordsAreSet() ) {
+		if (evlist.coordsAreSet()) {
 			double[] arrivalTimes = evlist.getArrivalTimes();
 			int[] xCoords = evlist.getXCoords();
 			int[] yCoords = evlist.getYCoords();
 			DoubleArrayList selected = new DoubleArrayList();
-			for ( int i=0; i < evlist.nEvents(); i++ ) {
+			for (int i=0; i < evlist.nEvents(); i++) {
 				int x = xCoords[i];
 				int y = yCoords[i];
-				if ( x >= xmin && x <= xmax && y >= ymin && y <= ymax ) {
+				if (x >= xmin && x <= xmax && y >= ymin && y <= ymax) {
 					selected.add(arrivalTimes[i]);
 				}
 			}
@@ -293,13 +293,13 @@ public final class EventListSelector {
     }
 
     public static double[] getArrivalTimesInFlagRange(AstroEventList evlist, int min, int max) throws EventListException {
-		if ( evlist.flagsAreSet() ) {
+		if (evlist.flagsAreSet()) {
 			double[] arrivalTimes = evlist.getArrivalTimes();
 			int[] flags = evlist.getFlags();
 			DoubleArrayList selected = new DoubleArrayList();
-			for ( int i=0; i < evlist.nEvents(); i++ ) {
+			for (int i=0; i < evlist.nEvents(); i++) {
 
-			if ( flags[i] >= min && flags[i] <= max ) {
+			if (flags[i] >= min && flags[i] <= max) {
 				selected.add(arrivalTimes[i]);
 			}
 			}
@@ -312,13 +312,13 @@ public final class EventListSelector {
     }
 
     public static double[] getArrivalTimesInPatternRange(AstroEventList evlist, int min, int max) throws EventListException {
-		if ( evlist.patternsAreSet() ) {
+		if (evlist.patternsAreSet()) {
 			double[] arrivalTimes = evlist.getArrivalTimes();
 			int[] patterns = evlist.getPatterns();
 			DoubleArrayList selected = new DoubleArrayList();
-			for ( int i=0; i < evlist.nEvents(); i++ ) {
+			for (int i=0; i < evlist.nEvents(); i++) {
 
-			if ( patterns[i] >= min && patterns[i] <= max ) {
+			if (patterns[i] >= min && patterns[i] <= max) {
 				selected.add(arrivalTimes[i]);
 			}
 			}

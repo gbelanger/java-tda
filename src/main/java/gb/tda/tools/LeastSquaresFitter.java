@@ -20,7 +20,7 @@ public final class LeastSquaresFitter {
     public static double[] fitLine(double[] _x, double[] _y) {
 
 		// Check lengths are equal
-		if ( _x.length != _y.length ) {
+		if (_x.length != _y.length) {
 			logger.error("x.length != y.length");
 			System.exit(-1);
 		}
@@ -44,7 +44,7 @@ public final class LeastSquaresFitter {
 		double sumOfLnXLnY = 0;
 						
 		int npoints = x.length;
-		for ( int i = 0; i < npoints; i++ ) {
+		for (int i = 0; i < npoints; i++) {
 			sumOfX += x[i];
 			sumOfY += y[i];
 			sumOfXSqrd += x[i]*x[i];
@@ -56,7 +56,7 @@ public final class LeastSquaresFitter {
 		double ss_xx = sumOfXSqrd - npoints*xbar*xbar;
 		double ss_yy = sumOfYSqrd - npoints*ybar*ybar;
 		double ss_xy = sumOfXY - npoints*xbar*ybar;
-		double s = Math.sqrt( (ss_yy - ss_xy*ss_xy/ss_xx) / (npoints-2) );
+		double s = Math.sqrt((ss_yy - ss_xy*ss_xy/ss_xx) / (npoints-2));
 			
 		double b = (sumOfY*sumOfXSqrd - sumOfX*sumOfXY) / (npoints*sumOfXSqrd - sumOfX*sumOfX);
 		double m = (npoints*sumOfXY - sumOfX*sumOfY) / (npoints*sumOfXSqrd - sumOfX*sumOfX);
@@ -77,7 +77,7 @@ public final class LeastSquaresFitter {
     public static double[] fitPowerLaw(double[] _x, double[] _y) {
 
 		// Check lengths are equal
-		if ( _x.length != _y.length ) {
+		if (_x.length != _y.length) {
 			logger.error("x.length != y.length");
 			System.exit(-1);
 		}
@@ -98,7 +98,7 @@ public final class LeastSquaresFitter {
 		double sumOfLnXSqrd = 0;
 		double sumOfLnY = 0;
 		double sumOfLnXLnY = 0;
-		for ( int i = 0; i < npoints; i++ ) {
+		for (int i = 0; i < npoints; i++) {
 			sumOfLnX += Math.log(x[i]);
 			sumOfLnY += Math.log(y[i]);
 			sumOfLnXLnY += Math.log(x[i])*Math.log(y[i]);
@@ -115,7 +115,7 @@ public final class LeastSquaresFitter {
 		double ss_xx = sumOfXSqrd - npoints*xbar*xbar;
 		double ss_yy = sumOfYSqrd - npoints*ybar*ybar;
 		double ss_xy = sumOfXY - npoints*xbar*ybar;
-		double s = Math.sqrt( (ss_yy - ss_xy*ss_xy/ss_xx) / (npoints-2) );
+		double s = Math.sqrt((ss_yy - ss_xy*ss_xy/ss_xx) / (npoints-2));
 		double err_a = s * Math.sqrt(1/npoints + xbar*xbar/ss_xx);
 		double err_b = s / Math.sqrt(ss_xx);
 		

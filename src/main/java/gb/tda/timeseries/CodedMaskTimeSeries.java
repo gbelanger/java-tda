@@ -123,13 +123,13 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
     // Minimal
 	CodedMaskTimeSeries(IAstroTimeSeries ts, double maxDistForFullCoding, double[] effectivePointingDurations, double[] distToPointingAxis) {
 		super(ts);
-		if ( Double.isNaN(maxDistForFullCoding) ) {
+		if (Double.isNaN(maxDistForFullCoding)) {
 			throw new IllegalArgumentException("CodedMaskTimeSeries requires attribute maxDistForFullCoding (double)");
 		}
-		if ( effectivePointingDurations == null ) {
+		if (effectivePointingDurations == null) {
 			throw new IllegalArgumentException("CodedMaskTimeSeries requires effective durations of pointings (double[])");
 		}
-		if ( distToPointingAxis == null ) {
+		if (distToPointingAxis == null) {
 			throw new IllegalArgumentException("CodedMaskTimeSeries requires angle information for each pointing (double[])");
 		}
 		setMaxDistForFullCoding(maxDistForFullCoding);
@@ -140,13 +140,13 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 
 	CodedMaskTimeSeries(double maxDistForFullCoding, double[] binEdges, double[] effectivePointingDurations, double[] rates, double[] errors, double[] distToPointingAxis) {
 		super();
-		if ( Double.isNaN(maxDistForFullCoding) ) {
+		if (Double.isNaN(maxDistForFullCoding)) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attribute maxDistForFullCoding (double)");
 		}
-		if ( effectivePointingDurations == null ) {
+		if (effectivePointingDurations == null) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires effective durations of pointings (double[])");
 		}
-		if ( distToPointingAxis == null ) {
+		if (distToPointingAxis == null) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires angle information for each pointing (double[])");
 		}
 		double tStart = binEdges[0];
@@ -165,22 +165,22 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
     	Point2D.Double[] raDecsOfPointings, double[] exposuresOnTarget) throws IllegalArgumentException {
 
 		super();
-		if ( Double.isNaN(targetRaDec.getX()) || Double.isNaN(targetRaDec.getY()) ) {
+		if (Double.isNaN(targetRaDec.getX()) || Double.isNaN(targetRaDec.getY())) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attributes: targetRA, targetDec");
 		}
-		if ( Double.isNaN(energyRangeMinMax.getX()) || Double.isNaN(energyRangeMinMax.getY()) ) {
+		if (Double.isNaN(energyRangeMinMax.getX()) || Double.isNaN(energyRangeMinMax.getY())) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attributes: energyRangeMin, energyRangeMax");
 		}
-		if ( Double.isNaN(maxDistForFullCoding) ) {
+		if (Double.isNaN(maxDistForFullCoding)) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attribute maxDistForFullCoding");
 		}
-		if ( effectivePointingDurations == null ) {
+		if (effectivePointingDurations == null) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires effective durations of pointings");
 		}
-		if ( raDecsOfPointings == null ) {
+		if (raDecsOfPointings == null) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires angle information for each pointings");
 		}
-		if ( exposuresOnTarget == null ) {
+		if (exposuresOnTarget == null) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires effective exposures on target");
 		}
         setBinEdges(tStart, binEdges);
@@ -205,19 +205,19 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
     	double tStart, double[] binEdges, double[] effectivePointingDurations, double[] rates, double[] errors, double[] distToPointingAxis) throws IllegalArgumentException {
 		super();
 
-		if ( Double.isNaN(targetRaDec.getX()) || Double.isNaN(targetRaDec.getY()) ) {
+		if (Double.isNaN(targetRaDec.getX()) || Double.isNaN(targetRaDec.getY())) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attributes: targetRA, targetDec");
 		}
-		if ( Double.isNaN(energyRangeMinMax.getX()) || Double.isNaN(energyRangeMinMax.getY()) ) {
+		if (Double.isNaN(energyRangeMinMax.getX()) || Double.isNaN(energyRangeMinMax.getY())) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attributes: energyRangeMin, energyRangeMax");
 		}
-		if ( Double.isNaN(maxDistForFullCoding) ) {
+		if (Double.isNaN(maxDistForFullCoding)) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attribute maxDistForFullCoding");
 		}
-		if ( effectivePointingDurations == null ) {
+		if (effectivePointingDurations == null) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires effective durations of pointings");
 		}
-		if ( distToPointingAxis == null ) {
+		if (distToPointingAxis == null) {
 		    throw new IllegalArgumentException("CodedMaskTimeSeries requires angle information for each pointing");
 		}
         setBinEdges(tStart, binEdges);
@@ -243,7 +243,7 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 		logger.info("Max distance for full coding = "+this.maxDistForFullCoding);
 		logger.info("Telescope = "+this.telescope());
 		logger.info("Instrument = "+this.instrument());
-		if ( this.raDecsOfPointingsAreSet ) {
+		if (this.raDecsOfPointingsAreSet) {
 		    logger.info("Number of non-NaN pointing directions (RA, Dec) = "+this.nNonNaN_raDecs);
 		}
 		logger.info("Number of non-NaN pointing durations = "+this.nNonNaN_pointingDurations);
@@ -272,7 +272,7 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 		logger.info("  Min = "+this.minDistToPointingAxis);
 		logger.info("  Max = "+this.maxDistToPointingAxis);
 		logger.info("  Mean deviation = "+this.meanDeviationInDistToPointingAxis);
-		if ( this.exposuresOnTargetAreSet ) {
+		if (this.exposuresOnTargetAreSet) {
 		    logger.info("Number of non-NaN exposures on target = "+this.nNonNaN_exposuresOnTarget);
 		    logger.info("  Total = "+this.sumOfExposuresOnTarget);
 		    logger.info("  Mean exposure = "+this.meanExposureOnTarget);
@@ -300,12 +300,12 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 		double[] rates = this.getRates();
 		double sumOfDist = 0;
 		double sum2OfDist = 0;
-		for ( int i=0; i < raDecsOfPointings.length; i++ ) {
+		for (int i=0; i < raDecsOfPointings.length; i++) {
 		    this.raDecsOfPointings[i] = raDecsOfPointings[i];
 		    this.rasOfPointings[i] = raDecsOfPointings[i].getX();
 		    this.decsOfPointings[i] = raDecsOfPointings[i].getY();
-		    if ( Double.isNaN(this.rasOfPointings[i]) || Double.isNaN(this.decsOfPointings[i]) ) {
-				if ( ! Double.isNaN(rates[i]) ) {
+		    if (Double.isNaN(this.rasOfPointings[i]) || Double.isNaN(this.decsOfPointings[i])) {
+				if (! Double.isNaN(rates[i])) {
 				    logger.warn("There is a NaN value in RA or Dec whose corresponding rate is not NaN.");
 				}
 		    }
@@ -320,8 +320,8 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 		    double dist = targetCoords.dist(pointingCoords); // returns arc minutes
 		    double distInDeg = dist/60.;
 		    this.distToPointingAxis[i] = distInDeg;
-		    if ( Double.isNaN(this.distToPointingAxis[i]) ) {
-				if ( ! Double.isNaN(rates[i]) ) {
+		    if (Double.isNaN(this.distToPointingAxis[i])) {
+				if (! Double.isNaN(rates[i])) {
 				    logger.warn("There is a NaN value in distance from target to pointing axis whose corresponding rate is not NaN.");
 				}
 		    }
@@ -331,7 +331,7 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 				maxDistToPointingAxis = Math.max(maxDistToPointingAxis, distInDeg);
 				sumOfDist += distInDeg;
 				sum2OfDist += distInDeg*distInDeg;
-				if ( distInDeg <= this.maxDistForFullCoding ) {
+				if (distInDeg <= this.maxDistForFullCoding) {
 				    nFullyCoded++;
 				}
 		    }
@@ -351,7 +351,7 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 		this.avgRaDecOfPointings = CoordUtils.getAverageRaDec(this.raDecsOfPointings);
 		WorldCoords avgPointingCoords = new WorldCoords(this.avgRaDecOfPointings.getX(), this.avgRaDecOfPointings.getY());
 		this.distToAvgRaDec = new double[raDecsOfPointings.length];
-		for ( int i=0; i < raDecsOfPointings.length; i++ ) {
+		for (int i=0; i < raDecsOfPointings.length; i++) {
 		    WorldCoords pointingCoords = new WorldCoords(this.rasOfPointings[i], this.decsOfPointings[i]);
 		    double dist = avgPointingCoords.dist(pointingCoords); // returns arc minutes
 		    double distInDeg = dist/60.;
@@ -379,11 +379,11 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 		double[] rates = this.getRates();
 		double sumOfDist = 0;
 		double sum2OfDist = 0;
-		for ( int i=0; i < distToPointingAxis.length; i++ ) {
+		for (int i=0; i < distToPointingAxis.length; i++) {
 		    double distInDeg = distToPointingAxis[i];
 		    this.distToPointingAxis[i] = distInDeg;
-		    if ( Double.isNaN(this.distToPointingAxis[i]) ) {
-				if ( ! Double.isNaN(rates[i]) ) {
+		    if (Double.isNaN(this.distToPointingAxis[i])) {
+				if (! Double.isNaN(rates[i])) {
 				    logger.warn("There is a NaN value in distance to pointing axis whose corresponding rate is not NaN.");
 				}
 		    }
@@ -393,7 +393,7 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 				maxDistToPointingAxis = Math.max(maxDistToPointingAxis, distInDeg);
 				sumOfDist += distInDeg;
 				sum2OfDist += distInDeg*distInDeg;
-				if ( distInDeg <= this.maxDistForFullCoding ) {
+				if (distInDeg <= this.maxDistForFullCoding) {
 				    nFullyCoded++;
 				}
 		    }
@@ -435,10 +435,10 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 		double maxDeadFraction = -Double.MAX_VALUE;
 		double sumDeadFraction = 0;
 		int n = 0;
-		for ( int i=0; i < this.nBins(); i++ ) {
+		for (int i=0; i < this.nBins(); i++) {
 		    this.effectivePointingDurations[i] = effectivePointingDurations[i];
-		    if ( Double.isNaN(effectivePointingDurations[i]) ) {
-				if ( ! Double.isNaN(rates[i]) ) {
+		    if (Double.isNaN(effectivePointingDurations[i])) {
+				if (! Double.isNaN(rates[i])) {
 				    logger.warn("There is a NaN value in RA or Dec whose corresponding rate is not NaN.");
 				}
 				this.deadTimeDurations[i] = Double.NaN;
@@ -509,10 +509,10 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 		double sum2 = 0;
 		int n = 0;
 		double[] rates = this.getRates();
-		for ( int i=0; i < exposuresOnTarget.length; i++ ) {
+		for (int i=0; i < exposuresOnTarget.length; i++) {
 		    this.exposuresOnTarget[i] = exposuresOnTarget[i];
-		    if ( Double.isNaN(exposuresOnTarget[i]) ) {
-				if ( ! Double.isNaN(rates[i]) ) {
+		    if (Double.isNaN(exposuresOnTarget[i])) {
+				if (! Double.isNaN(rates[i])) {
 				    logger.warn("There is a NaN value in effective exposures whose corresponding rate is not NaN.");
 				}
 		    }
@@ -553,35 +553,35 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 
     // About RA and Dec of pointings
     public double[] getRasOfPointings() {
-		if ( raDecsOfPointingsAreSet ) return Arrays.copyOf(this.rasOfPointings, this.rasOfPointings.length);
+		if (raDecsOfPointingsAreSet) return Arrays.copyOf(this.rasOfPointings, this.rasOfPointings.length);
 		else { logger.warn("Ra, Dec of pointings are not defined: Returning the null object."); return null; }
     }	
     public double[] getDecsOfPointings() {
-		if ( raDecsOfPointingsAreSet ) return Arrays.copyOf(this.decsOfPointings, this.decsOfPointings.length);
+		if (raDecsOfPointingsAreSet) return Arrays.copyOf(this.decsOfPointings, this.decsOfPointings.length);
 		else { logger.warn("Ra, Dec of pointings are not defined: Returning the null object."); return null; }
     }		
     public Point2D.Double[] getRaDecsOfPointings() {
-		if ( raDecsOfPointingsAreSet ) return Arrays.copyOf(this.raDecsOfPointings, this.raDecsOfPointings.length);
+		if (raDecsOfPointingsAreSet) return Arrays.copyOf(this.raDecsOfPointings, this.raDecsOfPointings.length);
 		else { logger.warn("Ra, Dec of pointings are not defined: Returning the null object."); return null; }
     }
     public int nNonNaN_raDecs() {
-		if ( raDecsOfPointingsAreSet ) return this.nNonNaN_raDecs;
+		if (raDecsOfPointingsAreSet) return this.nNonNaN_raDecs;
 		else { logger.warn("Ra, Dec of pointings are not defined: Returning zero."); return 0; }
     }
     public double minRaOfPointings() {
-		if ( raDecsOfPointingsAreSet ) return this.minRaOfPointings;
+		if (raDecsOfPointingsAreSet) return this.minRaOfPointings;
 		else { logger.warn("Ra, Dec of pointings are not defined: Returning zero."); return 0; }
     }
     public double maxRaOfPointings() {
-		if ( raDecsOfPointingsAreSet ) return this.maxRaOfPointings;
+		if (raDecsOfPointingsAreSet) return this.maxRaOfPointings;
 		else { logger.warn("Ra, Dec of pointings are not defined: Returning zero."); return 0; }
     }
     public double minDecOfPointings() {
-		if ( raDecsOfPointingsAreSet ) return this.minDecOfPointings;
+		if (raDecsOfPointingsAreSet) return this.minDecOfPointings;
 		else { logger.warn("Ra, Dec of pointings are not defined: Returning zero."); return 0; }	
     }
     public double maxDecOfPointings() {
-		if ( raDecsOfPointingsAreSet ) return this.maxDecOfPointings;
+		if (raDecsOfPointingsAreSet) return this.maxDecOfPointings;
 		else { logger.warn("Ra, Dec of pointings are not defined: Returning zero."); return 0; }	
     }
 	public Point2D.Double avgRaDecOfPointings() {
@@ -639,54 +639,54 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 
     // About exposures on target
     public void setExposureOnTarget(double exposureOnTarget) {
-	if ( !this.exposuresOnTargetAreSet ) {
+	if (!this.exposuresOnTargetAreSet) {
 	    this.sumOfExposuresOnTarget = exposureOnTarget;
 	}
     }
     public double[] getExposuresOnTarget() {
-		if ( !this.exposuresOnTargetAreSet ) {
+		if (!this.exposuresOnTargetAreSet) {
 		    logger.warn("Exposures on target are not defined: Returning null object.");
 		}
 		return Arrays.copyOf(this.exposuresOnTarget, this.exposuresOnTarget.length);
     }
     public int nNonNaN_exposuresOnTarget() {
-		if ( !this.exposuresOnTargetAreSet ) {
+		if (!this.exposuresOnTargetAreSet) {
 		    logger.warn("Exposures on target are not defined: Returning NaN.");
 		}
 		return this.nNonNaN_exposuresOnTarget;
     }
     public double minExposureOnTarget() {
-		if ( !this.exposuresOnTargetAreSet ) {
+		if (!this.exposuresOnTargetAreSet) {
 		    logger.warn("Exposures on target are not defined: Returning NaN.");
 		}
 		return this.minExposureOnTarget;
     }
     public double maxExposureOnTarget() {
-		if ( !this.exposuresOnTargetAreSet ) {
+		if (!this.exposuresOnTargetAreSet) {
 		    logger.warn("Exposures on target are not defined: Returning NaN.");
 		}
 		return this.maxExposureOnTarget;
     }
     public double meanExposureOnTarget() {
-		if ( !this.exposuresOnTargetAreSet ) {
+		if (!this.exposuresOnTargetAreSet) {
 		    logger.warn("Exposures on target are not defined: Returning NaN.");
 		}
 		return this.meanExposureOnTarget;
     }
     public double varianceInExposureOnTarget() {
-		if ( !this.exposuresOnTargetAreSet ) {
+		if (!this.exposuresOnTargetAreSet) {
 		    logger.warn("Exposures on target are not defined: Returning NaN.");
 		}
 		return this.varianceInExposureOnTarget;
     }
     public double meanDeviationInExposureOnTarget() {
-		if ( !this.exposuresOnTargetAreSet ) {
+		if (!this.exposuresOnTargetAreSet) {
 		    logger.warn("Exposures on target are not defined: Returning NaN.");
 		}
 		return this.meanDeviationInExposureOnTarget;
     }
     public double sumOfSquaredExposuresOnTarget() {
-		if ( !this.exposuresOnTargetAreSet ) {
+		if (!this.exposuresOnTargetAreSet) {
 		    logger.warn("Exposures on target are not defined: Returning the NaN.");
 		}
 		return this.sumOfSquaredExposuresOnTarget;

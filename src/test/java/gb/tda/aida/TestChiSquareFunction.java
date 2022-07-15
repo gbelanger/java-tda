@@ -49,7 +49,7 @@ public class TestChiSquareFunction {
 	double dof = 2;
 	ChiSquare chi2 = new ChiSquare(dof, eng);
 	int n = 10000;
-	for ( int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 	    histo.fill(chi2.nextDouble());
 	}
 	

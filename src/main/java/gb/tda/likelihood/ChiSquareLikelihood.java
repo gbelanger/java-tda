@@ -40,7 +40,7 @@ public class ChiSquareLikelihood extends OneParameterLikelihood {
 
 	BinningUtils.checkArrayLengthsAreEqual(model, data);
 	double logLikelihood = 0;
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    logLikelihood += getLogLikelihood(model[i], data[i]);
 	}
 	return logLikelihood;
@@ -50,7 +50,7 @@ public class ChiSquareLikelihood extends OneParameterLikelihood {
 
 	BinningUtils.checkArrayLengthsAreEqual(model, data);
 	double bStat = 0;
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    double kOverTwo = model[i]/2d;
 	    bStat += (kOverTwo - 1)*Math.log(data[i]) - kOverTwo*Math.log(2) - Gamma.logGamma(kOverTwo);
 	}

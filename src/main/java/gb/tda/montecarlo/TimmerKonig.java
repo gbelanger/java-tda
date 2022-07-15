@@ -78,7 +78,7 @@ public final class TimmerKonig {
 	int l = 0;
 	for (int i = 0; i < frequencies.length; i++) {
 	    double omega = 2*Math.PI*frequencies[i];
-	    if ( frequencies[i] < nuBreak ) {
+	    if (frequencies[i] < nuBreak) {
 		spec[i] = Math.pow(omega, -alpha1);
 		k++;
 	    }
@@ -208,7 +208,7 @@ public final class TimmerKonig {
 	//  Adjust nuMax (down) to have power of 2 number of frequencies
  	double exponent = Math.floor(Math.log10(nFreqs)/Math.log10(2));
 	int nNewBins = (int) Math.pow(2, exponent);
-	if ( nFreqs != nNewBins ) {
+	if (nFreqs != nNewBins) {
 	    nFreqs = nNewBins;
 	}
 	nuMax = nuMin + df*nFreqs;

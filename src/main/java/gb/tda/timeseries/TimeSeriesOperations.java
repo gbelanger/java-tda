@@ -25,13 +25,13 @@ public final class TimeSeriesOperations {
 		logger.info("Extracting segment from time "+time1+" to "+time2+" seconds.");
 		//  Run some validity checks
 		double duration = lc.duration();
-		if ( time1 > time2 ) {
+		if (time1 > time2) {
 		    throw new TimeSeriesException("Segment requested ends before it begins (time1 > time2)");
 		}
-		if ( time1 > duration ) {
+		if (time1 > duration) {
 		    throw new TimeSeriesException("Segment requested starts later then the end of the TimeSeries");
 		}
-		if ( time2 > duration ) {
+		if (time2 > duration) {
 		    throw new TimeSeriesException("Segment requested ends after the end of the TimeSeries. Use getSegment(ts, startTime) instead.");
 		}
 		//  Get the segment
@@ -47,10 +47,10 @@ public final class TimeSeriesOperations {
 		DoubleArrayList ratesList = new DoubleArrayList();
 		DoubleArrayList errorsList = new DoubleArrayList();	    
 		int i=0;
-		while ( time1 > binEdges[2*i+1] ) {
+		while (time1 > binEdges[2*i+1]) {
 		    i++;
 		}
-		while ( i < nBins && binEdges[2*i+1] <= time2 ) {
+		while (i < nBins && binEdges[2*i+1] <= time2) {
 		    binEdgesList.add(binEdges[2*i]);
 		    binEdgesList.add(binEdges[2*i+1]);
 		    binHeightsList.add(binHeights[i]);
@@ -62,8 +62,8 @@ public final class TimeSeriesOperations {
 		ratesList.trimToSize();
 		errorsList.trimToSize();
 		binHeightsList.trimToSize();
-		if ( binEdgesList.size() > 2 ) {
-		    if ( lc.uncertaintiesAreSet() ) {
+		if (binEdgesList.size() > 2) {
+		    if (lc.uncertaintiesAreSet()) {
 				return new BinnedTimeSeries(lc.tStart()+time1, binEdgesList.elements(), ratesList.elements(), errorsList.elements());
 		    }
 		    else {
@@ -98,7 +98,7 @@ public final class TimeSeriesOperations {
 		double totalTimeForward = 0;
 		int i=0;
 		int k=nBinsForward+i;
-		while ( k < ts.nBins() ) {
+		while (k < ts.nBins()) {
 			double binWidth = binWidths[k];
 			totalTimeForward += binWidth;
 			newBinEdges[2*i] = binEdges[2*k];
@@ -108,7 +108,7 @@ public final class TimeSeriesOperations {
 			k=nBinsForward+i;
 		}
 		k=0;
-		while ( i < ts.nBins() ) {
+		while (i < ts.nBins()) {
 			double binWidth = binWidths[k];
 			totalTimeForward += binWidth;
 			newBinEdges[2*i] = binEdges[2*k] + ts.duration();
@@ -126,7 +126,7 @@ public final class TimeSeriesOperations {
 		double[] binCentres = ts.getBinCentres();
 		int i=0;
 		double diff = binCentres[i] - binCentres[0];
-		while ( diff < deltaT ) {
+		while (diff < deltaT) {
 			i++;
 			diff = binCentres[i] - binCentres[0];
 		}
@@ -137,7 +137,7 @@ public final class TimeSeriesOperations {
     public static BinnedTimeSeries shiftTimeAxis(IBinnedTimeSeries lc, double deltaT) {
 		logger.info("Shifting time axis by "+deltaT+" seconds");
 		double newTStart = lc.tStart() + deltaT;
-		if ( lc.uncertaintiesAreSet() ) {
+		if (lc.uncertaintiesAreSet()) {
 			return new BinnedTimeSeries(newTStart, lc.getBinEdges(), lc.getIntensities(), lc.getUncertainties());
 		}
 		else {
@@ -148,7 +148,7 @@ public final class TimeSeriesOperations {
     public static BinnedTimeSeries shiftTimeAxisToZero(IBinnedTimeSeries lc) {
 		logger.info("Shifting time axis to zero");
 		double newTStart = lc.getBinCentres()[0];
-		if ( lc.uncertaintiesAreSet() ) {
+		if (lc.uncertaintiesAreSet()) {
 			return new BinnedTimeSeries(newTStart, lc.getBinEdges(), lc.getIntensities(), lc.getUncertainties());
 		}
 		else {
@@ -158,16 +158,16 @@ public final class TimeSeriesOperations {
 
     private static boolean seriesAreOrdered(ITimeSeries[] timeSeries) {
 		double[] tStarts = new double[timeSeries.length];
-		for ( int i=0; i < timeSeries.length; i++ ) {
+		for (int i=0; i < timeSeries.length; i++) {
 			tStarts[i] = timeSeries[i].tStart();
 		}
 		double[] sortedTStarts = Arrays.copyOf(tStarts, tStarts.length);
 		Arrays.sort(sortedTStarts);
 		boolean seriesAreOrdered = true;
-		for ( int i=0; i < timeSeries.length; i++ ) {
-			if ( tStarts[i] != sortedTStarts[i] ) seriesAreOrdered = false;
+		for (int i=0; i < timeSeries.length; i++) {
+			if (tStarts[i] != sortedTStarts[i]) seriesAreOrdered = false;
 		}
-		if ( seriesAreOrdered ) {
+		if (seriesAreOrdered) {
 			logger.info("TimeSeries are ordered");
 		}
 		else {
@@ -179,17 +179,17 @@ public final class TimeSeriesOperations {
     private static BinnedTimeSeries[] sort(BinnedTimeSeries[] timeSeries) {
 		logger.info("Sorting BinnedTimeSeries in chronological order");
 		double[] tStarts = new double[timeSeries.length];
-		for ( int i=0; i < timeSeries.length; i++ ) {
+		for (int i=0; i < timeSeries.length; i++) {
 			tStarts[i] = timeSeries[i].tStart();
 		}
 		double[] sortedTStarts = Arrays.copyOf(tStarts, tStarts.length);
 		Arrays.sort(sortedTStarts);
 		logger.info("Building new array of sorted TimeSeries");
 		BinnedTimeSeries[] orderedTimeSeries = new BinnedTimeSeries[timeSeries.length];
-		for ( int i=0; i < timeSeries.length; i++ ) {
+		for (int i=0; i < timeSeries.length; i++) {
 			int index = Utils.getIndex(sortedTStarts[i], tStarts);
 			BinnedTimeSeries ts = timeSeries[index];
-			if ( ts.uncertaintiesAreSet() ) {
+			if (ts.uncertaintiesAreSet()) {
 				orderedTimeSeries[i] = new BinnedTimeSeries(ts.tStart(), ts.getBinEdges(), ts.getIntensities());
 			}
 			else {
@@ -197,7 +197,7 @@ public final class TimeSeriesOperations {
 			}
 		}
 		logger.info("TStarts of ordered BinnedTimeSeries are:");
-		for ( int i=0; i < timeSeries.length; i++ ) {
+		for (int i=0; i < timeSeries.length; i++) {
 			logger.info("   "+orderedTimeSeries[i].tStart());
 		}
 		return orderedTimeSeries;
@@ -210,7 +210,7 @@ public final class TimeSeriesOperations {
 		DoubleArrayList newErrorsList = new DoubleArrayList();
 		//  Check if sorted in chronological order. If not then sort.
 		BinnedTimeSeries[] lcArray;
-		if ( ! seriesAreOrdered(timeSeries) ) {
+		if (! seriesAreOrdered(timeSeries)) {
 		    lcArray = sort(timeSeries);
 		}
 		else {
@@ -226,11 +226,11 @@ public final class TimeSeriesOperations {
 		logger.info("Duration = "+duration);
 		// Define minBinWidth
 		double minBinWidth = Double.MAX_VALUE;
-		for ( int i=0; i < nLCs; i++ ) {
+		for (int i=0; i < nLCs; i++) {
 		    try {
 			minBinWidth = Math.min(minBinWidth, lcArray[i].binWidth());
 		    }
-		    catch ( TimeSeriesException e ) {
+		    catch (TimeSeriesException e) {
 			double[] binWidths = lcArray[i].getBinWidths();
 			minBinWidth = Math.min(minBinWidth, MinMax.getMin(binWidths));
 		    }
@@ -247,11 +247,11 @@ public final class TimeSeriesOperations {
 		BinnedTimeSeries lc = lcArray[i];
 		double[] binEdges = lc.getBinEdges();
 		double[] shiftedBinEdges = Utils.shift(binEdges, lc.tStart());	
-		while ( time < tstop ) {
+		while (time < tstop) {
 		    //   Sum the contribution from each LCs to this newBin
 		    double weightedSum = 0;
 		    double sumOfWeights = 0;
-		    for ( int j=0; j < nLCs; j++ ) {
+		    for (int j=0; j < nLCs; j++) {
 				BinnedTimeSeries thisLC = lcArray[j];
 				double[] rateAndError = TimeSeriesResampler.getRateFromTo(thisLC, leftEdgeOfNewBin, rightEdgeOfNewBin);
 				double rate = rateAndError[0];
@@ -276,12 +276,12 @@ public final class TimeSeriesOperations {
 		    boolean nextEdgeIndexIsEven = nextEdgeIndex%2 == 0;
 		    logger.debug(nextEdgeIndexIsEven);
 		    double rightEdgeOfPreviousBin = rightEdgeOfNewBin;
-		    if ( nextEdgeIndexIsEven ) {
+		    if (nextEdgeIndexIsEven) {
 				//  We are in a gap
 				logger.debug("We are in gap");
 				leftEdgeOfNewBin = nextEdge;
 				try {
-				    while ( nextEdgeIndexIsEven ) {
+				    while (nextEdgeIndexIsEven) {
 					leftEdgeOfNewBin = Math.min(leftEdgeOfNewBin, nextEdge);
 					//  Check the next TimeSeries
 					i++;
@@ -295,7 +295,7 @@ public final class TimeSeriesOperations {
 				    }
 				    //leftEdgeOfNewBin = rightEdgeOfPreviousBin;
 				}
-				catch ( ArrayIndexOutOfBoundsException e ) {
+				catch (ArrayIndexOutOfBoundsException e) {
 				    //  If we get here, all LCs have this gap in common
 				}
 		    }
@@ -305,7 +305,7 @@ public final class TimeSeriesOperations {
 		    }
 		    //   Define RIGHT edge of the next new bin
 		    rightEdgeOfNewBin = Double.MAX_VALUE;
-		    for ( int j=0; j < nLCs; j++ ) {
+		    for (int j=0; j < nLCs; j++) {
 				lc = lcArray[j];
 				binEdges = lc.getBinEdges();
 				shiftedBinEdges = Utils.shift(binEdges, lc.tStart());
@@ -314,7 +314,7 @@ public final class TimeSeriesOperations {
 				logger.debug("nextEdge = "+nextEdge+"	 rightEdgeOfNewBin = "+rightEdgeOfNewBin);
 		    }
 		    //   Increment time to the right edge of the next new bin
-		    if ( rightEdgeOfNewBin == tstop ) {
+		    if (rightEdgeOfNewBin == tstop) {
 				time = tstop;
 		    }
 		    else {

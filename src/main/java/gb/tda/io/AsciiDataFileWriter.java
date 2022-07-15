@@ -217,7 +217,7 @@ public class AsciiDataFileWriter {
     int nBins = axis.bins();
     double[] binHeights = new double[nBins];
     double[] binCentres = new double[nBins];
-    for ( int i=0; i < nBins; i++ ) {
+    for (int i=0; i < nBins; i++) {
       binHeights[i] = histo.binHeight(i);
       binCentres[i] = axis.binCenter(i);
     }
@@ -392,8 +392,8 @@ public class AsciiDataFileWriter {
   public static String[] makeCorrPlotHeader(final String xLabel, final String yLabel, final double rho, final double rhoErr, final double[] xRange, final double[] yRange, final boolean logX, final boolean logY) {
     String logXValue = "OFF";
     String logYValue = "OFF";
-    if ( logX ) logXValue="ON";
-    if ( logY ) logYValue="ON";
+    if (logX) logXValue="ON";
+    if (logY) logYValue="ON";
     String[] header = new String[] {
       "DEV /XS",
       "LAB T", "LAB F",
@@ -472,7 +472,7 @@ public class AsciiDataFileWriter {
     String yMinStr = stats.format(yMin);
     String yMaxStr = stats.format(yMax);
     String[] header = null;
-    if ( showStats == true ) {
+    if (showStats == true) {
       int entries = histo.entries();
       double mean = histo.mean();
       double rms = histo.rms();
@@ -532,15 +532,15 @@ public class AsciiDataFileWriter {
     String yMinStr = stats.format(yMin);
     String yMaxStr = stats.format(yMax);
     String[] header = null;
-    if ( showStats == true ) {
+    if (showStats == true) {
       int entries = histo.entries();
       double mean = histo.mean();
       double rms = histo.rms();
       String meanStr = null;
       String rmsStr = null;
-      if ( Math.abs(mean) < 0.01 || Math.abs(mean) > 10 ) meanStr = stats.format(mean);
+      if (Math.abs(mean) < 0.01 || Math.abs(mean) > 10) meanStr = stats.format(mean);
       else meanStr = stats.format(mean);
-      if ( Math.abs(rms) < 0.01 || Math.abs(mean) > 10 ) rmsStr = stats.format(rms);
+      if (Math.abs(rms) < 0.01 || Math.abs(mean) > 10) rmsStr = stats.format(rms);
       else rmsStr = stats.format(rms);
       header = new String[] {
         "DEV /XS",
@@ -588,30 +588,30 @@ public class AsciiDataFileWriter {
   }
 
   private void printToFile(final String[] header, final double[] binCentres, final double[] binHeights) {
-    for ( int i=0; i < header.length; i++ ) {
+    for (int i=0; i < header.length; i++) {
       printWriter.println(header[i]);
     }
-    for ( int i=0; i < binCentres.length; i++ ) {
+    for (int i=0; i < binCentres.length; i++) {
       printWriter.println((binCentres[i]) +"	"+ (binHeights[i]));
     }
     printWriter.close();
   }
 
   private void printToFile(final String[] header, final double[] binCentres, final double[] binHeights, DecimalFormat numberFormat) {
-    for ( int i=0; i < header.length; i++ ) {
+    for (int i=0; i < header.length; i++) {
       printWriter.println(header[i]);
     }
-    for ( int i=0; i < binCentres.length; i++ ) {
+    for (int i=0; i < binCentres.length; i++) {
       printWriter.println(numberFormat.format(binCentres[i]) +"	"+ numberFormat.format(binHeights[i]));
     }
     printWriter.close();
   }
 
   private void printToFile(final String[] header, final double[] binCentres, final double[] binHeights, final double[] function) {
-    for ( int i=0; i < header.length; i++ ) {
+    for (int i=0; i < header.length; i++) {
       printWriter.println(header[i]);
     }
-    for ( int i=0; i < binCentres.length; i++ ) {
+    for (int i=0; i < binCentres.length; i++) {
       printWriter.println((binCentres[i]) +"	"+ (binHeights[i]) +"	"+ function[i]);
     }
     printWriter.close();
@@ -622,7 +622,7 @@ public class AsciiDataFileWriter {
 
   public void writeData(final double[] data) throws IOException {
     int n = data.length;
-    for ( int i=0; i < n; i++ ) {
+    for (int i=0; i < n; i++) {
       printWriter.println(data[i]);
     }
     printWriter.close();
@@ -630,16 +630,16 @@ public class AsciiDataFileWriter {
 
   public void writeData(final double[] col1, final double[] col2) throws IOException {
     int n = (int) Math.min(col1.length, col2.length);
-    for ( int i=0; i < n; i++ ) {
+    for (int i=0; i < n; i++) {
       printWriter.println(col1[i]+"	"+col2[i]);
     }
     printWriter.close();
   }
 
   public void writeData(final String[] header, final double[] x, final double[] y) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int n = (int) Math.min(x.length, y.length);
-    for ( int i=0; i < n; i++ ) {
+    for (int i=0; i < n; i++) {
       printWriter.println((x[i]) +"	"+ (y[i]));
     }
     String name = (new StringTokenizer(this.getFile().getName(),".")).nextToken();
@@ -649,37 +649,37 @@ public class AsciiDataFileWriter {
   }
 
   public void writeData(final String[] header, final double[] x, final double[] y, int startIndex) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int nbins = (int) Math.min(x.length, y.length);
-    for ( int i=startIndex; i < nbins; i++ ) {
+    for (int i=startIndex; i < nbins; i++) {
       printWriter.println((x[i]) +"	"+ (y[i]));
     }
     printWriter.close();
   }
 
   public void writeData(final String[] header, int[] x, final double[] y) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int n = (int) Math.min(x.length, y.length);
-    for ( int i=0; i < n; i++ ) {
+    for (int i=0; i < n; i++) {
       printWriter.println((x[i]) +"	"+ (y[i]));
     }
     printWriter.close();
   }
 
   public void writeData(final String[] header, int[] x, int[] y) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int n = (int) Math.min(x.length, y.length);
-    for ( int i=0; i < n; i++ ) {
+    for (int i=0; i < n; i++) {
       printWriter.println(x[i] +"	"+ y[i]);
     }
     printWriter.close();
   }
 
   public void writeData(final String[] header, int[] x, final double[] y, final double[] y2) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {x.length, y.length, y2.length};
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((x[i]) +"	"+ (y[i]) +"	"+ (y2[i]));
     }
     printWriter.close();
@@ -695,76 +695,76 @@ public class AsciiDataFileWriter {
   }
 
   public void writeData(final String[] header, int[] x, final double[] y, final double[] y2, final double[] y3) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {x.length, y.length, y2.length, y3.length};
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((x[i]) +"	"+ (y[i]) +"	"+ (y2[i]) +"	"+ (y3[i]));
     }
     printWriter.close();
   }
 
   public void writeData(final String[] header, int[] x, final double[] y, final double[] y2, final double[] y3, final double[] y4) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {x.length, y.length, y2.length, y3.length, y4.length};
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((x[i]) +"	"+ (y[i]) +"	"+ (y2[i]) +"	"+ (y3[i]) +"	" +(y4[i]));
     }
     printWriter.close();
   }
 
   public void writeData(final String[] header, int[] x, final double[] y, final double[] y2, final double[] y3, final double[] y4, final double[] y5) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {x.length, y.length, y2.length, y3.length, y4.length, y5.length};
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((x[i]) +"	"+ (y[i]) +"	"+ (y2[i]) +"	"+ (y3[i]) +"	" +(y4[i]) +"	" +(y5[i]));
     }
     printWriter.close();
   }
 
   public void writeData(final String[] header, int[] col1, int[] col2, final double[] col3) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {col1.length, col2.length, col3.length};
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((col1[i]) +"	"+ (col2[i]) +"	"+ (col3[i]));
     }
     printWriter.close();
   }
 
   public void writeData(final String[] header, String[] col1, int[] col2, final double[] y) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
-    for ( int i=0; i < col1.length; i++ ) {
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
+    for (int i=0; i < col1.length; i++) {
       printWriter.println(col1[i] +"	"+ (col2[i]) +"	"+ (y[i]));
     }
     printWriter.close();
   }
 
   public void writeData(final String[] header, final double[] c1, final double[] c2, final double[] c3) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {c1.length, c2.length, c3.length};
     double var = BasicStats.getVariance(lengths);
-    if ( var != 0 ) {
+    if (var != 0) {
       logger.warn("input column data of different lengths. Using min.");
     }
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((c1[i]) +"	"+ (c2[i]) +"	"+ (c3[i]));
     }
     printWriter.close();
   }
 
   public void writeData(final String[] header, final double[] c1, final double[] c2, final double[] c3, final double[] c4) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {c1.length, c2.length, c3.length, c4.length};
     double var = BasicStats.getVariance(lengths);
-    if ( var != 0 ) {
+    if (var != 0) {
       logger.warn("input column data of different lengths. Using min.");
     }
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((c1[i]) +"	"+ (c2[i]) +"	"+
       (c3[i]) +"	"+ (c4[i]));
     }
@@ -772,14 +772,14 @@ public class AsciiDataFileWriter {
   }
 
   public void writeData(final String[] header, final double[] c1, final double[] c2, final double[] c3, final double[] c4, final double[] c5) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {c1.length, c2.length, c3.length, c4.length, c5.length};
     double var = BasicStats.getVariance(lengths);
-    if ( var != 0 ) {
+    if (var != 0) {
       logger.warn("input column data of different lengths. Using min.");
     }
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((c1[i]) +"	"+ (c2[i]) +"	"+
       (c3[i]) +"	"+ (c4[i]) +"	"+
       (c5[i]));
@@ -788,14 +788,14 @@ public class AsciiDataFileWriter {
   }
 
   public void writeData(final String[] header, int[] c1, final double[] c2, final double[] c3, final double[] c4, int[] c5) 	throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {c1.length, c2.length, c3.length, c4.length, c5.length};
     double var = BasicStats.getVariance(lengths);
-    if ( var != 0 ) {
+    if (var != 0) {
       logger.warn("input column data of different lengths. Using min.");
     }
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((c1[i]) +"	"+ (c2[i]) +"	"+
       (c3[i]) +"	"+ (c4[i]) +"	"+
       (c5[i]));
@@ -804,14 +804,14 @@ public class AsciiDataFileWriter {
   }
 
   public void writeData(final String[] header, final double[] c1, final double[] c2, final double[] c3, final double[] c4, final double[] c5, final double[] c6) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {c1.length, c2.length, c3.length, c4.length, c5.length, c6.length};
     double var = BasicStats.getVariance(lengths);
-    if ( var != 0 ) {
+    if (var != 0) {
       logger.warn("input column data of different lengths. Using min.");
     }
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((c1[i]) +"	"+ (c2[i]) +"	"+
       (c3[i]) +"	"+ (c4[i]) +"	"+
       (c5[i]) +"	"+ (c6[i]));
@@ -820,14 +820,14 @@ public class AsciiDataFileWriter {
   }
 
   public void writeData(final String[] header, final double[] c1, final double[] c2, final double[] c3, final double[] c4, final double[] c5, final double[] c6, final double[] c7) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {c1.length, c2.length, c3.length, c4.length, c5.length, c6.length, c7.length};
     double var = BasicStats.getVariance(lengths);
-    if ( var != 0 ) {
+    if (var != 0) {
       logger.warn("input column data of different lengths. Using min.");
     }
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((c1[i]) +"	"+ (c2[i]) +"	"+
       (c3[i]) +"	"+ (c4[i]) +"	"+
       (c5[i]) +"	"+ (c6[i]) +"	"+
@@ -837,14 +837,14 @@ public class AsciiDataFileWriter {
   }
 
   public void writeData(final String[] header, final double[] c1, final double[] c2, final double[] c3, final double[] c4, final double[] c5, final double[] c6, final double[] c7, final double[] c8) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {c1.length, c2.length, c3.length, c4.length, c5.length, c6.length, c7.length, c8.length};
     double var = BasicStats.getVariance(lengths);
-    if ( var != 0 ) {
+    if (var != 0) {
       logger.warn("input column data of different lengths. Using min.");
     }
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((c1[i]) +"	"+ (c2[i]) +"	"+
       (c3[i]) +"	"+ (c4[i]) +"	"+
       (c5[i]) +"	"+ (c6[i]) +"	"+
@@ -854,14 +854,14 @@ public class AsciiDataFileWriter {
   }
 
   public void writeData(final String[] header, final double[] c1, final double[] c2, final double[] c3, final double[] c4, final double[] c5, final double[] c6, final double[] c7, final double[] c8, final double[] c9) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {c1.length, c2.length, c3.length, c4.length, c5.length, c6.length, c7.length, c8.length, c9.length};
     double var = BasicStats.getVariance(lengths);
-    if ( var != 0 ) {
+    if (var != 0) {
       logger.warn("input column data of different lengths. Using min.");
     }
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((c1[i]) +"	"+ (c2[i]) +"	"+
       (c3[i]) +"	"+ (c4[i]) +"	"+
       (c5[i]) +"	"+ (c6[i]) +"	"+
@@ -871,14 +871,14 @@ public class AsciiDataFileWriter {
     printWriter.close();
   }
   public void writeData(final String[] header, final double[] c1, final double[] c2, final double[] c3, final double[] c4, final double[] c5, final double[] c6, final double[] c7, final double[] c8, final double[] c9, final double[] c10) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {c1.length, c2.length, c3.length, c4.length, c5.length, c6.length, c7.length, c8.length, c9.length, c10.length};
     double var = BasicStats.getVariance(lengths);
-    if ( var != 0 ) {
+    if (var != 0) {
       logger.warn("input column data of different lengths. Using min.");
     }
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((c1[i]) +"	"+ (c2[i]) +"	"+
       (c3[i]) +"	"+ (c4[i]) +"	"+
       (c5[i]) +"	"+ (c6[i]) +"	"+
@@ -889,14 +889,14 @@ public class AsciiDataFileWriter {
   }
 
   public void writeData(final String[] header, final double[] c1, final double[] c2, final double[] c3, final double[] c4, final double[] c5, final double[] c6, final double[] c7, final double[] c8, final double[] c9, final double[] c10, final double[] c11) throws IOException {
-    for ( int i=0; i < header.length; i++ )  printWriter.println(header[i]);
+    for (int i=0; i < header.length; i++)  printWriter.println(header[i]);
     int lengths[] = new int[] {c1.length, c2.length, c3.length, c4.length, c5.length, c6.length, c7.length, c8.length, c9.length, c10.length, c11.length};
     double var = BasicStats.getVariance(lengths);
-    if ( var != 0 ) {
+    if (var != 0) {
       logger.warn("input column data of different lengths. Using min.");
     }
     int nbins = (int) MinMax.getMin(lengths);
-    for ( int i=0; i < nbins; i++ ) {
+    for (int i=0; i < nbins; i++) {
       printWriter.println((c1[i]) +"	"+ (c2[i]) +"	"+
       (c3[i]) +"	"+ (c4[i]) +"	"+
       (c5[i]) +"	"+ (c6[i]) +"	"+

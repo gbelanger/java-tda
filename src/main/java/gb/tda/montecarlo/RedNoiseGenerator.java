@@ -65,7 +65,7 @@ public final class RedNoiseGenerator {
     }
 
     public static double[] generateArrivalTimes(final double meanRate, final double duration, final double alpha, final int nFreqsPerIFS, final RandomEngine engine) throws BinningException, TimeSeriesException {
-		if ( alpha == 0 ) {
+		if (alpha == 0) {
 		    return WhiteNoiseGenerator.generateArrivalTimes(meanRate, duration, engine);
 		}
 		logger.info("Generating red noise arrival times:");
@@ -178,7 +178,7 @@ public final class RedNoiseGenerator {
 		//  Adjust nuMax to have 2^x frequencies
 	 	double exponent = Math.floor(Math.log10(nFreqs)/Math.log10(2));
 		int nNewBins = (int) Math.pow(2, exponent);
-		if ( nFreqs != nNewBins ) {
+		if (nFreqs != nNewBins) {
 		    nNewBins = (int) Math.pow(2, exponent+1);
 		    logger.warn("nFreqs ("+nFreqs+") was not a power of 2. Using "+nNewBins+" instead");
 		    nFreqs = nNewBins;
@@ -191,14 +191,14 @@ public final class RedNoiseGenerator {
 
 	// 	// TEMP
 	// 	int[] bins = new int[timmerRates.length];
-	// 	for ( int i=0; i < timmerRates.length; i++ ) bins[i] = i;
+	// 	for (int i=0; i < timmerRates.length; i++) bins[i] = i;
 	// 	String[] h = new String[] {"DEV /XS"};
 	// 	AsciiDataFileWriter out = null;
 	// 	try {
 	// 	    out = new AsciiDataFileWriter("timmerRates.qdp");
 	// 	    out.writeData(h, bins, timmerRates);
 	// 	}
-	// 	catch ( Exception e ) {};
+	// 	catch (Exception e) {};
 	// 	// 
 
 		//  Define the number of events
@@ -223,7 +223,7 @@ public final class RedNoiseGenerator {
 	// 	    AsciiDataFileWriter lc = new AsciiDataFileWriter("lcHisto.qdp");
 	// 	    lc.writeHisto(lcHisto, "LC");
 	// 	}
-	// 	catch ( Exception e ) {}
+	// 	catch (Exception e) {}
 	// 	//
 
 		//  Adjust actual duration to specified duration
@@ -257,7 +257,7 @@ public final class RedNoiseGenerator {
 		//  Adjust nuMax to have 2^x frequencies
 	 	double exponent = Math.floor(Math.log10(nFreqs)/Math.log10(2));
 		int nNewBins = (int) Math.pow(2, exponent);
-		if ( nFreqs != nNewBins ) {
+		if (nFreqs != nNewBins) {
 		    nNewBins = (int) Math.pow(2, exponent+1);
 		    logger.warn("nFreqs ("+nFreqs+") was not a power of 2. Using "+nNewBins+" instead");
 		    nFreqs = nNewBins;
@@ -470,17 +470,17 @@ public final class RedNoiseGenerator {
     private static double[] combineArrivalTimes(final double[] pulsedTimes, final double[] redNoiseTimes, final double duration) {
 		logger.info("Combining red noise with pulsed arrival times");	
 		double[] times = new double[redNoiseTimes.length];
-		if ( pulsedTimes.length <= 2 )
+		if (pulsedTimes.length <= 2)
 		    times = Arrays.copyOf(redNoiseTimes, redNoiseTimes.length);
 		else {
 		    int nTimes = pulsedTimes.length + redNoiseTimes.length - 1;
 		    times = new double[nTimes];
 		    int n = 0;
-		    for ( int i=0; i < pulsedTimes.length - 1; i++ ) {
+		    for (int i=0; i < pulsedTimes.length - 1; i++) {
 				times[i] = pulsedTimes[i];
 				n++;
 		    }
-		    for ( int i=0; i < redNoiseTimes.length; i++ ) {
+		    for (int i=0; i < redNoiseTimes.length; i++) {
 				times[i+n] = redNoiseTimes[i];
 		    }
 		    Arrays.sort(times);

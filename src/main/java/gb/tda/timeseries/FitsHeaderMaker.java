@@ -37,7 +37,7 @@ final class FitsHeaderMaker {
     	hdr.addValue("TFORM3", "1D", "data format of field: 8-byte DOUBLE");
     	hdr.addValue("TUNIT3", "counts per bin", "physical unit of the field");
     	hdr.addValue("TTYPE3", "COUNTS", "intensity in counts");
-    	if ( ts instanceof CodedMaskTimeSeries ) {	
+    	if (ts instanceof CodedMaskTimeSeries) {	
             hdr.addValue("TFORM4", "1D", "data format of field: 8-byte DOUBLE");
             hdr.addValue("TUNIT4", "degree", "physical unit of the field");
             hdr.addValue("TTYPE5", "ANGDIST", "angular distance between source and pointing axis direction");  // Decide Name
@@ -64,7 +64,7 @@ final class FitsHeaderMaker {
     	hdr.addValue("TFORM4", "1D", "data format of field: 8-byte DOUBLE");
     	hdr.addValue("TUNIT4", "counts/s", "physical unit of the field");
     	hdr.addValue("TTYPE4", "ERRORS", "uncertainty on intensity (RATES)");
-    	if ( ts instanceof CodedMaskTimeSeries ) {	
+    	if (ts instanceof CodedMaskTimeSeries) {	
             hdr.addValue("TFORM5", "1D", "data format of field: 8-byte DOUBLE");
             hdr.addValue("TUNIT5", "degree", "physical unit of the field");
             hdr.addValue("TTYPE5", "ANGDIST", "angular distance between source and pointing axis direction");  // Decide Name

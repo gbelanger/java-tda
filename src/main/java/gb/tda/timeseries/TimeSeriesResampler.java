@@ -34,8 +34,8 @@ public final class TimeSeriesResampler {
 		double n = Math.log(nLCBins) / Math.log(2);
 		double diff = n - Math.floor(n);
 		BinnedTimeSeries bts;
-		if ( diff == 0 ) { 
-		    if ( ts.binWidthIsConstant() ) {
+		if (diff == 0) { 
+		    if (ts.binWidthIsConstant()) {
 				logger.info("Number of bins already is a power of 2: Returning copy of TimeSeries");
 				bts = new BinnedTimeSeries(ts);
 		    }
@@ -81,7 +81,7 @@ public final class TimeSeriesResampler {
 		//  Construct Bin[] for the new bins
 		int nnewBins = newBinEdges.length / 2;
 		Bin[] newBins = new Bin[nnewBins];
-		for (int i = 0; i < nnewBins; i++ ) {
+		for (int i = 0; i < nnewBins; i++) {
 		    double leftEdge = newBinEdges[2*i];
 		    double rightEdge = newBinEdges[2*i+1];
 		    newBins[i] = new Bin(leftEdge, rightEdge);
@@ -131,20 +131,20 @@ public final class TimeSeriesResampler {
 		double leftEdge = oldBinEdges[2*k];
 		double rightEdge = oldBinEdges[2*k+1];
 		boolean binEdgeIndexIsEven = binEdgeIndex % 2 == 0;
-		if ( binEdgeIndexIsEven ) {	    
+		if (binEdgeIndexIsEven) {	    
 		    leftEdge = t1;
 		}
 		//   Sum the counts of the old bins while within the new bin
 		double rebinnedIntensity = 0;
 		double rebinnedUncertainty = 0;
-		while ( k < nOldBins-1 && rightEdge <= t2 ) {
+		while (k < nOldBins-1 && rightEdge <= t2) {
 		    exposure = (rightEdge - leftEdge);
 		    effNewBinTime += exposure;
 		    counts += exposure * intensities[k];
 		    errorCounts += Math.pow(exposure * uncertainties[k], 2);
 		    //   Move to the next old bin and define its edges
 		    k++; 
-		    if ( k < nOldBins ) {
+		    if (k < nOldBins) {
 			leftEdge = oldBinEdges[2*k];
 			rightEdge = oldBinEdges[2*k+1];
 		    }
@@ -152,7 +152,7 @@ public final class TimeSeriesResampler {
 		//   At this point, the next old bin is not fully contained within the new bin
 		//   If there is a gap in the old bins, and therefore, the new bin ends before or at the start 
 		//   of the next old bin, write out the final rate for the new bin and reset counts to 0
-		if ( t2 <= leftEdge ) {
+		if (t2 <= leftEdge) {
 		    rebinnedIntensity = counts / effNewBinTime;
 		    rebinnedUncertainty = Math.sqrt(errorCounts) / effNewBinTime;
 		    //logger.debug("effNewBinTime="+effNewBinTime);
@@ -166,7 +166,7 @@ public final class TimeSeriesResampler {
 		//   fraction of the old bin, and write out the final rate for the new bin. 
 		//   Here we reset the counts to the other fraction of the old bin. 
 		else {
-		    if ( k == nOldBins-1 ) {
+		    if (k == nOldBins-1) {
 				t2 = Math.min(t2, tstop);
 				//   Add last bit of counts from the first part of the old bin
 				exposure = (t2 - leftEdge);
@@ -195,7 +195,7 @@ public final class TimeSeriesResampler {
 				effNewBinTime = exposure;
 				//   Move to the next old bin and define its edges
 				k++;
-				if ( k < nOldBins ) {
+				if (k < nOldBins) {
 					leftEdge = oldBinEdges[2*k];
 					rightEdge = oldBinEdges[2*k+1];
 				}

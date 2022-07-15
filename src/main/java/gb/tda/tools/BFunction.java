@@ -35,7 +35,7 @@ public class BFunction implements OptimizableFunction {
     // Similarity Metric
     public double getLogLikelihoodOfModel(double[] param) {
 	double logLikelihood = 0;
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    logLikelihood += getLogLikelihood(powerLawFunction(samplingValues[i], param), data[i]);
 	}
 	return logLikelihood;
@@ -87,7 +87,7 @@ public class BFunction implements OptimizableFunction {
 	int n = f.length;
 	double[] samplingValues = new double[n];
 	double[] data = new double[n];
-	for ( int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 	    samplingValues[i] = f[i];
 	    data[i] = p[i];
 	}

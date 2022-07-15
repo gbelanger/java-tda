@@ -43,11 +43,11 @@ public class QDPTimeSeriesFileReader extends AsciiTimeSeriesFileReader {
 		try {
 			dataFile = new AsciiDataFileReader(filename);
 		}
-		catch ( AsciiDataFileFormatException e ) {
+		catch (AsciiDataFileFormatException e) {
 			throw new AsciiTimeSeriesFileException("Problem reading ASCII data file", e);
 		}
 		int ncols = dataFile.getNDataCols();
-		if ( ncols >= 5 ) {  //   Assume it is a CodedMaskTimeSeries
+		if (ncols >= 5) {  //   Assume it is a CodedMaskTimeSeries
 			parseHeader(dataFile.getHeader());
 			//  These columns must be defined
 			double[] binCentres = dataFile.getDblCol(0);
@@ -65,9 +65,9 @@ public class QDPTimeSeriesFileReader extends AsciiTimeSeriesFileReader {
 				CodedMaskTimeSeries ts = TimeSeriesFactory.makeCodedMaskTimeSeries(targetName, targetRA, targetDec, energyRangeMin, energyRangeMax, telescope, instrument, maxDistForFullCoding, binEdges, effectivePointingDurations, rates, errors, rasOfPointings, decsOfPointings, exposuresOnTarget);
 				return ts;
 			}
-			catch ( ArrayIndexOutOfBoundsException e ) {
+			catch (ArrayIndexOutOfBoundsException e) {
 				double[] effectivePointingDurations = new double[dtOver2.length];
-				for ( int i=0; i < dtOver2.length; i++ ) {
+				for (int i=0; i < dtOver2.length; i++) {
 					effectivePointingDurations[i] = 2*dtOver2[i];
 				}
 				CodedMaskTimeSeries ts = TimeSeriesFactory.makeCodedMaskTimeSeries(targetName, targetRA, targetDec, energyRangeMin, energyRangeMax, telescope, instrument, maxDistForFullCoding, binEdges, effectivePointingDurations, rates, errors, distToPointingAxis);
@@ -84,8 +84,8 @@ public class QDPTimeSeriesFileReader extends AsciiTimeSeriesFileReader {
 		//  Define the comment block and the header block
 		ArrayList<String> commentLines = new ArrayList<String>();
 		ArrayList<String> qdpHeaderLines = new ArrayList<String>();
-		for ( int i=0; i < header.length; i++ ) {
-			if ( header[i].startsWith("!") ) {
+		for (int i=0; i < header.length; i++) {
+			if (header[i].startsWith("!")) {
 				commentLines.add(header[i]);
 			}
 			else {
@@ -99,68 +99,68 @@ public class QDPTimeSeriesFileReader extends AsciiTimeSeriesFileReader {
 		// Internal variables
 		String[] commentBlock = new String[commentLines.size()];
 		String[] qdpHeaderBlock = new String[qdpHeaderLines.size()];
-		for (int i = 0; i < commentBlock.length; i++ ) {
+		for (int i = 0; i < commentBlock.length; i++) {
 			commentBlock[i] = commentLines.get(i);
 		}
-		for (int i = 0; i < qdpHeaderBlock.length; i++ ) {
+		for (int i = 0; i < qdpHeaderBlock.length; i++) {
 			qdpHeaderBlock[i] = qdpHeaderLines.get(i);
 		}
 		String[] stringsToFind = new String[] {"Target Name", "Target RA", "Target Dec", "Telescope", "Instrument", "Max distance for full coding", "Energy range min", "Energy range max", "Exposure on target"};
 		int[] indexes = new int[stringsToFind.length];
-		for ( int i=0; i < stringsToFind.length; i++ ) {
+		for (int i=0; i < stringsToFind.length; i++) {
 			indexes[i] = StringUtils.findStringIndex(stringsToFind[i], commentBlock);
 		}
 		int k=0;
 		int index = indexes[k];
-		if ( index != -1 ) {
+		if (index != -1) {
 			int from = commentBlock[index].indexOf(": ") + 2;
 			this.targetName = commentBlock[index].substring(from);
 		}
 		k++;
 		index = indexes[k];
-		if ( index != -1 ) {
+		if (index != -1) {
 			int from = commentBlock[index].indexOf(": ") + 2;
 			this.targetRA = Double.parseDouble(commentBlock[index].substring(from));
 		}
 		k++;
 		index = indexes[k];
-		if ( index != -1 ) {
+		if (index != -1) {
 			int from = commentBlock[index].indexOf(": ") + 2;
 			this.targetDec = Double.parseDouble(commentBlock[index].substring(from));
 		}
 		k++;
 		index = indexes[k];
-		if ( index != -1 ) {
+		if (index != -1) {
 			int from = commentBlock[index].indexOf(": ") + 2;
 			this.telescope = commentBlock[index].substring(from);
 		}
 		k++;
 		index = indexes[k];
-		if ( index != -1 ) {
+		if (index != -1) {
 			int from = commentBlock[index].indexOf(": ") + 2;
 			this.instrument = commentBlock[index].substring(from);
 		}
 		k++;
 		index = indexes[k];
-		if ( index != -1 ) {
+		if (index != -1) {
 			int from = commentBlock[index].indexOf(": ") + 2;
 			this.maxDistForFullCoding = Double.parseDouble(commentBlock[index].substring(from));
 		}
 		k++;
 		index = indexes[k];
-		if ( index != -1 ) {
+		if (index != -1) {
 			int from = commentBlock[index].indexOf(": ") + 2;
 			this.energyRangeMin = Double.parseDouble(commentBlock[index].substring(from));
 		}
 		k++;
 		index = indexes[k];
-		if ( index != -1 ) {
+		if (index != -1) {
 			int from = commentBlock[index].indexOf(": ") + 2;
 			this.energyRangeMax = Double.parseDouble(commentBlock[index].substring(from));
 		}
 		k++;
 		index = indexes[k];
-		if ( index != -1 ) {
+		if (index != -1) {
 			int from = commentBlock[index].indexOf(": ") + 2;
 			int to = commentBlock[index].indexOf(" s");
 			this.exposureOnTarget = Double.parseDouble(commentBlock[index].substring(from, to));

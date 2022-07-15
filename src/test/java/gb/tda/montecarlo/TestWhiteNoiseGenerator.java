@@ -43,14 +43,14 @@ public class TestWhiteNoiseGenerator {
 	double duration = 10;
 	double[] meanRates = new double[] {1., 2.0}; //, 10.};//, 50, 100., 500.};
 
-	for ( int j=0; j < meanRates.length; j++ ) {
+	for (int j=0; j < meanRates.length; j++) {
 
 	    double meanRate = meanRates[j];
 	    double[] numberOfEvents = new double[nLists];
 	    //double[] meanCountRates = new double[nLists];
 	    DoubleArrayList interArrivalTimes = new DoubleArrayList();
 
-	    for ( int i=0; i < nLists; i++ ) {
+	    for (int i=0; i < nLists; i++) {
 		
 		//  Generate the arrival times
 		double[] times = WhiteNoiseGenerator.generateArrivalTimes(meanRate, duration);
@@ -61,7 +61,7 @@ public class TestWhiteNoiseGenerator {
 		//meanCountRates[i] = nEvents/duration;
 
 		//  Add inter-arrival times
-		for ( int k=0; k < nEvents-1; k++ ) {
+		for (int k=0; k < nEvents-1; k++) {
 
 		    double dt = times[k+1] - times[k];
 		    interArrivalTimes.add(dt);
@@ -77,7 +77,7 @@ public class TestWhiteNoiseGenerator {
 	    IHistogram1D dtHisto = hf.createHistogram1D("histoOfInterArrivalTimes", nBins, lowerEdge, upperEdge);
 
 	    double[] dts = interArrivalTimes.elements();
-	    for ( int i=0; i < dts.length; i++ ) 
+	    for (int i=0; i < dts.length; i++) 
 		dtHisto.fill(dts[i]);
 
 	    //  Make histos of numberOfEvents and meanCountRates
@@ -90,7 +90,7 @@ public class TestWhiteNoiseGenerator {
 	    //upperEdge = Stats.getMax(meanCountRates);
 	    //IHistogram1D meanRatesHisto = hf.createHistogram1D("histoOfMeanCountRates", nBins, lowerEdge, upperEdge);
 
-	    for ( int i=0; i < nLists; i++ ) {
+	    for (int i=0; i < nLists; i++) {
 		nEventsHisto.fill(numberOfEvents[i]);
 		//meanRatesHisto.fill(meanCountRates[i]);
 	    }

@@ -30,15 +30,15 @@ public final class AutoRegressionGenerator {
 	int nTimes = samplingTimes.length;
 	double[] amplitudes = new double[nTimes];
 	amplitudes[0] = 0;
-	for ( int i=1; i < nTimes; i++ ) {
-	    double rho = Math.exp( -(samplingTimes[i] - samplingTimes[i-1])/tau );
-	    double noiseVariance = -Math.exp( -2*(samplingTimes[i]-samplingTimes[i-1])/tau );
+	for (int i=1; i < nTimes; i++) {
+	    double rho = Math.exp(-(samplingTimes[i] - samplingTimes[i-1])/tau);
+	    double noiseVariance = -Math.exp(-2*(samplingTimes[i]-samplingTimes[i-1])/tau);
 	    double noiseTerm = randomGauss.nextDouble(0, noiseVariance);
 	    amplitudes[i] = rho*amplitudes[i-1] + noiseTerm;
 	}
 	double min = MinMax.getMin(amplitudes);
 	min *= -1;
-	for ( int i=0; i < nTimes; i++ ) {
+	for (int i=0; i < nTimes; i++) {
 	    amplitudes[i] += min;
 	    amplitudes[i] /= 10;
 	}

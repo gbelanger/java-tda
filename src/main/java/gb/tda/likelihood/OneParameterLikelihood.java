@@ -19,7 +19,7 @@ public abstract class OneParameterLikelihood extends Likelihood {
 
     public double getLikelihood(double parameterValue, double[] data) {
 	double jointLikelihood = 1;
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    jointLikelihood *= getLikelihood(parameterValue, data[i]);
 	}
 	return jointLikelihood;
@@ -36,11 +36,11 @@ public abstract class OneParameterLikelihood extends Likelihood {
     /**  Likelihood function  **/
     public double[] getLikelihoodFunction(double[] parameterValues, double data) {
 	double[] likelihoodFunction = new double[parameterValues.length];
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] = getLikelihood(parameterValues[i], data);
 	}
 	double ml = MinMax.getMax(likelihoodFunction);
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] /= ml;
 	}
 	return likelihoodFunction;
@@ -62,11 +62,11 @@ public abstract class OneParameterLikelihood extends Likelihood {
 
     public double[] getLikelihoodFunction(double[] parameterValues, double[] data) {
 	double[] likelihoodFunction = new double[parameterValues.length];
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] = getLikelihood(parameterValues[i], data);
 	}
 	double ml = MinMax.getMax(likelihoodFunction);
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] /= ml;
 	}
 	return likelihoodFunction;
@@ -88,7 +88,7 @@ public abstract class OneParameterLikelihood extends Likelihood {
     /**  Log-Likelihood  **/
     public double getLogLikelihood(double parameterValue, double[] data) {
 	double l = 0;
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    l += getLogLikelihood(parameterValue, data[i]);
 	}
 	return l;

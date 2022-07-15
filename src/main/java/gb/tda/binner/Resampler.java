@@ -23,7 +23,7 @@ public final class Resampler {
     public static double[] resample(double[] counts, double[] oldBinEdges, double[] newBinEdges) throws BinningException {
 
 	double[] errors = new double[counts.length];
-	for ( int i=0; i < counts.length; i++ ) {
+	for (int i=0; i < counts.length; i++) {
 	    errors[i] = 1.0;
 	}
 
@@ -49,7 +49,7 @@ public final class Resampler {
 	int nNewBins = (int) newBinEdges.length/2;
 	double[] oldBinCentres = new double[nOldBins];
 	double[] oldBinWidths = new double[nOldBins];
-	for ( int i=0; i < nOldBins; i++ ) {
+	for (int i=0; i < nOldBins; i++) {
 	    oldBinCentres[i] = 0.5*(oldBinEdges[2*i] + oldBinEdges[2*i+1]);
 	    oldBinWidths[i] = oldBinEdges[2*i+1] - oldBinEdges[2*i];
 	}
@@ -78,13 +78,13 @@ public final class Resampler {
 
 	//logger.debug("i="+i+" rightNew = "+rightEdgeOfNewBin);
 
-	while ( i < nNewBins ) {
+	while (i < nNewBins) {
 
 	    boolean oldBinIsContainedInNewBin = rightEdgeOfOldBin <= (rightEdgeOfNewBin + Math.ulp(0)); 
 
 	    //logger.debug("oldBinIsContainedInNewBin = "+oldBinIsContainedInNewBin);
 
-	    while ( k < nOldBins-1 && oldBinIsContainedInNewBin ) {
+	    while (k < nOldBins-1 && oldBinIsContainedInNewBin) {
 
 		//   Enter here when the newbin contains at least 1 old bin
 		
@@ -96,7 +96,7 @@ public final class Resampler {
 
 		//   Move to the next old bin and define its edges
 		k++;
-		if ( k < nOldBins ) {
+		if (k < nOldBins) {
 
 		    leftEdgeOfOldBin = oldBinEdges[2*k];
 		    rightEdgeOfOldBin = oldBinEdges[2*k+1];
@@ -114,13 +114,13 @@ public final class Resampler {
 	    boolean weAreAtStartOrBeforeBin = rightEdgeOfNewBin <= (leftEdgeOfOldBin + Math.ulp(0));
 	    //logger.debug(rightEdgeOfNewBin+" <= "+leftEdgeOfOldBin+" = "+weAreAtStartOrBeforeBin);
 
-	    if ( weAreAtStartOrBeforeBin ) {
+	    if (weAreAtStartOrBeforeBin) {
 
 		//   We are either right at or before a bin
 		//   If there is a gap in the old bins, and therefore, the new bin ends before or at the start 
 		//   of the next old bin, write out the final rate for the new bin and reset counts to 0
 
-		if ( weightedSumOfRates != 0 ) {
+		if (weightedSumOfRates != 0) {
 
  		    rebinnedRates[i] = weightedSumOfRates/sumOfWeights;
 		    rebinnedErrors[i] = 1/Math.sqrt(sumOfWeights);
@@ -151,7 +151,7 @@ public final class Resampler {
 		weAreAtStartOrBeforeBin = rightEdgeOfNewBin <= (leftEdgeOfOldBin + Math.ulp(0));
 		//logger.debug("weAreAtStartOrBeforeBin = "+weAreAtStartOrBeforeBin);
 
-		while ( weAreAtStartOrBeforeBin ) {
+		while (weAreAtStartOrBeforeBin) {
 
 		    //logger.debug("HEY: weAreAtStartOrBeforeBin");
 		    rebinnedRates[i] = Double.NaN;
@@ -190,7 +190,7 @@ public final class Resampler {
 		boolean weAreWithinTheLastOldBin = k == nOldBins-1;
 		boolean newBinIsContainedWithinThisOldBin = rightEdgeOfNewBin <= rightEdgeOfOldBin;
 
-		if ( weAreWithinTheLastOldBin ) {
+		if (weAreWithinTheLastOldBin) {
 
 		    rightEdgeOfNewBin = Math.min(rightEdgeOfNewBin, tstop);
 		    
@@ -202,7 +202,7 @@ public final class Resampler {
 		    centreOfThisBin = oldBinCentres[k];
 		    binWidthOfThisBin = oldBinWidths[k];
 
-		    while ( i < nNewBins && newBinIsContainedWithinThisOldBin ) {
+		    while (i < nNewBins && newBinIsContainedWithinThisOldBin) {
 
 			//  The code enters here if the new bin is smaller than the old bin
 
@@ -259,7 +259,7 @@ public final class Resampler {
 			    rightEdgeOfNewBin = Math.min(newBinEdges[2*i+1], tstop);
 			    newBinIsContainedWithinThisOldBin = rightEdgeOfNewBin <= rightEdgeOfOldBin;
 			}
-			catch ( ArrayIndexOutOfBoundsException e ) {
+			catch (ArrayIndexOutOfBoundsException e) {
 			    newBinIsContainedWithinThisOldBin = rightEdgeOfNewBin <= rightEdgeOfOldBin;
 			}
 			    
@@ -288,7 +288,7 @@ public final class Resampler {
 			slopePlus = slopeMinusAndPlus[1];
 		    }
 
-		    catch ( ArrayIndexOutOfBoundsException e ) {
+		    catch (ArrayIndexOutOfBoundsException e) {
 
 			//  We are in the first bin
 
@@ -360,10 +360,10 @@ public final class Resampler {
 		    try {
 			rightEdgeOfNewBin = Math.min(newBinEdges[2*i+1], tstop);
 		    }
-		    catch ( ArrayIndexOutOfBoundsException e ) {}
+		    catch (ArrayIndexOutOfBoundsException e) {}
 		    newBinIsContainedWithinThisOldBin = rightEdgeOfNewBin <= rightEdgeOfOldBin;
 
-		    while ( i < nNewBins && newBinIsContainedWithinThisOldBin ) {
+		    while (i < nNewBins && newBinIsContainedWithinThisOldBin) {
 
 			weight=0;
 			weightedSumOfRates=0;
@@ -421,13 +421,13 @@ public final class Resampler {
 			try {
 			    rightEdgeOfNewBin = Math.min(newBinEdges[2*i+1], tstop);
 			}
-			catch ( ArrayIndexOutOfBoundsException e ) {}
+			catch (ArrayIndexOutOfBoundsException e) {}
 			newBinIsContainedWithinThisOldBin = rightEdgeOfNewBin <= rightEdgeOfOldBin;
 		    }
 
 		    //   Move to the next old bin and define its edges
 		    k++;
-		    if ( k < nOldBins ) {
+		    if (k < nOldBins) {
 			leftEdgeOfOldBin = oldBinEdges[2*k];
 			rightEdgeOfOldBin = oldBinEdges[2*k+1];
 		    }
@@ -502,13 +502,13 @@ public final class Resampler {
 	double newRatePlus = 0;
 
 	//System.out.println("nTot = "+nTot);
-	if ( deltaMinus >= deltaPlus ) {
+	if (deltaMinus >= deltaPlus) {
 	    double nu = rateMinus*deltaMinus;
 	    //System.out.println("nu = "+nu);
 	    int n = poisson.nextInt(nu);
 	    //System.out.println("n = "+n);
 	    double nTotMinusN = nTot - n;
-	    while ( nTotMinusN < 0 ) {
+	    while (nTotMinusN < 0) {
 		n = poisson.nextInt(nu);
 		//System.out.println("n = "+n);
 		nTotMinusN = nTot - n;
@@ -524,7 +524,7 @@ public final class Resampler {
 	    int n = poisson.nextInt(nu);
 	    //System.out.println("n = "+n);
 	    double nTotMinusN = nTot - n;
-	    while ( nTotMinusN < 0 ) {
+	    while (nTotMinusN < 0) {
 		n = poisson.nextInt(nu);
 		//System.out.println("n = "+n);
 		nTotMinusN = nTot - n;

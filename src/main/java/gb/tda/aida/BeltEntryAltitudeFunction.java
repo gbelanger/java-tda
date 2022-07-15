@@ -51,7 +51,7 @@ public class BeltEntryAltitudeFunction extends AbstractIFunction {
 	    "xOffset2",
 	    "amplitude2"
 	};
-	for ( int i=0; i < nPars; i++ ) {
+	for (int i=0; i < nPars; i++) {
 	    parameterNames[i] = parNames[i];
 	}
 	super.init(title);

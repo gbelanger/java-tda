@@ -29,16 +29,16 @@ public final class PowerCalculator {
 	double kOmega = harmonic*omega;
 	double expectedMeanCos = (Math.sin(kOmega*tlast) - Math.sin(kOmega*tfirst)) / (kOmega*duration);
 	double expectedMeanSin = (Math.cos(kOmega*tfirst) - Math.cos(kOmega*tlast)) / (kOmega*duration);
-	double crossTerm = ( Math.sin(kOmega*tlast)*Math.cos(kOmega*tlast) - Math.sin(kOmega*tfirst)*Math.cos(kOmega*tfirst) ) / (2*kOmega*duration);
+	double crossTerm = (Math.sin(kOmega*tlast)*Math.cos(kOmega*tlast) - Math.sin(kOmega*tfirst)*Math.cos(kOmega*tfirst)) / (2*kOmega*duration);
 	double varianceOfCos = (0.5 + crossTerm - Math.pow(expectedMeanCos, 2))/nevents;
 	double varianceOfSin = (0.5 - crossTerm - Math.pow(expectedMeanSin, 2))/nevents;
-	double SinSqrdTerm = ( Math.pow(Math.sin(kOmega*tlast), 2) - Math.pow(Math.sin(kOmega*tfirst), 2) ) / (2*kOmega*duration);
+	double SinSqrdTerm = (Math.pow(Math.sin(kOmega*tlast), 2) - Math.pow(Math.sin(kOmega*tfirst), 2)) / (2*kOmega*duration);
 	double covarianceOfCosSin = (SinSqrdTerm - expectedMeanCos*expectedMeanSin)/nevents;
 	//logger.info(expectedMeanCos+"	"+expectedMeanSin+"	"+crossTerm);
 	//   Calculate C and S  
 	double meanCos = 0;
 	double meanSin = 0;
-	for ( int i=0; i < nevents; i++ ) {
+	for (int i=0; i < nevents; i++) {
 	    double tOverP = times[i]/period;
 	    double phase = tOverP - Math.floor(tOverP);
 	    phase *= 2*Math.PI;
@@ -95,7 +95,7 @@ public final class PowerCalculator {
     public static double getModRayleighPower(double[] times, double[] rates, double period, double mean) {
 	int harmonic = 1;
 	double[] errors = new double[rates.length];
-	for ( int i=0; i < rates.length; i++ ) errors[i] = 1.0;
+	for (int i=0; i < rates.length; i++) errors[i] = 1.0;
 	return getModRayleighPower(times, rates, errors, period, mean, harmonic);
     }
 	
@@ -127,7 +127,7 @@ public final class PowerCalculator {
 	double sumOfCSqrd = 0;
 	double sumOfSSqrd = 0;
 	double cov = 0;
-	for ( int i=1; i < times.length; i++ ) {
+	for (int i=1; i < times.length; i++) {
 	    double tOverP = times[i]/period;
 	    double phase = tOverP - Math.floor(tOverP);
 	    phase *= 2*Math.PI;
@@ -191,7 +191,7 @@ public final class PowerCalculator {
 	double sumOfCos2wt = 0;
 	double w = 2*Math.PI/period;
 	//   Calculate tau for the given test frequency  
-	for ( int i=0; i < times.length; i ++ ) {
+	for (int i=0; i < times.length; i ++) {
 	    sumOfSin2wt += Math.sin(2*w*times[i]);
 	    sumOfCos2wt += Math.cos(2*w*times[i]);
 	}
@@ -201,7 +201,7 @@ public final class PowerCalculator {
 	double sumOfWeightedSin = 0;
 	double sumOfSqrdCos = 0;
 	double sumOfSqrdSin = 0;
-	for ( int i=0; i < times.length; i ++ ) {
+	for (int i=0; i < times.length; i ++) {
 	    sumOfWeightedCos += (rates[i] - mean)*Math.cos(w*(times[i] - tau));
 	    sumOfWeightedSin += (rates[i] - mean)*Math.sin(w*(times[i] - tau));
 	    sumOfSqrdCos += Math.pow(Math.cos(w*(times[i] - tau)), 2);
@@ -222,7 +222,7 @@ public final class PowerCalculator {
 	// logger.warn("  Times assumed to start at 0");
 	// TIMES ASSUMED TO BE RESET TO ZERO
 	double z2 = 0;
-	for ( int k=1; k <= nHarm; k++ ) {
+	for (int k=1; k <= nHarm; k++) {
 	    z2 += getCorrectedPowerForThisHarmonic(times, period, k);
 	}
 	// logger.info("Power = "+z2);
@@ -240,8 +240,8 @@ public final class PowerCalculator {
 	double s = 0;
 	double z2 = 0;
 	double nTot = (double) times.length;
-	for ( int k=0; k < nHarm; k++ ) {
-	    for ( int i=0; i < nTot; i++ ) {
+	for (int k=0; k < nHarm; k++) {
+	    for (int i=0; i < nTot; i++) {
 		double tOverP = times[i]/period;
 		double phase = tOverP - Math.floor(tOverP);
 		phase *= 2*Math.PI*(k+1);
@@ -259,8 +259,8 @@ public final class PowerCalculator {
 	double[] c = new double[nHarm]; 
 	double[] s = new double[nHarm];
 	double z2 = 0;
-	for ( int k=0; k < nHarm; k++ ) {
-	    for ( int i=0; i < nTot; i++ ) {
+	for (int k=0; k < nHarm; k++) {
+	    for (int i=0; i < nTot; i++) {
 		double phase = 2*Math.PI*phases[i]*(k+1);
 		c[k] += Math.cos(phase);
 		s[k] += Math.sin(phase);
@@ -281,8 +281,8 @@ public final class PowerCalculator {
 	double remainder = cycles - ncycles;
 	double timeAtLastCycle = period*ncycles + times[0];
 	//int eventsInLastCycle = 0;
-	//for ( int i=0; i < times.length; i++ ) {
-	//if ( times[i] > timeAtLastCycle ) eventsInLastCycle++;
+	//for (int i=0; i < times.length; i++) {
+	//if (times[i] > timeAtLastCycle) eventsInLastCycle++;
 
 	    //logger.info(times[i]+" "+timeAtLastCycle+" "+eventsInLastCycle);
 	//}
@@ -294,8 +294,8 @@ public final class PowerCalculator {
 		
 	//  CASE 1
 	//  Construct phases using all events. Each array element is the sum on 1 harm
-	for ( int k=0; k < nHarm; k++ ) {
-	    for ( int i=0; i < nTot; i++ ) {
+	for (int k=0; k < nHarm; k++) {
+	    for (int i=0; i < nTot; i++) {
 		double tOverP = times[i]/period;
 		double phase = tOverP - Math.floor(tOverP);
 		phase *= 2*Math.PI*(k+1);
@@ -307,22 +307,22 @@ public final class PowerCalculator {
 		
 	// //  CASE 2
 	// //  Construct phases excluding the events in the last partial cycle
-	// for ( int k=0; k < nHarm; k++ ) {
- 	//     for ( int i=0; i < nEventsUsed; i++ ) {
+	// for (int k=0; k < nHarm; k++) {
+ 	//     for (int i=0; i < nEventsUsed; i++) {
 	// 	double tOverP = times[i]/period;
 	// 	double phase = tOverP - Math.floor(tOverP);
 	// 	phase *= 2*Math.PI*(k+1);
-	// 	c[k] += Math.cos( phase );
-	// 	s[k] += Math.sin( phase );
+	// 	c[k] += Math.cos(phase);
+	// 	s[k] += Math.sin(phase);
 	//     }
 	//     z2 += (2/nEventsUsed)*(Math.pow(c[k], 2) + Math.pow(s[k], 2));
 	// }
 		
 	// //  CASE 3
 	// //  Construct phases by using the first events to complete the last partial cycle
-	// for ( int k=0; k < nHarm; k++ ) {
-	//     for ( int i=0; i < nTot; i++ ) {
-	// 	if ( i < nEventsUsed ) {
+	// for (int k=0; k < nHarm; k++) {
+	//     for (int i=0; i < nTot; i++) {
+	// 	if (i < nEventsUsed) {
 	// 	    phase = times[i]/period; 
 	// 	}
 	// 	else {
@@ -336,7 +336,7 @@ public final class PowerCalculator {
 	//     z2 += (2/nTot)*(Math.pow(c[k], 2) + Math.pow(s[k], 2));
 	// }
 		
-	// 	//  Normalize alpha[0] and beta[0] ( first harmonic )
+	// 	//  Normalize alpha[0] and beta[0] (first harmonic)
 	// 	double alpha_0 = alpha[0]*Math.sqrt(2/nTot);
 	// 	double beta_0 = beta[0]*Math.sqrt(2/nTot);
 		
@@ -356,8 +356,8 @@ public final class PowerCalculator {
 	double timeAtLastCycle = period*ncycles + times[0];
 	double nTot = (double) times.length;
 	//int eventsInLastCycle = 0;
-	// 	for ( int i=0; i < times.length; i++ ) {
-	// 	    if ( times[i] > timeAtLastCycle ) eventsInLastCycle++;
+	// 	for (int i=0; i < times.length; i++) {
+	// 	    if (times[i] > timeAtLastCycle) eventsInLastCycle++;
 	// 	    //logger.info(times[i]+" "+timeAtLastCycle+" "+eventsInLastCycle);
 	// 	}
 	//int nEventsUsed = (new Double(nTot - eventsInLastCycle)).intValue();
@@ -373,12 +373,12 @@ public final class PowerCalculator {
 	//  Construct phases, alpha and beta using all events
 	double z2 = 0;
 	int nUsed = 0;
-	for ( int k=0; k < nHarm; k++ ) {
-	    for ( int i=0; i < nTot; i++ ) {
+	for (int k=0; k < nHarm; k++) {
+	    for (int i=0; i < nTot; i++) {
 		double tOverP = times[i]/period;
 		double phase = tOverP - Math.floor(tOverP);
 		phase *= 2*Math.PI*(k+1);
-		if ( ! Double.isNaN(rate[i]) ) {
+		if (! Double.isNaN(rate[i])) {
 		    c[k] += rate[i]*Math.cos(phase);
 		    s[k] += rate[i]*Math.sin(phase);
 		    cErr[k] += Math.pow(error[i]*Math.cos(phase), 2);
@@ -406,7 +406,7 @@ public final class PowerCalculator {
 	// 	//  Determine optimum number of harmonics
 	// 	double[] z2_values = new double[20]; 
 	// 	double[] h_values = new double[20];
-	// 	for ( int nHarm=0; nHarm < 20; nHarm++ ) {
+	// 	for (int nHarm=0; nHarm < 20; nHarm++) {
 	// 	    z2_values[nHarm] = getZ2_value(times, period, nHarm+1);
 	// 	    h_values[nHarm] = z2_values[nHarm] - 4*(nHarm+1) + 4;
 	// 	    //logger.info("nHarm = "+(nHarm+1)+
@@ -414,7 +414,7 @@ public final class PowerCalculator {
 	// 	    //	       "	 H = "+h_values[nHarm]);
 	// 	}
 	// 	double maxH = MinMax.getMax(h_values);
-	// 	for ( int i=0; i < h_values.length; i++ ) logger.info(i+" "+h_values[i]+" "+maxH);
+	// 	for (int i=0; i < h_values.length; i++) logger.info(i+" "+h_values[i]+" "+maxH);
 	// 	//int m = Arrays.binarySearch(h_values, maxH);
 	// 	//logger.info(m+1);
 	// 	return h_values[0];
@@ -432,10 +432,10 @@ public final class PowerCalculator {
 	double h_value = z2 - 4*nHarm + 4;
 	//  Calculate probability associated with that H-value
 	double a = 0, b = 0, c = 0;
-	if ( h_value <= 23 ) {
+	if (h_value <= 23) {
 	    a = 0.9999755;  b = -0.39802;  c = 0;
 	}
-	else if ( h_value > 23 && h_value <= 50 ) {
+	else if (h_value > 23 && h_value <= 50) {
 	    a = 1.210597;  b = -0.45901;  c = 0.00229;
 	}
 	else { a = 0;  b = 0;  c = 0; }

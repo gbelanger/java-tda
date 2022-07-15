@@ -32,7 +32,7 @@ public final class DataUtils {
 
     public static double[] shift(double[] data, double delta) {
 	double[] shiftedData = new double[data.length];
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    shiftedData[i] = data[i] + delta;
 	}
 	return shiftedData;
@@ -40,21 +40,21 @@ public final class DataUtils {
 
     public static double[] subtract(double[] data, double valueToSubtract) {
 	double[] newData = new double[data.length];
-	for ( int i=0; i < data.length; i++ )
+	for (int i=0; i < data.length; i++)
 	    newData[i] = data[i] - valueToSubtract;
 	return newData;
     }
 
     public static double[] subtract(double[] data, double[] valuesToSubtract) {
 	double[] newData = new double[data.length];
-	for ( int i=0; i < data.length; i++ )
+	for (int i=0; i < data.length; i++)
 	    newData[i] = data[i] - valuesToSubtract[i];
 	return newData;
     }
 
     public static double[] scale(double[] data, double scaling) {
 	double[] newData = new double[data.length];
-	for ( int i=0; i < data.length; i++ )
+	for (int i=0; i < data.length; i++)
 	    newData[i] = data[i]*scaling;
 	return newData;
     }
@@ -67,7 +67,7 @@ public final class DataUtils {
 	int n = data.length;
 	double[] zeroedData = new double[n];
 	double zero = data[0];
-	for ( int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 	    zeroedData[i] = data[i] - zero + addedPositiveOffset;
 	}
 	return zeroedData;
@@ -79,7 +79,7 @@ public final class DataUtils {
  	MersenneTwister64 randomEngine = new MersenneTwister64(new java.util.Date());
  	Uniform uniform = new Uniform(0, (n-1), randomEngine);
 	int idx = 0;
-	for ( int i=0; i < nevents; i++ ) {
+	for (int i=0; i < nevents; i++) {
 	    idx = uniform.nextInt();
 	    bootData[i] = data[idx];
 	}
@@ -94,7 +94,7 @@ public final class DataUtils {
 // 	int nbins = (new Double(Math.ceil(data.length/10D))).intValue() + 2;
 // 	FixedAxis axis = new FixedAxis(nbins, 0, (data.length));
 // 	Histogram1D histoOfIndexes = new Histogram1D(" "," ", axis);
-	for ( int i=0; i < randomData.length; i++ ) {
+	for (int i=0; i < randomData.length; i++) {
 	    int randomIndex = uniform.nextInt();
  	    randomData[i] = data[randomIndex];
 	    // 	    histoOfIndexes.fill(randomIndex);
@@ -116,11 +116,11 @@ public final class DataUtils {
 	logger.info("Dropping leading NaNs forwards from first element");
 	DoubleArrayList dataList = new DoubleArrayList();
 	int k=0;
-	while ( Double.isNaN(data[k]) ) {
+	while (Double.isNaN(data[k])) {
 	    k++;
 	}
 	// Fill list with rest of data array
-	while ( k < data.length ) {
+	while (k < data.length) {
 	    dataList.add(data[k]);
 	    k++;
 	}
@@ -128,11 +128,11 @@ public final class DataUtils {
 	logger.info("Dropping trailing NaNs backwards from last element");
 	k = dataList.size() - 1;
 	int count = 0;
-	while ( Double.isNaN(dataList.get(k)) ) {
+	while (Double.isNaN(dataList.get(k))) {
 	    count++;
 	    k--;
 	}
-	if ( count > 0 ) {
+	if (count > 0) {
 	    int first = dataList.size() - count;
 	    int last = dataList.size() - 1;
 	    dataList.removeFromTo(first, last);
@@ -148,7 +148,7 @@ public final class DataUtils {
 
 	// Make list of all the NaNs within the data
 	IntArrayList indexListOfNaNs = getIndexListOfNaNs(dataList);
-	if ( indexListOfNaNs.size() > 0 ) {
+	if (indexListOfNaNs.size() > 0) {
 
 	    //  Get the avg fluctuation from bin to bin for the whole data set
 	    double[] avgAndVar = BasicStats.getAvgAndVarOfDiffsBetweenBins(dataList);
@@ -159,25 +159,25 @@ public final class DataUtils {
 
 	    //  Go through the NaNs and fill
 	    int i=0;
-	    while ( i < indexListOfNaNs.size() ) {
+	    while (i < indexListOfNaNs.size()) {
 		int idx = indexListOfNaNs.getQuick(i);
 		double previousValue = dataList.get(idx-1);
 		int idxOfNextNonNaN = idx+1;
 		double nextValue = dataList.get(idxOfNextNonNaN);
 		int gapSize = 1;
-		while ( Double.isNaN(nextValue) ) {
+		while (Double.isNaN(nextValue)) {
 		    idxOfNextNonNaN++;
 		    nextValue = dataList.get(idxOfNextNonNaN);
 		    gapSize++;
 		}
-		if ( gapSize == 1 ) {
+		if (gapSize == 1) {
 		    double basicFillValue = 0.5*(previousValue + nextValue); 
 		    //  Add noise to basicFillValue
 
 		    /** This is not correct  **/
 
 		    double uncertainty = globalNoise.nextDouble();
-		    if ( Math.random() < 0.5 ) {
+		    if (Math.random() < 0.5) {
 			uncertainty *= -1;
 		    }
 		    double noisyFillValue = basicFillValue + uncertainty;
@@ -211,7 +211,7 @@ public final class DataUtils {
 
 		    //  Fill the gap
  		    DoubleArrayList gap = (DoubleArrayList) dataList.partFromTo(idx, idx+gapSize-1);
- 		    while ( thereAreNaNs(gap) ) {
+ 		    while (thereAreNaNs(gap)) {
 
 			//  Get value randomly from next block
 			int randomIdx = uniform.nextIntFromTo(0, nextBlockSize-1);
@@ -221,7 +221,7 @@ public final class DataUtils {
 			// debugging: weightForNext = 0.5;
 			int trials = 0;
 			int maxTrials = 2*nextBlockSize;
-			while ( trials < maxTrials && Double.isNaN(valueFromNextBlock) ) {
+			while (trials < maxTrials && Double.isNaN(valueFromNextBlock)) {
 			/**  There is a problem with this: why nextInt() which gives 0 or 1 **/
 			    valueFromNextBlock = nextDataBlock.get(uniform.nextInt());
 			    trials++;
@@ -234,7 +234,7 @@ public final class DataUtils {
 			//debugging: weightForPrevious = 0.5;
 			trials = 0;
 			maxTrials = 2*previousBlockSize;
-			while ( trials < maxTrials && Double.isNaN(valueFromPreviousBlock) ) {
+			while (trials < maxTrials && Double.isNaN(valueFromPreviousBlock)) {
 			/**  There is a problem with this: why nextInt() which gives 0 or 1 **/
 			    valueFromPreviousBlock = previousDataBlock.get(uniform.nextInt());
 			    trials++;
@@ -244,12 +244,12 @@ public final class DataUtils {
 
 			//  Add noise to basicFillValue
 			double uncertainty = noise.nextDouble();
-			if ( bothDataBlocks.size() < 5 ) {
+			if (bothDataBlocks.size() < 5) {
 			    uncertainty = globalNoise.nextDouble();
 			}
 			
 			/**  There is something wrong with negative uncertainty  **/
-			if ( Math.random() < 0.5 ) {
+			if (Math.random() < 0.5) {
 			    uncertainty *= -1;
 			}
 			double noisyFillValue = basicFillValue + uncertainty;
@@ -267,8 +267,8 @@ public final class DataUtils {
     private static IntArrayList getIndexListOfNaNs(DoubleArrayList dataList) {
 	//  WARN: Input list must be without leading or trailing NaNs
 	IntArrayList indexListOfNaNs = new IntArrayList();
-	for ( int i=0; i < dataList.size(); i++ ) {
-	    if ( Double.isNaN(dataList.getQuick(i)) ) {
+	for (int i=0; i < dataList.size(); i++) {
+	    if (Double.isNaN(dataList.getQuick(i))) {
 		indexListOfNaNs.add(i);
 	    }
 	}
@@ -280,11 +280,11 @@ public final class DataUtils {
 	boolean thereAreNaNs = true;
 	try {
 	    int i=0;
-	    while ( !Double.isNaN(dataList.get(i)) ) {
+	    while (!Double.isNaN(dataList.get(i))) {
 		i++;
 	    }
 	}
-	catch ( IndexOutOfBoundsException e ) {
+	catch (IndexOutOfBoundsException e) {
 	    thereAreNaNs = false;
 	}
 	return thereAreNaNs;
@@ -293,13 +293,13 @@ public final class DataUtils {
     private static boolean allValuesAreNaN(DoubleArrayList dataList) {
 	int i=0;
 	int count=0;
-	while ( i < dataList.size() ) {
-	    if ( Double.isNaN(dataList.get(i)) ) {
+	while (i < dataList.size()) {
+	    if (Double.isNaN(dataList.get(i))) {
 		count++;
 	    }
 	    else i++;
 	}
-	if ( count == dataList.size() ) {
+	if (count == dataList.size()) {
 	    return true;
 	}
 	else {
@@ -315,13 +315,13 @@ public final class DataUtils {
 	    //  Make sure we stay within the data
 	    to = Math.min(to, dataList.size()-1);
 	    nextDataBlock = (DoubleArrayList) dataList.partFromTo(from, to);
-	    while ( allValuesAreNaN(nextDataBlock) ) {
+	    while (allValuesAreNaN(nextDataBlock)) {
 		from = to + 1;
 		to = from + blockSize;
 		nextDataBlock = (DoubleArrayList) dataList.partFromTo(from, to);
 	    }
 	}
-	catch ( IndexOutOfBoundsException e ) {
+	catch (IndexOutOfBoundsException e) {
 	    throw new IndexOutOfBoundsException("All subsequent data are NaN");
 	}
 	return nextDataBlock;
@@ -335,13 +335,13 @@ public final class DataUtils {
 	    //  Make sure we stay within the data
 	    from = Math.max(from, 0);
 	    previousDataBlock = (DoubleArrayList) dataList.partFromTo(from, to);
-	    while ( allValuesAreNaN(previousDataBlock) ) {
+	    while (allValuesAreNaN(previousDataBlock)) {
 		to = from - 1;
 		from -= blockSize;
 		previousDataBlock = (DoubleArrayList) dataList.partFromTo(from, to);		
 	    }
 	}
-	catch ( IndexOutOfBoundsException e ) {
+	catch (IndexOutOfBoundsException e) {
 	    throw new IndexOutOfBoundsException("All previous data are NaN");
 	}
 	return previousDataBlock;
@@ -353,29 +353,29 @@ public final class DataUtils {
 	int k = 0;
 	int index = 0;
 	// valueToFind is less than smallest data value
-	if ( valueToFind < min ) {
+	if (valueToFind < min) {
 	    logger.warn("Value to find ("+valueToFind+") is lesser than first element ("+min+")");
 	    logger.warn("Returning index = 0");
 	    index = 0;
 	}
 	// valueToFind is greater than largest data value
-	else if ( valueToFind > max ) {
+	else if (valueToFind > max) {
 	    logger.warn("Value to find ("+valueToFind+") is greater than last element ("+max+")");
 	    logger.warn("Returning index = data.length-1");
 	    index = data.length-1;
 	}
 	// valueToFind is within data value range
 	else {
-	    while ( valueToFind > data[k] ) {
+	    while (valueToFind > data[k]) {
 		k++;
 	    }
-	    if ( valueToFind == data[k] ) {
+	    if (valueToFind == data[k]) {
 		index = k;
 	    }
 	    else {
 		double distFromPrevious = valueToFind - data[k-1];
 		double distToNext = data[k] - valueToFind;
-		if ( distFromPrevious < distToNext ) {
+		if (distFromPrevious < distToNext) {
 		    index = k-1;
 		}
 		else {
@@ -389,11 +389,11 @@ public final class DataUtils {
     public static int getIndex(double valueToFind, double[] data) {
 		int k=0;
 		try {
-		    while ( data[k] != valueToFind ) {
+		    while (data[k] != valueToFind) {
 			k++;
 		    }
 		}
-		catch ( ArrayIndexOutOfBoundsException e ) {
+		catch (ArrayIndexOutOfBoundsException e) {
 		    logger.warn("Value not found in the data. Returning -1");
 		    k=-1;
 		}
@@ -403,11 +403,11 @@ public final class DataUtils {
     public static int getIndex(String stringToFind, String[] stringData) {
 		int k=0;
 		try {
-		    while ( !stringData[k].equals(stringToFind) ) {
+		    while (!stringData[k].equals(stringToFind)) {
 			k++;
 		    }
 		}
-		catch ( ArrayIndexOutOfBoundsException e ) {
+		catch (ArrayIndexOutOfBoundsException e) {
 		    logger.warn("Value not found in the data. Returning -1");
 		    k=-1;
 		}
@@ -417,9 +417,9 @@ public final class DataUtils {
     public static int[] getAllIndexes(double valueToFind, double precision, double[] data) {
 	IntArrayList list = new IntArrayList();
 	int k=0;
-	while ( k < data.length-1 ) {
+	while (k < data.length-1) {
 	    double diff = Math.abs(valueToFind - data[k]);
-	    if ( diff <= precision ) {
+	    if (diff <= precision) {
 		list.add(k);
 	    }
 	    k++;
@@ -448,7 +448,7 @@ public final class DataUtils {
 	int index = getIndex(max, data);
 	double valueOnLeft = max;
 	int k=1;
-	while ( valueOnLeft > (max/2) ) {
+	while (valueOnLeft > (max/2)) {
 	    valueOnLeft = data[index-k];
 	    //logger.info("k = "+k+"	 valueOnLeft = "+valueOnLeft);
 	    k++;
@@ -457,13 +457,13 @@ public final class DataUtils {
 	int leftIndex = index-k;
 	double absoluteDiffOfCurrent = Math.abs((max/2)-data[leftIndex]);
 	double absoluteDiffOfPrevious = Math.abs((max/2)-data[leftIndex+1]);
-	if ( absoluteDiffOfPrevious < absoluteDiffOfCurrent ) {
+	if (absoluteDiffOfPrevious < absoluteDiffOfCurrent) {
 	    leftIndex++;
 	    valueOnLeft = data[leftIndex];
 	}
 	double valueOnRight = max;
 	k=1;
-	while ( valueOnRight > (max/2) ) {
+	while (valueOnRight > (max/2)) {
 	    valueOnRight = data[index+k];
 	    //logger.info("k = "+k+"	 valueOnRight = "+valueOnRight);
 	    k++;
@@ -472,7 +472,7 @@ public final class DataUtils {
 	int rightIndex = index+k;
 	absoluteDiffOfCurrent = Math.abs((max/2)-data[rightIndex]);
 	absoluteDiffOfPrevious = Math.abs((max/2)-data[rightIndex-1]);
-	if ( absoluteDiffOfPrevious < absoluteDiffOfCurrent ) {
+	if (absoluteDiffOfPrevious < absoluteDiffOfCurrent) {
 	    rightIndex--;
 	    valueOnRight = data[rightIndex];
 	}
@@ -483,10 +483,10 @@ public final class DataUtils {
     public static double findClosestValueSmallerThan(double valueToFind, double[] orderedData) {
 	int binIndex = -(Arrays.binarySearch(orderedData, valueToFind) +1);
 	double value = orderedData[binIndex]; 
-	if ( value == valueToFind ) {
+	if (value == valueToFind) {
 	    return value;
 	}
-	else if ( binIndex == 0 ) {
+	else if (binIndex == 0) {
 	    return orderedData[binIndex];
 	}
 	else {
@@ -500,7 +500,7 @@ public final class DataUtils {
 	try {
 	    value = orderedData[binIndex]; 
 	}
-	catch ( ArrayIndexOutOfBoundsException e ) {
+	catch (ArrayIndexOutOfBoundsException e) {
 	    value = orderedData[orderedData.length-1];
 	}
 	return value;
@@ -514,10 +514,10 @@ public final class DataUtils {
 	int ysize = dims[1];
 	float pixValue = 0;
 	int x=0, y=0;
-	while ( pixValue != max && y < ysize ) {
-	    for ( x=0; x < xsize; x++ ) {
+	while (pixValue != max && y < ysize) {
+	    for (x=0; x < xsize; x++) {
 		pixValue = data[y][x];
-		if ( pixValue == max ) {
+		if (pixValue == max) {
 		    maxXY[0] = x+1;
 		    maxXY[1] = y+1;
 		}
@@ -535,10 +535,10 @@ public final class DataUtils {
 	int ysize = dims[1];
 	double pixValue = 0;
 	int x=0, y=0;
-	while ( pixValue != max && y < ysize ) {
-	    for ( x=0; x < xsize; x++ ) {
+	while (pixValue != max && y < ysize) {
+	    for (x=0; x < xsize; x++) {
 		pixValue = data[y][x];
-		if ( pixValue == max ) {
+		if (pixValue == max) {
 		    maxXY[0] = x+1;
 		    maxXY[1] = y+1;
 		}
@@ -550,7 +550,7 @@ public final class DataUtils {
 
     public static double[] getSpacings(double[] data) {
 	double[] spacings = new double[data.length-1];
-	for ( int i=0; i < data.length-1; i++ ) {
+	for (int i=0; i < data.length-1; i++) {
 	    spacings[i] = data[i+1] - data[i];
 	}
     	return spacings;
@@ -573,8 +573,8 @@ public final class DataUtils {
     public static double getHalfRangePos(double[] data) {
 	double posHalfRange = 0;
 	double mean = BasicStats.getMean(data);
-	for ( int i=0; i < data.length; i++ )
-	    if ( !Double.isNaN(data[i]) && data[i] >= mean ) 
+	for (int i=0; i < data.length; i++)
+	    if (!Double.isNaN(data[i]) && data[i] >= mean) 
 		posHalfRange = Math.max(posHalfRange, data[i] - mean);
 	return posHalfRange;
     }
@@ -582,30 +582,30 @@ public final class DataUtils {
     public static double getHalfRangeNeg(double[] data) {
 	double negHalfRange = 0;
 	double mean = BasicStats.getMean(data);
-	for ( int i=0; i < data.length; i++ )
-	    if ( !Double.isNaN(data[i]) && data[i] <= mean ) 
+	for (int i=0; i < data.length; i++)
+	    if (!Double.isNaN(data[i]) && data[i] <= mean) 
 		negHalfRange = Math.max(negHalfRange, mean - data[i]);
 	return negHalfRange;
     }
 
     public static int getNumOfGoodValues(double[] data) {
 	int n = 0;
-	for ( int i=0; i < data.length; i++ )
-	    if ( !Double.isNaN(data[i]) ) n++;
+	for (int i=0; i < data.length; i++)
+	    if (!Double.isNaN(data[i])) n++;
 	return n;
     }
 	
     public static int getNumOfGoodValues(float[] data) {
 	int n = 0;
-	for ( int i=0; i < data.length; i++ )
-	    if ( !Double.isNaN(data[i]) ) n++;
+	for (int i=0; i < data.length; i++)
+	    if (!Double.isNaN(data[i])) n++;
 	return n;
     }
 	
     public static int getNumOfGoodValues(int[] data) {
 	int n = 0;
-	for ( int i=0; i < data.length; i++ )
-	    if ( !Double.isNaN(data[i]) ) n++;
+	for (int i=0; i < data.length; i++)
+	    if (!Double.isNaN(data[i])) n++;
 	return n;
     }
 

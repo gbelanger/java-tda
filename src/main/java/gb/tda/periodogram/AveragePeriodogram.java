@@ -106,7 +106,7 @@ public class AveragePeriodogram extends Periodogram {
 
 	//  Compute the half error bar
 	double[] halfErrors = new double[errors.length];
-	for ( int i=0; i<errors.length; i++ ) {
+	for (int i=0; i<errors.length; i++) {
 	    halfErrors[i] = errors[i]/2d;
 	}
 
@@ -115,14 +115,14 @@ public class AveragePeriodogram extends Periodogram {
 	try {
 
 	    out = new AsciiDataFileWriter(filename);
-	    if ( this.binWidthIsConstant ) {
+	    if (this.binWidthIsConstant) {
 		out.writeData(header1, freqs, powers, halfErrors);
 	    }
 	    else {
 		out.writeData(header2, freqs, halfBinWidths, powers, halfErrors);
 	    }
 	}
-	catch ( IOException ex ) {
+	catch (IOException ex) {
 
 	    System.out.println("Cannot write to file "+filename+" "+ex);
 	    System.exit(-1);

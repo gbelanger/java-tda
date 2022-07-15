@@ -10,7 +10,7 @@ public class TestRunningAve {
     public static void main (String[] args) {
 
 	int n = 0;
-	if ( args.length != 1 ) {
+	if (args.length != 1) {
 	    System.out.println("Usage: java TestRunningAve nNumbers");
 	    System.exit(-1);
 	}
@@ -20,7 +20,7 @@ public class TestRunningAve {
 	Normal randGauss = new Normal(10, 2, eng);
 	double[] numbers = new double[n];
 	System.out.println("Log  : Generating numbers");
-	for ( int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 	    numbers[i] = randGauss.nextDouble();
 	}
 

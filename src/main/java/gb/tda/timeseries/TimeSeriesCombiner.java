@@ -14,7 +14,7 @@ public final class TimeSeriesCombiner {
 		logger.info("Subtracting a constant ("+constant+")");
 		double[] newIntensities = new double[ts.nElements()];
 		double[] oldIntensities = ts.getIntensities();
-		for ( int i=0; i < ts.nElements(); i++ ) {
+		for (int i=0; i < ts.nElements(); i++) {
 			newIntensities[i] = oldIntensities[i] - constant;
 		}
 		ts.setIntensities(newIntensities);
@@ -30,7 +30,7 @@ public final class TimeSeriesCombiner {
 		double[] intensities1  = ts1.getIntensities();
 		double[] intensities2 = ts2.getIntensities();
 		double[] subtracted = new double[ts1.nBins()];
-		for ( int i=0; i < ts1.nBins(); i++ ) {
+		for (int i=0; i < ts1.nBins(); i++) {
 			subtracted[i] = intensities1[i] - intensities2[i];
 		}
 		ts1.setIntensities(subtracted);
@@ -57,7 +57,7 @@ public final class TimeSeriesCombiner {
 		logger.info("Adding a constant ("+constant+")");
 		double[] newIntensities = new double[ts.nElements()];
 		double[] oldIntensities = ts.getIntensities();
-		for ( int i=0; i < ts.nElements(); i++ ) {
+		for (int i=0; i < ts.nElements(); i++) {
 			newIntensities[i] = oldIntensities[i] + constant;
 		}
 		ts.setIntensities(newIntensities);
@@ -73,7 +73,7 @@ public final class TimeSeriesCombiner {
 		double[] intensities1  = ts1.getIntensities();
 		double[] intensities2 = ts2.getIntensities();
 		double[] subtracted = new double[ts1.nBins()];
-		for ( int i=0; i < ts1.nBins(); i++ ) {
+		for (int i=0; i < ts1.nBins(); i++) {
 			subtracted[i] = intensities1[i] + intensities2[i];
 		}
 		ts1.setIntensities(subtracted);
@@ -102,7 +102,7 @@ public final class TimeSeriesCombiner {
 		double[] newUncertainties = new double[lc.nElements()];
 		double[] intensities = lc.getIntensities();
 		double[] uncertainties = lc.getUncertainties();
-		for ( int i=0; i < lc.nElements(); i++ ) {
+		for (int i=0; i < lc.nElements(); i++) {
 		    newIntensities[i] = intensities[i]*scalingFactor;
 			newUncertainties[i] = uncertainties[i]*scalingFactor;
 		}
@@ -118,7 +118,7 @@ public final class TimeSeriesCombiner {
 		double weight2 = 0;
 		double sumOfWeights = 0;
 		double weightedSum = 0;
-		for ( int i=0; i < nCommonBins; i++ ) {
+		for (int i=0; i < nCommonBins; i++) {
 		    weight1 = 1/Math.pow(errors1[i], 2);
 		    weight2 = 1/Math.pow(errors2[i], 2);
 		    sumOfWeights = weight1 + weight2;

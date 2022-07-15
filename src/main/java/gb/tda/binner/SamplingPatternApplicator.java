@@ -74,7 +74,7 @@ public final class SamplingPatternApplicator {
     	newIntensityBinsList.trimToSize();
     	int nObservedBins = newIntensityBinsList.size();
     	DensityBin[] observedIntensityBins = new DensityBin[nObservedBins];
-    	for (int j = 0; j < nObservedBins; j++ ) {
+    	for (int j = 0; j < nObservedBins; j++) {
     		observedIntensityBins[j] = (DensityBin) newIntensityBinsList.get(j);
     	}
     	return observedIntensityBins;
@@ -213,7 +213,7 @@ public final class SamplingPatternApplicator {
 			    
 		// 	    //   Move to the next old bin and define its edges
 		// 	    k++;
-		// 	    if ( k < nIntensityBins ) {
+		// 	    if (k < nIntensityBins) {
 		// 			logger.info("  Moving to the next old bin (k="+k+")");
 		// 			thisOldBin = new DensityBin(intensityBins[k]);
 		// 	    }

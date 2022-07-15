@@ -51,7 +51,7 @@ public class Complex {
 
 	int nRealNumbers = realNumbers.length;
 	Complex[] complexArray = new Complex[nRealNumbers];
-	for ( int i=0; i < nRealNumbers; i++ )
+	for (int i=0; i < nRealNumbers; i++)
 	    complexArray[i] = new Complex(realNumbers[i], 0);
 	return complexArray;
     }
@@ -60,7 +60,7 @@ public class Complex {
 
 	int nNumbers = complexArray.length;
 	double[] normsSquared = new double[nNumbers];
-	for ( int i=0; i < nNumbers; i++ ) {
+	for (int i=0; i < nNumbers; i++) {
   	    double abs = complexArray[i].abs();
   	    normsSquared[i] = abs*abs;
 	}
@@ -71,7 +71,7 @@ public class Complex {
 
 	int nNumbers = complexArray.length;
 	double[] norms = new double[nNumbers];
-	for ( int i=0; i < nNumbers; i++ ) {
+	for (int i=0; i < nNumbers; i++) {
  	    norms[i] = complexArray[i].abs();
 	}
 	return norms;

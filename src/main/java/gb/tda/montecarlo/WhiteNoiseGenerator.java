@@ -60,7 +60,7 @@ public final class WhiteNoiseGenerator {
 		double tzero = dt;
 		double time = dt;
 		times.add(time);
-		while ( time < duration ) {
+		while (time < duration) {
 		    dt = randomExp.nextDouble();
 		    time += dt;
 		    times.add(time);
@@ -128,17 +128,17 @@ public final class WhiteNoiseGenerator {
 		Poisson randPoiss = new Poisson(1.0, engine);
 		//  Define Variables
 		double pf = pulsedFrac;
-		if ( pf == 1.0 ) {pf = 0.999;}
+		if (pf == 1.0) {pf = 0.999;}
 		double t_obs = duration;
 		double w = 2*Math.PI/period;
 		double phi_obs = w*t_obs;
-		double lambda_0 = meanRate/( 1 + pf/phi_obs*(1 - Math.cos(phi_obs)) );
+		double lambda_0 = meanRate/(1 + pf/phi_obs*(1 - Math.cos(phi_obs)));
 		double lambda_1 = pf*lambda_0;
 		double thetaMax = lambda_0*t_obs + (lambda_1/w)*(1 - Math.cos(phi_obs));
 		//  Construct set of theta[i]'s from which we will get the t[i]'s
 		int nevents = randPoiss.nextInt(thetaMax);
 		double[] theta = new double[nevents];
-		for ( int i=0; i < nevents; i++ ) {
+		for (int i=0; i < nevents; i++) {
 		    theta[i] = randUni.nextDouble()*thetaMax;
 		}
 		Arrays.sort(theta);
@@ -149,7 +149,7 @@ public final class WhiteNoiseGenerator {
 		double f = 1;
 		double fPrime = 0;
 		//  Root finding by the False Position method
-		for ( int i=0; i < nevents; i++ ) {
+		for (int i=0; i < nevents; i++) {
 		    double a = -1;
 		    double b = t_obs;
 		    double t = 0;
@@ -161,24 +161,24 @@ public final class WhiteNoiseGenerator {
 		    double absDiff = Math.abs(b-a);
 		    double limit = delta*Math.abs(b+a);
 		    int iterations = 0;
-		    while ( absDiff > limit && i < nevents ) {
+		    while (absDiff > limit && i < nevents) {
 			iterations++;
 			t = (fOfa*b - fOfb*a) / (fOfa - fOfb);
 			absDiff = Math.abs(b-a);
 			limit = delta*Math.abs(b+a);
 			fOft = lambda_0*t + lambda_1/w*(1-Math.cos(w*t)) - theta[i];
-			if ( fOft*fOfb > 0 ) {
+			if (fOft*fOfb > 0) {
 			    b = t;
 			    fOfb = fOft;
-			    if ( side == -1 ) {
+			    if (side == -1) {
 				fOfa /= 2;
 			    }
 			    side = -1;
 			}
-			else if ( fOfa * fOft > 0 ) {
+			else if (fOfa * fOft > 0) {
 			    a = t;
 			    fOfa = fOft;
-			    if ( side == 1 ) {
+			    if (side == 1) {
 				fOfb /= 2;
 			    }
 			    side = 1;
@@ -196,11 +196,11 @@ public final class WhiteNoiseGenerator {
 		    logger.warn("There are no elements in this array");
 		}
 		// 	/**  Root finding by Newton's method **/
-		// 	for ( int i=0; i < nevents; i++ ) {
+		// 	for (int i=0; i < nevents; i++) {
 		// 	    double delta = 1;
 		// 	    double t = theta[i]/lambda_0;
 		// 	    //System.out.println("i = "+i+"(of "+nevents+"), 	 First t = "+t);
-		// 	    while ( delta > 1e-3 && i < nevents && f != 0 ) {
+		// 	    while (delta > 1e-3 && i < nevents && f != 0) {
 		// 		f = lambda_0*t + lambda_1/w*(1 - Math.cos(w*t)) - theta[i];
 		// 		fPrime = lambda_0 + lambda_1*Math.sin(w*t);
 		// 		t_new = t - f/fPrime;
@@ -270,7 +270,7 @@ public final class WhiteNoiseGenerator {
 		//  Construct set of theta[i]'s from which we will get the t[i]'s
 		int nevents = randPoiss.nextInt(thetaMax);
 		double[] theta = new double[nevents];
-		for ( int i=0; i < nevents; i++ ) {
+		for (int i=0; i < nevents; i++) {
 		    theta[i] = randUni.nextDouble()*thetaMax;
 		}
 		Arrays.sort(theta);
@@ -331,11 +331,11 @@ public final class WhiteNoiseGenerator {
 		    logger.warn("There are no elements in this array");
 		}
 		// 	/**  Root finding by Newton's method **/
-		// for ( int i=0; i < nevents; i++ ) {
+		// for (int i=0; i < nevents; i++) {
 		//     double delta = 1;
 		//     double t = theta[i]/lambda_0;
 		//     //System.out.println("i = "+i+"(of "+nevents+"), 	 First t = "+t);
-		//     while ( delta > 1e-3 && i < nevents && f != 0 ) {
+		//     while (delta > 1e-3 && i < nevents && f != 0) {
 		// 		f = lambda_0*t + lambda_1/w*(1 - Math.cos(w*t)) - theta[i];
 		// 		fPrime = lambda_0 + lambda_1*Math.sin(w*t);
 		// 		t_new = t - f/fPrime;
@@ -392,7 +392,7 @@ public final class WhiteNoiseGenerator {
 // 	double tzero = dt;
 // 	double time = dt;
 // 	times.add(time);
-// 	while ( i < meanRates.length ) {
+// 	while (i < meanRates.length) {
 
 // 	    dt = randomExp.nextDouble(meanRates[i]);
 
@@ -462,7 +462,7 @@ public final class WhiteNoiseGenerator {
 // 	double tzero = dt;
 // 	double time = dt;
 // 	times.add(time);
-// 	while ( i < meanRates.length ) {
+// 	while (i < meanRates.length) {
 
 // 	    mean = randomGauss.nextDouble(meanRates[i], meanErrors[i]);
 // 	    dt = randomExp.nextDouble(mean);

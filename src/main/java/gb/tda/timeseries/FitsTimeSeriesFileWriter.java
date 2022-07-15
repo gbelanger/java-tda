@@ -157,7 +157,7 @@ final class FitsTimeSeriesFileWriter {
     private static BinaryTable constructCountsTable(IAstroTimeSeries ts) throws FitsException {
         FitsFactory.setUseAsciiTables(false);
 		BinaryTable binTable = new BinaryTable();
-		if ( ts instanceof CodedMaskTimeSeries ) {
+		if (ts instanceof CodedMaskTimeSeries) {
 		    binTable.addColumn(ts.getBinCentres());
 		    binTable.addColumn(ts.getBinWidths());
 		    binTable.addColumn(ts.getIntensities());
@@ -174,7 +174,7 @@ final class FitsTimeSeriesFileWriter {
     private static BinaryTable constructRatesTable(IAstroTimeSeries ts) throws FitsException {
         FitsFactory.setUseAsciiTables(false);
 		BinaryTable binTable = new BinaryTable();
-		if ( ts instanceof CodedMaskTimeSeries ) {
+		if (ts instanceof CodedMaskTimeSeries) {
 		    binTable.addColumn(ts.getBinCentres());
 		    binTable.addColumn(ts.getBinWidths());
 		    binTable.addColumn(ts.getIntensities());

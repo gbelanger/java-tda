@@ -1,7 +1,6 @@
 package gb.tda.timeseries;
 
 import java.util.Arrays;
-
 import cern.jet.stat.Descriptive;
 import cern.colt.list.DoubleArrayList;
 import org.apache.log4j.Logger;
@@ -25,7 +24,6 @@ public class CountsTimeSeries extends BinnedTimeSeries implements ICountsTimeSer
     private double varianceInEquivalentRates = Double.NaN;
     private double errorOnMeanEquivalentRate = Double.NaN;
     private double meanDeviationInEquivalentRates = Double.NaN;
-
 
     CountsTimeSeries(ICountsTimeSeries ts) {
         super(ts);

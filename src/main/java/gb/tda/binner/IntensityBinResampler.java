@@ -142,7 +142,7 @@ public final class IntensityBinResampler {
 			    
 			    //   Move to the next old bin and define its edges
 			    k++;
-			    if ( k < nOldBins ) {
+			    if (k < nOldBins) {
 					logger.info("  Moving to the next old bin (k="+k+")");
 					thisOldBin = new DensityBin(oldBins[k]);
 			    }
@@ -162,7 +162,7 @@ public final class IntensityBinResampler {
     
     // public static double[] resample(double[] counts, double[] oldBinEdges, double[] newBinEdges) throws BinningException {
     // 	double[] errors = new double[counts.length];
-    // 	for ( int i=0; i < counts.length; i++ ) {
+    // 	for (int i=0; i < counts.length; i++) {
     // 	    errors[i] = 1.0;
     // 	}
     // 	double[][] resampledCounts = resample(counts, errors, oldBinEdges, newBinEdges);

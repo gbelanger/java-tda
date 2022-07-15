@@ -69,14 +69,14 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 	// Print all HTML to file
         int bufferSize =256000;
         PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(filename_html), bufferSize));
-        for ( int i=0; i < html.length; i++ )  printWriter.println(headerHTML[i]);
+        for (int i=0; i < html.length; i++)  printWriter.println(headerHTML[i]);
         printWriter.close();
 	logger.info(ts.getClass().getCanonicalName()+" in counts written to "+filename);
     }
 
     
     // public static void writeCounts(ITimeSeries ts, double[] function, String filename) throws IOException {
-    // 	if ( ts.nBins() != function.length ) {
+    // 	if (ts.nBins() != function.length) {
     // 	    throw new TimeSeriesFileException("Array lengths are different: ts.nBins != function.length");
     // 	}
     // 	double[][] dataTable = constructCountsDataTable(ts, function);
@@ -92,26 +92,26 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
     // }
     
     //// Rates
-    // public static void writeRates ( ITimeSeries ts, String filename ) throws IOException {
+    // public static void writeRates (ITimeSeries ts, String filename) throws IOException {
     // 	double[][] dataTable = constructRatesDataTable(ts);
     // 	writeJSRates(dataTable, filename);
     //     logger.info(ts.getClass().getCanonicalName()+" in rates written to "+filename);
     // }
     
-    // public static void writeRates ( ITimeSeries ts, double[] function, String filename ) throws IOException {
+    // public static void writeRates (ITimeSeries ts, double[] function, String filename) throws IOException {
     // 	double[][] dataTable = constructRatesDataTable(ts, function);
     // 	writeJSRatesWithFunction(dataTable, filename);
     //     logger.info(ts.getClass().getCanonicalName()+" in rates (with function) written to "+filename);
     // }
     
-    // public static void writeRatesAndSampling ( ITimeSeries ts, String filename ) throws IOException {
+    // public static void writeRatesAndSampling (ITimeSeries ts, String filename) throws IOException {
     // 	double[][] dataTable = constructRatesAndSamplingDataTable(ts);
     // 	writeJSRatesWithSampling(dataTable, filename);	
     //     logger.info(ts.getClass().getCanonicalName()+" in rates and sampling function written to "+filename);
     // }
     
     // For CodedMaskTimeSeries
-    // public static void writeAllData ( CodedMaskTimeSeries ts, String filename ) throws IOException {
+    // public static void writeAllData (CodedMaskTimeSeries ts, String filename) throws IOException {
     // 	String tsClassName = ts.getClass().getCanonicalName();
     // 	String Path = filename.substring(0, filename.lastIndexOf("/")+1);
     // 	String Name = filename.substring(filename.lastIndexOf("/")+1, filename.lastIndexOf(".")) ;
@@ -167,9 +167,9 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 	int nCols = dims[0];
 	int nRows = dims[1];
 	// Print to file
-	for ( int row=0; row < nRows; row++ ) {
-	    for ( int col=0; col < nCols; col++ ) {
-		if ( col < (nCols-1) ) {
+	for (int row=0; row < nRows; row++) {
+	    for (int col=0; col < nCols; col++) {
+		if (col < (nCols-1)) {
 		    //System.out.println("row="+row+" col="+col);
 		    pw.print(dataTable[col][row]+"	");
 		} 
@@ -186,7 +186,7 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 //     //// All Data (only for CodedMaskTimeSeries)
 //     public static void writeCountsAllData(ITimeSeries ts, String[] header, String filename) throws IOException {
 //         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filename), bufferSize));
-//         for ( int i=0; i < header.length; i++ )  pw.println(header[i]);
+//         for (int i=0; i < header.length; i++)  pw.println(header[i]);
         
 //         // Getting the modified arrays
 //         double[][] modArrays = getModifiedArrays(ts, "counts");
@@ -212,17 +212,17 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 //         int[] lengthsMod = new int[] {modBinCentres.length, modHalfBinWidths.length, modBinHeights.length};
 //         int[] lengths = new int[] {c1.length, c2.length, c3.length, c4.length, c5.length, c6.length, c7.length, c8.length, c9.length, c10.length, c11.length, c12.length, c13.length};
         
-//         if ( ts instanceof CodedMaskTimeSeries ) {
+//         if (ts instanceof CodedMaskTimeSeries) {
 //             lengthsMod = new int[] {modBinCentres.length, modHalfBinWidths.length, modBinHeights.length, modDistToAxis.length};
             
 //         }
 //         //int rewriteBins = (new Double(MinMax.getMin(lengths))).intValue();
 //         double var = BasicStats.getVariance(lengthsMod);
-//         if ( var != 0 ) {
+//         if (var != 0) {
 //             logger.warn("input column data of different lengths. Using min.");
 //         }
 //         double varAll = BasicStats.getVariance(lengths);
-//         if ( var != 0 ) {
+//         if (var != 0) {
 //             logger.warn("input column data of different lengths. Using min.");
 //         }
 //         int totalBins = (new Double(MinMax.getMin(lengthsMod))).intValue();
@@ -230,14 +230,14 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 //         int[] lengthsBins = new int[] {totalBins, totalBinsAll};
 //         int printBins = (new Double(MinMax.getMin(lengthsBins))).intValue();
         
-//         for ( int i=0; i < printBins; i++ ) {
+//         for (int i=0; i < printBins; i++) {
 //             pw.println(modBinCentres[i] +"	"+ modHalfBinWidths[i] +"	"+ modBinHeights[i] +"	"+ modDistToAxis[i] +"	"+c1[i] +"	"+ c2[i] +"	"+ c3[i] +"	"+ c4[i] +"	"+ c5[i] +"	"+ c6[i] +"	"+ c7[i] +"	"+ c8[i] +"	"+ c9[i] +"	"+ c10[i] +"	"+ c11[i] +"	"+ c12[i] +"	"+ c13[i]);
 //         }
 //         int extraBins = (new Double(MinMax.getMax(lengths))).intValue();
-//         for ( int i=printBins; i < extraBins; i++ ) {
+//         for (int i=printBins; i < extraBins; i++) {
 //             if (totalBins > totalBinsAll) {
-//                 pw.println(modBinCentres[i] +"	"+ modHalfBinWidths[i] +"	"+  modBinHeights[i] +"	"+ modDistToAxis[i]  +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN"+"	"+ "NaN" );
-//             } else if ( totalBins < totalBinsAll) {
+//                 pw.println(modBinCentres[i] +"	"+ modHalfBinWidths[i] +"	"+  modBinHeights[i] +"	"+ modDistToAxis[i]  +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN"+"	"+ "NaN");
+//             } else if (totalBins < totalBinsAll) {
 //                 pw.println("NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ c1[i] +"	"+ c2[i] +"	"+ c3[i] +"	"+ c4[i] +"	"+ c5[i] +"	"+ c6[i] +"	"+ c7[i] +"	"+ c8[i] +"	"+ c9[i] +"	"+ c10[i] +"	"+ c11[i] +"	"+ c12[i] +"	"+ c13[i]);
 //             }
 //         }
@@ -247,7 +247,7 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
     
 //     public static void writeRatesAllData(ITimeSeries ts, String[] header, String filename) throws IOException {
 //         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filename), bufferSize));
-//         for ( int i=0; i < header.length; i++ )  pw.println(header[i]);
+//         for (int i=0; i < header.length; i++)  pw.println(header[i]);
         
 //         // Getting the modified arrays
 //         double[][] modArrays = getModifiedArrays(ts, "rates");
@@ -274,17 +274,17 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 //         int[] lengthsMod = new int[] {modBinCentres.length, modHalfBinWidths.length, modRates.length, modErrorsOnRates.length};
 //         int[] lengths = new int[] {c1.length, c2.length, c3.length, c4.length, c5.length, c6.length, c7.length, c8.length, c9.length, c10.length, c11.length, c12.length, c13.length};
         
-//         if ( ts instanceof CodedMaskTimeSeries ) {
+//         if (ts instanceof CodedMaskTimeSeries) {
 //             lengthsMod = new int[] {modBinCentres.length, modHalfBinWidths.length, modRates.length, modErrorsOnRates.length, modDistToAxis.length};
             
 //         }
 //         //int rewriteBins = (new Double(MinMax.getMin(lengths))).intValue();
 //         double var = BasicStats.getVariance(lengthsMod);
-//         if ( var != 0 ) {
+//         if (var != 0) {
 //             logger.warn("input column data of different lengths. Using min.");
 //         }
 //         double varAll = BasicStats.getVariance(lengths);
-//         if ( var != 0 ) {
+//         if (var != 0) {
 //             logger.warn("input column data of different lengths. Using min.");
 //         }
 //         int totalBins = (new Double(MinMax.getMin(lengthsMod))).intValue();
@@ -292,14 +292,14 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 //         int[] lengthsBins = new int[] {totalBins, totalBinsAll};
 //         int printBins = (new Double(MinMax.getMin(lengthsBins))).intValue();
         
-//         for ( int i=0; i < printBins; i++ ) {
+//         for (int i=0; i < printBins; i++) {
 //             pw.println(modBinCentres[i] +"	"+ modHalfBinWidths[i] +"	"+ modRates[i] +"	"+ modErrorsOnRates[i] +"	"+ modDistToAxis[i] +"	"+c1[i] +"	"+ c2[i] +"	"+ c3[i] +"	"+ c4[i] +"	"+ c5[i] +"	"+ c6[i] +"	"+ c7[i] +"	"+ c8[i] +"	"+ c9[i] +"	"+ c10[i] +"	"+ c11[i] +"	"+ c12[i] +"	"+ c13[i]);
 //         }
 //         int extraBins = (new Double(MinMax.getMax(lengths))).intValue();
-//         for ( int i=printBins; i < extraBins; i++ ) {
+//         for (int i=printBins; i < extraBins; i++) {
 //             if (totalBins > totalBinsAll) {
-//                 pw.println(modBinCentres[i] +"	"+ modHalfBinWidths[i] +"	"+  modRates[i] +"	"+ modErrorsOnRates[i]  +"	"+ modDistToAxis[i]  +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN"+"	"+ "NaN" );
-//             } else if ( totalBins < totalBinsAll) {
+//                 pw.println(modBinCentres[i] +"	"+ modHalfBinWidths[i] +"	"+  modRates[i] +"	"+ modErrorsOnRates[i]  +"	"+ modDistToAxis[i]  +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN"+"	"+ "NaN");
+//             } else if (totalBins < totalBinsAll) {
 //                 pw.println("NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN" +"	"+ "NaN"+"	"+ c1[i] +"	"+ c2[i] +"	"+ c3[i] +"	"+ c4[i] +"	"+ c5[i] +"	"+ c6[i] +"	"+ c7[i] +"	"+ c8[i] +"	"+ c9[i] +"	"+ c10[i] +"	"+ c11[i] +"	"+ c12[i] +"	"+ c13[i]);
 //             }
 //         }
@@ -313,11 +313,11 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 	DoubleArrayList modBinCentresList = new DoubleArrayList();
 	DoubleArrayList modHalfBinWidthsList = new DoubleArrayList();
 	modBinCentresList.add(binCentres[0]);
-	for ( int i=1; i < ts.nBins()-1; i++ ) {
+	for (int i=1; i < ts.nBins()-1; i++) {
 	    int k = 0;
 	    modBinCentresList.add(binCentres[i]);
 	    modHalfBinWidthsList.add(halfBinWidths[i]);
-            double gap = ( binCentres[i+1] - binCentres[i] ) - ( halfBinWidths[i+1] + halfBinWidths[i] );	    
+            double gap = (binCentres[i+1] - binCentres[i]) - (halfBinWidths[i+1] + halfBinWidths[i]);	    
             if (gap != 0) {
                 modBinCentresList.add(binCentres[i-k] + 2*halfBinWidths[i-k]);
                 modHalfBinWidthsList.add(halfBinWidths[i-k]);
@@ -338,10 +338,10 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 	double[] halfBinWidths = ts.getHalfBinWidths();
 	DoubleArrayList modData = new DoubleArrayList();
 	modData.add(data[0]);
-	for ( int i=1; i < data.length-1; i++ ) {
+	for (int i=1; i < data.length-1; i++) {
 	    int k = 0;
 	    modData.add(data[i]);
-            double gap = ( binCentres[i+1] - binCentres[i] ) - ( halfBinWidths[i+1] + halfBinWidths[i] );	    
+            double gap = (binCentres[i+1] - binCentres[i]) - (halfBinWidths[i+1] + halfBinWidths[i]);	    
             if (gap != 0) {
 		modData.add(0.0);
 		modData.add(0.0);
@@ -364,9 +364,9 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 //         String[] footerHTML = JSHeaderMaker.getHTMLFooter();
 //         int bufferSize =256000;
 //         PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outputScriptFilename), bufferSize));
-//         for ( int i=0; i < headerHTML.length; i++ )  printWriter.println(headerHTML[i]);
-//         for ( int i=0; i < headerJS.length; i++ )  printWriter.println(headerJS[i]);
-//         for ( int i=0; i < footerHTML.length; i++ )  printWriter.println(footerHTML[i]);
+//         for (int i=0; i < headerHTML.length; i++)  printWriter.println(headerHTML[i]);
+//         for (int i=0; i < headerJS.length; i++)  printWriter.println(headerJS[i]);
+//         for (int i=0; i < footerHTML.length; i++)  printWriter.println(footerHTML[i]);
 //         printWriter.close();
 //     }
     
@@ -377,9 +377,9 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 //         String[] footerHTML = JSHeaderMaker.getHTMLFooter();
 //         int bufferSize =256000;
 //         PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outputScriptFilename), bufferSize));
-//         for ( int i=0; i < headerHTML.length; i++ )  printWriter.println(headerHTML[i]);
-//         for ( int i=0; i < headerJS.length; i++ )  printWriter.println(headerJS[i]);
-//         for ( int i=0; i < footerHTML.length; i++ )  printWriter.println(footerHTML[i]);
+//         for (int i=0; i < headerHTML.length; i++)  printWriter.println(headerHTML[i]);
+//         for (int i=0; i < headerJS.length; i++)  printWriter.println(headerJS[i]);
+//         for (int i=0; i < footerHTML.length; i++)  printWriter.println(footerHTML[i]);
 //         printWriter.close();
 //     }
     
@@ -390,9 +390,9 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 //         String[] footerHTML = JSHeaderMaker.getHTMLFooter();
 //         int bufferSize =256000;
 //         PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(outputScriptFilename), bufferSize));
-//         for ( int i=0; i < headerHTML.length; i++ )  printWriter.println(headerHTML[i]);
-//         for ( int i=0; i < headerJS.length; i++ )  printWriter.println(headerJS[i]);
-//         for ( int i=0; i < footerHTML.length; i++ )  printWriter.println(footerHTML[i]);
+//         for (int i=0; i < headerHTML.length; i++)  printWriter.println(headerHTML[i]);
+//         for (int i=0; i < headerJS.length; i++)  printWriter.println(headerJS[i]);
+//         for (int i=0; i < footerHTML.length; i++)  printWriter.println(footerHTML[i]);
 //         printWriter.close();
 //     }
     

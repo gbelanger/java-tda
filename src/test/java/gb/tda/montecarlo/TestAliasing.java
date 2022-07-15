@@ -87,7 +87,7 @@ public class TestAliasing {
 	//  Construct Histo of num of events per bin
 // 	double[] rates = lc.getRates();
 // 	double[] nEventsPerBin = new double[lc.nBins];
-// 	for ( int i=0; i < lc.nBins; i++ ) {
+// 	for (int i=0; i < lc.nBins; i++) {
 // 	    nEventsPerBin[i] = Math.round(rates[i]*dt);
 // 	}
 // 	int histoMin = (int) Stats.getMin(nEventsPerBin);
@@ -100,7 +100,7 @@ public class TestAliasing {
 // 	int[] x = new int[nHistoBins];
 // 	double[] pdf = new double[nHistoBins];
 // 	double sumPDF = 0;
-// 	for ( int i=0; i < nHistoBins; i++ ) {
+// 	for (int i=0; i < nHistoBins; i++) {
 // 	    x[i] = (int) (histoMin + i*binWidth);
 // 	    pdf[i] = lc.nBins*binWidth*dist.pdf(x[i]);
 // 	}
@@ -145,9 +145,9 @@ public class TestAliasing {
 // 	double time = t[k];
 // 	double tMax = t[t.length-1];
 // 	DoubleArrayList newTimes = new DoubleArrayList();
-// 	while ( k < t.length && time < tMax ) {
+// 	while (k < t.length && time < tMax) {
 
-// 	    while ( time < tLimit ) {
+// 	    while (time < tLimit) {
 
 // 		newTimes.add(time);
 // 		k++;
@@ -156,7 +156,7 @@ public class TestAliasing {
 // 	    tLimit += gapLength; 
 // 	    tLimit = Math.min(tLimit, tMax);
 
-// 	    while ( time < tLimit ) {
+// 	    while (time < tLimit) {
 
 // 		k++;
 // 		time = t[k];
@@ -174,7 +174,7 @@ public class TestAliasing {
 
 	int i=1;
 	int nEvlists = 50;
-	while ( i < nEvlists ) {
+	while (i < nEvlists) {
 
 
 	    t = ArrivalTimes.generateRedArrivalTimes(mean, duration, index, nTKBins);
@@ -203,9 +203,9 @@ public class TestAliasing {
 // 	    time = t[k];
 // 	    tMax = t[t.length-1];
 // 	    DoubleArrayList timesWithGaps = new DoubleArrayList();
-// 	    while ( k < t.length && time < tMax ) {
+// 	    while (k < t.length && time < tMax) {
 
-// 		while ( time < tLimit ) {
+// 		while (time < tLimit) {
 
 // 		    timesWithGaps.add(time);
 // 		    k++;
@@ -214,7 +214,7 @@ public class TestAliasing {
 // 		tLimit += gapLength; 
 // 		tLimit = Math.min(tLimit, tMax);
 
-// 		while ( time < tLimit ) {
+// 		while (time < tLimit) {
 
 // 		    k++;
 // 		    time = t[k];

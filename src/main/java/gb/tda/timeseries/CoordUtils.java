@@ -19,7 +19,7 @@ public final class CoordUtils {
 	// Convert to radians
 	double[] ras = new double[n];
 	double[] decs = new double[n];
-	for ( int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 	    ras[i] = Math.toRadians(ras_deg[i]);
 	    decs[i] = Math.toRadians(decs_deg[i]);
 	}
@@ -27,7 +27,7 @@ public final class CoordUtils {
 	double x = 0;
 	double y = 0;
 	double z = 0;
-	for (int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 	    x += Math.cos(ras[i]) * Math.cos(decs[i]); // Note cos(dec); not sin(decs) as in spherical coords formula
 	    y += Math.sin(ras[i]) * Math.cos(decs[i]); // Note cos(dec)
 	    z += Math.sin(decs[i]); // Note sin(dec) instead of cos(dec)
@@ -50,7 +50,7 @@ public final class CoordUtils {
     public static WorldCoords getAverageRaDec(WorldCoords[] coords) {
 	int n = coords.length;
 	Point2D.Double[] raDecs = new Point2D.Double[n];
-	for ( int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 	    raDecs[i] = new Point2D.Double(coords[i].getRaDeg(), coords[i].getDecDeg());
 	}
 	Point2D.Double centre = getAverageRaDec(raDecs);
@@ -61,7 +61,7 @@ public final class CoordUtils {
 	int n = raDecs.length;
 	double[] ras_deg = new double[n];
 	double[] decs_deg = new double[n];
-	for ( int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 	    ras_deg[i] = raDecs[i].getX();
 	    decs_deg[i] = raDecs[i].getY();
 	}
@@ -75,20 +75,20 @@ public final class CoordUtils {
     // 	// Convert to radians
     // 	double[] ras = new double[ras_deg.length];
     // 	double[] decs = new double[ras.length];
-    // 	for ( int i=0; i < ras.length; i++ ) {
+    // 	for (int i=0; i < ras.length; i++) {
     // 	    ras[i] = Math.toRadians(ras_deg[i]);
     // 	    decs[i] = Math.toRadians(decs_deg[i]);
     // 	}
     // 	// Translate DEC to be around 0
     // 	double dec_bar = BasicStats.getMean(decs);
     // 	double[] decs_translated = new double[decs.length];
-    // 	for ( int i=0; i < decs.length; i++ ) {
+    // 	for (int i=0; i < decs.length; i++) {
     // 	    decs_translated[i] = decs[i] - dec_bar;
     // 	}
     // 	// Translate RA to be around PI
     // 	double ra_bar = BasicStats.getMean(ras);
     // 	double[] ras_translated = new double[ras.length];
-    // 	for ( int i=0; i < ras.length; i++ ) {
+    // 	for (int i=0; i < ras.length; i++) {
     // 	    ras_translated[i] = ras[i] - ra_bar - Math.PI;
     // 	}
     // 	// Compute average and translate back to original position
@@ -101,7 +101,7 @@ public final class CoordUtils {
     // public static WorldCoords getCentre(WorldCoords[] coords) {
     // 	int n = coords.length;
     // 	Point2D.Double[] raDecs = new Point2D.Double[n];
-    // 	for ( int i=0; i < n; i++ ) {
+    // 	for (int i=0; i < n; i++) {
     // 	    raDecs[i] = new Point2D.Double(coords[i].getRaDeg(), coords[i].getDecDeg());
     // 	}
     // 	Point2D.Double centre = getCentre(raDecs);
@@ -112,7 +112,7 @@ public final class CoordUtils {
     // 	int n = raDecs.length;
     // 	double[] ras_deg = new double[n];
     // 	double[] decs_deg = new double[n];
-    // 	for ( int i=0; i < n; i++ ) {
+    // 	for (int i=0; i < n; i++) {
     // 	    ras_deg[i] = raDecs[i].getX();
     // 	    decs_deg[i] = raDecs[i].getY();
     // 	}
@@ -132,7 +132,7 @@ public final class CoordUtils {
 	WorldCoords refCoords = new WorldCoords(refRadec);
 	WorldCoords coords = null;
 	double[] angDist = new double[radec.length];
-	for ( int i=0; i < radec.length; i++ ) {
+	for (int i=0; i < radec.length; i++) {
 	    coords = new WorldCoords(radec[i]);
 	    angDist[i] = refCoords.dist(coords); // return arcmins
 	}
@@ -147,7 +147,7 @@ public final class CoordUtils {
     public static double[] getXDist(Point2D.Double[] coords, Point2D.Double refCoords) {
 	double[] xDist = new double[coords.length];
 	double refX = refCoords.getX();
-	for ( int i=0; i < coords.length; i++ ) {
+	for (int i=0; i < coords.length; i++) {
 	    try { xDist[i] = Math.abs(coords[i].getX() - refX); }
 	    catch (NullPointerException e) {xDist[i]=Double.MAX_VALUE;}
 	}
@@ -162,7 +162,7 @@ public final class CoordUtils {
     public static double[] getYDist(Point2D.Double[] coords, Point2D.Double refCoords) {
 	double[] yDist = new double[coords.length];
 	double refY = refCoords.getY();
-	for ( int i=0; i < coords.length ; i++ ) {
+	for (int i=0; i < coords.length ; i++) {
 	    try { yDist[i] = Math.abs(coords[i].getY() - refY); }
 	    catch (NullPointerException e) {yDist[i]=Double.MAX_VALUE;}
 	}
@@ -178,7 +178,7 @@ public final class CoordUtils {
 	double[] dist = new double[coords.length];
 	double refX = refCoords.getX();
 	double refY = refCoords.getY();
-	for ( int i=0; i < coords.length ; i++ ) {
+	for (int i=0; i < coords.length ; i++) {
 	    try { dist[i] = Math.sqrt(Math.pow(coords[i].getX() - refX, 2) +
 		        Math.pow(coords[i].getY() - refY, 2)); }
 	    catch (NullPointerException e) {dist[i]=Double.MAX_VALUE;}
@@ -188,7 +188,7 @@ public final class CoordUtils {
 
     public static Point2D.Double[] constructPoint2DArray(double[] x, double[] y) {
 	Point2D.Double[] xy = new Point2D.Double[x.length];
-	for ( int i=0; i < x.length; i++ ) {
+	for (int i=0; i < x.length; i++) {
 	    xy[i] = new Point2D.Double(x[i], y[i]);
 	}
 	return xy;

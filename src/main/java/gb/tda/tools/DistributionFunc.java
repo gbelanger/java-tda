@@ -30,15 +30,15 @@ public final class DistributionFunc {
 	int nbins = axis.bins();
 	double[] binWidths = new double[nbins+2];
 	double[] binHeights = new double[nbins+2];
-	for ( int i = 0; i < nbins+1; i++ ) {
-	    if ( dataType.equals("counts") )  binWidths[i] = axis.binWidth(i);
+	for (int i = 0; i < nbins+1; i++) {
+	    if (dataType.equals("counts"))  binWidths[i] = axis.binWidth(i);
 	    else binWidths[i] = 1.0;
 	    binHeights[i] = histo.binHeight(i);
 	}
 		
 	//   Check number of "out of range" entries  
 	int extraEntries = histo.extraEntries();
-	if ( extraEntries != 0 ) {
+	if (extraEntries != 0) {
 	    System.out.println("Log  : There are "+extraEntries+" extra entries");
 	    System.out.println("Warn : Out of range entries will be ignored");
 	}
@@ -47,9 +47,9 @@ public final class DistributionFunc {
 	double mean = 0;
 	double maxDt = 30*BasicStats.getMean(binWidths)/MinMax.getNonZeroMin(binHeights);
 	double[] means = new double[nbins+2];
-	for ( int i=0; i < nbins+1; i++ ) {
+	for (int i=0; i < nbins+1; i++) {
 	    mean = binWidths[i]/binHeights[i];
-	    if ( mean > 0.0 && mean <= maxDt )
+	    if (mean > 0.0 && mean <= maxDt)
 		means[i]  = mean;
 	}
 	double min = MinMax.getMin(means);
@@ -63,7 +63,7 @@ public final class DistributionFunc {
 	double[] pdf =  new double[nbins+2];
 	double[] errors = new double[nbins+2];
 	double[] binCentres = new double[nbins+2];
-	for ( int i=0; i < nbins+1; i++ ) {
+	for (int i=0; i < nbins+1; i++) {
 	    pdf[i] = means[i]/sum;
 	    errors[i] = 0;
 	    binCentres[i] = pdfAxis.binCenter(i);
@@ -83,7 +83,7 @@ public final class DistributionFunc {
 	double sum = 0;
 
 	//  Compute cummulative bin heights
-	for ( int i=0; i < nbins; i++ ) {
+	for (int i=0; i < nbins; i++) {
 	    pdf[i] = binHeights[i]/sumOfBinHeights;
 	    sum += pdf[i];
 	    cdf[i] = sum;
@@ -98,7 +98,7 @@ public final class DistributionFunc {
 		
 	//   Check number of "out of range" entries  
 	int extraEntries = histo.extraEntries();
-	if ( extraEntries != 0 ) {
+	if (extraEntries != 0) {
 	    System.out.println("Log  : There are "+extraEntries+" extra entries");
 	    System.out.println("Warn : Out of range entries will be ignored");
 	}
@@ -108,7 +108,7 @@ public final class DistributionFunc {
 	double[] cumProb =  new double[nbins+2];
 	double[] errors = new double[nbins+2];
 	double sumOfProbs = 0;
-	for ( int i=0; i < nbins+1; i++ ) {
+	for (int i=0; i < nbins+1; i++) {
 	    sumOfProbs += histo.binHeight(i)/sumOfBinHeights;
 	    cumProb[i] = sumOfProbs;
 	    errors[i] = 0;
@@ -122,7 +122,7 @@ public final class DistributionFunc {
     public static double[] getCumulativeDist(final double[] binHeights) {
 	double[] cumProbDistFunc = new double[binHeights.length];
 	double sum = 0;
-	for ( int i=0; i < binHeights.length; i++ ) {
+	for (int i=0; i < binHeights.length; i++) {
 	    sum += binHeights[i];
 	    cumProbDistFunc[i] = sum;
 	}
@@ -136,7 +136,7 @@ public final class DistributionFunc {
 		
 	//   Check number of "out of range" entries  
 	int extraEntries = histo.extraEntries();
-	if ( extraEntries != 0 ) {
+	if (extraEntries != 0) {
 	    System.out.println("Log  : There are "+extraEntries+" extra entries");
 	    System.out.println("Warn : Out of range entries will be ignored");
 	}
@@ -145,7 +145,7 @@ public final class DistributionFunc {
 	double[] cumProb =  new double[nbins+2];
 	double[] errors = new double[nbins+2];
 	double sumOfProbs = 0;
-	for ( int i=0; i < nbins+1; i++ ) {
+	for (int i=0; i < nbins+1; i++) {
 	    sumOfProbs += histo.binHeight(i);
 	    cumProb[i] = sumOfProbs;
 	    errors[i] = 0;
@@ -167,12 +167,12 @@ public final class DistributionFunc {
 	FixedAxis axis = (FixedAxis) cdfHisto.axis();
 	int nbins = axis.bins();
 	double[] binEdges = new double[nbins+1];
-	for ( int i=1; i <= nbins+1; i++ )
+	for (int i=1; i <= nbins+1; i++)
 	    binEdges[i-1] = axis.binLowerEdge(i);
 
 	//  Get the bin heights
 	double[] cdfBinHeights = new double[nbins];
-	for ( int i=0; i < nbins; i++ ) {
+	for (int i=0; i < nbins; i++) {
 	    cdfBinHeights[i] = cdfHisto.binHeight(i);
 	}
 
@@ -180,7 +180,7 @@ public final class DistributionFunc {
   	Uniform uniform = new Uniform(0, 1, engine);
 	double[] events = new double[nevents];
 	int i=0;
- 	while  ( i < nevents ) {
+ 	while  (i < nevents) {
 	    double r = uniform.nextDouble();
 	    
 	    //  Almost always r is not found in the array, and therefore, the method return: - (insertionPoint -1), 
@@ -188,18 +188,18 @@ public final class DistributionFunc {
 	    int bin = -(Arrays.binarySearch(cdfBinHeights, r) +1);
 
 	    //  In the rare case that the number is actually found, then we need to revert back to the right index
-	    if ( bin < 0 ) bin = -bin-1;
+	    if (bin < 0) bin = -bin-1;
 
 	    //  Randomize around the bin's edge
 	    double x = binEdges[bin];
 	    double binWidth = axis.binWidth(bin);
-	    if ( bin >= 0 &&  bin < (nbins-1) ) {
-		if ( bin == 0 ) {
+	    if (bin >= 0 &&  bin < (nbins-1)) {
+		if (bin == 0) {
 		    x -= binWidth*(r/cdfBinHeights[bin]);
 		    events[i] = x;
 		    //System.out.println(r+"	"+cdfBinHeights[bin]+"	"+binEdges[bin]+"	"+x);
 		}
-		else if ( r > cdfBinHeights[bin-1] ) {
+		else if (r > cdfBinHeights[bin-1]) {
 		    x += binWidth*(r - cdfBinHeights[bin-1]) / (cdfBinHeights[bin] - cdfBinHeights[bin-1]);
 		    events[i] = x;		    
 		    //System.out.println(r+"	"+cdfBinHeights[bin]+"	"+binEdges[bin]+"	"+x);
@@ -223,12 +223,12 @@ public final class DistributionFunc {
 	FixedAxis axis = (FixedAxis) cdfHisto.axis();
 	int nbins = axis.bins();
 	double[] binEdges = new double[nbins+1];
-	for ( int i=1; i <= nbins+1; i++ )
+	for (int i=1; i <= nbins+1; i++)
 	    binEdges[i-1] = axis.binLowerEdge(i);
 
 	//  Get the bin heights
 	double[] cdfBinHeights = new double[nbins];
-	for ( int i=0; i < nbins; i++ ) {
+	for (int i=0; i < nbins; i++) {
 	    cdfBinHeights[i] = cdfHisto.binHeight(i);
 	}
 
@@ -236,7 +236,7 @@ public final class DistributionFunc {
   	Uniform uniform = new Uniform(0, 1, engine);
 	int[] binIndexes = new int[nevents];
 	int i=0;
- 	while  ( i < nevents ) {
+ 	while  (i < nevents) {
 	    double r = uniform.nextDouble();
 	    
 	    //  Almost always r is not found in the array, and therefore,
@@ -247,7 +247,7 @@ public final class DistributionFunc {
 
 	    //  In the rare case that the number is actually found,
 	    //  we need to revert back to the right index.
-	    if ( bin < 0 ) bin = -bin-1;
+	    if (bin < 0) bin = -bin-1;
 	    binIndexes[i] = bin;
 	    i++;
 	}
@@ -268,7 +268,7 @@ public final class DistributionFunc {
 	FixedAxis axis = (FixedAxis) cdfHisto.axis();
 	double duration = axis.binUpperEdge(axis.bins()-1);
 	Exponential exponential = new Exponential(1, engine);
-	while (time < duration ) {
+	while (time < duration) {
 	    int bin = binIndexes[i];
 	    double dt = exponential.nextDouble(rates[bin]);
 	    time += dt;

@@ -101,7 +101,7 @@ public class TestPeriodogram {
 	peakHeights[i] = locAndWidth[1];
 	peakHWHMs[i] = locAndWidth[2]/2;
 	double[] weights = new double[5];
-	for ( i=0; i<5; i++ ) {
+	for (i=0; i<5; i++) {
 	    weights[i] = peakHeights[i]/Math.pow(peakHWHMs[i],2);
 	}
 	double wMeanFreq = BasicStats.getWMean_weights(peakLocations, weights);

@@ -199,13 +199,13 @@ public class QDPHeaderMaker {
 		// Y-axis
 		double min = ts.minIntensity() - ts.meanDeviationInIntensities();
 		double max = ts.maxIntensity() + ts.meanDeviationInIntensities();
-		if ( yLabel.contains("cts per") ) { // Working with Counts
+		if (yLabel.contains("cts per")) { // Working with Counts
 			marker = "LINE STEP ON 2";
 			min = ts.minIntensity();
 			max = ts.maxIntensity();
 		}
 		String timeRef = ")";
-		if ( ts.tStart() > 1 ) {
+		if (ts.tStart() > 1) {
 			timeRef = " since "+ts.tStart()+")";
 		}
         double yRange = max - min;	
@@ -312,7 +312,7 @@ public class QDPHeaderMaker {
 		double dec = ts.targetDec();
 		String title = ts.targetName()+" (RA="+twoDigits.format(ra)+", Dec="+twoDigits.format(dec)+")";
 		String y2Label = yLabel;
-		if ( ts.tStart() != 0.0 ) {
+		if (ts.tStart() != 0.0) {
 			timeRef = " since " + ts.tStart();
 		}
 		int nGood =  ts.nBins();
@@ -393,7 +393,7 @@ public class QDPHeaderMaker {
 		double emax = ts.energyRangeMax();
 		String eminStr = eminStr = String.valueOf(emin);
 		String emaxStr = emaxStr = String.valueOf(emax);
-		if ( Math.round(emin) == emin && Math.round(emax) == emax ) {
+		if (Math.round(emin) == emin && Math.round(emax) == emax) {
 			eminStr = noDigits.format(emin);
 			emaxStr = noDigits.format(emax);
 		}
@@ -402,7 +402,7 @@ public class QDPHeaderMaker {
 		double dec = ts.targetDec();
 		String title = ts.targetName()+" (RA="+twoDigits.format(ra)+", Dec="+twoDigits.format(dec)+")";
 		String y2Label = yLabel;
-		if ( ts.tStart() != 0.0 ) {
+		if (ts.tStart() != 0.0) {
 			timeRef = " since MJD "+(ts.tStart()/86400)+")";
 		}
 		String y3Label="Angle (deg)";

@@ -20,10 +20,10 @@ class Testing_Header {
         String[] header = dataFile.getHeader();
         String[] stringsToFind = new String[] {"RA=", "Dec=", "LAB OT ISGRI Time Series (", "LAB OT ISGRI Time Series (20-", "LAB OT "};
         int[] indexes = new int[stringsToFind.length];
-        for ( int i=0; i < stringsToFind.length; i++ ) {
+        for (int i=0; i < stringsToFind.length; i++) {
             int j=0;
             boolean found = header[j].contains(stringsToFind[i]);
-            while ( ! found ) {
+            while (! found) {
                 j++;
                 found = header[j].contains(stringsToFind[i]);
             }
@@ -69,7 +69,7 @@ class Testing_Header {
         String stringsToFind = "LAB X Time (s) since MJD ";
             int j=0;
             boolean found = header[j].contains(stringsToFind);
-            while ( ! found ) {
+            while (! found) {
                 j++;
                 found = header[j].contains(stringsToFind);
             }

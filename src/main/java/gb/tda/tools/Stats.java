@@ -36,7 +36,7 @@ public final class Stats {
     public static double getChi2_value(double[] data) {
 		double mean = BasicStats.getMean(data);
 		double chi2 = 0;
-		for ( int i=0; i < data.length; i++ ) {
+		for (int i=0; i < data.length; i++) {
 		    chi2 += Math.pow((data[i] - mean), 2)/mean;
 		}
 		return chi2;
@@ -45,7 +45,7 @@ public final class Stats {
     public static double getChi2_value(double[] data, double[] errors) {
 		double wmean = BasicStats.getWMean(data, errors);
 		double chi2 = 0;
-		for ( int i=0; i < data.length; i++ )
+		for (int i=0; i < data.length; i++)
 		    chi2 += Math.pow((data[i] - wmean)/errors[i], 2);
 		return chi2;
     }
@@ -53,8 +53,8 @@ public final class Stats {
     public static double computeChi2Test(double[] data, double[] expected) {
 		int bins = Math.min(data.length, expected.length);
 		double pearsonChi2 = 0;
-		for ( int i=0; i < bins; i++ ) {
-		    pearsonChi2 += Math.pow( (data[i] - expected[i]), 2)/expected[i];
+		for (int i=0; i < bins; i++) {
+		    pearsonChi2 += Math.pow((data[i] - expected[i]), 2)/expected[i];
 		}
 		int dof = bins - 1;
 		pearsonChi2 /= dof;	
@@ -66,8 +66,8 @@ public final class Stats {
     public static double computeChi2Test(double[] data, double[] expected, int nevents) {
 		int bins = data.length;
 		double pearsonChi2 = 0;
-		for ( int i=0; i < bins; i++ ) {
-		    pearsonChi2 += Math.pow( nevents*(data[i] - expected[i]), 2)/(nevents*expected[i]);
+		for (int i=0; i < bins; i++) {
+		    pearsonChi2 += Math.pow(nevents*(data[i] - expected[i]), 2)/(nevents*expected[i]);
 		}
 		int dof = bins - 1;
 		pearsonChi2 /= dof;	
@@ -83,16 +83,16 @@ public final class Stats {
 		double[] foldedLC = Binner.binPhases(phases, nPhaseBins)[0];
 		//  Apply formulae from Gregory and Loredo 1978  
 		double logOfNFac = 0;
-		for ( int i=1; i <= n; i++ )
+		for (int i=1; i <= n; i++)
 		    logOfNFac += Math.log(i);
 		double logOfMminusOneFac = 0;
-		for ( int i=1; i < m; i++ )
+		for (int i=1; i < m; i++)
 		    logOfMminusOneFac += Math.log(i);
 		double logOfNplusMminusOneFac  = 0;
-		for ( int i=1; i < (n+m); i++ ) 
+		for (int i=1; i < (n+m); i++) 
 		    logOfNplusMminusOneFac += Math.log(i);
 		double logOfProd = 0;
-		for ( int i=0; i < m; i++ )
+		for (int i=0; i < m; i++)
 		    logOfProd += Math.log(Arithmetic.factorial((int) foldedLC[i]));
 		double logOfW = logOfNFac - logOfProd;
 		double logOfMtotheNoverW = n*Math.log(m) - logOfW;
@@ -130,7 +130,7 @@ public final class Stats {
 // 		double n = (double) x.length; // sample size = the number of measurements
 // 		double sumOfX = 0;
 // 		double productOfXFactorial = 1;
-// 		for ( int i=0; i < x.length; i++ ) {
+// 		for (int i=0; i < x.length; i++) {
 // 		    sumOfX += x[i];
 // 		    productOfXFactorial *= Arithmetic.factorial((int) x[i]);
 // 		}
@@ -150,7 +150,7 @@ public final class Stats {
 // 		double n = (double) x.length; // sample size = the number of measurements
 // 		double sumOfX = 0;
 // 		double productOfXFactorial = 1;
-// 		for ( int i=0; i < x.length; i++ ) {
+// 		for (int i=0; i < x.length; i++) {
 // 		    sumOfX += x[i];
 // 		    productOfXFactorial *= Arithmetic.factorial((int) x[i]);
 // 		}
@@ -166,7 +166,7 @@ public final class Stats {
 //     }
 
 //     public static double[] getLogLikelihoodPoissonOneSigmaBounds(double x) {
-// 		if ( x==0 ) x=1e-6;
+// 		if (x==0) x=1e-6;
 // 		double[] xAsArray = new double[] {x};
 // 		return getLogLikelihoodPoissonOneSigmaBounds(xAsArray);
 //     }
@@ -182,19 +182,19 @@ public final class Stats {
 // 		double deltaTheta = 1e-3;
 
 // 		//  Determine lower bound
-// 		while ( diff > 1e-4 ) {
+// 		while (diff > 1e-4) {
 // 		    theta -= deltaTheta;
 // 		    l = poissonLogLikelihood(theta, x);
 // 		    diff = l - lMaxMinusHalf;
 // 		}
 // 		double thetaMinus = theta;
-// 		if ( thetaMinus < 0 ) thetaMinus = 0;
+// 		if (thetaMinus < 0) thetaMinus = 0;
 
 // 		//  Determine upper bound
 // 		theta = thetaHat;
 // 		l = lMax;
 // 		diff = 0.5;
-// 		while ( diff > 1e-4 ) {
+// 		while (diff > 1e-4) {
 // 		    theta += deltaTheta;
 // 		    l = poissonLogLikelihood(theta, x);
 // 		    diff = l - lMaxMinusHalf;
@@ -205,7 +205,7 @@ public final class Stats {
 //     }
 
 //     public static double[] getGehrelsPoissonBounds(int nObs) {
-// 		if ( nObs < 0 ) {
+// 		if (nObs < 0) {
 // 		    throw new ArithmeticException("nObs must be a positive integer");
 // 		}
 
@@ -220,7 +220,7 @@ public final class Stats {
 // 		Poisson upperDist = new Poisson(upperBound, engine);
 // 		double area = upperDist.cdf(nObs);
 // 		double diff = area - oneSigmaTail;
-// 		while ( diff > precision ) {
+// 		while (diff > precision) {
 // 		    upperBound += step;
 // 		    upperDist.setMean(upperBound);
 // 		    area = upperDist.cdf(nObs);
@@ -229,11 +229,11 @@ public final class Stats {
 
 // 		//  Calculate Lower Bound
 // 		int lowerBound = (int) Math.round(nObs-step);
-// 		if ( nObs > 0 ) {
+// 		if (nObs > 0) {
 // 		    Poisson lowerDist = new Poisson(lowerBound, engine);
 // 		    area = lowerDist.cdf(nObs-1);
 // 		    diff = oneSigmaArea - area;
-// 		    while ( diff > precision && lowerBound > 0 ) {
+// 		    while (diff > precision && lowerBound > 0) {
 // 			lowerBound -= step;
 // 			lowerDist.setMean(lowerBound);
 // 			area = lowerDist.cdf(nObs-1);
@@ -247,7 +247,7 @@ public final class Stats {
 
 //     public static double[] getPoissonOneSigmaBounds(int nObs) {
 
-// 		if ( nObs < 0 ) {
+// 		if (nObs < 0) {
 // 		    throw new ArithmeticException("nObs must be a positive integer");
 // 		}
 
@@ -260,7 +260,7 @@ public final class Stats {
 // 		Poisson upperDist = new Poisson(upperBound, engine);
 // 		double area = upperDist.cdf(upperBound) - upperDist.cdf(nObs);
 // 		double diff = oneSigmaArea - area;
-// 		while ( diff > precision ) {
+// 		while (diff > precision) {
 // 		    upperDist.setMean(upperBound);
 // 		    area = upperDist.cdf(upperBound) - upperDist.cdf(n);
 // 		    diff = oneSigmaArea - area;
@@ -269,11 +269,11 @@ public final class Stats {
 
 // 	 	double lowerBound = nObs-step;
 // 	 	Poisson lowerDist = new Poisson(lowerBound, engine);
-// 		if ( nObs == 0 ) lowerBound = 0;
+// 		if (nObs == 0) lowerBound = 0;
 // 	 	else {
-// 	 	    area = lowerDist.cdf( (new Double(nObs)).doubleValue() ) - lowerDist.cdf(lowerBound);
+// 	 	    area = lowerDist.cdf((new Double(nObs)).doubleValue()) - lowerDist.cdf(lowerBound);
 // 	 	    diff = oneSigmaArea - area;
-// 	 	    while (  diff > precision && lowerBound > 0 ) {
+// 	 	    while (  diff > precision && lowerBound > 0) {
 // 	 		lowerDist.setMean(lowerBound);
 // 			double cdfAtNobs = lowerDist.cdf((new Double(nObs)).doubleValue());
 // 			double cdfAtLowerBound = lowerDist.cdf(lowerBound);
@@ -288,7 +288,7 @@ public final class Stats {
 
 //     public static double[] getGaussianOneSigmaBounds(double nObs) {
 
-// 		if ( nObs < 0 ) {
+// 		if (nObs < 0) {
 // 		    throw new ArithmeticException("nObs must be a positive integer");
 // 		}
 
@@ -302,7 +302,7 @@ public final class Stats {
 // 		double area = upperDist.cdf(upperBound) - upperDist.cdf((new Double(nObs)).doubleValue());
 // 		double diff = oneSigmaArea - area;
 
-// 		while ( diff > 1e-3 ) {
+// 		while (diff > 1e-3) {
 // 		    upperBound += step;
 // 		    upperDist.setState(upperBound, Math.sqrt(upperBound));
 // 		    area = upperDist.cdf(upperBound) - upperDist.cdf((new Double(nObs)).doubleValue());
@@ -311,12 +311,12 @@ public final class Stats {
 
 // 	 	double lowerBound = nObs-step;
 // 	 	Normal lowerDist = new Normal(lowerBound, Math.sqrt(lowerBound), engine);
-// 	 	if ( nObs == 0 ) lowerBound = 0;
+// 	 	if (nObs == 0) lowerBound = 0;
 // 	  	else {
-// 	 	    area = lowerDist.cdf( (new Double(nObs)).doubleValue() ) - lowerDist.cdf(lowerBound);
+// 	 	    area = lowerDist.cdf((new Double(nObs)).doubleValue()) - lowerDist.cdf(lowerBound);
 // 	 	    diff = oneSigmaArea - area;
 // 		    //System.out.println(lowerBound+"	"+area+"	"+diff);
-// 	 	    while ( diff > 1e-3 && lowerBound > 0 ) {
+// 	 	    while (diff > 1e-3 && lowerBound > 0) {
 // 	 		lowerBound -= step;
 // 	 		lowerDist.setState(lowerBound, Math.sqrt(lowerBound));
 // 	 		area = lowerDist.cdf((new Double(nObs)).doubleValue()) - lowerDist.cdf(lowerBound);
@@ -336,7 +336,7 @@ public final class Stats {
 // 	// 	double alpha = 1 - aDist.cdf(nObs);
 // 	// 	double a = nObs;
 // 	// 	double diff = alpha - prob;
-// 	// 	while ( diff > 1e-4 ) {
+// 	// 	while (diff > 1e-4) {
 // 	// 	    a -= 1e-2;
 // 	// 	    aDist.setState(a, Math.sqrt(a));
 // 	// 	    alpha = 1 - aDist.cdf(nObs);
@@ -347,7 +347,7 @@ public final class Stats {
 // 	// 	double beta = bDist.cdf(nObs);	
 // 	// 	double b = nObs;
 // 	// 	diff = beta - prob;
-// 	// 	while ( diff > 1e-4 ) {
+// 	// 	while (diff > 1e-4) {
 // 	// 	    b += 1e-2;
 // 	// 	    bDist.setState(b, Math.sqrt(b));
 // 	// 	    beta = bDist.cdf(nObs);

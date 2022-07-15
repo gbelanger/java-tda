@@ -38,7 +38,7 @@ public class ResamplerTest {
 	double[] integralsOfRates = new double[nLoops];
 	double[] integralsOfResampledRates = new double[nLoops];
 	double[] integralsOfRebinnedRates = new double[nLoops];
-	for ( int k=0; k < nLoops; k++ ) {
+	for (int k=0; k < nLoops; k++) {
 
 	    int nOldBins = 50;
 	    double tStart = 0;
@@ -47,7 +47,7 @@ public class ResamplerTest {
 	    double[] oldBinEdges = BinningUtils.getBinEdges(tStart, tStop, nOldBins);
 	    double[] rates = new double[nOldBins];
 	    double[] errors = new double[nOldBins];
-	    for ( int i=0; i < nOldBins; i++ ) {
+	    for (int i=0; i < nOldBins; i++) {
 		rates[i] = 10*Math.random();
 		errors[i] = 1;
 	    }
@@ -60,7 +60,7 @@ public class ResamplerTest {
 	    // System.out.println("CS 1.3");
 	    // System.out.println("SKIP SINGLE");
 	    double integral = 0;
-	    for ( int i=0; i < nOldBins; i++ ) {
+	    for (int i=0; i < nOldBins; i++) {
 		double binCentre = (oldBinEdges[2*i] + oldBinEdges[2*i+1])/2;
 		integral += rates[i]*oldBinWidth;
 		// System.out.println(binCentre+"	"+rates[i]+"	"+errors[i]);
@@ -80,7 +80,7 @@ public class ResamplerTest {
 
 
 	    integral=0;
-	    for ( int i=0; i < nNewBins; i++ ) {
+	    for (int i=0; i < nNewBins; i++) {
 		double binCentre = (newBinEdges[2*i] + newBinEdges[2*i+1])/2;
 		integral += r[i]*newBinWidth;
 		// System.out.println(binCentre+"	"+r[i]+"	"+e[i]);
@@ -94,7 +94,7 @@ public class ResamplerTest {
 // 	    e = rebRatesAndErrors[1];
 // 	    newBinEdges = rebRatesAndErrors[2];
 // 	    integral=0;
-// 	    for ( int i=0; i < nNewBins; i++ ) {
+// 	    for (int i=0; i < nNewBins; i++) {
 // 		double binCentre = (newBinEdges[2*i] + newBinEdges[2*i+1])/2;
 // 		integral += r[i]*newBinWidth;
 // 		// System.out.println(binCentre+"	"+r[i]+"	"+e[i]);
@@ -110,7 +110,7 @@ public class ResamplerTest {
 	// 	r = ratesAndErrors[0];
 	// 	e = ratesAndErrors[1];
 	// 	newBinEdges = ratesAndErrors[2];
-	// 	for ( int i=0; i < nNewBins; i++ ) {
+	// 	for (int i=0; i < nNewBins; i++) {
 	// 	    double binCentre = (newBinEdges[2*i] + newBinEdges[2*i+1])/2;
 	// 	    System.out.println(binCentre+"	"+r[i]+"	"+e[i]);
 	// 	}

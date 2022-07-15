@@ -57,7 +57,7 @@ public class RadiationBeltExitAltitudeFunction extends AbstractIFunction {
 	    "midTerm_xOffset",
 	    "midTerm_amplitude",
 	};
-	for ( int i=0; i < nPars; i++ ) {
+	for (int i=0; i < nPars; i++) {
 	    parameterNames[i] = parNames[i];
 	}
 	super.init(title);
@@ -113,7 +113,7 @@ public class RadiationBeltExitAltitudeFunction extends AbstractIFunction {
     // 	    "midTerm_xOffset",
     // 	    "midTerm_amplitude",
     // 	};
-    // 	for ( int i=0; i < nPars; i++ ) {
+    // 	for (int i=0; i < nPars; i++) {
     // 	    parameterNames[i] = parNames[i];
     // 	}
     // 	super.init(title);

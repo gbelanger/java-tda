@@ -32,7 +32,7 @@ public class TimeMappingEffect {
 	double duration = 1e3;
 	double alpha = 1;
 	int n = 100;
-	if ( args.length == 4 ) {
+	if (args.length == 4) {
 	    mean = (Double.valueOf(args[0])).doubleValue();
 	    duration = (Double.valueOf(args[1])).doubleValue();
 	    alpha = (Double.valueOf(args[2])).doubleValue();
@@ -58,12 +58,12 @@ public class TimeMappingEffect {
 	
 	//  Define periodogram aggregates
 	AggregatePeriodogram[] avgPsd = new AggregatePeriodogram[resamplingFactors.length];
-	for ( int j=0; j < resamplingFactors.length; j++ ) {
+	for (int j=0; j < resamplingFactors.length; j++) {
 	    avgPsd[j] = new AggregatePeriodogram();
 	}
 
 	//  Loop on n
-	for ( int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 
 // 	    double[] times = RedNoiseGenerator.generateArrivalTimes(mean, duration, alpha);
 // 	    AstroEventList evlist = new AstroEventList(times);
@@ -80,7 +80,7 @@ public class TimeMappingEffect {
 // 	    psd = PeriodogramMaker.makePlainFFTPeriodogram(evlist);
 // 	    avgLong.add(psd);
 
-	    for ( int j=0; j < resamplingFactors.length; j++ ) {
+	    for (int j=0; j < resamplingFactors.length; j++) {
 
 		//  Generate rates from freqs based on T=longDuration with matching time resolution
 		int factor = resamplingFactors[j];
@@ -125,16 +125,16 @@ public class TimeMappingEffect {
 		"ERR OFF",
 		"!"
 	};
-	for ( int i=0; i < header2.length; i++ ) 
+	for (int i=0; i < header2.length; i++)
 	    pw.println(header2[i]);
 
-	for ( int j=0; j < resamplingFactors.length; j++ ) {
+	for (int j=0; j < resamplingFactors.length; j++) {
 	    AveragePeriodogram finalPsd = avgPsd[j].getPeriodogram();
 	    double[] freqs = finalPsd.getFreqs();
 	    double[] powers = finalPsd.getPowers();
 	    double[] errors = finalPsd.getErrors();
 	    int i=0;
-	    while ( i < freqs.length && freqs[i] <= 0.25 ) {
+	    while (i < freqs.length && freqs[i] <= 0.25) {
 		pw.println(freqs[i]+"	"+powers[i]+"	"+errors[i]);
 		i++;
 	    }

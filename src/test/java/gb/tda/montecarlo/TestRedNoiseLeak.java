@@ -32,7 +32,7 @@ public class TestRedNoiseLeak {
 
 
 	//  Check for arguments
-	if ( args.length == 4 ) {	 
+	if (args.length == 4) {	 
 	    duration = (new Double(args[0])).doubleValue();
 	    meanRate = (new Double(args[1])).doubleValue();
 	    lengthOfSegment = (new Double(args[2])).doubleValue();
@@ -69,7 +69,7 @@ public class TestRedNoiseLeak {
 	FFTPeriodogram psd = PeriodogramMaker.makeFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(times, bins));
 	FFTPeriodogram sumPsd = PeriodogramMaker.makeFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(times, bins));
 
-	while ( i < nSegments ) {
+	while (i < nSegments) {
 
 	    from = i*lengthOfSegment;
 	    to = (i+1)*lengthOfSegment;
@@ -87,7 +87,7 @@ public class TestRedNoiseLeak {
 	sumPsd = PeriodogramMaker.makeFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(times, bins));
 	i=1;
 	int nLCs = 100;
-	while ( i < nLCs ) {
+	while (i < nLCs) {
 
 	    times= RedNoiseGenerator.generateArrivalTimes(meanRate, lengthOfSegment, alpha);
 	    psd = PeriodogramMaker.makeFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(times, bins));
@@ -119,16 +119,16 @@ public class TestRedNoiseLeak {
 	    "SKIP SINGLE",
 	    "!"
 	};
-	for ( i=0; i < header.length; i++ ) {
+	for (i=0; i < header.length; i++) {
 	    pw.println(header[i]);
 	}
 
 	FFTPeriodogram[] psds = new FFTPeriodogram[] {psdFull, scaledPsd_seg, scaledPsd_lc};
-	for ( i=0; i < psds.length; i++ ) {
+	for (i=0; i < psds.length; i++) {
 
 	    double[] freqs = psds[i].getFreqs();
 	    double[] pow = psds[i].getPowers();
-	    for ( int k=0; k < freqs.length; k++ ) {
+	    for (int k=0; k < freqs.length; k++) {
 		pw.println(freqs[k]+"\t"+pow[k]);
 	    }
 	    pw.println("NO NO");

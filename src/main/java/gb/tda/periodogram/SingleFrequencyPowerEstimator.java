@@ -8,7 +8,7 @@ public class SingleFrequencyPowerEstimator {
 
     public static void main(String[] args) throws Exception {
 
-	if ( args.length != 3 ) {
+	if (args.length != 3) {
 	    System.out.println("Usage: java SingleFrequencyPowerEstimator evlist frequency harmonic");
 	    System.exit(-1);
 	}
@@ -39,10 +39,10 @@ public class SingleFrequencyPowerEstimator {
 
 	double expectedMeanCos = (Math.sin(kOmega*tlast) - Math.sin(kOmega*tfirst)) / (kOmega*duration);
 	double expectedMeanSin = (Math.cos(kOmega*tfirst) - Math.cos(kOmega*tlast)) / (kOmega*duration);
-	double crossTerm = ( Math.sin(kOmega*tlast)*Math.cos(kOmega*tlast) - Math.sin(kOmega*tfirst)*Math.cos(kOmega*tfirst) ) / (2*kOmega*duration);
+	double crossTerm = (Math.sin(kOmega*tlast)*Math.cos(kOmega*tlast) - Math.sin(kOmega*tfirst)*Math.cos(kOmega*tfirst)) / (2*kOmega*duration);
 	double varianceOfCos = (0.5 + crossTerm - Math.pow(expectedMeanCos, 2))/nevents;
 	double varianceOfSin = (0.5 - crossTerm - Math.pow(expectedMeanSin, 2))/nevents;
-	double SinSqrdTerm = ( Math.pow(Math.sin(kOmega*tlast), 2) - Math.pow(Math.sin(kOmega*tfirst), 2) ) / (2*kOmega*duration);
+	double SinSqrdTerm = (Math.pow(Math.sin(kOmega*tlast), 2) - Math.pow(Math.sin(kOmega*tfirst), 2)) / (2*kOmega*duration);
 	double covarianceOfCosSin = (SinSqrdTerm - expectedMeanCos*expectedMeanSin)/nevents;
 	//logger.info(expectedMeanCos+"	"+expectedMeanSin+"	"+crossTerm);
 
@@ -54,7 +54,7 @@ public class SingleFrequencyPowerEstimator {
 	//   Calculate C and S  
 	double meanCos = 0;
 	double meanSin = 0;
-	for ( int i=0; i < nevents; i++ ) {
+	for (int i=0; i < nevents; i++) {
 	    meanCos += Math.cos(harmonic*2*Math.PI*phases[i])/nevents;
 	    meanSin += Math.sin(harmonic*2*Math.PI*phases[i])/nevents;
 	}
@@ -97,7 +97,7 @@ public class SingleFrequencyPowerEstimator {
 
 	double[] phases = new double[times.length];
 	double tOverP = 0;
-	for ( int i=0; i < times.length; i++ ) {
+	for (int i=0; i < times.length; i++) {
 	    tOverP = times[i]/period;
 	    phases[i] = tOverP - Math.floor(tOverP);
 	}

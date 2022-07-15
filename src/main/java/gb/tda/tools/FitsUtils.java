@@ -43,13 +43,13 @@ public final class FitsUtils {
 		BasicHDU hdu = fitsFile.getHDU(1);
 		boolean foundHDU = true;
 		String extName = hdu.getHeader().getStringValue("EXTNAME");
-		if ( !extName.startsWith(hduName) ) foundHDU = false; 
+		if (!extName.startsWith(hduName)) foundHDU = false; 
 		int extNum = 1;
-		while ( foundHDU == false && extNum < numOfHDUs ) {
+		while (foundHDU == false && extNum < numOfHDUs) {
 		    extNum++;
 		    hdu = fitsFile.getHDU(extNum);
 		    extName = hdu.getHeader().getStringValue("EXTNAME");
-		    if ( extName.equals(hduName) )  foundHDU = true;
+		    if (extName.equals(hduName))  foundHDU = true;
 		}
 		BinaryTableHDU tableHDU = (BinaryTableHDU) hdu;
 		return tableHDU;
@@ -85,7 +85,7 @@ public final class FitsUtils {
 		Fits ima;
 		MyHeader head;
 		WCSTransform wcsTransform;
-		for ( int i=0; i < nimages; i++ ) {
+		for (int i=0; i < nimages; i++) {
 		    ima = openFits(imagePaths[i]);
 		    head = new MyHeader(ima.getHDU(hduExten).getHeader());
 		    wcsTransform = new WCSTransform(head);
@@ -108,9 +108,9 @@ public final class FitsUtils {
 		    float[][] dataFlt = (float[][]) imaHDU.getKernel(); 
 		    data = Converter.float2double(dataFlt);
 		}
-		catch ( ClassCastException e ) {
+		catch (ClassCastException e) {
 		    try { data = (double[][]) imaHDU.getKernel(); }
-		    catch ( ClassCastException e2 ) {
+		    catch (ClassCastException e2) {
 			logger.error("Image data is not float nor double. Cannot read imageHDU");
 			System.exit(-1);
 		    }
@@ -124,11 +124,11 @@ public final class FitsUtils {
 		    try {
 			value = data[y-1][x-1];
 		    }
-		    catch ( ArrayIndexOutOfBoundsException e1 ) {
+		    catch (ArrayIndexOutOfBoundsException e1) {
 			value = Double.NaN;
 		    }
 		}
-		catch ( NullPointerException e ) {
+		catch (NullPointerException e) {
 		    value = Double.NaN;
 		}
 		return value;
@@ -151,7 +151,7 @@ public final class FitsUtils {
 		//  Get keywords necessary to convert imaCoords to physCoords
 		double ltm1 = header.getDoubleValue("LTM1_1");
 		double ltv1 = header.getDoubleValue("LTV1");
-		if ( ltm1 == 0 ) ltm1 = 1;
+		if (ltm1 == 0) ltm1 = 1;
 		return image2physical(ccdX, ccdY, ltm1, ltv1);
     }
 
@@ -217,7 +217,7 @@ public final class FitsUtils {
 		//  Get keywords necessary to make imaCoords to physCoords
 		double ltm1 = imaHead.getDoubleValue("LTM1_1");
 		double ltv1 = imaHead.getDoubleValue("LTV1");
-		if ( ltm1 == 0 ) ltm1 = 1;
+		if (ltm1 == 0) ltm1 = 1;
 
 		//  Transform
 		MyHeader myHeader = new MyHeader(imaHead);
@@ -225,7 +225,7 @@ public final class FitsUtils {
 		ccdXY = wcsTransform.wcs2pix(skyCoords.getX(), skyCoords.getY());
 		physXY = new Point2D.Double((ccdXY.getX()-ltv1)/ltm1, (ccdXY.getY()-ltv1)/ltm1);
 
-		if ( physical )  return physXY;
+		if (physical)  return physXY;
 		else  return ccdXY; 
     }
 
@@ -240,13 +240,13 @@ public final class FitsUtils {
 		//  Get keywords necessary to make imaCoords to physCoords
 		double ltm1 = imaHead.getDoubleValue("LTM1_1");
 		double ltv1 = imaHead.getDoubleValue("LTV1");
-		if ( ltm1 == 0 ) ltm1 = 1;
+		if (ltm1 == 0) ltm1 = 1;
 		//  Transform
 		MyHeader myHeader = new MyHeader(imaHead);
 		WCSTransform wcsTransform = new WCSTransform(myHeader);
 		ccdXY = wcsTransform.wcs2pix(skyCoords.getX(), skyCoords.getY());
 	 	physXY = new Point2D.Double((ccdXY.getX()-ltv1)/ltm1, (ccdXY.getY()-ltv1)/ltm1);
-		if ( physCoords )  return physXY;
+		if (physCoords)  return physXY;
 		else  return ccdXY; 
     }				
 
@@ -259,7 +259,7 @@ public final class FitsUtils {
 	//  Get keywords necessary to make imaCoords to physCoords
 	double ltm1 = fitsHeader.getDoubleValue("LTM1_1");
 	double ltv1 = fitsHeader.getDoubleValue("LTV1");
-	if ( ltm1 == 0 ) ltm1 = 1;
+	if (ltm1 == 0) ltm1 = 1;
 
 
 	//  Define variables
@@ -306,7 +306,7 @@ public final class FitsUtils {
 	    projection = getProj(fitsHeader);
 	    xProj = projection[0];
 	    yProj = projection[1];
-	    if ( xProj.endsWith("TAN") && yProj.endsWith("TAN") )
+	    if (xProj.endsWith("TAN") && yProj.endsWith("TAN"))
 		proj = "TAN";
 	    else {
 		logger.error("Projection is not TAN");
@@ -333,7 +333,7 @@ public final class FitsUtils {
     public static Point2D.Double getRefXY(Header _header) throws Exception {
 		String refxcrpx = _header.findKey("REFXCRPX");	
 		double refX=0, refY=0;
-		if ( ! (refxcrpx.valueOf(refxcrpx)).equals("null") ) {
+		if (! (refxcrpx.valueOf(refxcrpx)).equals("null")) {
 		    logger.info("Using REFXCRPX and REFYCRPX as reference X Y");
 		    refX = _header.getDoubleValue("REFXCRPX");
 		    refY = _header.getDoubleValue("REFYCRPX");
@@ -350,7 +350,7 @@ public final class FitsUtils {
     public static Point2D.Double getRefRadec(Header _header) throws Exception {
 		String refxcrvl = _header.findKey("REFXCRVL");	
 		double refRa=0, refDec=0;
-		if ( ! (refxcrvl.valueOf(refxcrvl)).equals("null") ) {
+		if (! (refxcrvl.valueOf(refxcrvl)).equals("null")) {
 		    logger.info("Using REFXCRVL and REFYCRVL as reference RA DEC");
 		    refRa = _header.getDoubleValue("REFXCRVL");
 		    refDec = _header.getDoubleValue("REFYCRVL");
@@ -369,7 +369,7 @@ public final class FitsUtils {
 
 	double xPixSize=0, yPixSize=0;
 	String refxcdlt = _header.findKey("REFXCDLT");	
-	if ( ! (refxcdlt.valueOf(refxcdlt)).equals("null") ) {
+	if (! (refxcdlt.valueOf(refxcdlt)).equals("null")) {
 	    logger.info("Using REFXCDLT and REFYCDLT as pixel size");
 	    xPixSize = _header.getDoubleValue("REFXCDLT");
 	    yPixSize = _header.getDoubleValue("REFYCDLT");
@@ -389,7 +389,7 @@ public final class FitsUtils {
 
 	double nXPix=0, nYPix=0;
 	String refxlmax = _header.findKey("REFXLMAX");	
-	if ( ! (refxlmax.valueOf(refxlmax)).equals("null") ) {
+	if (! (refxlmax.valueOf(refxlmax)).equals("null")) {
 	    logger.info("Using REFXLMAX and REFYLAMX as pixel size");
 	    nXPix = _header.getDoubleValue("REFXLMAX");
 	    nYPix = _header.getDoubleValue("REFYLMAX");
@@ -409,7 +409,7 @@ public final class FitsUtils {
 	String xProj = null;
 	String yProj = null;
 	String refxctyp = _header.findKey("REFXCTYP");	
-	if ( ! (refxctyp.valueOf(refxctyp)).equals("null") ) {
+	if (! (refxctyp.valueOf(refxctyp)).equals("null")) {
 	    logger.info("Using REFXCTYP and REFYCTYP as projection type");
 	    xProj = _header.getStringValue("REFXCTYP");
 	    yProj = _header.getStringValue("REFYCTYP");
@@ -436,7 +436,7 @@ public final class FitsUtils {
 
 	//  Get and return LTM1_1
 	ltm1_1 = imaHead.getDoubleValue("LTM1_1");
-	if ( ltm1_1 == 0 ) ltm1_1 = 1;
+	if (ltm1_1 == 0) ltm1_1 = 1;
 	return ltm1_1;
 	
     }
@@ -506,7 +506,7 @@ public final class FitsUtils {
 	    projection = getProj(fitsHeader);
 	    xProj = projection[0];
 	    yProj = projection[1];
-	    if ( xProj.endsWith("TAN") && yProj.endsWith("TAN") )
+	    if (xProj.endsWith("TAN") && yProj.endsWith("TAN"))
 		proj = "TAN";
 	    else {
 		logger.error("Projection is not TAN");
@@ -547,7 +547,7 @@ public final class FitsUtils {
 	//  Try to transform given image header if not construct using keywords
 	try {
 	    wcsTransform = new WCSTransform(myHeader);
-	    for ( int i=0; i < physX.length; i++ ) 
+	    for (int i=0; i < physX.length; i++) 
 		radec[i] = wcsTransform.pix2wcs(physX[i], physY[i]);
 	}
 	catch (IllegalArgumentException e) {
@@ -576,7 +576,7 @@ public final class FitsUtils {
 	    projection = getProj(fitsHeader);
 	    xProj = projection[0];
 	    yProj = projection[1];
-	    if ( xProj.endsWith("TAN") && yProj.endsWith("TAN") )
+	    if (xProj.endsWith("TAN") && yProj.endsWith("TAN"))
 		proj = "TAN";
 	    else {
 		logger.error("Projection is not TAN");
@@ -591,7 +591,7 @@ public final class FitsUtils {
 	    ////  Construct WCSTransform
 	    wcsTransform = new WCSTransform
 		(cra, cdec, xsecpix, ysecpix, xrpix, yrpix, nxpix, nypix, rotate, equinox, epoch, proj);
-	    for ( int i=0; i < physX.length; i++ ) 
+	    for (int i=0; i < physX.length; i++) 
 		radec[i] = wcsTransform.pix2wcs(physX[i], physY[i]);
 	}
 	
@@ -620,7 +620,7 @@ public final class FitsUtils {
 	Header imaHead  = imaHDU.getHeader();
 	MyHeader myHeader = new MyHeader(imaHead);
 	WCSTransform wcsTransform = new WCSTransform(myHeader);
-	for ( int i=0; i < physX.length; i++ ) {
+	for (int i=0; i < physX.length; i++) {
 	    radec[i] = wcsTransform.pix2wcs(physX[i], physY[i]);
 	}
 	return radec;
@@ -674,7 +674,7 @@ public final class FitsUtils {
 	    projection = getProj(fitsHeader);
 	    xProj = projection[0];
 	    yProj = projection[1];
-	    if ( xProj.endsWith("TAN") && yProj.endsWith("TAN") )
+	    if (xProj.endsWith("TAN") && yProj.endsWith("TAN"))
 		proj = "TAN";
 	    else {
 		logger.error("Projection is not TAN");
@@ -714,7 +714,7 @@ public final class FitsUtils {
 	//  Try to transform given image header, if not construct using keywords
 	try {
 	    wcsTransform = new WCSTransform(myHeader);
-	    for ( int i=0; i < ra.length; i++ ) 
+	    for (int i=0; i < ra.length; i++) 
 		xy[i] = wcsTransform.wcs2pix(ra[i], dec[i]);
 	}
 	catch (IllegalArgumentException e) {
@@ -743,7 +743,7 @@ public final class FitsUtils {
 	    projection = getProj(fitsHeader);
 	    xProj = projection[0];
 	    yProj = projection[1];
-	    if ( xProj.endsWith("TAN") && yProj.endsWith("TAN") )
+	    if (xProj.endsWith("TAN") && yProj.endsWith("TAN"))
 		proj = "TAN";
 	    else {
 		logger.error("Projection is not TAN");
@@ -757,7 +757,7 @@ public final class FitsUtils {
 
 	    ////  Construct WCSTransform
 	    wcsTransform = new WCSTransform(cra, cdec, xsecpix, ysecpix, xrpix, yrpix, nxpix, nypix, rotate, equinox, epoch, proj);
-	    for ( int i=0; i < ra.length; i++ )  xy[i] = wcsTransform.wcs2pix(ra[i], dec[i]);
+	    for (int i=0; i < ra.length; i++)  xy[i] = wcsTransform.wcs2pix(ra[i], dec[i]);
 	}
 	
 	return xy;

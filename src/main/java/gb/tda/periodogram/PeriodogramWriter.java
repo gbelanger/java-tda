@@ -21,7 +21,7 @@ final class PeriodogramWriter {
 	    out = new AsciiDataFileWriter(filename);
 	    out.writeData(header, freqs, powers);
 	}
-	catch ( IOException ex ) {
+	catch (IOException ex) {
 	    logger.error("Cannot write to file "+filename+" "+ex);
 	    System.exit(-1);
 	}
@@ -36,7 +36,7 @@ final class PeriodogramWriter {
 	    out = new AsciiDataFileWriter(filename);
 	    out.writeData(header1, freqs, powers, function);
 	}
-	catch ( IOException ex ) {
+	catch (IOException ex) {
 	    logger.error("Cannot write to file "+filename+" "+ex);
 	    System.exit(-1);
 	}
@@ -51,7 +51,7 @@ final class PeriodogramWriter {
 	    out = new AsciiDataFileWriter(filename);
 	    out.writeData(header1, freqs, powers, func1, func2);
 	}
-	catch ( IOException ex ) {
+	catch (IOException ex) {
 	    logger.error("Cannot write to file "+filename+" "+ex);
 	    System.exit(-1);
 	}
@@ -62,20 +62,20 @@ final class PeriodogramWriter {
 	double[] freqs = main.getFreqs();
 	double[] powers = main.getPowers();
   	PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
-	for ( int i=0; i < header1.length; i++ ) {
+	for (int i=0; i < header1.length; i++) {
 	    printWriter.println(header1[i]);
 	}
-	for ( int i=0; i < freqs.length; i++ ) {
+	for (int i=0; i < freqs.length; i++) {
 	    printWriter.println(freqs[i]+"	"+powers[i]);
 	}
 	printWriter.println("NO NO");
-	for ( int k=0; k < psdArray.length; k++ ) {
+	for (int k=0; k < psdArray.length; k++) {
 	    freqs = psdArray[k].getFreqs();
 	    powers = psdArray[k].getPowers();
-	    for ( int i=0; i < freqs.length; i++ ) {
+	    for (int i=0; i < freqs.length; i++) {
 		printWriter.println(freqs[i]+"	"+powers[i]);
 	    }
-	    if ( k < psdArray.length ) {
+	    if (k < psdArray.length) {
 		printWriter.println("NO NO");
 	    }
 	}
@@ -92,7 +92,7 @@ final class PeriodogramWriter {
 	    out = new AsciiDataFileWriter(filename);
 	    out.writeData(header, freqs, powers, func1, func2);
 	}
-	catch ( IOException ex ) {
+	catch (IOException ex) {
 	    logger.error("Cannot write to file "+filename+" "+ex);
 	    System.exit(-1);
 	}
@@ -100,7 +100,7 @@ final class PeriodogramWriter {
     }
 
     public static void writeAsQDP(Periodogram main, String filename) {
-	if ( main.binWidthIsConstant() ) {
+	if (main.binWidthIsConstant()) {
 	    writeAsQDP(main, header1, filename);
 	}
 	else {
@@ -117,7 +117,7 @@ final class PeriodogramWriter {
 	    out = new AsciiDataFileWriter(filename);
 	    out.writeData(header, freqs, powers, func1, powers, func2, powers, func3);
 	}
-	catch ( IOException ex ) {
+	catch (IOException ex) {
 	    logger.error("Cannot write to file "+filename+" "+ex);
 	    System.exit(-1);
 	}

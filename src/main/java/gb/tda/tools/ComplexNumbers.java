@@ -27,7 +27,7 @@ public class ComplexNumbers {
      * @return rearranged data into complex number (length 2*n)
      */
 
-    public static double[] myComplex( double[] data_in ) {
+    public static double[] myComplex(double[] data_in) {
 
 	/**
 	 ** Rearranges a vector of real values into a complex
@@ -61,12 +61,12 @@ public class ComplexNumbers {
 
     /* Arrange vector into complex number.  See more detailed 
      * comments below.
-     * @param data vector of real values (length = n )
-     * @param data vector of imaginary values (length = n )
+     * @param data vector of real values (length = n)
+     * @param data vector of imaginary values (length = n)
      * @return data vector of complex numbers (length=2*n)
      */
 
-    public static double[] myComplex( double[] real_in, double[] imaginary_in ) {
+    public static double[] myComplex(double[] real_in, double[] imaginary_in) {
 
 	/**
 	 ** Rearranges two vectors (one with real values, the
@@ -99,13 +99,13 @@ public class ComplexNumbers {
 
 
     // Added 
-    public static double[] getPower( double[] complex_in ){
+    public static double[] getPower(double[] complex_in){
 
 	/**  Returns the "sum squared amplitude"  **/
 
 	int n = complex_in.length;
 	double[] power = new double[n/2];
-	for (int i=0; i < n/2; i++ ){
+	for (int i=0; i < n/2; i++){
 	    power[i] = complex_in[i*2]*complex_in[i*2] + complex_in[i*2+1]*complex_in[i*2+1];
 	}
 	return power;
@@ -118,7 +118,7 @@ public class ComplexNumbers {
      * @return vector of real values
      */
 
-    public static double[] getReal( double[] complex_in ){
+    public static double[] getReal(double[] complex_in){
 
 	/**
 	 ** Extract the "real" part of a complex number 
@@ -128,7 +128,7 @@ public class ComplexNumbers {
 
 	int n = complex_in.length;
 	double[] r = new double[ n/2 ];
-	for (int i=0; i<n/2; i++ ){
+	for (int i=0; i<n/2; i++){
 	    r[i] = complex_in[i*2];
 	}
 	return r;
@@ -141,7 +141,7 @@ public class ComplexNumbers {
      * @return vector of imaginary values
      */
 
-    public static double[] getImaginary( double[] complex_in ){
+    public static double[] getImaginary(double[] complex_in){
 
 	/**
 	 ** Extract the "imaginary" part of a complex number
@@ -151,7 +151,7 @@ public class ComplexNumbers {
 
 	int n = complex_in.length;
 	double[] i = new double[ n/2 ];
-	for (int j=0; j<n/2; j++ ){
+	for (int j=0; j<n/2; j++){
 	    i[j] = complex_in[j*2+1];
 	}
 	return i;
@@ -165,7 +165,7 @@ public class ComplexNumbers {
      * @return complex vector a*b
      */
 
-    public static double[] multiply( double[] a, double[] b ){
+    public static double[] multiply(double[] a, double[] b){
 
 	/**
 	 ** multiply two complex numbers together 

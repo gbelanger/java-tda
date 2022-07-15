@@ -2,13 +2,12 @@ package gb.tda.timeseries;
 
 import java.io.IOException;
 import org.apache.log4j.Logger;
-
 import gb.tda.eventlist.AstroEventList;
 import gb.tda.eventlist.EventListSelector;
 import gb.tda.eventlist.EventListException;
-import gb.tda.binner.Binner;
 
 public class AstroTimeSeriesFactory extends BinnedTimeSeriesFactory {
+
     private static final Logger logger  = Logger.getLogger(AstroTimeSeriesFactory.class);
 
     public static AstroTimeSeries create(IAstroTimeSeries ts) {
@@ -23,22 +22,9 @@ public class AstroTimeSeriesFactory extends BinnedTimeSeriesFactory {
         return new AstroTimeSeries(ts);
     }
 
-//    public static ITimeSeries create(String filename) throws Exception, IOException, TimeSeriesFileException {
-//        return TimeSeriesFileReader.read(filename);
-//    }
-
-    public static IBinnedTimeSeries create(IEventList evlist) throws TimeSeriesException {
-        super.create(evlist);
+    public static AstroTimeSeries create(String filename) throws Exception, IOException, TimeSeriesFileException {
+        return TimeSeriesFileReader.read(filename);
     }
-
-    public static IBinnedTimeSeries create(IEventList evlist, int nBins) throws TimeSeriesException {
-        super.create(evlist, nBins);
-    }
-
-    public static IBinnedTimeSeries create(IEventList evlist, double binWidth) throws TimeSeriesException {
-        super.create(evlist, binWidth);
-    }
-
 
     public static IBinnedTimeSeries create(AstroEventList evlist, int nBins, double emin, double emax) throws EventListException, TimeSeriesException {
         double[] selectedArrivalTimes = EventListSelector.getArrivalTimesInEnergyRange(evlist, emin, emax);
@@ -60,22 +46,6 @@ public class AstroTimeSeriesFactory extends BinnedTimeSeriesFactory {
                 " and [ymin, ymax] = ["+ymin+", "+ymax+"]"
         );
         return create(selectedEvlist, nBins);
-    }
-
-    public static IBinnedTimeSeries create(double[] arrivalTimes, int nBins) throws EventListException, TimeSeriesException {
-        super.create(arrivalTimes, nBins);
-    }
-
-    public static IBinnedTimeSeries create(double[] arrivalTimes, double binWidth) throws EventListException, TimeSeriesException {
-        super.create(arrivalTimes, binWidth);
-    }
-
-    public static IBinnedTimeSeries create(double[] arrivalTimes, double binWidth, double startTime) throws TimeSeriesException, EventListException {
-        super.create(arrivalTimes, binWidth, startTime);
-    }
-
-    public static IBinnedTimeSeries create(double[] arrivalTimes, double binWidth, double startTime, double endTime) throws TimeSeriesException, EventListException {
-        super.create(selectedEvlist, binWidth, startTime, endTime);
     }
 
 }

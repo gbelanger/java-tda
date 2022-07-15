@@ -44,7 +44,7 @@ public class TestVarianceVersusNBins {
 	LightCurveMaker lcMaker = new LightCurveMaker();
 	LightCurve lc = null;
 
-	for ( int i=0; i < nTests; i++ ) {
+	for (int i=0; i < nTests; i++) {
 	    
 	    lc = lcMaker.makeLightCurve(evlist, dt);
 	    dts[i] = dt;

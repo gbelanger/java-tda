@@ -32,9 +32,9 @@ public class TestAggregatePeriodogram {
 	    double duration = 1e3;
 	    double alpha = 2;
 	   
-	    for ( int i=0; i < durations.length; i++ ) {
+	    for (int i=0; i < durations.length; i++) {
 		duration = durations[i];		
-		for ( int j=0; j < n; j++ ) {
+		for (int j=0; j < n; j++) {
 		    AstroEventList evlist = new AstroEventList(RedNoiseGenerator.generateArrivalTimes(mean, duration, alpha));
 		    double binTime = 1d;
 		    TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist, binTime);

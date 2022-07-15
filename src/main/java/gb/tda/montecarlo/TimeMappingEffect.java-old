@@ -32,7 +32,7 @@ public class TimeMappingEffect {
 	double duration = 1e3;
 	double alpha = 0.5;
 	int n = 100;
-	if ( args.length == 4 ) {
+	if (args.length == 4) {
 	    mean = (Double.valueOf(args[0])).doubleValue();
 	    duration = (Double.valueOf(args[1])).doubleValue();
 	    alpha = (Double.valueOf(args[2])).doubleValue();
@@ -59,7 +59,7 @@ public class TimeMappingEffect {
 	AggregatePeriodogram avgLong = new AggregatePeriodogram();
 
 	//  Loop on n
-	for ( int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 
 // 	    double[] times = RedNoiseGenerator.generateArrivalTimes(mean, duration, alpha);
 // 	    AstroEventList evlist = new AstroEventList(times);
@@ -79,7 +79,7 @@ public class TimeMappingEffect {
 
 	    int [] resamplingFactors = new int[] {1, 16, 128};
 	    double[] longDurations = new double[] {duration, 16*duration, 128*duration};
-	    for ( int j=0; j < resamplingFactors.length; j++ ) {
+	    for (int j=0; j < resamplingFactors.length; j++) {
 		int factor = resamplingFactors[j];
 		double longDuration = longDurations[j];
 
@@ -104,10 +104,10 @@ public class TimeMappingEffect {
 		//  Make FFTPeriodogram and add to AggregatePeriodogram 
 		AstroEventList evlist = new AstroEventList(times);
 		FFTPeriodogram psd = PeriodogramMaker.makePlainFFTPeriodogram(evlist);
-		if ( factor == resamplingFactors[0] ) {
+		if (factor == resamplingFactors[0]) {
 		    avgLong.add(psd);
 		}
-		else if ( factor == resamplingFactors[1] ) {
+		else if (factor == resamplingFactors[1]) {
 		    avgMed.add(psd);
 		}
 		else {
@@ -136,14 +136,14 @@ public class TimeMappingEffect {
 		"ERR OFF",
 		"!"
 	};
-	for ( int i=0; i < header2.length; i++ ) 
+	for (int i=0; i < header2.length; i++)
 	    pw.println(header2[i]);
 
 	double[] freqs = psdLong.getFreqs();
 	double[] powers = psdLong.getPowers();
 	double[] errors = psdLong.getErrors();
 	int i=0;
-	while ( i < freqs.length && freqs[i] <= 0.25 ) {
+	while (i < freqs.length && freqs[i] <= 0.25) {
 	    pw.println(freqs[i]+"\t"+powers[i]+"\t"+errors[i]);
 	    i++;
 	}
@@ -153,7 +153,7 @@ public class TimeMappingEffect {
 	powers = psdMed.getPowers();
 	errors = psdMed.getErrors();
 	i=0;
-	while ( i < freqs.length && freqs[i] <= 0.25 ) {
+	while (i < freqs.length && freqs[i] <= 0.25) {
 	    pw.println(freqs[i]+"\t"+powers[i]+"\t"+errors[i]);
 	    i++;
 	}
@@ -163,7 +163,7 @@ public class TimeMappingEffect {
 	powers = psdShort.getPowers();
 	errors = psdShort.getErrors();
 	i=0;
-	while ( i < freqs.length && freqs[i] <= 0.25 ) {
+	while (i < freqs.length && freqs[i] <= 0.25) {
 	    pw.println(freqs[i]+"\t"+powers[i]+"\t"+errors[i]);
 	    i++;
 	}

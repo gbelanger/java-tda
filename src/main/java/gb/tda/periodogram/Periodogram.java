@@ -74,7 +74,7 @@ public abstract class Periodogram {
 	this.binWidths = new double[this.nBins];
 	this.halfBinWidths = new double[this.nBins];
 	this.binEdges = new double[2*this.nBins];
-	for ( int i=0; i < this.nBins; i++ ) {
+	for (int i=0; i < this.nBins; i++) {
 	    this.binWidths[i] = this.binWidth;
 	    this.halfBinWidths[i] = 0.5*this.binWidth;
 	    this.binEdges[2*i] = this.freqs[i] - this.halfBinWidths[i];
@@ -94,7 +94,7 @@ public abstract class Periodogram {
 	this.binWidths = Arrays.copyOf(binWidths, binWidths.length);
 	//  Check if binning is constant
 	double var = BasicStats.getVariance(binWidths);
-	if ( var < 1e-6) {
+	if (var < 1e-6) {
 	    binWidthIsConstant = true;
 	    this.binWidth = binWidths[0];
 	}
@@ -104,7 +104,7 @@ public abstract class Periodogram {
 	//  set halfBinWidths and binEdges
 	this.halfBinWidths = new double[nBins];
 	this.binEdges = new double[2*nBins];	
-	for ( int i=0; i < nBins; i++ ) {
+	for (int i=0; i < nBins; i++) {
 	    this.halfBinWidths[i] = 0.5*this.binWidths[i];
 	    this.binEdges[2*i] = freqs[i] - this.halfBinWidths[i];
 	    this.binEdges[2*i+1] = freqs[i] + this.halfBinWidths[i];
@@ -137,7 +137,7 @@ public abstract class Periodogram {
     public double getAvgPower() { return this.avgPower; }
     public boolean binWidthIsConstant() { return this.binWidthIsConstant; }
     public double binWidth() throws PeriodogramException {
-	if ( this.binWidthIsConstant ) {
+	if (this.binWidthIsConstant) {
 	    return this.binWidth;
 	}
 	else {
@@ -163,21 +163,21 @@ public abstract class Periodogram {
 
     public Periodogram add(double constant) {
 	double[] newPowers = new double[this.nBins()];
-	for ( int i=0; i < this.nBins(); i++ ) {
+	for (int i=0; i < this.nBins(); i++) {
 	    newPowers[i] = this.powers[i] + constant;
 	}
 	return modifyPowers(newPowers);
     }
 
     public Periodogram add(Periodogram periodogram) throws PeriodogramException {
-	if ( this.nBins != periodogram.nBins() ) {
+	if (this.nBins != periodogram.nBins()) {
 	    throw new PeriodogramException("Cannot combine periodograms: different number of bins ("+this.nBins+" != "+periodogram.nBins()+").");
 	}
 	logger.warn("This operation combining two periodograms assumes all frequencies are identical. If this is not true, use AggregatePeriodogram.");
 	double[] p = periodogram.getPowers();
 	double[] f = periodogram.getFreqs();
 	double[] newPowers = new double[this.nBins];
-	for ( int i=0; i < this.nBins; i++ ) {
+	for (int i=0; i < this.nBins; i++) {
 	    newPowers[i] = p[i] + this.powers[i];
 	}
 	return modifyPowers(newPowers);
@@ -189,14 +189,14 @@ public abstract class Periodogram {
     }
 
     public Periodogram subtract(Periodogram periodogram) throws PeriodogramException {
-	if ( this.nBins != periodogram.nBins() ) {
+	if (this.nBins != periodogram.nBins()) {
 	    throw new PeriodogramException("Cannot combine periodograms: different number of bins ("+this.nBins+" != "+periodogram.nBins()+").");
 	}
 	logger.warn("This operation combining two periodograms assumes all frequencies are identical. If this is not true, use AggregatePeriodogram.");
 	double[] p = periodogram.getPowers();
 	double[] f = periodogram.getFreqs();
 	double[] newPowers = new double[this.nBins];
-	for ( int i=0; i < this.nBins; i++ ) {
+	for (int i=0; i < this.nBins; i++) {
 	    newPowers[i] = this.powers[i] - p[i];
 	}
 	return modifyPowers(newPowers);
@@ -205,7 +205,7 @@ public abstract class Periodogram {
     public Periodogram scale(double constant) {
 	logger.info("Scaling periodogram by factor: "+constant);
 	double[] newPowers = new double[this.nBins()];
-	for ( int i=0; i < this.nBins(); i++ ) {
+	for (int i=0; i < this.nBins(); i++) {
 	    newPowers[i] = this.powers[i] * constant;
 	}
 	return modifyPowers(newPowers);	
@@ -214,7 +214,7 @@ public abstract class Periodogram {
     public Periodogram scale(double[] scalingFactors) {
 	logger.info("Scaling each power by different scaling factor");
 	double[] newPowers = new double[this.nBins()];
-	for ( int i=0; i < this.nBins(); i++ ) {
+	for (int i=0; i < this.nBins(); i++) {
 	    newPowers[i] = this.powers[i] * scalingFactors[i];
 	}
 	return modifyPowers(newPowers);

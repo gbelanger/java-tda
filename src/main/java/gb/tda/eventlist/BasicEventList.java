@@ -3,14 +3,10 @@ package gb.tda.eventlist;
 import java.awt.geom.Point2D; 
 import java.io.IOException;
 import java.util.Arrays;
-
+import org.apache.log4j.Logger;
 import gb.tda.io.AsciiDataFileFormatException;
 import gb.tda.tools.BasicStats;
 import gb.tda.tools.MinMax;
-
-import cern.colt.list.DoubleArrayList;
-import org.apache.log4j.Logger;
-
 
 public class BasicEventList implements IEventList {
 
@@ -29,7 +25,7 @@ public class BasicEventList implements IEventList {
 
     //  Constructors
 
-    BasicEventList() {}
+    private BasicEventList() {}
 
     public BasicEventList(String filename) throws AsciiDataFileFormatException, EventFileException, EventListException, IOException {
 		IEventList evlist = EventFileReader.read(filename);
@@ -47,10 +43,10 @@ public class BasicEventList implements IEventList {
     private void setArrivalTimes(double[] times) throws EventListException {
 		this.arrivalTimes = new double[times.length];
 		this.interArrivalTimes = new double[times.length-1];
-		for ( int i=0; i < times.length-1; i++ ) {
+		for (int i=0; i < times.length-1; i++) {
 		    this.arrivalTimes[i] = times[i];
 		    this.interArrivalTimes[i] = times[i+1] - times[i];
-	 	    if ( interArrivalTimes[i] < 0 ) {
+	 	    if (interArrivalTimes[i] < 0) {
 	 		logger.warn("Negative inter-arrival time i="+i+" times[i+1]="+times[i+1]+" times[i]="+times[i]+" dt="+interArrivalTimes[i]);
 	 	    }
 		}
@@ -73,7 +69,7 @@ public class BasicEventList implements IEventList {
 		logger.info("  duration = "+this.duration);
 		logger.info("  mean rate = "+meanRate);
 		logger.info("  minEventSpacing = "+this.minEventSpacing);
-		if ( this.minEventSpacing <= 0 ) {
+		if (this.minEventSpacing <= 0) {
 		    logger.warn("  Min event spacing is <= 0. Arrival times might be unsorted.");
 		}
 		logger.info("  maxEventSpacing = "+this.maxEventSpacing);

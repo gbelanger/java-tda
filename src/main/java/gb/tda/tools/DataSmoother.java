@@ -14,7 +14,7 @@ public final class DataSmoother {
 		logger.info("Detrending: Subtracting m*x from original data");
 		int n = x.length;
 		double[] detrended = new double[n];
-		for ( int i=0; i < n; i++ ) {
+		for (int i=0; i < n; i++) {
 		    detrended[i] = y[i] - mTimesX[i] + y[0];
 		}
 		return detrended;
@@ -30,7 +30,7 @@ public final class DataSmoother {
 		// Calculate detrending values
 		int n = x.length;
 		double[] valuesToSubtract = new double[n];
-		for ( int i=0; i < n; i++ ) {
+		for (int i=0; i < n; i++) {
 		    valuesToSubtract[i] = m*x[i]; // + b;  //  there's a problem with the vertical offset
 		}
 		return valuesToSubtract;
@@ -62,12 +62,12 @@ public final class DataSmoother {
 		xHat[0] = z[0];
 		p[0] = 1;
 		//  Run
-		for ( int i=1; i < n; i++ ) {
+		for (int i=1; i < n; i++) {
 		    //  Time-Update equations
 		    xHat_apriori[i] = a*xHat[i-1];
 		    p_apriori[i] = a*a*p[i-1] + q;
 		    //  Measurement-Update equations
-		    double k = p_apriori[i] / ( p_apriori[i] + r );
+		    double k = p_apriori[i] / (p_apriori[i] + r);
 		    xHat[i] = xHat_apriori[i] + k * (z[i] - xHat_apriori[i]);
 		    p[i] = (1 - k)*p_apriori[i];
 		}
@@ -89,7 +89,7 @@ public final class DataSmoother {
 		xHat[0] = z[0];
 		p[0] = 1;
 		//  Run the Kalman filtering
-		for ( int i=1; i < n; i++ ) {
+		for (int i=1; i < n; i++) {
 		    //  Time-Update equations
 		    //xHat_apriori[i] = a*xHat[i-1];
 		    //p_apriori[i] = a*a*p[i-1] + q;
@@ -97,7 +97,7 @@ public final class DataSmoother {
 		    p_apriori[i] = p[i-1] + q;
 		    //  Measurement-Update equations
 		    double r = zErr[i]*zErr[i];
-		    double k = p_apriori[i] / ( p_apriori[i] + r );
+		    double k = p_apriori[i] / (p_apriori[i] + r);
 		    xHat[i] = xHat_apriori[i] + k * (z[i] - xHat_apriori[i]);
 		    p[i] = (1 - k)*p_apriori[i];
 		}
@@ -106,7 +106,7 @@ public final class DataSmoother {
     
 
     public static double[] smooth(double[] data, int nBins) {
-		if ( nBins%2 != 1 ) {
+		if (nBins%2 != 1) {
 		    nBins += 1;
 		    logger.warn("Using "+nBins+" bins instead of the specified "+(nBins-1)+". Number of bins must be odd");
 		}
@@ -117,12 +117,12 @@ public final class DataSmoother {
 		//  as we progressively move away from the first bin, from the minimum of 3 bins, 
 		//  up to the specified number of bins
 		int i=1;
-		while ( i < (nBins/2) ) {
+		while (i < (nBins/2)) {
 		    int nUsed = 2*i+1;
 		    double sum=0;
-		    for ( int j=0; j < nUsed; j++ ) {
+		    for (int j=0; j < nUsed; j++) {
 				int idx = i - (nUsed/2) + j;
-				if ( !Double.isNaN(data[idx]) ) {
+				if (!Double.isNaN(data[idx])) {
 				    sum += data[idx];
 				}
 		    }
@@ -130,11 +130,11 @@ public final class DataSmoother {
 		    i++;
 		}
 		//  For the central part of the data, we do the averaging using the specified number of bins
-		while ( i < (data.length - (nBins/2)) ) {
+		while (i < (data.length - (nBins/2))) {
 		    double sum=0;
-		    for ( int j=0; j < nBins; j++ ) {
+		    for (int j=0; j < nBins; j++) {
 				int idx = i - nBins/2 + j;
-				if ( !Double.isNaN(data[idx]) ) {
+				if (!Double.isNaN(data[idx])) {
 				    sum += data[idx];
 				}
 		    }
@@ -142,11 +142,11 @@ public final class DataSmoother {
 		    i++;
 		}
 		//  For the last bins, we do as we did for the first bins
-		while ( i < data.length-1 ) {
+		while (i < data.length-1) {
 		    int nUsed = 2*(data.length-1-i)+1;
 		    double sum=0;
-		    for ( int j=0; j < nUsed; j++ ) {
-				if ( !Double.isNaN(data[i - (nUsed/2)+j]) ) {
+		    for (int j=0; j < nUsed; j++) {
+				if (!Double.isNaN(data[i - (nUsed/2)+j])) {
 				    sum += data[i - (nUsed/2)+j];
 				}
 		    }
@@ -179,7 +179,7 @@ public final class DataSmoother {
 		double wSumOfRates = rate[0]*weight;
 		double sumOfWeights = weight;
 		//  Calculate the mean rates over the first half of the smoothing window 
-		while ( deltaT < halfWindowSize ) {
+		while (deltaT < halfWindowSize) {
 		    deltaT += (time[k+1] - time[k]);
 		    sumOfRates += rate[k+1];
 		    weight = Math.pow(error[k], 2);
@@ -189,8 +189,8 @@ public final class DataSmoother {
 		}
 		//  Set meanRates for each of the bins over the 
 		//     first half window to the same average rate  
-		//for ( int i=0; i < k; i++ ) { meanRates[i] = sumOfRates/k; }
-		for ( int i=0; i < k; i++ ) meanRates[i] = wSumOfRates/sumOfWeights;
+		//for (int i=0; i < k; i++) { meanRates[i] = sumOfRates/k; }
+		for (int i=0; i < k; i++) meanRates[i] = wSumOfRates/sumOfWeights;
 		//System.out.println(meanRates[0] +"	"+ sumOfRates/k);
 		//  Calculate the mean rates for region between firstHalfBlock and lastHalfBlock 
 		int nRateValues = 0;
@@ -200,8 +200,8 @@ public final class DataSmoother {
 		sumOfRates = 0;
 		wSumOfRates = 0;
 		sumOfWeights = 0;
-		while ( time[k] < (time[time.length-1] - halfWindowSize) ) {
-		    while ( deltaT < smoothingWindowSize && k < time.length-2 ) {
+		while (time[k] < (time[time.length-1] - halfWindowSize)) {
+		    while (deltaT < smoothingWindowSize && k < time.length-2) {
 				deltaT += (time[k+1] - time[k]);
 				sumOfRates += rate[k];
 				weight = Math.pow(error[k], 2);
@@ -222,7 +222,7 @@ public final class DataSmoother {
 		}
 		k = m;
 		//  Calculate the average over the last half window 
-		while ( time[k] < time[time.length-1] ) {
+		while (time[k] < time[time.length-1]) {
 		    sumOfRates += rate[k];
 		    weight = Math.pow(error[k], 2);
 		    wSumOfRates += rate[k]*weight;
@@ -232,7 +232,7 @@ public final class DataSmoother {
 		}
 		//  Set meanRates for each of the bins over 
 		//   the last half window to the same average rate  
-		for ( int i=m; i < k; i++ )  { 
+		for (int i=m; i < k; i++)  {
 		    meanRates[i] = wSumOfRates/sumOfWeights; 
 		    meanErrors[i] = 1/Math.sqrt(sumOfWeights);
 		}
@@ -258,33 +258,33 @@ public final class DataSmoother {
 		int k = 0;
 		double deltaT = 0;
 		//  First half of event block 
-		for ( int i=0; i < halfBlockSize; i++ ) {
+		for (int i=0; i < halfBlockSize; i++) {
 		    firstBlock[i] = arrivalTimes[k];
 		    k++;
 		}
 		double timeSpanOfHalfBlock = DataUtils.getRange(firstBlock);
 		double mean = halfBlockSize/timeSpanOfHalfBlock;
 		double err = Math.sqrt(halfBlockSize)/timeSpanOfHalfBlock;
-		for ( int i=0; i < halfBlockSize; i++ )  { 
+		for (int i=0; i < halfBlockSize; i++)  {
 		    meanRates[i] = mean;
 		    meanErrors[i] = err;
 		}
 		//  All complete event blocks between firstHalfBlock and lastHalfBlock  
 		int m = halfBlockSize; 
 		double timeSpanOfBlock = 0;
-		while ( k < (arrivalTimes.length - halfBlockSize) ) {
-		    for ( int i=0; i < eventWindowSize; i++ ) {eventBlock[i] = arrivalTimes[k - halfBlockSize + i];}
+		while (k < (arrivalTimes.length - halfBlockSize)) {
+		    for (int i=0; i < eventWindowSize; i++) {eventBlock[i] = arrivalTimes[k - halfBlockSize + i];}
 		    timeSpanOfBlock = DataUtils.getRange(eventBlock);
 		    meanRates[m] = eventWindowSize/timeSpanOfBlock;
 		    meanErrors[m] = Math.sqrt(eventWindowSize)/timeSpanOfBlock;
 		    m++;  k++;
 		}
 		//  Last half event block 
-		for ( int i=0; i < halfBlockSize; i++ ) { lastBlock[i] = arrivalTimes[k];  k++; }
+		for (int i=0; i < halfBlockSize; i++) { lastBlock[i] = arrivalTimes[k];  k++; }
 		timeSpanOfHalfBlock = DataUtils.getRange(lastBlock);
 		mean = halfBlockSize/timeSpanOfHalfBlock; 
 		err = Math.sqrt(halfBlockSize)/timeSpanOfHalfBlock;
-		for ( int i=0; i < halfBlockSize; i++ ) { 
+		for (int i=0; i < halfBlockSize; i++) {
 		    meanRates[m + i] = mean;
 		    meanErrors[m + i] = err;
 		}
@@ -297,7 +297,7 @@ public final class DataSmoother {
 		//  Note: Distances must be in the same units as sigma of PSF
 		double[] weight = new double[xDistance.length];
 		double norm = 1/(2*Math.PI*xSigmaOfPSF*ySigmaOfPSF);
-		for ( int i=0; i < weight.length; i++ ) {
+		for (int i=0; i < weight.length; i++) {
 		    weight[i] = norm*Math.exp(-0.5 * (Math.pow(xDistance[i]/xSigmaOfPSF, 2) + Math.pow(yDistance[i]/ySigmaOfPSF, 2)));
 		}
 		return weight;

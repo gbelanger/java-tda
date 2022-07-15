@@ -20,7 +20,7 @@ This package contains java objects to represent and work with event lists.
 
 The main objects are:
 - `IEventFileReader` is an interface that defines a method for reading event files.
-- `EventList` is the representation of an event list
+- `AstroEventList` is the representation of an event list
 - `AsciiEventFileReader` to read event lists in ascii format
 - `FitsEventFileReader` to read event lists in fits format
 - `EventFileReader` to loop on all specific file readers

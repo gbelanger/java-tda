@@ -160,10 +160,10 @@ public class AggregatePeriodogram {
         double var = Math.pow((data.get(0) - ave), 2);
         double runAve = ave;
         double runVar = 0;
-	if ( data.size() > 1 ) {
-	    for ( int i=1;  i < data.size(); i++ ) {
+	if (data.size() > 1) {
+	    for (int i=1;  i < data.size(); i++) {
 		double datum = data.get(i);
-		if ( ! Double.isNaN(datum) ) {
+		if (! Double.isNaN(datum)) {
 		    runAve = ave + (datum - ave)/(n+1);
 		    runVar = var + (datum - runAve)*(datum - ave);
 		    sum += datum;

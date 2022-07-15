@@ -24,23 +24,23 @@ public class CodedMaskTimeSeriesFactory {
         logger.info("Making CodedMaskTimeSeries");
         int[] arrayLengths = new int[] {effectivePointingDurations.length, rates.length, errors.length, rasOfPointings.length, decsOfPointings.length, exposuresOnTarget.length};
         double minLength = arrayLengths[0];
-        for ( int i=0; i < arrayLengths.length; i++ ) {
-            if ( arrayLengths[i] != arrayLengths[0] ) {
+        for (int i=0; i < arrayLengths.length; i++) {
+            if (arrayLengths[i] != arrayLengths[0]) {
                 logger.warn("Different array length detected in input "+i);
                 minLength = Math.min(minLength, arrayLengths[i]);
             }
         }
-        if ( binEdges.length != 2*rates.length ) {
+        if (binEdges.length != 2*rates.length) {
             throw new IllegalArgumentException("Incompatible array lengths: binEdges.length != 2*rates.length");
         }
         Point2D.Double targetRaDec = new Point2D.Double(targetRA, targetDec);
         Point2D.Double energyMinMax = new Point2D.Double(emin, emax);
         Point2D.Double[] raDecsOfPointings = new Point2D.Double[rasOfPointings.length];
-        for ( int i=0; i < rasOfPointings.length; i++ ) {
+        for (int i=0; i < rasOfPointings.length; i++) {
             raDecsOfPointings[i] = new Point2D.Double(rasOfPointings[i], decsOfPointings[i]);
         }
         double tStart = binEdges[0];
-        if ( tStart < 0 ) { tStart = 0; }
+        if (tStart < 0) { tStart = 0; }
         double[] zeroedBinEdges = Utils.resetToZero(binEdges);
         return new CodedMaskTimeSeries(targetRaDec, energyMinMax, telescope, instrument, maxDistForFullCoding, tStart, zeroedBinEdges,
                 effectivePointingDurations, rates, errors, raDecsOfPointings, exposuresOnTarget);
@@ -108,18 +108,18 @@ public class CodedMaskTimeSeriesFactory {
 
         logger.info("Making simple CodedMaskTimeSeries");
         int[] arrayLengths = new int[] {effectivePointingDurations.length, rates.length, errors.length, distToPointingAxis.length};
-        for ( int i=0; i < arrayLengths.length; i++ ) {
-            if ( arrayLengths[i] != arrayLengths[0] ) {
+        for (int i=0; i < arrayLengths.length; i++) {
+            if (arrayLengths[i] != arrayLengths[0]) {
                 throw new IllegalArgumentException("Incompatible input array lengths");
             }
         }
-        if ( binEdges.length != 2*rates.length ) {
+        if (binEdges.length != 2*rates.length) {
             throw new IllegalArgumentException("Incompatible bin edges with input data");
         }
         Point2D.Double targetRaDec = new Point2D.Double(targetRA, targetDec);
         Point2D.Double energyMinMax = new Point2D.Double(emin, emax);
         double tStart = binEdges[0];
-        if ( tStart < 0 ) { tStart = 0; }
+        if (tStart < 0) { tStart = 0; }
         double[] zeroedBinEdges = Utils.resetToZero(binEdges);
         return new CodedMaskTimeSeries(targetRaDec, energyMinMax, telescope, instrument, maxDistForFullCoding, tStart, zeroedBinEdges,
                 effectivePointingDurations, rates, errors, distToPointingAxis);

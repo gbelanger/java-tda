@@ -63,11 +63,11 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 				AstroEventList evlist = (new FitsEventFileReader()).readEventFile(filename);
 				return TimeSeriesFactory.makeTimeSeries(evlist);
 		    }
-		    catch ( Exception e ) {
+		    catch (Exception e) {
 				throw new FitsTimeSeriesFileException("Problem reading event list", e);
 		    }
 		}
-		catch ( NullPointerException e ) {
+		catch (NullPointerException e) {
 		    hdu = findTimeSeriesHDU(hdus);
 		    String[] colNames = getRateAndErrorColNames(hdu);
 		    double[] rates = getDoubleDataCol(hdu, colNames[0]);
@@ -93,7 +93,7 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 				double[] expo = getDoubleDataCol(gtiHDU, "LIVETIME");
 				return CodedMaskTimeSeriesFactory.create(target,ra,dec,emin,emax,telescope,inst,maxDist,binEdges,expo,rates,errorsOnRates,angdist);
 			}
-			catch ( NullPointerException e2 ) {
+			catch (NullPointerException e2) {
 				return TimeSeriesFactory.makeTimeSeries(binCentres, halfBinWidths, rates, errorsOnRates);
 			}
 		}
@@ -118,11 +118,11 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 		    BasicHDU<?>[] hdus = fitsFile.read();
 		    return hdus;
 		}
-		catch ( TruncatedFileException e ) {
+		catch (TruncatedFileException e) {
 		    throw new TimeSeriesFileException("File is either empty or corrupted", e);
 		}
-		catch ( FitsException e ) {
-		    if ( e.getMessage().contains("Not FITS format") ) {
+		catch (FitsException e) {
+		    if (e.getMessage().contains("Not FITS format")) {
 				throw new FitsTimeSeriesFileFormatException("File format is not FITS");
 		    }
 		    else {
@@ -139,27 +139,27 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 				logger.info("Returning double data column "+colName);
 				return col;
 			}
-			catch ( ClassCastException e ) {
+			catch (ClassCastException e) {
 				try {
 					float[] fltData = (float[]) hdu.getColumn(colName);
 					logger.info("Returning double (converted from float) data column "+colName);		    
 					col = Converter.float2double(fltData);
 					return col;
 				}
-				catch ( ClassCastException e2 ) {
+				catch (ClassCastException e2) {
 					try {
 						int[] intData = (int[]) hdu.getColumn(colName);
 						logger.info("Returning double (converted from int) data column "+colName);
 						col = Converter.int2double(intData);
 						return col; 
 					}
-					catch ( ClassCastException e3 ) {
+					catch (ClassCastException e3) {
 						throw new ClassCastException(colName+" format not double[], float[], or int[]. " + e3);
 					}
 				}
 			}
 		}
-		catch ( FitsException e ) {
+		catch (FitsException e) {
 			throw new TimeSeriesFileException("Problem in getDoubleDataCol", e);
 		}
     }
@@ -169,20 +169,20 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 		String rateColName;
 		String errorColName;
 		int nCols = hdu.getNCols();
-		for ( int j=0; j < nCols; j++ ) {
+		for (int j=0; j < nCols; j++) {
 			String colName = hdu.getColumnName(j); 
-			if ( colName.equals("TIME") ) {
+			if (colName.equals("TIME")) {
 				timeColName = colName;
 			}
-			else if ( colName.startsWith("RATE") ) {
+			else if (colName.startsWith("RATE")) {
 				rateColName = colName;
 			}
-			else if ( colName.startsWith("ERROR") ) {
+			else if (colName.startsWith("ERROR")) {
 				errorColName = colName;
 			}
 			else {}
 		}	
-		if ( timeColName == null || rateColName == null || errorColName == null ) {
+		if (timeColName == null || rateColName == null || errorColName == null) {
 			throw new NullPointerException("Cannot find columns named TIME, RATE* and ERROR*");
 		}
 		else {
@@ -192,15 +192,15 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
     }
     
     private BinaryTableHDU getBinaryTableHDU(BasicHDU<?>[] hdus, String hduName) throws NullPointerException {
-		for ( BasicHDU<?> h : hdus ) {
+		for (BasicHDU<?> h : hdus) {
 			try { 
 				BinaryTableHDU hdu = (BinaryTableHDU) h;
 				String extname = h.getHeader().getStringValue("EXTNAME");
-				if ( extname.equals(hduName) ) {
+				if (extname.equals(hduName)) {
 					return hdu;
 				}
 			}
-			catch ( ClassCastException e ) {}  //  The HDU is not a BinaryTableHDU
+			catch (ClassCastException e) {}  //  The HDU is not a BinaryTableHDU
 		}
 		throw new NullPointerException("HDU array does not contain and HDU with name = "+hduName);
     }
@@ -208,12 +208,12 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
     private double[] getBinCentres(double[] times, double[] halfBinWidths) throws TimeSeriesFileException {
 		//  Since the times in FITS time series files are not the bin centre but the left edge of the bin
 		//  We need to shift the time in order to get the bin centre.
-		if ( times.length != halfBinWidths.length ) {
+		if (times.length != halfBinWidths.length) {
 			throw new TimeSeriesFileException("Array lengths are different (times.length != halfBinWidths.length)");
 		}
 		int nBins = times.length;
 		double[] binCentres = new double[times.length];
-		for ( int i=0; i < nBins; i++ ) {
+		for (int i=0; i < nBins; i++) {
 			binCentres[i] = times[i] + halfBinWidths[i];
 		}
 		logger.info("Returning bin centres");
@@ -223,26 +223,26 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
     private double[] getTimeCol(BinaryTableHDU hdu) throws TimeSeriesFileException {
 		Header header = hdu.getHeader();
 		double tStart = header.getDoubleValue("TSTART");
-		if ( tStart == 0.0 ) {
+		if (tStart == 0.0) {
 			tStart = header.getIntValue("TSTARTI") + header.getDoubleValue("TSTARTF");
-			if ( tStart == 0.0 ) {
+			if (tStart == 0.0) {
 				throw new FitsTimeSeriesFileFormatException("Not a FITS time series file. There is no TSTART, nor TSTARTI and TSTARTF");
 			}
 			String timeunit = header.getStringValue("TIMEUNIT");  // The TIMEUNIT keyword applies to header values
-			if ( timeunit.equalsIgnoreCase("d") ) { 	    //  Convert to seconds if necessary
+			if (timeunit.equalsIgnoreCase("d")) { 	    //  Convert to seconds if necessary
 				tStart *= 86400;
 			}
 		}
 		double[] times = getDoubleDataCol(hdu, "TIME");
 		int timeColNumber = hdu.findColumn("TIME")+1;
 		String timeColUnits = header.getStringValue("TUNIT"+timeColNumber);
-		if ( timeColUnits.equalsIgnoreCase("d") ) {
-			for ( int i=0; i < times.length; i++ ) {
+		if (timeColUnits.equalsIgnoreCase("d")) {
+			for (int i=0; i < times.length; i++) {
 				times[i] *= 86400;
 			}
 		}
-		if ( times[0] == 0.0 ) {
-			for ( int i=0; i < times.length; i++ ) {
+		if (times[0] == 0.0) {
+			for (int i=0; i < times.length; i++) {
 				times[i] += tStart;
 			}
 		}
@@ -255,9 +255,9 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 		double timedel = header.getDoubleValue("TIMEDEL");
 		double[] dt;
 		double[] halfBinWidths;
-		if ( timedel == 0.0 ) {
+		if (timedel == 0.0) {
 			int colNumber = hdu.findColumn("TIMEDEL");
-			if ( colNumber == -1 ) {
+			if (colNumber == -1) {
 				throw new FitsTimeSeriesFileException("There is no TIMEDEL keyword in header and no TIMEDEL column in file: No binning information");
 			}
 			else {
@@ -266,8 +266,8 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 				halfBinWidths = new double[dt.length];
 				int timedelColNumber = hdu.findColumn("TIMEDEL")+1;
 				String timedelColUnits = header.getStringValue("TUNIT"+timedelColNumber);
-				if ( timedelColUnits.equalsIgnoreCase("d") ) {
-					for ( int i=0; i < dt.length; i++ ) {
+				if (timedelColUnits.equalsIgnoreCase("d")) {
+					for (int i=0; i < dt.length; i++) {
 					dt[i] *= 86400;
 					halfBinWidths[i] = dt[i]/2;
 					}
@@ -276,22 +276,22 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 		}
 		else {
 			String timeunit = header.getStringValue("TIMEUNIT");  // The TIMEUNIT keyword applies to header values
-			if ( timeunit == null ) {
+			if (timeunit == null) {
 				HeaderCard card = header.findCard("TIMEDEL");
 				String comment = card.getComment();
-				if ( comment.contains("[d]") ) {
+				if (comment.contains("[d]")) {
 					timedel *= 86400;
 				}
 			}
 			else {
-				if ( timeunit.equalsIgnoreCase("d") ) {
+				if (timeunit.equalsIgnoreCase("d")) {
 					timedel *= 86400;
 				}
 			}
 			logger.info("TIMEDEL (binwidth) = "+timedel);
 			int nRows = hdu.getNRows();
 			halfBinWidths = new double[nRows];
-			for ( int i=0; i < nRows; i++ ) {
+			for (int i=0; i < nRows; i++) {
 				halfBinWidths[i] = timedel/2;
 			}
 		}
@@ -302,26 +302,26 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
     private BinaryTableHDU findTimeSeriesHDU(BasicHDU<?>[] hdus) throws FitsTimeSeriesFileException {
 		int k=1;
 		try {
-		    while ( true ) {
+		    while (true) {
 			try {
 			    BinaryTableHDU hdu = (BinaryTableHDU) hdus[k];
 			    String extname = hdu.getHeader().getStringValue("EXTNAME");
-			    if ( extname.equals("RATE") ) return hdu;
+			    if (extname.equals("RATE")) return hdu;
 			    String hduclas1 = hdu.getHeader().getStringValue("HDUCLAS1");
-			    if ( hduclas1 != null && hduclas1.equals("LIGHTCURVE") ) return hdu;
+			    if (hduclas1 != null && hduclas1.equals("LIGHTCURVE")) return hdu;
 			    else {
 					try {
 						String[] rateAndErrorColNames = getRateAndErrorColNames(hdu);
 						return hdu;
 					}
-					catch ( NullPointerException e ) {}  //  The HDU does not contain the three cols TIME, RATE* and ERROR*
+					catch (NullPointerException e) {}  //  The HDU does not contain the three cols TIME, RATE* and ERROR*
 			    }
 			}
-			catch ( ClassCastException e ) {}  //  the HDU is not a BinaryTableHDU
+			catch (ClassCastException e) {}  //  the HDU is not a BinaryTableHDU
 			k++;  //  Check the next HDU
 		    }
 		}
-		catch ( ArrayIndexOutOfBoundsException e ) {
+		catch (ArrayIndexOutOfBoundsException e) {
 		    throw new FitsTimeSeriesFileException("Not a FITS time series file. There is no HDU that contains TIME, RATE* and ERROR* columns");
 		}
     }
@@ -329,17 +329,17 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 	private BinaryTableHDU findGTIHDU(BasicHDU<?>[] hdus) throws FitsTimeSeriesFileException {
 		int k=1;
 		try {
-		    while ( true ) {
+		    while (true) {
 				try {
 					BinaryTableHDU hdu = (BinaryTableHDU) hdus[k];
 					String extname = hdu.getHeader().getStringValue("EXTNAME");
-					if ( extname.equals("GTI") ) return hdu;
+					if (extname.equals("GTI")) return hdu;
 				}
-				catch ( ClassCastException e ) {}  //  the HDU is not a BinaryTableHDU
+				catch (ClassCastException e) {}  //  the HDU is not a BinaryTableHDU
 				k++;  //  Check the next HDU
 		    }
 		}
-		catch ( ArrayIndexOutOfBoundsException e ) {
+		catch (ArrayIndexOutOfBoundsException e) {
 		    throw new FitsTimeSeriesFileException("There is no GTI HDU.");
 		}
     }

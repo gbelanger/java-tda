@@ -48,8 +48,8 @@ final class JSHeaderMaker {
 	String yAxisTitle = "\"Intensity (cts per bin)\"";
         double binWidth = 0;
         try { binWidth = ts.binWidth(); }
-        catch ( TimeSeriesException e ) { }
-        if ( binWidth != 0 ) {
+        catch (TimeSeriesException e) { }
+        if (binWidth != 0) {
             yAxisTitle = "\"Intensity (cts per "+decimals.format(binWidth)+" s)\"";
         }
 	return yAxisTitle;
@@ -108,7 +108,7 @@ final class JSHeaderMaker {
 	return (String[]) ArrayUtils.addAll(traceBlock, functionBlock, layoutBlock);
     }
     
-    // static String[] getAllDataHeader (ITimeSeries ts, String type ) throws IOException {
+    // static String[] getAllDataHeader (ITimeSeries ts, String type) throws IOException {
 
     // 	return header
     // }
@@ -171,8 +171,8 @@ final class JSHeaderMaker {
         String yAxisTitle = "\"Intensity (cts)\"";
         double binWidth = 0;
         try { binWidth = ts.binWidth(); }
-        catch ( TimeSeriesException e ) { }
-        if ( binWidth != 0 ) {
+        catch (TimeSeriesException e) { }
+        if (binWidth != 0) {
             yAxisTitle = "\"Intensity (cts per "+decimals.format(binWidth)+" s)\"";
         }
         String xAxisTitle = getXAxisTitle(ts);

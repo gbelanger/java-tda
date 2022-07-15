@@ -22,7 +22,7 @@ public class TestComponentDensity {
 
     private static void readArgs(String[] args) {
 
-	if ( args.length == 5 ) {
+	if (args.length == 5) {
 	    mean = (Double.valueOf(args[0])).doubleValue();
 	    duration = (Double.valueOf(args[1])).doubleValue();
 	    alpha = (Double.valueOf(args[2])).doubleValue();
@@ -40,7 +40,7 @@ public class TestComponentDensity {
 	String windowName = "Bartlett-Hann";
 	String normName = "leahy";
 	AggregatePeriodogram avgPsd = new AggregatePeriodogram();
-	for ( int i=0; i < nSpecs; i++ ) {
+	for (int i=0; i < nSpecs; i++) {
 	    double[] arrivalTimes = RedNoiseGenerator.generateArrivalTimes(mean, tTot, alpha, nFreqsPerIFS);
 	    AstroEventList evlist = new AstroEventList(arrivalTimes);
 	    evlist = new AstroEventList(EventListSelector.getArrivalTimesRandomSegment(evlist, tObs));
@@ -55,9 +55,9 @@ public class TestComponentDensity {
 
 	readArgs(args);
 	double tObs = duration;
-	for ( int i=0; i < factors.length; i++ ) {
+	for (int i=0; i < factors.length; i++) {
 	    double tTot = factors[i]*tObs;
-	    for ( int j=0; j < factors.length; j++ ) {
+	    for (int j=0; j < factors.length; j++) {
 		int nFreqsPerIFS = factors[j];
 		AveragePeriodogram avgPsd = buildAvgPsd(tObs, tTot, nFreqsPerIFS);
 		avgPsd.writeAsQDP("avgPsd-tObs_"+tObs+"-tTot_"+tTot+"-nPerIFS_"+nFreqsPerIFS+".qdp");

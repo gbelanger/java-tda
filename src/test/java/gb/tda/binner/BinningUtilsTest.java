@@ -21,8 +21,8 @@ public class BinningUtilsTest {
 
 	System.out.println("Test 1");
 	double[] binEdges = BinningUtils.getBinEdges(xmin, xmax, binWidth);
-	for ( int i=0; i < binEdges.length/2; i++ ) {
-	    System.out.println(binEdges[2*i] +"	"+ binEdges[2*i+1]+"	 binWidth = "+(binEdges[2*i+1]-binEdges[2*i]) );
+	for (int i=0; i < binEdges.length/2; i++) {
+	    System.out.println(binEdges[2*i] +"	"+ binEdges[2*i+1]+"	 binWidth = "+(binEdges[2*i+1]-binEdges[2*i]));
 	}
 
 
@@ -31,8 +31,8 @@ Test 2");
  	xmin = 100;
  	xmax = 110;
  	binEdges = BinningUtils.getBinEdges(xmin, xmax, binWidth);
-	for ( int i=0; i < binEdges.length/2; i++ ) {
-	    System.out.println(binEdges[2*i] +"	"+ binEdges[2*i+1]+"	 binWidth = "+(binEdges[2*i+1]-binEdges[2*i]) );
+	for (int i=0; i < binEdges.length/2; i++) {
+	    System.out.println(binEdges[2*i] +"	"+ binEdges[2*i+1]+"	 binWidth = "+(binEdges[2*i+1]-binEdges[2*i]));
 	}
 
 
@@ -42,8 +42,8 @@ Test 3");
 	xmax = 1;
 	binWidth = 0.1;
 	binEdges = BinningUtils.getBinEdges(xmin, xmax, binWidth);
-	for ( int i=0; i < binEdges.length/2; i++ ) {
-	    System.out.println(binEdges[2*i] +"	"+ binEdges[2*i+1]+"	 binWidth = "+(binEdges[2*i+1]-binEdges[2*i]) );
+	for (int i=0; i < binEdges.length/2; i++) {
+	    System.out.println(binEdges[2*i] +"	"+ binEdges[2*i+1]+"	 binWidth = "+(binEdges[2*i+1]-binEdges[2*i]));
 	}
 
 	System.out.println("
@@ -52,8 +52,8 @@ Test 4");
 	xmax = Double.MAX_VALUE;
 	binWidth = Double.MAX_VALUE/10;
 	binEdges = BinningUtils.getBinEdges(xmin, xmax, binWidth);
-	for ( int i=0; i < binEdges.length/2; i++ ) {
-	    System.out.println(binEdges[2*i] +"	"+ binEdges[2*i+1]+"	 binWidth = "+(binEdges[2*i+1]-binEdges[2*i]) );
+	for (int i=0; i < binEdges.length/2; i++) {
+	    System.out.println(binEdges[2*i] +"	"+ binEdges[2*i+1]+"	 binWidth = "+(binEdges[2*i+1]-binEdges[2*i]));
 	}
 
 
@@ -63,15 +63,15 @@ Test 5");
 	xmax = 10;
 	int nbins = 10;
 	binEdges = BinningUtils.getBinEdgesInLogSpace(xmin, xmax, nbins);
-	for ( int i=0; i < binEdges.length/2; i++ ) {
-	    System.out.println(binEdges[2*i] +"	"+ binEdges[2*i+1]+"	 binWidth in log space = "+(Math.log(binEdges[2*i+1]) - Math.log(binEdges[2*i])) );
+	for (int i=0; i < binEdges.length/2; i++) {
+	    System.out.println(binEdges[2*i] +"	"+ binEdges[2*i+1]+"	 binWidth in log space = "+(Math.log(binEdges[2*i+1]) - Math.log(binEdges[2*i])));
 	}
 
 
 	System.out.println("
 Test 6");
 	double[] linearBinCentres = BinningUtils.getBinCentresFromBinEdges(binEdges);
-	for ( int i=0; i < binEdges.length/2; i++ ) {
+	for (int i=0; i < binEdges.length/2; i++) {
 	    System.out.println(binEdges[2*i] +"	"+ linearBinCentres[i] +"	"+ binEdges[2*i+1] +"	 binWidth in linear space = "+ (binEdges[2*i+1]-binEdges[2*i])+ "	 distance from edges in linear space = "+(linearBinCentres[i] - binEdges[2*i]) +"	"+ (binEdges[2*i+1] - linearBinCentres[i]));
 	}
 

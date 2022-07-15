@@ -34,14 +34,14 @@ public final class PeriodogramUtils {
 	//  Check that nLCBins is a power of 2 >= nOldBins
 	double n1 = Math.floor(Math.log10(nbins)/Math.log10(2));
 	double n2 = Math.log10(nbins)/Math.log10(2);
-	if ( n1 != n2 ) {
+	if (n1 != n2) {
 	    new PeriodogramException("nbins = "+nbins+" is not a power of 2");
 	}
 	//  Define the frequencies 
 	double nuMin = 1/duration;
  	int nFreqs = nbins/2;
  	double[] frequencies = new double[nFreqs];
-	for ( int i=0; i < nFreqs; i++ ) {
+	for (int i=0; i < nFreqs; i++) {
 	    frequencies[i] = nuMin*(i+1);
 	}
 	return frequencies;
@@ -69,10 +69,10 @@ public final class PeriodogramUtils {
 	double max = nuMax + (sampling-1)*df;
 	double testFreq = min;
 	// Skip acceptable test frequencies that are below the requested nuMin
-	while ( testFreq < nuMin-0.5*df ) {
+	while (testFreq < nuMin-0.5*df) {
 	    testFreq += df;
 	}
-	while ( testFreq < max+0.5*df ) {
+	while (testFreq < max+0.5*df) {
 	    freqs.add(testFreq);
 	    testFreq += df;
 	}
@@ -85,7 +85,7 @@ public final class PeriodogramUtils {
     public static double[] getFourierFrequencies(double nuMin, double nuMax, double df) {
 	int nFreqs = (int) Math.round((nuMax-nuMin)/df);
 	double[] frequencies = new double[nFreqs];
-	for ( int i=0; i < nFreqs; i++ ) {
+	for (int i=0; i < nFreqs; i++) {
 	    frequencies[i] = nuMin + i*df;
 	}
 	return frequencies;
@@ -107,7 +107,7 @@ public final class PeriodogramUtils {
 	double[] testFreqs = getFourierFrequencies(numin, numax, duration, sampling); 
 	int nFreqs = testFreqs.length;
 	double[] testPeriods = new double[nFreqs];
-	for ( int i=0; i < nFreqs; i++ ) {
+	for (int i=0; i < nFreqs; i++) {
 	    testPeriods[i] = 1/testFreqs[nFreqs-1-i];
 	}
 	return testPeriods;
@@ -124,7 +124,7 @@ public final class PeriodogramUtils {
     public static double[] getPhases(double[] times, double period) {
 	double[] phases = new double[times.length];
 	double tOverP = 0;
-	for ( int i=0; i < times.length; i++ ) {
+	for (int i=0; i < times.length; i++) {
 	    tOverP = times[i]/period;
 	    phases[i] = tOverP - Math.floor(tOverP);
 	}
@@ -140,12 +140,12 @@ public final class PeriodogramUtils {
 
     
     public static double[] getPhases(double[] times, double[] periods) throws PeriodogramException {
-	if ( times.length != periods.length ) {
+	if (times.length != periods.length) {
 	    throw new PeriodogramException("Input arrays must have the same number of elements");
 	}
 	double[] phases = new double[times.length];
 	double tOverP = 0;
-	for ( int i=0; i < times.length; i++ ) {
+	for (int i=0; i < times.length; i++) {
 	    tOverP = times[i]/periods[i];
 	    phases[i] = tOverP - Math.floor(tOverP);
 	}
@@ -156,7 +156,7 @@ public final class PeriodogramUtils {
     
     public static double[] getPhases(double[] times, double slope, double intercept) throws PeriodogramException {
 	double[] periods = new double[times.length];
-	for ( int i=0; i < times.length; i++ ) {
+	for (int i=0; i < times.length; i++) {
 	    periods[i] = slope*times[i] + intercept;
 	}
 	return getPhases(times, periods);
@@ -165,10 +165,10 @@ public final class PeriodogramUtils {
 
     public static double[] getPhases(double[] times, double tZero, double nu, double nuDot, double nuDotDot) {
 	double[] phases = new double[times.length];
-	for ( int i=0; i < times.length; i++ ) {
+	for (int i=0; i < times.length; i++) {
 	    double timeDiff = times[i] - tZero;
 	    phases[i] = nu*timeDiff + 1/2*nuDot*Math.pow(timeDiff, 2) + 1/6*nuDotDot*Math.pow(timeDiff, 3);
-	    if ( phases[i] < 0 ) {
+	    if (phases[i] < 0) {
 		double shift = Math.ceil(-phases[i]);
 		phases[i] += shift;
 	    }
@@ -188,10 +188,10 @@ public final class PeriodogramUtils {
 
     public static double[] shiftPhases(double[] phases, double phaseShift) {
 		double[] shiftedPhases = new double[phases.length];
-		for ( int i=0; i < phases.length; i++ ) {
+		for (int i=0; i < phases.length; i++) {
 			shiftedPhases[i] = phases[i] + phaseShift;
-			if ( shiftedPhases[i] < 0 ) shiftedPhases[i] += 1;
-			if ( shiftedPhases[i] >= 1 ) shiftedPhases[i] -= 1;	    
+			if (shiftedPhases[i] < 0) shiftedPhases[i] += 1;
+			if (shiftedPhases[i] >= 1) shiftedPhases[i] -= 1;
 		}
 		Arrays.sort(shiftedPhases);
 		return shiftedPhases;
@@ -212,9 +212,9 @@ public final class PeriodogramUtils {
 	double freq = 1/(sampling*duration);
 	int n = 0;
 	int i = 2;
-	while ( n < nFreqs ) {
+	while (n < nFreqs) {
 	    freq = i/(sampling*duration) + ifsOffset/duration;
-	    if ( freq >= nuMin && freq <= nuMax ) {
+	    if (freq >= nuMin && freq <= nuMax) {
 		ifsEdgesInFreqSpace[n] = freq + 0.5/(sampling*duration);
 		//System.out.println(n+" "+freq+" "+ifsEdgesInFreqSpace[n]);
 		n++;
@@ -234,7 +234,7 @@ public final class PeriodogramUtils {
 	double[] ifsEdgesInFreqSpace = getIFSEdgesInFreqSpace(numin, numax, duration, sampling, ifsOffset);
 	int nEdges = ifsEdgesInFreqSpace.length;
 	double[] ifsEdgesInPeriodSpace = new double[nEdges];
-	for ( int i=0; i < nEdges; i++ ) {
+	for (int i=0; i < nEdges; i++) {
 	    ifsEdgesInPeriodSpace[i] = 1/ifsEdgesInFreqSpace[nEdges-1 - i];
 	    //System.out.println(i+" "+ifsEdgesInPeriodSpace[i]);
 	}
@@ -254,13 +254,13 @@ public final class PeriodogramUtils {
 	// Skip all frequencies before nuStart
 	int i=0;
 	double[] freqs = periodogram.getFreqs();
-	while ( freqs[i] < nuStart ) 
+	while (freqs[i] < nuStart)
 	    i++;
 	// Integrate up to nuStop
 	int nBins = periodogram.nBins();
 	double[] binWidths = periodogram.getBinWidths();
 	double[] powers = periodogram.getPowers();
-	while ( i < nBins && freqs[i] <= nuStop ) {
+	while (i < nBins && freqs[i] <= nuStop) {
 	    integral += binWidths[i]*powers[i];
 	    i++;
 	}

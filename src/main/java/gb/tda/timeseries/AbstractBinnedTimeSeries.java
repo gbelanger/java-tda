@@ -71,7 +71,7 @@ public abstract class AbstractBinnedTimeSeries extends AbstractTimeSeries implem
     AbstractBinnedTimeSeries(IBinnedTimeSeries ts) {
         setBinEdges(ts.tStart(), ts.getBinEdges());
         setIntensities(ts.getIntensities());
-        if ( ts.uncertaintiesAreSet() ) {
+        if (ts.uncertaintiesAreSet()) {
             setUncertainties(ts.getUncertainties());
         }
     }
@@ -107,7 +107,7 @@ public abstract class AbstractBinnedTimeSeries extends AbstractTimeSeries implem
         this.rightBinEdges = new double[binEdges.length/2];
         this.nBins = binEdges.length/2;
         this.nElements = this.nBins;
-        for ( int i=0; i < this.nBins; i++ ) {
+        for (int i=0; i < this.nBins; i++) {
             this.binEdges[2*i] = binEdges[2*i];
             this.binEdges[2*i+1] = binEdges[2*i+1];
             this.leftBinEdges[i] = binEdges[2*i];
@@ -128,7 +128,7 @@ public abstract class AbstractBinnedTimeSeries extends AbstractTimeSeries implem
         double max = -Double.MAX_VALUE;
         double sumOfBinWidths = 0;
         double sumOfSquaredBinWidths = 0;
-        for ( int i=0; i < this.nBins; i++ ) {
+        for (int i=0; i < this.nBins; i++) {
             this.binCentres[i] = (this.binEdges[2*i] + this.binEdges[2*i+1])/2;
             this.binWidths[i] = this.binEdges[2*i+1] - this.binEdges[2*i];
             this.halfBinWidths[i] = this.binWidths[i]/2.0;
@@ -147,11 +147,11 @@ public abstract class AbstractBinnedTimeSeries extends AbstractTimeSeries implem
         //  Check if bin width is constant, excluding the last bin
         double[] widths = getBinWidths();
         double[] w = new double[widths.length-1];
-        for ( int i=0; i < widths.length-1; i++ ) {
+        for (int i=0; i < widths.length-1; i++) {
             w[i] = widths[i];
         }
         double var = Stats.getVariance(w);
-        if ( var < 1e-10 || Double.isNaN(var) ) {
+        if (var < 1e-10 || Double.isNaN(var)) {
             this.binWidthIsConstant = true;
             logger.info("  Bin width is constant = "+this.binWidths[0]);
         }
@@ -174,9 +174,9 @@ public abstract class AbstractBinnedTimeSeries extends AbstractTimeSeries implem
         double maxGap = -Double.MAX_VALUE;
         int nGaps = 0;
         double sumOfGaps = 0;
-        for ( int i=1; i < this.nBins; i++ ) {
+        for (int i=1; i < this.nBins; i++) {
             double gap = this.binEdges[2*i] - this.binEdges[2*i-1];
-            if ( gap > Math.ulp(2*this.binEdges[2*i]) ) {
+            if (gap > Math.ulp(2*this.binEdges[2*i])) {
                 nGaps++;
                 sumOfGaps += gap;
                 samplingFuncEdgesList.add(this.binEdges[2*i-1]);
@@ -192,7 +192,7 @@ public abstract class AbstractBinnedTimeSeries extends AbstractTimeSeries implem
             this.gapEdges[2*(i-1)] = this.binEdges[2*i-1];
             this.gapEdges[2*(i-1)+1] = this.binEdges[2*i];
         }
-        if ( maxGap > Math.ulp(2*this.binEdges[binEdges.length-1]) ) {
+        if (maxGap > Math.ulp(2*this.binEdges[binEdges.length-1])) {
             this.thereAreGaps = true;
             this.nGaps = nGaps;
             this.sumOfGaps = sumOfGaps;
@@ -253,7 +253,7 @@ public abstract class AbstractBinnedTimeSeries extends AbstractTimeSeries implem
     public double maxBinWidth() { return this.maxBinWidth; }
     public double avgBinWidth() { return this.avgBinWidth; }
     public double binWidth() throws TimeSeriesException {
-        if ( !this.binWidthIsConstant ) {
+        if (!this.binWidthIsConstant) {
             throw new TimeSeriesException("BinWidth is not constant. Use getBinWidths()");
         }
         return binWidths[0];

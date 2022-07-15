@@ -12,7 +12,7 @@ public class TestAutoRegressionGenerator {
 
 	double tau = 2;
 	double alpha = 1;
-	if ( args.length == 2 ) {
+	if (args.length == 2) {
 	    tau = (Double.valueOf(args[0])).doubleValue();
 	    alpha = (Double.valueOf(args[1])).doubleValue();
 	}
@@ -22,7 +22,7 @@ public class TestAutoRegressionGenerator {
 	double[] times = BinningUtils.getBinCentres(0, duration, nTimeBins);
 	double[] ar = AutoRegressionGenerator.generateAR1Process(times, tau);
 // 	double[] counts = new double[nTimeBins];
-// 	for ( int i=0; i < nTimeBins; i++ ) {
+// 	for (int i=0; i < nTimeBins; i++) {
 // 	    counts[i] = Math.round(ar[i]*binTime);
 // 	}
 // 	double[] binEdges = BinninUtils.getBinEdges(0, duration, nTimeBins);
@@ -43,7 +43,7 @@ public class TestAutoRegressionGenerator {
 	out.writeData(head, times, tk);
 	FFTPeriodogram tk_fft = PeriodogramMaker.makeUnnormalizedWindowedFFTPeriodogram(tk, duration, "rectangular", 1);
 	tk_fft.writeAsQDP("tk_fft.qdp");
-	for ( int i=0; i < tk.length; i++ ) {
+	for (int i=0; i < tk.length; i++) {
 	    tk[i] *= 10;
 	}
 	tk_fft = PeriodogramMaker.makeUnnormalizedWindowedFFTPeriodogram(tk, duration, "rectangular", 1);

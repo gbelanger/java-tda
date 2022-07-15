@@ -48,11 +48,11 @@ public final class PeriodogramMaker {
 	logger.info("  Window function: "+windowName);
 	logger.info("  Sampling factor: "+samplingFactor);
 	logger.warn("  Treatment assumes uniform sampling with equal bins");
-	if ( samplingFactor > 1 ) {
+	if (samplingFactor > 1) {
 	    double powerOfTwo = Math.log(samplingFactor)/Math.log(2);
 	    double integerPart = Math.floor(powerOfTwo);
 	    double diff = powerOfTwo - integerPart;
-	    if ( diff != 0 ) {
+	    if (diff != 0) {
 		throw new PeriodogramException("Sampling factor for FFTPeriodogram must be a power of 2: "+samplingFactor+" is not.");
 	    }
 	}
@@ -60,9 +60,9 @@ public final class PeriodogramMaker {
  	int nDataBins = countsOrRates.length;
 	double[] binHeights = new double[nDataBins];
     	double avgOfInputData = BasicStats.getMean(countsOrRates);
-	for ( int i=0; i < nDataBins; i++ ) {
+	for (int i=0; i < nDataBins; i++) {
 	    binHeights[i] = countsOrRates[i] - avgOfInputData;
-	    if ( Double.isNaN(binHeights[i]) ) binHeights[i] = 0.0;
+	    if (Double.isNaN(binHeights[i])) binHeights[i] = 0.0;
 	}
 	logger.info("  Sum of intensities BEFORE mean-subtraction = "+BasicStats.getSum(countsOrRates)+" (after = "+BasicStats.getSum(binHeights)+")");
 	logger.info("  Sum of squared intensities AFTER mean-subtraction = "+BasicStats.getSumOfSquares(binHeights));
@@ -71,7 +71,7 @@ public final class PeriodogramMaker {
 	try {
 	    windowFunction = new WindowFunction(windowName);
 	}
-	catch ( WindowFunctionException e ) {
+	catch (WindowFunctionException e) {
 	    throw new PeriodogramException("Cannot construct window function ("+windowName+")", e);
 	}
 	double[] windowedData = windowFunction.apply(binHeights);
@@ -108,27 +108,27 @@ public final class PeriodogramMaker {
   	// //double[] resultOfFFT = MyFFT.fft(ComplexNumbers.myComplex(smoothedData), nn, +1);
   	// double[] power = ComplexNumbers.getPower(resultOfFFT);
  	// //  Correct for different normalization compared to FFT.java
- 	// for ( int i=0; i < power.length; i++ ) {
+ 	// for (int i=0; i < power.length; i++) {
  	//     power[i] *= nn*nn;
  	// }
 	////  Using  jTransform
   	// DoubleFFT_1D jtransformFFT = new DoubleFFT_1D(paddedData.length);
   	// jtransformFFT.realForward(paddedData);
   	// double[] power = new double[paddedData.length];
-  	// for ( int i=0; i < paddedData.length/2; i++ ) {
+  	// for (int i=0; i < paddedData.length/2; i++) {
   	//     power[i] = paddedData[2*i]*paddedData[2*i] + paddedData[2*i+1]*paddedData[2*i+1];
   	// }
 
 	//  Drop first terms and second half of power spectrum corresponding to negative frequencies
 	int size = power.length/2;
 	double[] pow = new double[size];
-	for ( int i=0; i < size; i++ ) {
+	for (int i=0; i < size; i++) {
 	    pow[i] = power[i+samplingFactor];
 	}
 	// int i=0;
 	// int j=0;
-	// while ( i < size ) {
-	//     while ( i <= samplingFactor ) {
+	// while (i < size) {
+	//     while (i <= samplingFactor) {
 	// 	pow[j] = power[i+samplingFactor+1];
 	// 	i++;
 	// 	j++;
@@ -142,9 +142,9 @@ public final class PeriodogramMaker {
 	int i=0;
 	double min = nuMin;
 	double max = nuMax + testFreqs.length*Math.ulp(nuMax);
-	while ( testFreqs[i] < min ) i++;
-	while ( i < testFreqs.length && testFreqs[i] <= max ) {
-	    if ( !Double.isNaN(pow[i]) ) {
+	while (testFreqs[i] < min) i++;
+	while (i < testFreqs.length && testFreqs[i] <= max) {
+	    if (!Double.isNaN(pow[i])) {
 		goodPowers.add(pow[i]);
 		goodFreqs.add(testFreqs[i]);
 	    }
@@ -152,7 +152,7 @@ public final class PeriodogramMaker {
 	}
 	goodPowers.trimToSize();
 	goodFreqs.trimToSize();
-	if ( goodPowers.size() == 0 ) {
+	if (goodPowers.size() == 0) {
 	    throw new PeriodogramException("All power values are NaN: Cannot construct Periodogram");
 	}
 	return new FFTPeriodogram(goodFreqs.elements(), goodPowers.elements(), samplingFactor);
@@ -172,19 +172,19 @@ public final class PeriodogramMaker {
 	//  We must ensure uniform sampling and equal sized bins
 	TimeSeries ts = TimeSeriesMaker.makeTimeSeries(timeSeries);
 	TimeSeries ts_resamp = TimeSeriesMaker.makeTimeSeries(ts);
-	if ( ! ts.binWidthIsConstant() ) {
+	if (! ts.binWidthIsConstant()) {
 	    double minBinWidth = timeSeries.minBinWidth();
 	    ts_resamp = TimeSeriesResampler.resample(ts, minBinWidth);
 	    //  This is not a good strategy because it degrades frequency resolution
 	    // int k=0;
-	    // while ( ts_resamp.thereAreGaps() ) {
+	    // while (ts_resamp.thereAreGaps()) {
 	    // 	k++;
 	    // 	logger.warn("There are still gaps: resampling with larger bin width");
 	    // 	double binWidth = minBinWidth + (k*0.1)*minBinWidth;
 	    // 	ts_resamp = TimeSeriesResampler.resample(ts, binWidth);
 	    // }
 	}
-	if ( ts_resamp.thereAreGaps() ) {
+	if (ts_resamp.thereAreGaps()) {
 	    ts_resamp = TimeSeriesUtils.fillGaps(ts_resamp);
 	}
 	return makeUnnormalizedWindowedFFTPeriodogram(ts_resamp.getRates(), ts_resamp.duration(), windowName, samplingFactor);
@@ -202,7 +202,7 @@ public final class PeriodogramMaker {
     public static FFTPeriodogram makeUnnormalizedWindowedFFTPeriodogram(TimeSeries timeSeries, String windowName, int samplingFactor) throws PeriodogramException, BinningException {
 	//  We must ensure uniform sampling and equal sized bins
 	TimeSeries ts = TimeSeriesMaker.makeTimeSeries(timeSeries);
-	if ( ! ts.binWidthIsConstant() ) {
+	if (! ts.binWidthIsConstant()) {
 	    double minBinWidth = timeSeries.minBinWidth();
 	    ts = TimeSeriesResampler.resample(ts, minBinWidth);
 	}
@@ -525,7 +525,7 @@ public final class PeriodogramMaker {
     private static double[] checkNuMinAndNuMax(double duration, double dtMin, double nuMin, double nuMax) {
 	//  Check nuMin
 	double min = 1/duration;
-	if ( nuMin < min ) {
+	if (nuMin < min) {
 	    logger.warn("  Specified nuMin < 1/duration: "+nuMin+" < "+min+". Resetting to 1/duration.");
 	    nuMin = min;
 	}
@@ -533,7 +533,7 @@ public final class PeriodogramMaker {
 	double nyquistFrequency = 1/(2*dtMin);
 	//nyquistFrequency -= Math.ulp(nyquistFrequency);
 	double max = nyquistFrequency;
-	if ( nuMax > max ) {
+	if (nuMax > max) {
 	    logger.warn("  Specified nuMax > Nyquist frequency = 1/(2*dtMin): "+nuMax+" > "+max+". Resetting to Nyquist frequency.");
 	    nuMax = nyquistFrequency;
 	}
@@ -542,7 +542,7 @@ public final class PeriodogramMaker {
 
     private static int checkSamplingFactor(int samplingFactor) {
 	int sampling = samplingFactor;
-	if ( samplingFactor < 1 ) {
+	if (samplingFactor < 1) {
 	    logger.warn("  Specified sampling factor < 1. Resetting to 1.");   
 	    sampling = 1;
 	}
@@ -552,12 +552,12 @@ public final class PeriodogramMaker {
     public static LikelihoodPeriodogram makeLikelihoodPeriodogram(Periodogram dataPeriodogram, double[] modelPowers) throws PeriodogramException {
 	double[] freqs = dataPeriodogram.getFreqs();
 	double[] dataPowers = dataPeriodogram.getPowers();
-	if ( dataPowers.length != modelPowers.length ) {
+	if (dataPowers.length != modelPowers.length) {
 	    throw new PeriodogramException("Unequal number of data and model power values");
 	}
 	ExponentialLikelihood expL = new ExponentialLikelihood();
 	double[] inverseLikelihoods = new double[dataPowers.length];
-	for ( int i=0; i < dataPowers.length; i++ ) {
+	for (int i=0; i < dataPowers.length; i++) {
 	    double likelihood = expL.getLogLikelihood(modelPowers[i], dataPowers[i]);
 	    inverseLikelihoods[i] = -likelihood;
 	    //double likelihood = expL.getLikelihood(modelPowers[i], dataPowers[i]);
@@ -571,12 +571,12 @@ public final class PeriodogramMaker {
 	double[] dataPowers = dataPeriodogram.getPowers();
 	double[] modelFreqs = modelPeriodogram.getFreqs();
 	double[] modelPowers = modelPeriodogram.getPowers();
-	if ( dataPowers.length != modelPowers.length ) {
+	if (dataPowers.length != modelPowers.length) {
 	    throw new PeriodogramException("Unequal number of data and model power values");
 	}
 	ExponentialLikelihood expL = new ExponentialLikelihood();
 	double[] inverseLikelihoods = new double[dataPowers.length];
-	for ( int i=0; i < dataPowers.length; i++ ) {
+	for (int i=0; i < dataPowers.length; i++) {
 	    double likelihood = expL.getLogLikelihood(modelPowers[i], dataPowers[i]);
 	    inverseLikelihoods[i] = -likelihood;
 	    //double likelihood = expL.getLikelihood(modelPowers[i], dataPowers[i]);
@@ -679,7 +679,7 @@ public final class PeriodogramMaker {
 	double[] arrivalTimes = evlist.getArrivalTimes();
 	int nTrials = testFreqs.length;
 	double[] powers = new double[nTrials];
-	for ( int i=0; i < nTrials; i++ ) {		
+	for (int i=0; i < nTrials; i++) {		
 	    double period = 1.0/testFreqs[i];
 	    powers[i] = PowerCalculator.getCorrectedPowerForThisHarmonic(arrivalTimes, period, harmonic);
 	}
@@ -697,7 +697,7 @@ public final class PeriodogramMaker {
 	double[] variancesOfCos = new double[nTrials];
 	double[] variancesOfSin = new double[nTrials];
 	double[] covariancesOfCosSin = new double[nTrials];
-	for ( int i=0; i < nTrials; i++ ) {		
+	for (int i=0; i < nTrials; i++) {		
 	    double period = 1.0/testFreqs[i];
 	    double[] components = PowerCalculator.getCorrectedPowerComponentsForThisHarmonic(arrivalTimes, period, harmonic);
 	    powers[i] = components[0];
@@ -774,13 +774,13 @@ public final class PeriodogramMaker {
 	double[] binCentres = lc.getBinCentres();
 	double[] rates = lc.getRates();
 	double[] errors = new double[rates.length];
-	if ( lc.uncertaintiesAreSet() ) {
+	if (lc.uncertaintiesAreSet()) {
 	    logger.info("Time series errors are set: using defined uncertainties on rates");
 	    errors = lc.getUncertainties();
 	}
 	else {
 	    logger.info("Time series errors are not set: using unweighted power calculation (errors[i]=1.0)");
-	    for ( int i=0; i < errors.length; i++ ) {
+	    for (int i=0; i < errors.length; i++) {
 		errors[i] = 1.0;
 	    }
 	}
@@ -793,7 +793,7 @@ public final class PeriodogramMaker {
 	logger.info("Calculating modified Rayleigh powers");
 	double[] powers = new double[nTrials];
 	double[] times_reset = DataUtils.resetToZero(binCentres);
-	for ( int i=0; i < nTrials; i++ ) {
+	for (int i=0; i < nTrials; i++) {
 	    double period = 1.0/testFreqs[i];
 	    powers[i] = PowerCalculator.getModRayleighPower(times_reset, rates, errors, period, meanRate, harmonic);
 	    //powers[i] = PowerCalculator.getModRayleighPower(times_reset, filledRates, filledErrors, period, meanRate, harmonic);
@@ -829,7 +829,7 @@ public final class PeriodogramMaker {
 	//  Calculate powers
 	logger.info("Calculating Lomb powers");
 	double[] powers = new double[nTrials];
-	for ( int i=0; i < nTrials; i++ ) {
+	for (int i=0; i < nTrials; i++) {
 	    double period = 1.0/testFreqs[i];
 	    powers[i] = PowerCalculator.getLombPower(binCentres, rates, period, meanRate, varianceInMeanSubtractedRates);
 	}
@@ -887,7 +887,7 @@ public final class PeriodogramMaker {
 	double[] arrivalTimes = evlist.getArrivalTimes();
 	double[] powers = new double[nTrials];
 	int nHarmonics = 1;
-	for ( int i=0; i < nTrials; i++ ) {		
+	for (int i=0; i < nTrials; i++) {		
 	    double period = 1.0/testFreqs[i];
 	    powers[i] = PowerCalculator.getZ2stats(arrivalTimes, period, nHarmonics)[2];
 	}
@@ -936,7 +936,7 @@ public final class PeriodogramMaker {
 	double[] errors = lc.getUncertainties();
 	double[] powers = new double[nTrials];
 	int nHarmonics = 1;
-	for ( int i=0; i < nTrials; i++ ) {
+	for (int i=0; i < nTrials; i++) {
 	    double period = 1.0/testFreqs[i];
 	    powers[i] = PowerCalculator.getZ2stats(binCentres, rates, errors, period, nHarmonics)[2];
 	}
@@ -966,7 +966,7 @@ public final class PeriodogramMaker {
 	//  Calculate powers
 	double[] arrivalTimes = evlist.getArrivalTimes();
 	double[] powers = new double[nTrials];
-	for ( int i=0; i < nTrials; i++ ) {
+	for (int i=0; i < nTrials; i++) {
 	    double period = 1.0/testFreqs[i];
 	    powers[i] = PowerCalculator.getModifiedZ2Power(arrivalTimes, period, nHarmonics);
 	}
@@ -996,7 +996,7 @@ public final class PeriodogramMaker {
 	//  Calculate powers
 	double[] arrivalTimes = evlist.getArrivalTimes();
 	double[] powers = new double[nTrials];
-	for ( int i=0; i < nTrials; i++ ) {
+	for (int i=0; i < nTrials; i++) {
 	    double period = 1.0/testFreqs[i];
 	    powers[i] = PowerCalculator.getZ2stats(arrivalTimes, period, nHarmonics)[2];
 	}
@@ -1028,7 +1028,7 @@ public final class PeriodogramMaker {
 	double[] rates = lc.getRates();
 	double[] errors = lc.getUncertainties();
 	double[] powers = new double[nTrials];
-	for ( int i=0; i < nTrials; i++ ) {
+	for (int i=0; i < nTrials; i++) {
 	    double period = 1.0/testFreqs[i];
 	    powers[i] = PowerCalculator.getZ2stats(binCentres, rates, errors, period, nHarmonics)[2];
 	}
@@ -1040,13 +1040,13 @@ public final class PeriodogramMaker {
 	int nZeros = nBins - data.length;
 	int nZerosBefore = (int) Math.floor(nZeros/2d);
 	int nZerosAfter = nZeros - nZerosBefore;
-	for ( int i=0; i < nZerosBefore; i++ ) {
+	for (int i=0; i < nZerosBefore; i++) {
 	    paddedData[i] = 0;
 	}
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    paddedData[i+nZerosBefore] = data[i];
 	}
-	for ( int i=0; i < nZerosAfter; i++ ) {
+	for (int i=0; i < nZerosAfter; i++) {
 	    paddedData[i+nZerosBefore+data.length] = 0;
 	}
 	return paddedData;
@@ -1055,13 +1055,13 @@ public final class PeriodogramMaker {
     private static String[] normNames = new String[] {"Leahy", "Miyamoto (rms^2)", "Variance", "Leahy-like"};
     public static void printAvailableNormalizations() {
 	logger.info("Available normalizations are:");
-	for ( int i=0; i < normNames.length; i++ ) {
+	for (int i=0; i < normNames.length; i++) {
 	    logger.info("  "+normNames[i]);
 	}
     }
 
     private static FFTPeriodogram applyNormalization(FFTPeriodogram basicPer, TimeSeries ts, String windowName, String normName, String inputDataType) throws PeriodogramException {
-	if ( !inputDataType.equals("counts") && !inputDataType.equals("rates") ) {
+	if (!inputDataType.equals("counts") && !inputDataType.equals("rates")) {
 	    throw new PeriodogramException("Input data types can only be 'counts' or 'rates'");
 	}
 	logger.info("Applying '"+normName+"' normalization (for '"+inputDataType+"' data type)");
@@ -1076,7 +1076,7 @@ public final class PeriodogramMaker {
 	double leahyLikeNorm = 2d/avgRawPower;
 	double sumOfSquaredIntensities = 0;
 	sumOfSquaredIntensities = BasicStats.getSumOfSquares(ts.getMeanSubtractedBinHeights());
-	if ( inputDataType.equals("rates") ) {
+	if (inputDataType.equals("rates")) {
 	    sumOfSquaredIntensities = BasicStats.getSumOfSquares(ts.getMeanSubtractedRates());
 	}
 	//double leahyNorm = 2d/sumOfSquaredIntensities;
@@ -1085,16 +1085,16 @@ public final class PeriodogramMaker {
 
 	//  Define the normalization
 	double norm = 0;
-	if ( normName.equalsIgnoreCase("leahy") ) {
+	if (normName.equalsIgnoreCase("leahy")) {
 	    norm = leahyNorm;
 	}
-	else if ( normName.equalsIgnoreCase("miyamoto") ) {
+	else if (normName.equalsIgnoreCase("miyamoto")) {
 	    norm = rmsNorm;
 	}
-	else if ( normName.equalsIgnoreCase("variance") ) {
+	else if (normName.equalsIgnoreCase("variance")) {
 	    norm = varNorm;
 	}
-	else if ( normName.equalsIgnoreCase("leahy-like") ) {
+	else if (normName.equalsIgnoreCase("leahy-like")) {
 	    norm = leahyLikeNorm;
 	}
 	else {
@@ -1107,7 +1107,7 @@ public final class PeriodogramMaker {
 	try { 
 	    windowFunction = new WindowFunction(windowName);
 	}
-	catch ( WindowFunctionException e ) {
+	catch (WindowFunctionException e) {
 	    throw new PeriodogramException("Cannot construct window function", e);
 	}
 	double[] function = windowFunction.getFunction(ts.nBins());

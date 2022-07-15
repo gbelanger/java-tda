@@ -67,7 +67,7 @@ public class DS9Region {
 
 	this.nPoints = coordinates.length;
 	this.coordinates = new Point2D.Double[nPoints];
-	for ( int i=0; i < nPoints; i++ ) {
+	for (int i=0; i < nPoints; i++) {
 	    this.coordinates[i] = new Point2D.Double(coordinates[i].getX(), coordinates[i].getY());
 	}
 	this.coordinatesAreSet = true;
@@ -76,12 +76,12 @@ public class DS9Region {
     private void setLabels(String[] labels) {
 
 	int nLabels = labels.length;
-	if ( nLabels != this.nPoints ) {
+	if (nLabels != this.nPoints) {
 	    logger.warn("Cannot set labels: The number of labels is not equal to the number of points");
 	}
 	else {
 	    this.labels = new String[this.nPoints];
-	    for ( int i=0; i < nPoints; i++ ) {
+	    for (int i=0; i < nPoints; i++) {
 		this.labels[i] = labels[i];
 	    }
 	}
@@ -91,7 +91,7 @@ public class DS9Region {
     private void setLabels(String label) {
 
 	this.labels = new String[this.nPoints];
-	for ( int i=0; i < nPoints; i++ ) {
+	for (int i=0; i < nPoints; i++) {
 	    this.labels[i] = label;
 	}
 	this.labelsAreSet = true;
@@ -104,20 +104,20 @@ public class DS9Region {
 
 	br = new BufferedReader(new FileReader(filename));
 	String line = br.readLine();
-	while ( line != null ) {
+	while (line != null) {
 	    
 	    //  Skip comment lines
-	    if ( line.startsWith("#") || line.startsWith("global") ) {
-		while ( line.startsWith("#") || line.startsWith("global") ) {
+	    if (line.startsWith("#") || line.startsWith("global")) {
+		while (line.startsWith("#") || line.startsWith("global")) {
 		    line = br.readLine();
 		}
 	    }
 
 	    //  Read the coordinate system
-	    if ( line.startsWith("fk5") ) {
+	    if (line.startsWith("fk5")) {
 		setCoordinateSystem("fk5");
 	    }
-	    else if ( line.startsWith("gal") ) {
+	    else if (line.startsWith("gal")) {
 		setCoordinateSystem("galactic");
 	    }
 	    else {
@@ -143,7 +143,7 @@ public class DS9Region {
 	int nPoints = coordVector.size();
 	Point2D.Double[] coords = new Point2D.Double[nPoints];
 	String[] labs = new String[nPoints];
-	for ( int i=0; i < nPoints; i++ ) {
+	for (int i=0; i < nPoints; i++) {
 	    coords[i] = coordVector.elementAt(i);
 	    labs[i] = labelVector.elementAt(i);
 	}
@@ -157,19 +157,19 @@ public class DS9Region {
     //  Public Methods
     public String getCoordinateSystem() throws NullPointerException {
 
-	if ( coordinateSystemIsSet ) return this.coordinateSystem;
+	if (coordinateSystemIsSet) return this.coordinateSystem;
 	else throw new NullPointerException("Coordinate system is not set");
     }
 
     public Point2D.Double[] getCoordinates() throws NullPointerException {
 
-	if ( coordinatesAreSet ) return this.coordinates;
+	if (coordinatesAreSet) return this.coordinates;
 	else throw new NullPointerException("Coordinates are not set");
     }
 
     public String[] getLabels() throws NullPointerException {
 
-	if ( ! this.labelsAreSet ) {
+	if (! this.labelsAreSet) {
 	    logger.warn("Labels are not set. Returning empty strings");
 	}
 	return this.labels;
@@ -182,7 +182,7 @@ public class DS9Region {
 	
 	pw.println("# Region file format: DS9 version 6.2");
 	pw.println(this.coordinateSystem);
-	for ( int i=0; i < this.nPoints; i++ ) {
+	for (int i=0; i < this.nPoints; i++) {
 	    String line="point("+decimal.format(this.coordinates[i].getX())+", "+decimal.format(this.coordinates[i].getY())+") # point=cross text={"+this.labels[i]+"}";
 	    pw.println(line);
 	}

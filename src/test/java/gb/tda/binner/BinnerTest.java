@@ -37,7 +37,7 @@ public class BinnerTest {
 	int nBins = 5;
 	double[][] binnedTimes = Binner.binData(data, nBins);
 	double[] binEdges = binnedTimes[1];
-	for ( int i=0; i < nBins; i++ ) {
+	for (int i=0; i < nBins; i++) {
 	    double binCentre = (binEdges[2*i+1] + binEdges[2*i])/2;
 	    System.out.println(binCentre+"	"+binnedTimes[0][i]);
 	}
@@ -51,11 +51,11 @@ public class BinnerTest {
 	int nBins = 5;
 	double xmin = data[0];
 	double[] binEdges = new double[] {0, 8, 8, 16, 16, 24, 24, 32, 32, 40};
-	for ( int i=0; i < binEdges.length; i++ ) {
+	for (int i=0; i < binEdges.length; i++) {
 	    binEdges[i] += xmin;
 	}
 	double[] binnedTimes = Binner.binData(data, binEdges);
-	for ( int i=0; i < nBins; i++ ) {
+	for (int i=0; i < nBins; i++) {
 	    double binCentre = (binnedTimes[2*i] + binnedTimes[2*i+1])/2;
 	    System.out.println(binCentre+"	"+binnedTimes[i]);
 	}

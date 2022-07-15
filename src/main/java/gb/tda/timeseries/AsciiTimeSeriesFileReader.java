@@ -38,7 +38,7 @@ class AsciiTimeSeriesFileReader implements ITimeSeriesFileReader {
 		try {
 			dataFile = new AsciiDataFileReader(filename);
 		}
-		catch ( AsciiDataFileFormatException e ) {
+		catch (AsciiDataFileFormatException e) {
 			throw new AsciiTimeSeriesFileException("Problem reading ASCII data file", e);
 		}
 
@@ -47,7 +47,7 @@ class AsciiTimeSeriesFileReader implements ITimeSeriesFileReader {
 //		String stringsToFind = "LAB X Time (s) since MJD ";
 //		int j=0;
 //		boolean found = header[j].contains(stringsToFind);
-//		while ( ! found ) {
+//		while (! found) {
 //			j++;
 //			found = header[j].contains(stringsToFind);
 //		}
@@ -59,15 +59,15 @@ class AsciiTimeSeriesFileReader implements ITimeSeriesFileReader {
 
 		// Read the data
 		int ncols = dataFile.getNDataCols();
-		if ( ncols == 1 ) {
+		if (ncols == 1) {
 			//  If there is only 1 column, assume event list
 			try {
 				return BinnedTimeSeriesFactory.create(new AsciiEventFileReader().readEventFile(filename));
 			}
-			catch ( AsciiEventFileException e ) {
+			catch (AsciiEventFileException e) {
 				throw new AsciiTimeSeriesFileException("Problem reading ASCII data file", e);
 			}
-			catch ( EventListException e ) {
+			catch (EventListException e) {
 				throw new AsciiTimeSeriesFileException("Problem reading ASCII event file", e);
 			}
 		}

@@ -41,7 +41,7 @@ public class TestFitting {
 	double[] xValues = new double[n];
 	double[] yValues = new double[n];
 	double[] funcValues = new double[n];
-	for ( int i = 0; i < n; i++ ) {
+	for (int i = 0; i < n; i++) {
 	    dps.addPoint();
 	    double x = xOffset + i*step;
 	    double func = function.value(new double[] {x});
@@ -76,13 +76,13 @@ public class TestFitting {
 	System.out.println("  Status: "+fitResult.fitStatus());
 	System.out.println("  Quality: "+fitResult.quality());
 	System.out.println("\nFitted values:");	    
-	for ( int i=0; i < fittedParValues.length; i++ ) {
+	for (int i=0; i < fittedParValues.length; i++) {
 	    System.out.println("  "+parNames[i]+" = "+fittedParValues[i]);
 	}
 	System.out.println();
 	double[] fittedModel = new double[n];
 	double[] initialModel = new double[n];
-	for ( int i=0; i < n; i++ ) {
+	for (int i=0; i < n; i++) {
 	    initialModel[i] = function.value(new double[] {xValues[i]});
 	    fittedModel[i] = fittedFunction.value(new double[] {xValues[i]});
 	}

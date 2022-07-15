@@ -1,11 +1,11 @@
 ////	IPlotter PARAMETERS
 
 //	String[] params = plotter.availableParameters();
-//	for ( int i=0; i < params.length; i++ ) {
+//	for (int i=0; i < params.length; i++) {
 //	    System.out.print("Parameter: "+params[i]+" ");
 //	    String[] paramOptions = plotter.availableParameterOptions(params[i]);
 //	    System.out.print("(");
-//	    for ( int j=0; j < paramOptions.length; j++ )
+//	    for (int j=0; j < paramOptions.length; j++)
 //		System.out.print(paramOptions[j]+", ");
 //	    System.out.println(")");
 //	 }
@@ -19,45 +19,45 @@
 /////       IAxisStyle  PARAMETERS
 
 // 	String[] params = axisStyle.availableParameters();
-// 	for ( int i=0; i < params.length; i++ ) {
+// 	for (int i=0; i < params.length; i++) {
 // 	    System.out.print("Parameter: "+params[i]+" ");
 // 	    String[] paramOptions = axisStyle.availableParameterOptions(params[i]);
 // 	    System.out.print("(");
-// 	    for ( int j=0; j < paramOptions.length; j++ )
+// 	    for (int j=0; j < paramOptions.length; j++)
 // 		System.out.print(paramOptions[j]+", ");
 // 	    System.out.println(")");
 // 	}
 //
 // 	// Outputs
 //
-// 	Parameter: scale (lin, linear, log, logarithmic, )
-// 	Parameter: type (double, int, date, string, )
+// 	Parameter: scale (lin, linear, log, logarithmic,)
+// 	Parameter: type (double, int, date, string,)
 // 	Parameter: label ()
-// 	Parameter: allowZeroSuppression (true, false, )
-// 	Parameter: yAxis (Y0, Y1, )
+// 	Parameter: allowZeroSuppression (true, false,)
+// 	Parameter: yAxis (Y0, Y1,)
 
 
 /////	IPlotterStyle PARAMETERS
 
 // 	IPlotterStyle plotterStyle = plotter.style();
 // 	String[] params = plotterStyle.availableParameters();
-// 	for ( int i=0; i < params.length; i++ ) {
+// 	for (int i=0; i < params.length; i++) {
 // 	    System.out.print("Parameter: "+params[i]+" ");
 // 	    String[] paramOptions = plotterStyle.availableParameterOptions(params[i]);
 // 	    System.out.print("(");
-// 	    for ( int j=0; j < paramOptions.length; j++ )
+// 	    for (int j=0; j < paramOptions.length; j++)
 // 		System.out.print(paramOptions[j]+", ");
 // 	    System.out.println(")");
 // 	}	
 
 // 	// Outputs
 
-// 	Parameter: showAsScatterPlot (true, false, )
+// 	Parameter: showAsScatterPlot (true, false,)
 // 	    Parameter: yAxisUpperLimit ()
 // 	    Parameter: plotterStyleName ()
-// 	    Parameter: isVisible (true, false, )
+// 	    Parameter: isVisible (true, false,)
 // 	    Parameter: xAxisLowerLimit ()
-// 	    Parameter: hist2DStyle (box, ellipse, colorMap, )
+// 	    Parameter: hist2DStyle (box, ellipse, colorMap,)
 // 	    Parameter: yAxisLowerLimit ()
 // 	    Parameter: xAxisUpperLimit ()
 // 	    Parameter: globalIndex ()
@@ -69,24 +69,24 @@
 // 	IPlotterStyle plotterStyle = plotter.style();
 // 	IDataStyle dataStyle = plotterStyle.dataStyle();
 // 	String[] params = dataStyle.availableParameters();
-// 	for ( int i=0; i < params.length; i++ ) {
+// 	for (int i=0; i < params.length; i++) {
 // 	    System.out.print("Parameter: "+params[i]+" ");
 // 	    String[] paramOptions = dataStyle.availableParameterOptions(params[i]);
 // 	    System.out.print("(");
-// 	    for ( int j=0; j < paramOptions.length; j++ )
+// 	    for (int j=0; j < paramOptions.length; j++)
 // 		System.out.print(paramOptions[j]+", ");
 // 	    System.out.println(")");
 // 	}	
 
 // 	Outputs
 
-// 	Parameter: isVisible (true, false, )
-// 	Parameter: showDataInLegendBox (true, false, )
+// 	Parameter: isVisible (true, false,)
+// 	Parameter: showDataInLegendBox (true, false,)
 // 	Parameter: customOverlay ()
 // 	Parameter: model ()
 // 	Parameter: timeZone ()
-// 	Parameter: showDataInStatisticsBox (true, false, )
-// 	Parameter: profileErrors (spread, errorOnMean, )
+// 	Parameter: showDataInStatisticsBox (true, false,)
+// 	Parameter: profileErrors (spread, errorOnMean,)
 
 
 
@@ -96,25 +96,25 @@
 // 	IDataStyle dataStyle = plotterStyle.dataStyle();
 // 	IFillStyle fillStyle = dataStyle.fillStyle();
 // 	String[] params = fillStyle.availableParameters();
-// 	for ( int i=0; i < params.length; i++ ) {
+// 	for (int i=0; i < params.length; i++) {
 // 	    System.out.print("Parameter: "+params[i]+" ");
 // 	    String[] paramOptions = fillStyle.availableParameterOptions(params[i]);
 // 	    System.out.print("(");
-// 	    for ( int j=0; j < paramOptions.length; j++ )
+// 	    for (int j=0; j < paramOptions.length; j++)
 // 		System.out.print(paramOptions[j]+", ");
 // 	    System.out.println(")");
 // 	}	
 
 // 	Ouputs
 
-// 	Parameter: colorMapScheme (none, warm, cool, thermal, rainbow, grayscale, )
+// 	Parameter: colorMapScheme (none, warm, cool, thermal, rainbow, grayscale,)
 // 	Parameter: endColor ()
 // 	Parameter: color ()
-// 	Parameter: isVisible (true, false, )
+// 	Parameter: isVisible (true, false,)
 // 	Parameter: opacity ()
 // 	Parameter: startColor ()
 // 	Parameter: pattern ()
-// 	Parameter: colorRotateMethod (globalIndex, regionOverlayIndex, )
+// 	Parameter: colorRotateMethod (globalIndex, regionOverlayIndex,)
 // 	Parameter: colorRotate ()
 
 
@@ -125,11 +125,11 @@
 // 	//IFillStyle fillStyle = dataStyle.fillStyle();
 // 	ILineStyle lineStyle = dataStyle.lineStyle();
 // 	String[] params = lineStyle.availableParameters();
-// 	for ( int i=0; i < params.length; i++ ) {
+// 	for (int i=0; i < params.length; i++) {
 // 	    System.out.print("Parameter: "+params[i]+" ");
 // 	    String[] paramOptions = lineStyle.availableParameterOptions(params[i]);
 // 	    System.out.print("(");
-// 	    for ( int j=0; j < paramOptions.length; j++ )
+// 	    for (int j=0; j < paramOptions.length; j++)
 // 		System.out.print(paramOptions[j]+", ");
 // 	    System.out.println(")");
 // 	}	
@@ -138,12 +138,12 @@
 
 // 	Parameter: typeRotate ()
 // 	    Parameter: color ()
-// 	    Parameter: isVisible (true, false, )
+// 	    Parameter: isVisible (true, false,)
 // 	    Parameter: opacity ()
-// 	    Parameter: type (solid, dotted, dashed, dotdash, )
+// 	    Parameter: type (solid, dotted, dashed, dotdash,)
 // 	    Parameter: thickness ()
-// 	    Parameter: typeRotateMethod (globalIndex, regionOverlayIndex, )
-// 	    Parameter: colorRotateMethod (globalIndex, regionOverlayIndex, )
+// 	    Parameter: typeRotateMethod (globalIndex, regionOverlayIndex,)
+// 	    Parameter: colorRotateMethod (globalIndex, regionOverlayIndex,)
 // 	    Parameter: colorRotate ()
 
 
@@ -155,11 +155,11 @@
 // 	//ILineStyle lineStyle = dataStyle.lineStyle();
 // 	IMarkerStyle markerStyle = dataStyle.markerStyle();
 // 	String[] params = markerStyle.availableParameters();
-// 	for ( int i=0; i < params.length; i++ ) {
+// 	for (int i=0; i < params.length; i++) {
 // 	    System.out.print("Parameter: "+params[i]+" ");
 // 	    String[] paramOptions = markerStyle.availableParameterOptions(params[i]);
 // 	    System.out.print("(");
-// 	    for ( int j=0; j < paramOptions.length; j++ )
+// 	    for (int j=0; j < paramOptions.length; j++)
 // 		System.out.print(paramOptions[j]+", ");
 // 	    System.out.println(")");
 // 	}	
@@ -167,11 +167,11 @@
 // // 	Ouputs
 
 // 	Parameter: color ()
-// 	    Parameter: isVisible (true, false, )
-// 	    Parameter: shapeRotateMethod (globalIndex, regionOverlayIndex, )
+// 	    Parameter: isVisible (true, false,)
+// 	    Parameter: shapeRotateMethod (globalIndex, regionOverlayIndex,)
 // 	    Parameter: opacity ()
-// 	    Parameter: shape (dot, box, triangle, diamond, star, verticalLine, horizontalLine, cross, circle, square, )
+// 	    Parameter: shape (dot, box, triangle, diamond, star, verticalLine, horizontalLine, cross, circle, square,)
 // 	    Parameter: shapeRotate ()
-// 	    Parameter: colorRotateMethod (globalIndex, regionOverlayIndex, )
+// 	    Parameter: colorRotateMethod (globalIndex, regionOverlayIndex,)
 // 	    Parameter: colorRotate ()
 // 	    Parameter: size ()

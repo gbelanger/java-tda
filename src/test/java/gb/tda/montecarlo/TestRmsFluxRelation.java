@@ -100,7 +100,7 @@ public class TestRmsFluxRelation {
 // 	IFitResult fitRes = fitter.fit(pdf, logN);
 // 	IAxis axis = pdf.axis();
 // 	double[] function = new double[nHistoBins];
-// 	for ( int i=0; i < nHistoBins; i++ ) {
+// 	for (int i=0; i < nHistoBins; i++) {
 // 	    double x = axis.binCenter(i);
 // 	    function[i] = fitRes.fittedFunction().value(new double[] {x});
 // 	}
@@ -108,7 +108,7 @@ public class TestRmsFluxRelation {
 
 // 	Poisson poisson = new Poisson(meanBinHeight, new MersenneTwister64(new java.util.Date()));
 // 	double[] function = new double[nHistoBins];
-// 	for ( int i=0; i < nHistoBins; i++ ) {
+// 	for (int i=0; i < nHistoBins; i++) {
 // 	    function[i] = poisson.pdf(min + i);
 // 	}
 //  	adfw.writeHisto(pdf, function, "Bin Heights");
@@ -122,7 +122,7 @@ public class TestRmsFluxRelation {
 	DoubleArrayList rmsList = new DoubleArrayList();
 	DoubleArrayList rmsFromPsdList = new DoubleArrayList();
 	DoubleArrayList timeAxisList = new DoubleArrayList();
-	for ( int i=0; i < nSegments; i++ ) {
+	for (int i=0; i < nSegments; i++) {
 
 	    double from = i*lengthOfSegment;
 	    double to = (i+1)*lengthOfSegment;
@@ -138,7 +138,7 @@ public class TestRmsFluxRelation {
 		seg = TimeSeriesOperations.getSegment(ts, from, to);
 		double flux = seg.meanRate();
 		double counts = seg.sumOfBinHeights();
-		if ( counts > 30 ) {
+		if (counts > 30) {
 		    fluxList.add(flux);
 		    
 		    double t = (from+to)/2d;
@@ -153,7 +153,7 @@ public class TestRmsFluxRelation {
 		    rmsFromPsdList.add(Math.sqrt(psd.getIntegratedPower()));
 		}
 	    }
-	    catch ( NullPointerException e ) {}
+	    catch (NullPointerException e) {}
 	}
 	fluxList.trimToSize();
 	timeAxisList.trimToSize();
@@ -204,7 +204,7 @@ public class TestRmsFluxRelation {
 
 	//  Match the rms values to the corresponding flux
  	double[] rmsSorted = new double[fluxSorted.length];
- 	for ( int i=0; i < fluxSorted.length; i++ ) {
+ 	for (int i=0; i < fluxSorted.length; i++) {
  	    int index = fluxList.indexOf(fluxSorted[i]);
 	    rmsSorted[i] = rmsList.get(index);
  	    //rmsSorted[i] = rmsFromPsdList.get(index);
@@ -229,12 +229,12 @@ public class TestRmsFluxRelation {
 	int[] nElementsInBin = new int[nBins];
 	int i=0;
 	int k=0;
-	while ( i < nSegments && (2*k+1) < binEdges.length ) {
+	while (i < nSegments && (2*k+1) < binEdges.length) {
 	    double binEdge = binEdges[2*k+1];
 	    double flux = fluxSorted[i];
 	    double rms = rmsSorted[i];
 	    int n = 0;
-	    while ( i < nSegments && flux < binEdge ) {
+	    while (i < nSegments && flux < binEdge) {
 		fluxesInBin.add(flux);
 		rmsesInBin.add(rms);
 		i++;
@@ -243,7 +243,7 @@ public class TestRmsFluxRelation {
 		    flux = fluxSorted[i];
 		    rms = rmsSorted[i];
 		}
-		catch ( ArrayIndexOutOfBoundsException e ) {i++;}
+		catch (ArrayIndexOutOfBoundsException e) {i++;}
 	    }
 	    fluxesInBin.trimToSize();
 	    rmsesInBin.trimToSize();
@@ -256,7 +256,7 @@ public class TestRmsFluxRelation {
 
 	    k++;
 	    try { binEdge = binEdges[2*k+1]; }
-	    catch ( ArrayIndexOutOfBoundsException e ) { k++; }
+	    catch (ArrayIndexOutOfBoundsException e) { k++; }
 
 	    fluxesInBin.clear();
 	    rmsesInBin.clear();
@@ -264,16 +264,16 @@ public class TestRmsFluxRelation {
 
 // 	//  Throw out all the bins that have < 30 flux values
 // 	int nGoodBins = 0;
-// 	for ( int j=0; j < nBins; j++ ) {
-// 	    if ( nElementsInBin[j] >= 30 ) nGoodBins++;
+// 	for (int j=0; j < nBins; j++) {
+// 	    if (nElementsInBin[j] >= 30) nGoodBins++;
 // 	}
 // 	double[] finalAvgFluxes = new double[nGoodBins];
 // 	double[] finalErrOnAvgFluxes = new double[nGoodBins];
 // 	double[] finalAvgRmses = new double[nGoodBins];
 // 	double[] finalErrOnAvgRmses = new double[nGoodBins];
 // 	k=0;
-// 	for ( int j=0; j < nBins; j++ ) {
-// 	    if ( nElementsInBin[j] >= 30 ) {
+// 	for (int j=0; j < nBins; j++) {
+// 	    if (nElementsInBin[j] >= 30) {
 // 		finalAvgFluxes[k] = avgFluxes[j];
 // 		finalErrOnAvgFluxes[k] = errOnAvgFluxes[j];
 // 		finalAvgRmses[k] = avgRmses[j];

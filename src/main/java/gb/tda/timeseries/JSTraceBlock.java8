@@ -4,7 +4,7 @@ public final class JSHeaderBlocks {
 
 
     
-    public String[] getTraceBlock(String variableName, String xValuesName, String yValuesName, String filename_tsv, ) {
+    public String[] getTraceBlock(String variableName, String xValuesName, String yValuesName, String filename_tsv,) {
 
 	String plotType = "'scatter'";
 	String shape = "\"hvh\"";       // hvh for stepped line, linear for normal line    

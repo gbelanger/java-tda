@@ -3,6 +3,7 @@ package gb.tda.timeseries;
 import gb.tda.eventlist.IEventList;
 import gb.tda.eventlist.BasicEventList;
 import gb.tda.eventlist.EventListSelector;
+import gb.tda.eventlist.EventListException;
 import gb.tda.binner.Binner;
 import org.apache.log4j.Logger;
 
@@ -53,7 +54,7 @@ public class BinnedTimeSeriesFactory {
         double diff = n - nBins;
         double lastPartialBinWidth = diff*binWidth;
         int nIgnoredEvents = (int) Math.round(lastPartialBinWidth*evlist.meanRate());
-        if ( nIgnoredEvents >= 1 ) {
+        if (nIgnoredEvents >= 1) {
             logger.warn("  Ignoring last partial bin: "+lastPartialBinWidth+" s");
             logger.warn("  This will result in ignoring approx "+nIgnoredEvents+" events");
             logger.warn("  To use all events, specify a number of bins instead of a binWidth");
@@ -65,7 +66,7 @@ public class BinnedTimeSeriesFactory {
         try {
             binEdges = BinningUtils.getBinEdges(tStart, tStop, binWidth);
         }
-        catch ( BinningException e ) {
+        catch (BinningException e) {
             throw new TimeSeriesException("Cannot construct bin edges");
         }
 
@@ -84,19 +85,19 @@ public class BinnedTimeSeriesFactory {
         // int nOverflowEvents=0;
         // //  Fill with arrival times
         // double[] arrivalTimes = evlist.getArrivalTimes();
-        // for ( int i=0; i < evlist.nEvents(); i++ ) {
+        // for (int i=0; i < evlist.nEvents(); i++) {
         //     histo.fill(arrivalTimes[i]);
-        //     if ( arrivalTimes[i] > upperEdge ) {
+        //     if (arrivalTimes[i] > upperEdge) {
         // 	nOverflowEvents++;
         //     }
         // }
-        // if ( nIgnoredEvents >= 1 ) {
+        // if (nIgnoredEvents >= 1) {
         //     logger.info("Actual number of events that were dropped is: "+nOverflowEvents);
         // }
         // //  Get the counts in each bin and bin edges
         // IAxis histoAxis = histo.axis();
         // double[] counts = new double[nBins];
-        // for ( int i=0; i < nBins; i++ ) {
+        // for (int i=0; i < nBins; i++) {
         //     counts[i] = histo.binHeight(i);
         //     binEdges[2*i] = histoAxis.binLowerEdge(i);
         //     binEdges[2*i+1] = histoAxis.binUpperEdge(i);
@@ -130,6 +131,5 @@ public class BinnedTimeSeriesFactory {
         BasicEventList selectedEvlist = new BasicEventList(selectedArrivalTimes);
         return create(selectedEvlist, binWidth);
     }
-
 
 }

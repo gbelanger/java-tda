@@ -218,7 +218,7 @@ final class IntensityBinSplitter {
 		    int n = poisson.nextInt(nu);
 		    //System.out.println("n = "+n);
 		    double nTotMinusN = nTot - n;
-		    while ( nTotMinusN < 0 ) {
+		    while (nTotMinusN < 0) {
 			n = poisson.nextInt(nu);
 			//System.out.println("n = "+n);
 			nTotMinusN = nTot - n;

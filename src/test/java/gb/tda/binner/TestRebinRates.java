@@ -16,7 +16,7 @@ public class TestRebinRates {
 	//  Construct the arrays
 	int nbins = 100;
 	double[][] rates = new double[nbins][2];
-	for ( int i=0; i < nbins; i++ ) {
+	for (int i=0; i < nbins; i++) {
 	    rates[i][0] = 5;
 	    rates[i][1] = 1;
 	}

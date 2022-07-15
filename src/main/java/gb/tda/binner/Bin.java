@@ -38,7 +38,7 @@ public class Bin extends AbstractBin {
     }
 
     public Bin[] split(double whereToSplit) throws BinningException {
-	if ( !this.contains(whereToSplit) ) {
+	if (!this.contains(whereToSplit)) {
 	    throw new BinningException("Cannot split: Bin ["+this.getLeftEdge()+", "+this.getRightEdge()+"] does not contain value ("+whereToSplit+")");
 	}
 	Bin leftBin = new Bin(this.getLeftEdge(), whereToSplit);

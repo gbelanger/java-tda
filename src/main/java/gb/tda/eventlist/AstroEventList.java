@@ -3,14 +3,8 @@ package gb.tda.eventlist;
 import java.awt.geom.Point2D; 
 import java.io.IOException;
 import java.util.Arrays;
-
-import gb.tda.io.AsciiDataFileFormatException;
-import gb.tda.tools.BasicStats;
-import gb.tda.tools.MinMax;
-
-import cern.colt.list.DoubleArrayList;
 import org.apache.log4j.Logger;
-
+import gb.tda.io.AsciiDataFileFormatException;
 
 public class AstroEventList extends BasicEventList {
 
@@ -46,18 +40,20 @@ public class AstroEventList extends BasicEventList {
 
     public AstroEventList(String filename) throws AsciiDataFileFormatException, EventFileException, EventListException, IOException {
 		AstroEventList evlist = (AstroEventList) EventFileReader.read(filename);
-		if ( evlist.energiesAreSet() ) {
+		setArrivalTimes(evlist.getArrivalTimes());
+		if (evlist.energiesAreSet()) {
 		    setEnergies(evlist.getEnergies());
 		}
-		if ( evlist.coordsAreSet() ) {
+		if (evlist.coordsAreSet()) {
 		    setCoords(evlist.getXCoords(), evlist.getYCoords());
 		}
-		if ( evlist.flagsAreSet() ) {
+		if (evlist.flagsAreSet()) {
 		    setFlags(evlist.getFlags());
 		}
-		if ( evlist.patternsAreSet() ) {
+		if (evlist.patternsAreSet()) {
 		    setPatterns(evlist.getPatterns());
 		}
+		printSummary();
     }
 
     public AstroEventList(double[] times) throws EventListException {
@@ -66,7 +62,7 @@ public class AstroEventList extends BasicEventList {
     }
 
     public AstroEventList(double[] times, double[] energies) throws EventListException {
-		if ( times.length != energies.length ) {
+		if (times.length != energies.length) {
 		    throw new EventListException("Cannot create AstroEventList(times, energies): Input array lengths are different");
 		}
 		else {
@@ -77,7 +73,7 @@ public class AstroEventList extends BasicEventList {
     }
 
     public AstroEventList(double[] times, double[] energies, int[] xCoords, int[] yCoords) throws EventListException {
-		if ( times.length != energies.length || times.length != xCoords.length || times.length != yCoords.length ) {
+		if (times.length != energies.length || times.length != xCoords.length || times.length != yCoords.length) {
 		    throw new EventListException("Cannot create AstroEventList(times, energies, xCoords, yCoords): Input array lengths are different");
 		}
 		else {
@@ -89,7 +85,7 @@ public class AstroEventList extends BasicEventList {
     }
 
     public AstroEventList(double[] times, double[] energies, int[] xCoords, int[] yCoords, int[] flags) throws EventListException {
-		if ( times.length != energies.length || times.length != xCoords.length || times.length != yCoords.length || times.length != flags.length ) {
+		if (times.length != energies.length || times.length != xCoords.length || times.length != yCoords.length || times.length != flags.length) {
 		    throw new EventListException("Cannot create AstroEventList(times, energies, xCoords, yCoords, flags): Input array lengths are different");
 		}
 		else {
@@ -102,7 +98,7 @@ public class AstroEventList extends BasicEventList {
     }
 
     public AstroEventList(double[] times, double[] energies, int[] xCoords, int[] yCoords, int[] flags, int[] patterns) throws EventListException {
-		if ( times.length != energies.length || times.length != xCoords.length || times.length != yCoords.length || times.length != flags.length || times.length != patterns.length ) {
+		if (times.length != energies.length || times.length != xCoords.length || times.length != yCoords.length || times.length != flags.length || times.length != patterns.length) {
 		    throw new EventListException("Cannot create AstroEventList(times, energies, xCoords, yCoords, flags, patterns): Input array lengths are different");
 		}
 		else {
@@ -114,34 +110,13 @@ public class AstroEventList extends BasicEventList {
 		}
 		printSummary();
     }
-    
-    private void setArrivalTimes(double[] times) throws EventListException {
-		this.arrivalTimes = new double[times.length];
-		this.interArrivalTimes = new double[times.length-1];
-		for ( int i=0; i < times.length-1; i++ ) {
-		    this.arrivalTimes[i] = times[i];
-		    this.interArrivalTimes[i] = times[i+1] - times[i];
-	 	    if ( interArrivalTimes[i] < 0 ) {
-	 		logger.warn("Negative inter-arrival time i="+i+" times[i+1]="+times[i+1]+" times[i]="+times[i]+" dt="+interArrivalTimes[i]);
-	 	    }
-		}
-		this.arrivalTimes[times.length-1] = times[times.length-1];
-		this.nEvents = this.arrivalTimes.length;
-		this.tStart = this.arrivalTimes[0];
-		this.tStop = this.arrivalTimes[nEvents-1];
-		this.duration = this.tStop - this.tStart;
-		this.meanRate = this.nEvents/this.duration;
-		this.minEventSpacing = MinMax.getNonZeroMin(this.interArrivalTimes);
-		this.maxEventSpacing = MinMax.getMax(this.interArrivalTimes);
-		this.meanEventSpacing = BasicStats.getMean(this.interArrivalTimes);
-    }
 
     private void setEnergies(double[] energies) {
 		this.energies = new double[energies.length];
 		double min = Double.MAX_VALUE;
 		double max = -Double.MAX_VALUE;
 		double sum = 0;
-		for ( int i=0; i < energies.length; i++ ) {
+		for (int i=0; i < energies.length; i++) {
 		    this.energies[i] = energies[i];
 		    min = Math.min(min, this.energies[i]);
 		    max = Math.max(max, this.energies[i]);
@@ -154,7 +129,7 @@ public class AstroEventList extends BasicEventList {
     }
 
     private void setCoords(int[] xCoords, int[] yCoords) throws EventListException  {
-		if ( xCoords.length != yCoords.length ) {
+		if (xCoords.length != yCoords.length) {
 		    throw new EventListException("X and Y coord arrays do not have the same number of elements");
 		}
 		this.xCoords = new int[xCoords.length];
@@ -166,7 +141,7 @@ public class AstroEventList extends BasicEventList {
 		int yMin = Integer.MAX_VALUE;
 		int yMax = -Integer.MAX_VALUE;
 		double sumY = 0;
-		for ( int i=0; i < xCoords.length; i++ ) {
+		for (int i=0; i < xCoords.length; i++) {
 		    this.xCoords[i] = xCoords[i];
 		    this.yCoords[i] = yCoords[i];
 		    this.coords[i] = new Point2D.Double(xCoords[i], yCoords[i]);
@@ -188,7 +163,7 @@ public class AstroEventList extends BasicEventList {
 
     private void setFlags(int[] flags) {
 		this.flags = new int[flags.length];
-		for ( int i=0; i < flags.length; i++ ) {
+		for (int i=0; i < flags.length; i++) {
 		    this.flags[i] = flags[i];
 		}
 		this.flagsAreSet = true;
@@ -196,7 +171,7 @@ public class AstroEventList extends BasicEventList {
 
     private void setPatterns(int[] patterns) {
 		this.patterns = new int[patterns.length];
-		for ( int i=0; i < patterns.length; i++ ) {
+		for (int i=0; i < patterns.length; i++) {
 		    this.patterns[i] = patterns[i];
 		}
 		this.patternsAreSet = true;
@@ -210,18 +185,18 @@ public class AstroEventList extends BasicEventList {
 		logger.info("  duration = "+this.duration);
 		logger.info("  mean rate = "+meanRate);
 		logger.info("  minEventSpacing = "+this.minEventSpacing);
-		if ( this.minEventSpacing <= 0 ) {
+		if (this.minEventSpacing <= 0) {
 		    logger.warn("  Min event spacing is <= 0. Arrival times might be unsorted.");
 		}
 		logger.info("  maxEventSpacing = "+this.maxEventSpacing);
 		logger.info("  meanEventSpacing = "+this.meanEventSpacing);
-		if ( this.energiesAreSet ) {
+		if (this.energiesAreSet) {
 		    logger.info("Energies are set:");
 		    logger.info("  eMin = "+this.eMin);
 		    logger.info("  eMax = "+this.eMax);
 		    logger.info("  eMean = "+this.eMean);
 		}
-		if ( this.coordsAreSet ) {
+		if (this.coordsAreSet) {
 		    logger.info("Coordinates are set:");
 		    logger.info("  xMin = "+this.xMin);
 		    logger.info("  xMax = "+this.xMax);
@@ -230,17 +205,17 @@ public class AstroEventList extends BasicEventList {
 		    logger.info("  yMax = "+this.yMax);
 		    logger.info("  yMean = "+this.yMean);
 		}
-		if ( this.flagsAreSet ) {
+		if (this.flagsAreSet) {
 		    logger.info("Flags are set");
 		}
-		if ( this.patternsAreSet ) {
+		if (this.patternsAreSet) {
 		    logger.info("Patterns are set");
 		}
 		logger.info("AstroEventList is ready");
     }
 
 
-    //  Public "get" methods
+    //  Public getters
 
     public int nEvents() { return this.nEvents; }
     public double tStart() { return this.tStart; }
@@ -252,66 +227,71 @@ public class AstroEventList extends BasicEventList {
     public double meanEventSpacing() { return this.meanEventSpacing; }
 
     public double eMax() throws EventListException {
-		if ( energiesAreSet )
+		if (energiesAreSet)
 		    return this.eMax;
 		else
 		    throw new EventListException("Energies are not defined");
     }
 
     public double eMin() throws EventListException {
-		if ( energiesAreSet )
+		if (energiesAreSet)
 		    return this.eMin;
 		else
 		    throw new EventListException("Energies are not defined");
     }
 
     public double eMean() throws EventListException {
-		if ( energiesAreSet )
+		if (energiesAreSet)
 		    return this.eMean;
 		else
 		    throw new EventListException("Energies are not defined");
     }
 
-    public double[] getArrivalTimes() { return Arrays.copyOf(this.arrivalTimes, this.arrivalTimes.length); }
-    public double[] getInterArrivalTimes() { return Arrays.copyOf(this.interArrivalTimes, this.interArrivalTimes.length); }
+    public double[] getArrivalTimes() {
+		return Arrays.copyOf(this.arrivalTimes, this.arrivalTimes.length);
+	}
+
+	public double[] getInterArrivalTimes() {
+		return Arrays.copyOf(this.interArrivalTimes, this.interArrivalTimes.length);
+	}
 
     public double[] getEnergies() throws EventListException {
-		if ( energiesAreSet )
+		if (energiesAreSet)
 		    return Arrays.copyOf(this.energies, this.energies.length);
 		else
 		    throw new EventListException("Energies are not defined");
     }
 
     public int[] getXCoords() throws EventListException {
-		if ( coordsAreSet )
+		if (coordsAreSet)
 		    return Arrays.copyOf(this.xCoords, this.xCoords.length);
 		else
 		    throw new EventListException("Coordinates are not defined");
     }
 
     public int[] getYCoords() throws EventListException {
-		if ( coordsAreSet )
+		if (coordsAreSet)
 		    return Arrays.copyOf(this.yCoords, this.yCoords.length);
 		else
 		    throw new EventListException("Coordinates are not defined");
     }
 
     public Point2D.Double[] getCoords() throws EventListException {
-		if ( coordsAreSet )
+		if (coordsAreSet)
 		    return Arrays.copyOf(this.coords, this.coords.length);
 		else
 		    throw new EventListException("Coordinates are not defined");
     }
 
     public int[] getFlags() throws EventListException {
-		if ( flagsAreSet ) 
+		if (flagsAreSet)
 		    return Arrays.copyOf(this.flags, this.flags.length);
 		else
 		    throw new EventListException("Flags are not defined");
     }
 
     public int[] getPatterns() throws EventListException {
-		if ( patternsAreSet ) 
+		if (patternsAreSet)
 		    return Arrays.copyOf(this.patterns, this.patterns.length);
 		else
 		    throw new EventListException("Patterns are not defined");

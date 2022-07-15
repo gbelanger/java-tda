@@ -53,7 +53,7 @@ public class BrokenPowerLawLikelihoodFitter implements OptimizableFunction {
     // Similarity Metric
     public double getLogLikelihoodOfModel(double[] param) {
 	double logLikelihood = 0;
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    logLikelihood += getLogLikelihood(brokenPowerLawFunction(samplingValues[i], param), data[i]);
 	}
 	return logLikelihood;

@@ -251,12 +251,12 @@ final class QDPTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 				pw.println();
 			}
 		}
-		catch ( ArrayIndexOutOfBoundsException e ) {
+		catch (ArrayIndexOutOfBoundsException e) {
 			throw new TimeSeriesFileFormatException("Error writing TimeSeriesFile: ts.nBins() != function.length");
 		}
 		pw.println("NO NO NO NO NO");
 		//  Write the sampling function
-		for ( int i=0; i < sampling[0].length; i++ ) {
+		for (int i=0; i < sampling[0].length; i++) {
 			pw.println(sampling[0][i] +"	"+ sampling[1][i] +"	"+ (sampling[2][i]) +"	 0.0 	" + (sampling[2][i]));
 		}
 		pw.close();

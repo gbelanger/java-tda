@@ -26,10 +26,10 @@ public final class AstroUtils {
 	
 	double expo = 1.0/3.0;
 	
-	double z1 = 1 + Math.pow((1-a*a), expo)*( Math.pow((1+a), expo) + Math.pow((1-a), expo) );
+	double z1 = 1 + Math.pow((1-a*a), expo)*(Math.pow((1+a), expo) + Math.pow((1-a), expo));
 	double z2 = Math.sqrt(3*a*a + z1*z1);
 	double rs = 2*G*M/(c*c);
-	double rlso = (rs/2) * ( 3 + z2 - Math.sqrt( (3-z1)*(3+z1+2*z2) ) );
+	double rlso = (rs/2) * (3 + z2 - Math.sqrt((3-z1)*(3+z1+2*z2)));
 	
 	return rlso;
     }

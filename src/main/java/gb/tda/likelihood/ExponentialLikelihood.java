@@ -30,7 +30,7 @@ public class ExponentialLikelihood extends OneParameterLikelihood {
 
 	BinningUtils.checkArrayLengthsAreEqual(model, data);
 	double logLikelihood = 0;
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    logLikelihood += getLogLikelihood(model[i], data[i]);
 	}
 	return logLikelihood;

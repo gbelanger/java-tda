@@ -30,14 +30,14 @@ public final class Rebinner {
 
 		int i=0;
 		int nBins = rates.length;
-		while ( i < nBins ) {
+		while (i < nBins) {
 
 			double weight = Math.pow(errors[i], -2);
 			double weightedSumOfRates = weight*rates[i];
 			double sumOfWeights = weight;;
 			double signif = weightedSumOfRates/Math.sqrt(sumOfWeights);
 
-			while ( i < nBins && signif < minSignif ) {
+			while (i < nBins && signif < minSignif) {
 			
 				i++;
 				try {
@@ -46,7 +46,7 @@ public final class Rebinner {
 				    sumOfWeights += weight;
 				    signif = weightedSumOfRates/Math.sqrt(sumOfWeights);
 				}
-				catch ( ArrayIndexOutOfBoundsException e ) {}		
+				catch (ArrayIndexOutOfBoundsException e) {}		
 		     }
 			double newRate = weightedSumOfRates/sumOfWeights;
 			double newError = 1/Math.sqrt(sumOfWeights);
@@ -55,11 +55,11 @@ public final class Rebinner {
 			try {
 				listOfNewBinEdges.add(binEdges[2*i+1]);
 			}
-			catch ( ArrayIndexOutOfBoundsException e ) {
+			catch (ArrayIndexOutOfBoundsException e) {
 				listOfNewBinEdges.add(binEdges[binEdges.length-1]);
 			}
 			i++;
-			if ( i < nBins ) {
+			if (i < nBins) {
 				listOfNewBinEdges.add(binEdges[2*i]);
 			}
 		}
@@ -93,11 +93,11 @@ public final class Rebinner {
 		ArrayList<Double> avePow = new ArrayList<>();
 		ArrayList<Double> aveFreq = new ArrayList<>();
 		int i = 0;
-		while ( i <= (ntot-groupSize) ) {
+		while (i <= (ntot-groupSize)) {
 			int j = 0;
 			double sumOfLogPow = 0;
 			double prodOfFreq = 1;
-			while ( j < groupSize && i < ntot ) {
+			while (j < groupSize && i < ntot) {
 				sumOfLogPow += Math.log10(pow[i]) + 0.253;
 				prodOfFreq *= freq[i];
 				i++;
@@ -115,7 +115,7 @@ public final class Rebinner {
 		double halfBinWidth = 0;
 		double newBinWidth = 0;
 		double[][] papadakis = new double[3][nNewBins];
-		for ( i = 0; i < nNewBins; i++ ) {
+		for (i = 0; i < nNewBins; i++) {
 			papadakisPow = ((Double) avePow.get(i)).doubleValue();
 			papadakisFreq = ((Double) aveFreq.get(i)).doubleValue();
 			halfBinWidth = papadakisFreq - adjacentBinEdges[i];
@@ -151,7 +151,7 @@ public final class Rebinner {
 // 	int nOldBins = rates.length;
 // 	int nNewBins = (int) newBinEdges.length/2;
 // 	boolean cannotRebin = nNewBins > nOldBins;
-// 	if ( cannotRebin ) {
+// 	if (cannotRebin) {
 // 	    throw new BinningException("nNewBins ("+nNewBins+") must be <= nOldBins ("+nOldBins+")");
 // 	}
 
@@ -170,13 +170,13 @@ public final class Rebinner {
 // 	double leftEdge = oldBinEdges[2*k];
 // 	double rightEdge = oldBinEdges[2*k+1];
 
-//  	for ( int i=0; i < nNewBins; i++ ) {
+//  	for (int i=0; i < nNewBins; i++) {
 
 // 	    double rightEdgeOfNewBin = newBinEdges[2*i+1];
 
 // 	    //   Sum the counts of the old bins while within the new bin
 
-// 	    while ( k < nOldBins-1 && rightEdge <= rightEdgeOfNewBin ) {
+// 	    while (k < nOldBins-1 && rightEdge <= rightEdgeOfNewBin) {
 
 // 		exposure = (rightEdge - leftEdge);
 // 		effNewBinTime += exposure;
@@ -186,7 +186,7 @@ public final class Rebinner {
 // 		//   Move to the next old bin and define its edges
 // 		k++;
 
-// 		if ( k < nOldBins ) {
+// 		if (k < nOldBins) {
 // 		    leftEdge = oldBinEdges[2*k];
 // 		    rightEdge = oldBinEdges[2*k+1];
 // 		}
@@ -198,7 +198,7 @@ public final class Rebinner {
 // 	    //   If there is a gap in the old bins, and therefore, the new bin ends before or at the start 
 // 	    //   of the next old bin, write out the final rate for the new bin and reset counts to 0
 
-// 	    if ( rightEdgeOfNewBin <= leftEdge ) {
+// 	    if (rightEdgeOfNewBin <= leftEdge) {
 
 // 		rebinnedRates[i] = counts/effNewBinTime;
 // 		rebinnedErrors[i] = Math.sqrt(errorCounts)/effNewBinTime;
@@ -220,7 +220,7 @@ public final class Rebinner {
 
 // 	    else {
 
-// 		if ( k == nOldBins-1 ) {
+// 		if (k == nOldBins-1) {
 
 // 		    rightEdgeOfNewBin = Math.min(rightEdgeOfNewBin, tstop);
 		
@@ -263,7 +263,7 @@ public final class Rebinner {
 // 		    //   Move to the next old bin and define its edges
 
 // 		    k++;
-// 		    if ( k < nOldBins ) {
+// 		    if (k < nOldBins) {
 // 			leftEdge = oldBinEdges[2*k];
 // 			rightEdge = oldBinEdges[2*k+1];
 // 		    }
@@ -282,7 +282,7 @@ public final class Rebinner {
      public static double[] rebinRates(double[] rates, double[] oldBinEdges, double newBinTime, boolean directSum) throws BinningException {
 
 
-// 	if ( directSum == false ) {
+// 	if (directSum == false) {
 
 // 	    return Resampler.resampleRates(rates, oldBinEdges, newBinTime);
 // 	}
@@ -308,7 +308,7 @@ public final class Rebinner {
 	    double sumOfBins = 0;
 	    double binSize = 0;
 
-	    for ( int i=0; i < nbins; i++ ) {
+	    for (int i=0; i < nbins; i++) {
 
 		//System.out.println("k = "+k);
 		
@@ -317,7 +317,7 @@ public final class Rebinner {
 		rate = rates[i];
 		double diff = rightEdgeOfNewBin - time;
 		
-		if ( time < rightEdgeOfNewBin && diff > 1e-6 ) {
+		if (time < rightEdgeOfNewBin && diff > 1e-6) {
 
 		    //  Calculate the size of the bin from edges 
 		    binSize = (oldBinEdges[2*i+1] - oldBinEdges[2*i]);
@@ -326,7 +326,7 @@ public final class Rebinner {
 		    sumOfCounts += rate*binSize;
 
 		}
-		else if ( diff > 0 && diff < 1e-6 ) {
+		else if (diff > 0 && diff < 1e-6) {
 
 		    //  Calculate the size of each bin from edges 
 		    binSize = (oldBinEdges[2*i+1] - oldBinEdges[2*i]);

@@ -32,7 +32,7 @@ public class PoissonLikelihood extends OneParameterLikelihood {
     public double getLogLikelihoodOfModel(double[] model, double[] data) throws BinningException {
 		BinningUtils.checkArrayLengthsAreEqual(model, data);
 		double logLikelihood = 0;
-		for ( int i=0; i <  data.length; i++ ) {
+		for (int i=0; i <  data.length; i++) {
 		    logLikelihood += getLogLikelihood(model[i], data[i]);
 		}
 		return logLikelihood;
@@ -41,7 +41,7 @@ public class PoissonLikelihood extends OneParameterLikelihood {
     public double getCStatistic(double[] model, double[] data) throws BinningException {
 		BinningUtils.checkArrayLengthsAreEqual(model, data);
 		double cStat = 0;
-		for ( int i=0; i <  data.length; i++ ) {
+		for (int i=0; i <  data.length; i++) {
 		    cStat += data[i]*Math.log(model[i]) - model[i];
 		}
 		return -2*cStat;

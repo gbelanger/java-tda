@@ -21,7 +21,7 @@ public abstract class TwoParameterLikelihood extends Likelihood {
     }
     public double getLikelihood(double par1Value, double par2Value, double[] data) {
 	double jointLikelihood = 1;
-	for ( int i=0; i < data.length; i++ ) {
+	for (int i=0; i < data.length; i++) {
 	    jointLikelihood *= getLikelihood(par1Value, par2Value, data[i]);
 	}
 	return jointLikelihood;
@@ -74,7 +74,7 @@ public abstract class TwoParameterLikelihood extends Likelihood {
 	BinningUtils.checkArrayLengthsAreEqual(modelPar1Values, data);
 	BinningUtils.checkArrayLengthsAreEqual(modelPar2Values, data);
 	double logLikelihood = 0;
-	for ( int i=0; i <  data.length; i++ ) {
+	for (int i=0; i <  data.length; i++) {
 	    logLikelihood += getLogLikelihood(modelPar1Values[i], modelPar2Values[i], data[i]);
 	}
 	return logLikelihood;
@@ -88,22 +88,22 @@ public abstract class TwoParameterLikelihood extends Likelihood {
     //// Likelihood
     public double[] getLikelihoodFunction(double par1FixedValue, double[] par2Values, double data) {
 	double[] likelihoodFunction = new double[par2Values.length];
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] = getLikelihood(par1FixedValue, par2Values[i], data);
 	}
 	double ml = MinMax.getMax(likelihoodFunction);
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] /= ml;
 	}
 	return likelihoodFunction;
     }
     public double[] getLikelihoodFunction(double[] par1Values, double par2FixedValue, double data) {
 	double[] likelihoodFunction = new double[par1Values.length];
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] = getLikelihood(par1Values[i], par2FixedValue, data);
 	}
 	double ml = MinMax.getMax(likelihoodFunction);
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] /= ml;
 	}
 	return likelihoodFunction;
@@ -111,22 +111,22 @@ public abstract class TwoParameterLikelihood extends Likelihood {
     //// Log-Likelihood and Negative Log-Likelihood
     public double[] getLogLikelihoodFunction(double par1FixedValue, double[] par2Values, double data) {
 	double[] likelihoodFunction = new double[par2Values.length];
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] = getLogLikelihood(par1FixedValue, par2Values[i], data);
 	}
 	double ml = MinMax.getMax(likelihoodFunction);
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] /= ml;
 	}
 	return likelihoodFunction;
     }
     public double[] getLogLikelihoodFunction(double[] par1Values, double par2FixedValue, double data) {
 	double[] likelihoodFunction = new double[par1Values.length];
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] = getLogLikelihood(par1Values[i], par2FixedValue, data);
 	}
 	double ml = MinMax.getMax(likelihoodFunction);
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] /= ml;
 	}
 	return likelihoodFunction;
@@ -145,11 +145,11 @@ public abstract class TwoParameterLikelihood extends Likelihood {
     //// input is double[]
     public double[] getLikelihoodFunction(double par1FixedValue, double[] par2Values, double[] data) {
 	double[] likelihoodFunction = new double[par2Values.length];
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] = getLikelihood(par1FixedValue, par2Values[i], data);
 	}
 	double ml = MinMax.getMax(likelihoodFunction);
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] /= ml;
 	}
 	return likelihoodFunction;
@@ -157,11 +157,11 @@ public abstract class TwoParameterLikelihood extends Likelihood {
 
     public double[] getLikelihoodFunction(double[] par1Values, double par2FixedValue, double[] data) {
 	double[] likelihoodFunction = new double[par1Values.length];
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] = getLikelihood(par1Values[i], par2FixedValue, data);
 	}
 	double ml = MinMax.getMax(likelihoodFunction);
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] /= ml;
 	}
 	return likelihoodFunction;
@@ -179,11 +179,11 @@ public abstract class TwoParameterLikelihood extends Likelihood {
     ////   log-likelihood
     public double[] getNegLogLikelihoodFunction(double par1FixedValue, double[] par2Values, double[] data) {
 	double[] likelihoodFunction = new double[par2Values.length];
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] = -getLogLikelihood(par1FixedValue, par2Values[i], data);
 	}
 	double ml = MinMax.getMax(likelihoodFunction);
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] /= ml;
 	}
 	return likelihoodFunction;
@@ -191,11 +191,11 @@ public abstract class TwoParameterLikelihood extends Likelihood {
 
     public double[] getNegLogLikelihoodFunction(double[] par1Values, double par2FixedValue, double[] data) {
 	double[] likelihoodFunction = new double[par1Values.length];
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] = -getLogLikelihood(par1Values[i], par2FixedValue, data);
 	}
 	double ml = MinMax.getMax(likelihoodFunction);
-	for ( int i=0; i < likelihoodFunction.length; i++ ) {
+	for (int i=0; i < likelihoodFunction.length; i++) {
 	    likelihoodFunction[i] /= ml;
 	}
 	return likelihoodFunction;

@@ -43,7 +43,7 @@ public class SimpleRadiationBeltAltitudeFunction extends AbstractIFunction {
 	    "xOffset",
 	    "amplitude",
 	};
-	for ( int i=0; i < nPars; i++ ) {
+	for (int i=0; i < nPars; i++) {
 	    parameterNames[i] = parNames[i];
 	}
 	super.init(title);

@@ -33,7 +33,7 @@ public class HistoTest
 //       IHistogram2D h2d = hf.createHistogram2D("test 2d",50,-4,4,50,-4,4);
 
       double[] edges = new double[101];
-      for ( int i=0; i < 101; i++ ) edges[i] = -50 + i;
+      for (int i=0; i < 101; i++) edges[i] = -50 + i;
       //FixedAxis xaxis = new FixedAxis(50, -4, 4);
       //FixedAxis yaxis = new FixedAxis(50, -4, 4);
       VariableAxis xaxis = new VariableAxis(edges);
@@ -45,7 +45,7 @@ public class HistoTest
       Normal rGauss1 = new Normal(0, 10, r);
       Normal rGauss2 = new Normal(-20, 10, r);
       Normal rGauss3 = new Normal(20, 10, r);
-      for ( int i=0; i < 1000; i++ ) 
+      for (int i=0; i < 1000; i++) 
       {
          h1d.fill(rGauss1.nextDouble());
          h2d.fill(rGauss2.nextDouble(),rGauss2.nextDouble());
@@ -60,7 +60,7 @@ public class HistoTest
       int[]       entries = new int[nbins];
       double[]  means = new double[nbins];
       double[]     rmss = new double[nbins];
-      for ( int i=IAxis.UNDERFLOW_BIN; i < xaxis.bins()-2; i++ ) {
+      for (int i=IAxis.UNDERFLOW_BIN; i < xaxis.bins()-2; i++) {
 	  heights[i+2] = h1d.binHeight(i+1);
 	  errors[i+2]  = h1d.binError(i+1);
 	  entries[i+2] = h1d.binEntries(i+1);
@@ -94,7 +94,7 @@ public class HistoTest
       double[] paramValues = fitResult2.fittedParameters();
 
       System.out.println("Fit status = "+fitResult2.fitStatus());
-      for ( int i=0; i < paramNames.length; i++ ) 
+      for (int i=0; i < paramNames.length; i++) 
 	  System.out.println(paramNames[i]+" = "+paramValues[i]);
       System.out.println("Quality = "+fitResult2.quality());
 

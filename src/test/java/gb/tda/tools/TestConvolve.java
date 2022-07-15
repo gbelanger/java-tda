@@ -13,7 +13,7 @@ public class TestConvolve {
 	double[] f = new double[] {1,1,1,1,1,1,1,1,1,1};
 	double[] g = new double[f.length];
 	double step = 1d/(int)g.length;
-	for ( int i=0; i < g.length; i++ ) {
+	for (int i=0; i < g.length; i++) {
 	    g[i] = 1 - i*step;
 	}
 	// f
@@ -22,7 +22,7 @@ public class TestConvolve {
 	int nf = f.length;
 	double dxf = (max_xf-min_xf)/(nf-1);
 	double[] x_f = BinningUtils.getBinCentres(min_xf-dxf/2, max_xf+dxf/2, dxf);
-	for ( int i=0; i < x_f.length; i++ ) System.out.println("x_f["+i+"]= "+x_f[i]);
+	for (int i=0; i < x_f.length; i++) System.out.println("x_f["+i+"]= "+x_f[i]);
 	System.out.println();
 	// g
 	int ng = g.length;
@@ -30,7 +30,7 @@ public class TestConvolve {
 	double max_xg = 0.5;
 	double dxg = (max_xg-min_xg)/(ng-1);
 	double[] x_g = BinningUtils.getBinCentres(min_xg-dxg/2, max_xg+dxg/2, dxg);
-	for ( int i=0; i < x_g.length; i++ ) System.out.println("x_g["+i+"]= "+x_g[i]);
+	for (int i=0; i < x_g.length; i++) System.out.println("x_g["+i+"]= "+x_g[i]);
 	System.out.println();
 	// fg
 	double deltaG = max_xg - min_xg;
@@ -40,7 +40,7 @@ public class TestConvolve {
 	double dxfg = (max_xfg-min_xfg)/(ng-1);
 	double dx = Math.min(dxf, dxg);
 	double[] x_fg = MathUtils.getXAxisOfConvolutionForSymmetricFunctions(x_f, x_g);
-	for ( int i=0; i < x_fg.length; i++ ) System.out.println("x_fg["+i+"]= "+x_fg[i]);
+	for (int i=0; i < x_fg.length; i++) System.out.println("x_fg["+i+"]= "+x_fg[i]);
 	System.out.println();
 	// Perform Convolution, Cross-correlation and Auto-correltation
  	double[] fg = MathUtils.convolve(f, g);
@@ -50,7 +50,7 @@ public class TestConvolve {
 	fg = MathUtils.normaliseMaxToOne(fg);
 	gf = MathUtils.normaliseMaxToOne(gf);
 	gg = MathUtils.normaliseMaxToOne(gg);
- 	for ( int i=0; i < fg.length; i++ ) System.out.println("f*g["+i+"]= "+fg[i]);
+ 	for (int i=0; i < fg.length; i++) System.out.println("f*g["+i+"]= "+fg[i]);
 	System.out.println();
  	PoissonLikelihood like = new PoissonLikelihood();
  	like.drawThreeFunctions(x_fg, fg, x_fg, gf, x_fg, gg, "convolution.qdp");
@@ -66,7 +66,7 @@ public class TestConvolve {
 	MersenneTwister64 engine = new MersenneTwister64(new java.util.Date());
 	Normal n1 = new Normal(0,1,engine);
 	Normal n2 = new Normal(0,1.5,engine);
-	for ( int i=0; i < x_f.length; i++ ) {
+	for (int i=0; i < x_f.length; i++) {
 	    f[i] = n1.pdf(x_f[i]);
 	    g[i] = n2.pdf(x_g[i]);
 	}

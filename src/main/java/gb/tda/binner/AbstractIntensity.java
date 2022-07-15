@@ -84,7 +84,7 @@ public abstract class AbstractIntensity implements IIntensity {
 
     private void setError(double error) {
 	this.error = error;
-	if ( !Double.isNaN(error) ) {
+	if (!Double.isNaN(error)) {
 	    this.errorIsSet = true;
 	    this.variance = Math.pow(error,2);
 	}
@@ -117,14 +117,14 @@ public abstract class AbstractIntensity implements IIntensity {
     }
 
     public double getError() {
-	if ( !this.errorIsSet() ) {
+	if (!this.errorIsSet()) {
 	    logger.warn("Error is undefined: Returning Double.NaN");
 	}
 	return this.error;
     }
 
     public double getVariance() {
-	if ( !this.errorIsSet() ) {
+	if (!this.errorIsSet()) {
 	    logger.warn("Variance is undefined: Returning Double.NaN");
 	}
 	return this.variance;

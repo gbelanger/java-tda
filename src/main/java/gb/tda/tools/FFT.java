@@ -186,7 +186,7 @@ public class FFT {
     public static void main(String[] args) { 
 	
 	int n = 16;
-	if ( args.length == 1 ) 
+	if (args.length == 1) 
 	    n = Integer.parseInt(args[0]);
 	
 	Complex[] x = new Complex[n];

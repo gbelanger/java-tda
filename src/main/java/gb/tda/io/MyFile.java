@@ -38,14 +38,14 @@ public class MyFile extends File {
 	try {
 	    MyFile myfile = new MyFile(path);
 	    MyFile[] files = myfile.listMyFiles();
-	    for ( int i=0; i < files.length; i++ ) {
-		if ( files[i].isDirectory() ) {
-		    if ( !(files[i].getCanonicalPath()).equals(path) ) 
+	    for (int i=0; i < files.length; i++) {
+		if (files[i].isDirectory()) {
+		    if (!(files[i].getCanonicalPath()).equals(path))
 			fileList(myFileList, files[i].getCanonicalPath());
 		}
-		if ( files[i].isFile() || files[i].isDirectory() ) 
+		if (files[i].isFile() || files[i].isDirectory())
 		    myFileList.addElement(files[i]);
-		//if ( !files[i].isLink() ) myFileList.addElement(files[i]);
+		//if (!files[i].isLink()) myFileList.addElement(files[i]);
 	    }
 	}
 	catch(IOException e) {System.out.println(e);}
@@ -59,7 +59,7 @@ public class MyFile extends File {
 	Vector<MyFile> selectedFilesList = new Vector<MyFile>();
 	for (int i=0; i < myFileList.size(); i++) {
 	    String filename = ((MyFile) myFileList.elementAt(i)).getName();
-	    if ( filename.contains(pattern) ) 
+	    if (filename.contains(pattern))
 		selectedFilesList.addElement(myFileList.elementAt(i));
 	}
 	return selectedFilesList;
@@ -149,7 +149,7 @@ public class MyFile extends File {
 	    Runtime rt = Runtime.getRuntime();
 	    Process p = rt.exec(rm_cmd);
 	    int rc = -1;
-	    while ( rc == -1 ) {
+	    while (rc == -1) {
 		try {
 		    rc = p.waitFor();
 		}
@@ -164,7 +164,7 @@ public class MyFile extends File {
     public boolean gunzip() {
 	try {
 	    //FileUtil fileUtil = new FileUtil();
-	    if ( !this.isGzipped(this) ) {
+	    if (!this.isGzipped(this)) {
 		System.out.println
 		    ("Error: File "+this.getCanonicalPath()+" is not in gzip format");
 		System.exit(-1);
@@ -173,7 +173,7 @@ public class MyFile extends File {
 	    Runtime rt = Runtime.getRuntime();
 	    Process p = rt.exec(gunzip_cmd);
 	    int rc = -1;
-	    while ( rc == -1 ) {
+	    while (rc == -1) {
 		try {
 		    rc = p.waitFor();
 		}
@@ -189,7 +189,7 @@ public class MyFile extends File {
 	try {
 
 	    //FileUtil fileUtil = new FileUtil();
-	    if ( this.isGzipped(this) ) {
+	    if (this.isGzipped(this)) {
 		System.out.println
 		    ("Error: File "+this.getCanonicalPath()+" is already in gzip format");
 		System.exit(-1);
@@ -199,7 +199,7 @@ public class MyFile extends File {
 	    Runtime rt = Runtime.getRuntime();
 	    Process p = rt.exec(gzip_cmd);
 	    int rc = -1;
-	    while ( rc == -1 ) {
+	    while (rc == -1) {
 		try {
 		    rc = p.waitFor();
 		}
@@ -264,7 +264,7 @@ public class MyFile extends File {
 
     public boolean isLink() {
 	try {
-	    if ( !this.exists() )  return true;
+	    if (!this.exists())  return true;
 	    else {
 		String cnnpath = this.getCanonicalPath();
 		String abspath = this.getAbsolutePath();

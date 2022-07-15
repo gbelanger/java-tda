@@ -19,7 +19,7 @@ public abstract class Likelihood {
     public double[] getXValues(double xMin, double xMax) {
 		int nValues = (int) Math.floor((xMax - xMin)/this.deltaX) + 1;
 		double[] xValues = new double[nValues];
-		for ( int i=0; i < nValues; i++ ) {
+		for (int i=0; i < nValues; i++) {
 		    xValues[i] = xMin + i*this.deltaX;
 		}
 		return xValues;
@@ -68,16 +68,16 @@ public abstract class Likelihood {
 		double xmin = Math.min(MinMax.getMin(parameterValues1), MinMax.getMin(parameterValues2));
 		double xmax = Math.max(MinMax.getMax(parameterValues1), MinMax.getMax(parameterValues2));
 		String[] header = getHeader("Likelihood", xmin, xmax);
-		for ( int i=0; i < header.length; i++ ) {
+		for (int i=0; i < header.length; i++) {
 		    printWriter.println(header[i]);
 		}
 		//  Print the first function
-	 	for ( int i=0; i < parameterValues1.length; i++ ) {
+	 	for (int i=0; i < parameterValues1.length; i++) {
 		    printWriter.println(parameterValues1[i] +"	"+ function1[i] +"	");
 		}
 		printWriter.println("NO NO");
 		//  Print the second function
-	 	for ( int i=0; i < parameterValues2.length; i++ ) {
+	 	for (int i=0; i < parameterValues2.length; i++) {
 		    printWriter.println(parameterValues2[i] +"	"+ function2[i] +"	");
 		}
 		printWriter.close();
@@ -91,21 +91,21 @@ public abstract class Likelihood {
 		double xmax = Math.max(MinMax.getMax(x1), MinMax.getMax(x2));
 		xmax = Math.max(xmax, MinMax.getMax(x3));
 		String[] header = getHeader("Likelihood", xmin, xmax);
-		for ( int i=0; i < header.length; i++ ) {
+		for (int i=0; i < header.length; i++) {
 		    printWriter.println(header[i]);
 		}
 		//  Print the first function
-	 	for ( int i=0; i < x1.length; i++ ) {
+	 	for (int i=0; i < x1.length; i++) {
 		    printWriter.println(x1[i] +"	"+ f1[i] +"	");
 		}
 		printWriter.println("NO NO");
 		//  Print the second function
-	 	for ( int i=0; i < x2.length; i++ ) {
+	 	for (int i=0; i < x2.length; i++) {
 		    printWriter.println(x2[i] +"	"+ f2[i] +"	");
 		}
 		printWriter.println("NO NO");
 		//  Print the third function
-	 	for ( int i=0; i < x3.length; i++ ) {
+	 	for (int i=0; i < x3.length; i++) {
 		    printWriter.println(x3[i] +"	"+ f3[i] +"	");
 		}
 		printWriter.close();

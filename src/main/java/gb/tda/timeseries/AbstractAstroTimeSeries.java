@@ -375,7 +375,7 @@ public abstract class AbstractAstroTimeSeries extends AbstractBinnedTimeSeries i
     	this.telescopeIsSet = true;
     }
     @Override public String telescope() {
-    	if ( !this.telescopeIsSet ) {
+    	if (!this.telescopeIsSet) {
     	    logger.warn("Telescope is not defined: Returning empty string");
     	}
     	return new String(this.telescope);
@@ -387,7 +387,7 @@ public abstract class AbstractAstroTimeSeries extends AbstractBinnedTimeSeries i
     	this.instrumentIsSet = true;
     }
     @Override public String instrument() {
-    	if ( !this.instrumentIsSet ) {
+    	if (!this.instrumentIsSet) {
     	    logger.warn("Instrument is not defined: Returning empty string");
     	}
     	return new String(this.instrument);	    
@@ -399,7 +399,7 @@ public abstract class AbstractAstroTimeSeries extends AbstractBinnedTimeSeries i
     	this.mjdrefIsSet = true;
     }
     @Override public double mjdref() {
-    	if ( !this.mjdrefIsSet ) {
+    	if (!this.mjdrefIsSet) {
     	    logger.warn("MJD ref is not defined: Returning Double.NaN");
     	}
     	return this.mjdref;
@@ -411,7 +411,7 @@ public abstract class AbstractAstroTimeSeries extends AbstractBinnedTimeSeries i
     	this.targetNameIsSet = true;
     }
     @Override public String targetName() {
-    	if ( !this.targetNameIsSet ) {
+    	if (!this.targetNameIsSet) {
     	    logger.warn("Target name is not defined: Returning empty string");
     	}
     	return new String(this.targetName);
@@ -431,19 +431,19 @@ public abstract class AbstractAstroTimeSeries extends AbstractBinnedTimeSeries i
     	setTargetRaDec(raDec[0], raDec[1]);
     }
     @Override public double targetRA() {
-    	if ( !this.targetRaDecAreSet ) {
+    	if (!this.targetRaDecAreSet) {
     	    logger.warn("Target RA, Dec are not defined: Returning Double.NaN");
     	}
     	return this.targetRA;
     }
     @Override public double targetDec() {
-    	if ( !this.targetRaDecAreSet ) {
+    	if (!this.targetRaDecAreSet) {
     	    logger.warn("Target RA, Dec are not defined: Returning Double.NaN");
     	}
     	return this.targetDec;
     }
     @Override public Point2D.Double targetRaDec() {
-    	if ( !this.targetRaDecAreSet ) {
+    	if (!this.targetRaDecAreSet) {
     	    logger.warn("Target RA, Dec are not defined: Returning null object");
     	}
     	return this.targetRaDec;
@@ -463,19 +463,19 @@ public abstract class AbstractAstroTimeSeries extends AbstractBinnedTimeSeries i
     	setEnergyRange(eMinMax[0], eMinMax[1]);
     }
     @Override public double energyRangeMin() {
-    	if ( !this.energyRangeIsSet ) {
+    	if (!this.energyRangeIsSet) {
     	    logger.warn("Energy range is not defined: Returning Double.NaN");
     	}
     	return this.energyRangeMin;
     }
     @Override public double energyRangeMax() {
-    	if ( !this.energyRangeIsSet ) {
+    	if (!this.energyRangeIsSet) {
     	    logger.warn("Energy range is not defined: Returning Double.NaN");
     	}
     	return this.energyRangeMax;
     }
     @Override public Point2D.Double energyRange() {
-    	if ( !this.energyRangeIsSet ) {
+    	if (!this.energyRangeIsSet) {
     	    logger.warn("Energy range is not defined: Returning Double.NaN");
     	}
     	return (Point2D.Double)energyRange.clone();
@@ -496,19 +496,19 @@ public abstract class AbstractAstroTimeSeries extends AbstractBinnedTimeSeries i
 
     ////  DATE-OBS and DATE-END
     public String dateStart() {
-    	if ( !this.dateRangeIsSet ) {
+    	if (!this.dateRangeIsSet) {
     	    logger.warn("DATE-OBS not defined: Returning empty string");
     	}
     	return this.dateStart;
     }
     public String dateEnd() {
-    	if ( !this.dateRangeIsSet ) {
+    	if (!this.dateRangeIsSet) {
     	    logger.warn("DATE-END not defined: Returning empty string");
     	}
     	return this.dateEnd;
     }
     public String[] dateStartEnd() {
-    	if ( !this.dateRangeIsSet ) {
+    	if (!this.dateRangeIsSet) {
     	    logger.warn("DATE-OBS and DATE-END not defined: Returning empty strings");
     	}
     	return new String[] {new String(this.dateStart), new String(this.dateEnd)};
@@ -516,19 +516,19 @@ public abstract class AbstractAstroTimeSeries extends AbstractBinnedTimeSeries i
 
     ////  TIME-OBS and TIME-END
     public String timeStart() {
-    	if ( !this.timeRangeIsSet ) {
+    	if (!this.timeRangeIsSet) {
     	    logger.warn("TIME-OBS not defined: Returning empty string");
     	}
     	return this.timeStart;
     }
     public String timeStop() {
-    	if ( !this.timeRangeIsSet ) {
+    	if (!this.timeRangeIsSet) {
     	    logger.warn("TIME-END not defined: Returning empty string");
     	}
     	return this.timeStop;
     }
     public String[] timeStartStop() {
-    	if ( !this.timeRangeIsSet ) {
+    	if (!this.timeRangeIsSet) {
     	    logger.warn("TIME-OBS and TIME-END not defined: Returning empty strings");
     	}
     	return new String[] {new String(this.timeStart), new String(this.timeStop)};
@@ -553,13 +553,13 @@ public abstract class AbstractAstroTimeSeries extends AbstractBinnedTimeSeries i
 
     // getters
     @Override public double relTimeError() {
-        if ( !this.relTimeErrorIsSet ) {
+        if (!this.relTimeErrorIsSet) {
             logger.warn("Relative time error is not set: Returning Double.NaN");
         }
         return this.relTimeError;
     }
     @Override public double absTimeError() {
-        if ( !this.absTimeErrorIsSet ) {
+        if (!this.absTimeErrorIsSet) {
             logger.warn("Absolute time error is not set: Returning Double.NaN");
         }
         return this.absTimeError;

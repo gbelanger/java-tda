@@ -13,11 +13,11 @@ public class EventFileReader {
 
     static IEventList read(String filename) throws EventFileException, EventListException, IOException {
 		logger.info("Reading file "+(new File(filename)).getPath());		
-		for ( IEventFileReader reader : formats ) {
+		for (IEventFileReader reader : formats) {
 		    try {
 				return reader.read(filename);
 			}
-		    catch ( EventFileFormatException e ) {}
+		    catch (EventFileFormatException e) {}
 		}
 		throw new EventFileException("File is not a FITS or ASCII event file.");
     }

@@ -27,14 +27,14 @@ public class JSONDataFileWriter {
 	double[] x = xValues.elements();
 	double[] y = yValues.elements();
 	double[] z = zValues.elements();
-	if ( x.length != y.length || x.length != z.length || y.length != z.length ) {
+	if (x.length != y.length || x.length != z.length || y.length != z.length) {
 	    throw new JSONDataFileWriterException("Number of elements in data arrays is not equal");
 	}
 	writer.println("{");
 	int n = x.length;
 	int iPlusOne = 0;
 	int i=0;
-	while ( i < n-1 ) {
+	while (i < n-1) {
 	    iPlusOne = i+1;
 	    writer.println("\""+iPlusOne+"\":["+x[i]+","+y[i]+","+z[i]+"],");
 	    i++;
