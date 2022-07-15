@@ -21,7 +21,7 @@ public class FitsEventFileReader implements IEventFileReader {
 
     private static Logger logger  = Logger.getLogger(FitsEventFileReader.class.getName());
 
-    public EventList read(String filename) throws EventFileException, EventListException, IOException {
+    public AstroEventList read(String filename) throws EventFileException, EventListException, IOException {
 
 		//  Open the FITS file and retrieve all the HDUs
 		BasicHDU<?>[] hdus = getAllHDUs(filename);
@@ -100,18 +100,18 @@ public class FitsEventFileReader implements IEventFileReader {
 		}
 		catch ( FitsException e )  { logger.info("There is no PATTERN column");}
 
-		//  Construct and return the EventList
+		//  Construct and return the AstroEventList
 		if ( energyCol && coordsCol && flagCol && patternCol ) {
-		    return new EventList(times, energies, xCoords, yCoords, flags, patterns);
+		    return new AstroEventList(times, energies, xCoords, yCoords, flags, patterns);
 		}
 		if ( energyCol && coordsCol ) {
-		    return new EventList(times, energies, xCoords, yCoords);
+		    return new AstroEventList(times, energies, xCoords, yCoords);
 		}
 		else if ( energyCol && !coordsCol ) {
-		    return new EventList(times, energies);
+		    return new AstroEventList(times, energies);
 		}
 		else {
-		    return new EventList(times);
+		    return new AstroEventList(times);
 		}
 
     }

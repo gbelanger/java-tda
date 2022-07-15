@@ -12,9 +12,9 @@ import cern.colt.list.DoubleArrayList;
 import org.apache.log4j.Logger;
 
 
-public class EventList extends BasicEventList {
+public class AstroEventList extends BasicEventList {
 
-    private static Logger logger  = Logger.getLogger(EventList.class.getName());
+    private static Logger logger  = Logger.getLogger(AstroEventList.class.getName());
 
     private double[] energies;
     private double eMin;
@@ -42,10 +42,10 @@ public class EventList extends BasicEventList {
 
     //  Constructors
 
-    private EventList() {}
+    private AstroEventList() {}
 
-    public EventList(String filename) throws AsciiDataFileFormatException, EventFileException, EventListException, IOException {
-		EventList evlist = (EventList) EventFileReader.read(filename);
+    public AstroEventList(String filename) throws AsciiDataFileFormatException, EventFileException, EventListException, IOException {
+		AstroEventList evlist = (AstroEventList) EventFileReader.read(filename);
 		if ( evlist.energiesAreSet() ) {
 		    setEnergies(evlist.getEnergies());
 		}
@@ -60,14 +60,14 @@ public class EventList extends BasicEventList {
 		}
     }
 
-    public EventList(double[] times) throws EventListException {
+    public AstroEventList(double[] times) throws EventListException {
 		setArrivalTimes(times);
 		printSummary();
     }
 
-    public EventList(double[] times, double[] energies) throws EventListException {
+    public AstroEventList(double[] times, double[] energies) throws EventListException {
 		if ( times.length != energies.length ) {
-		    throw new EventListException("Cannot create EventList(times, energies): Input array lengths are different");
+		    throw new EventListException("Cannot create AstroEventList(times, energies): Input array lengths are different");
 		}
 		else {
 		    setArrivalTimes(times);
@@ -76,9 +76,9 @@ public class EventList extends BasicEventList {
 		printSummary();
     }
 
-    public EventList(double[] times, double[] energies, int[] xCoords, int[] yCoords) throws EventListException {
+    public AstroEventList(double[] times, double[] energies, int[] xCoords, int[] yCoords) throws EventListException {
 		if ( times.length != energies.length || times.length != xCoords.length || times.length != yCoords.length ) {
-		    throw new EventListException("Cannot create EventList(times, energies, xCoords, yCoords): Input array lengths are different");
+		    throw new EventListException("Cannot create AstroEventList(times, energies, xCoords, yCoords): Input array lengths are different");
 		}
 		else {
 		    setArrivalTimes(times);
@@ -88,9 +88,9 @@ public class EventList extends BasicEventList {
 		printSummary();
     }
 
-    public EventList(double[] times, double[] energies, int[] xCoords, int[] yCoords, int[] flags) throws EventListException {
+    public AstroEventList(double[] times, double[] energies, int[] xCoords, int[] yCoords, int[] flags) throws EventListException {
 		if ( times.length != energies.length || times.length != xCoords.length || times.length != yCoords.length || times.length != flags.length ) {
-		    throw new EventListException("Cannot create EventList(times, energies, xCoords, yCoords, flags): Input array lengths are different");
+		    throw new EventListException("Cannot create AstroEventList(times, energies, xCoords, yCoords, flags): Input array lengths are different");
 		}
 		else {
 		    setArrivalTimes(times);
@@ -101,9 +101,9 @@ public class EventList extends BasicEventList {
 		printSummary();
     }
 
-    public EventList(double[] times, double[] energies, int[] xCoords, int[] yCoords, int[] flags, int[] patterns) throws EventListException {
+    public AstroEventList(double[] times, double[] energies, int[] xCoords, int[] yCoords, int[] flags, int[] patterns) throws EventListException {
 		if ( times.length != energies.length || times.length != xCoords.length || times.length != yCoords.length || times.length != flags.length || times.length != patterns.length ) {
-		    throw new EventListException("Cannot create EventList(times, energies, xCoords, yCoords, flags, patterns): Input array lengths are different");
+		    throw new EventListException("Cannot create AstroEventList(times, energies, xCoords, yCoords, flags, patterns): Input array lengths are different");
 		}
 		else {
 		    setArrivalTimes(times);
@@ -236,7 +236,7 @@ public class EventList extends BasicEventList {
 		if ( this.patternsAreSet ) {
 		    logger.info("Patterns are set");
 		}
-		logger.info("EventList is ready");
+		logger.info("AstroEventList is ready");
     }
 
 

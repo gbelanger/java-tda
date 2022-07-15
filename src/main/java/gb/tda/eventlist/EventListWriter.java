@@ -34,11 +34,11 @@ final class EventListWriter {
 		logger.info("Event list arrival times written to "+filename);
 	}
 
-    static void writeTimesAsQDP(EventList evlist, String filename) throws IOException {
+    static void writeTimesAsQDP(AstroEventList evlist, String filename) throws IOException {
 		writeAsQDP(evlist, filename);
     }
 
-    static void writeEnergiesVsTimeAsQDP(EventList evlist, String filename) throws IOException, EventListException {
+    static void writeEnergiesVsTimeAsQDP(AstroEventList evlist, String filename) throws IOException, EventListException {
 		AsciiDataFileWriter out = new AsciiDataFileWriter(filename);
 		String[] header = new String[] {
 		    "DEV /XS",
@@ -57,7 +57,7 @@ final class EventListWriter {
 		logger.info("Event list energies vs time written to "+filename);
     }
 
-    static void writeXYCoordsAsQDP(EventList evlist, String filename) throws IOException, EventListException {
+    static void writeXYCoordsAsQDP(AstroEventList evlist, String filename) throws IOException, EventListException {
 		AsciiDataFileWriter out = new AsciiDataFileWriter(filename);
 		String[] header = new String[] {
 		    "DEV /XS",

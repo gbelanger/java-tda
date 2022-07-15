@@ -18,7 +18,7 @@ public final class EventListSelector {
 
     private static Logger logger  = Logger.getLogger(EventListSelector.class.getName());
 
-    public static EventList selectEventsOnFlag(EventList evlist, int min, int max) throws EventListException {
+    public static AstroEventList selectEventsOnFlag(AstroEventList evlist, int min, int max) throws EventListException {
 
 	logger.info("Selecting events on flag values between "+min+" and "+max+" (inclusively)");
 	logger.info("There are "+evlist.nEvents()+" events");
@@ -58,7 +58,7 @@ public final class EventListSelector {
 		selectedFlags.trimToSize();
 		selectedPatterns.trimToSize();
 		logger.info(selectedTimes.size()+" events were selected. Fraction selected is "+((double) selectedTimes.size()/evlist.nEvents()));
-		return new EventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements(), selectedPatterns.elements());
+		return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements(), selectedPatterns.elements());
 	    }
 	    else {
 		for ( int i=0; i < evlist.nEvents(); i++ ) {
@@ -76,7 +76,7 @@ public final class EventListSelector {
 		selectedYCoords.trimToSize();
 		selectedFlags.trimToSize();
 		logger.info(selectedTimes.size()+" events were selected. Fraction selected is "+((double) selectedTimes.size()/evlist.nEvents()));
-		return new EventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements());	    
+		return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements());	    
 	    }
 	}
 	else {
@@ -85,7 +85,7 @@ public final class EventListSelector {
     }
 
 
-    public static EventList selectEventsOnEnergy(EventList evlist, int min, int max) throws EventListException {
+    public static AstroEventList selectEventsOnEnergy(AstroEventList evlist, int min, int max) throws EventListException {
 	logger.info("Selecting events on energy values between "+min+" and "+max+" (inclusively)");
 	logger.info("There are "+evlist.nEvents()+" events");
 	if ( evlist.energiesAreSet() ) {
@@ -119,7 +119,7 @@ public final class EventListSelector {
 		selectedFlags.trimToSize();
 		selectedPatterns.trimToSize();
 		logger.info(selectedTimes.size()+" events were selected. Fraction selected is "+((double) selectedTimes.size()/evlist.nEvents()));
-		return new EventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements(), selectedPatterns.elements());
+		return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements(), selectedPatterns.elements());
 	    }
 	    else { 
 		if ( evlist.flagsAreSet() ) {  // This means that everything is defined except the pattern
@@ -144,7 +144,7 @@ public final class EventListSelector {
 		    selectedYCoords.trimToSize();
 		    selectedFlags.trimToSize();
 		    logger.info(selectedTimes.size()+" events were selected. Fraction selected is "+((double) selectedTimes.size()/evlist.nEvents()));
-		    return new EventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements());
+		    return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements());
 		}
 		else { //  This means that the coords could be set but not necessarily
 		    if ( evlist.coordsAreSet() ) {
@@ -165,7 +165,7 @@ public final class EventListSelector {
 			selectedXCoords.trimToSize();
 			selectedYCoords.trimToSize();
 			logger.info(selectedTimes.size()+" events were selected. Fraction selected is "+((double) selectedTimes.size()/evlist.nEvents()));
-			return new EventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements());
+			return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements());
 		    }
 		    else {  //  This means that only the times and energies are defined
 			for ( int i=0; i < evlist.nEvents(); i++ ) {
@@ -177,7 +177,7 @@ public final class EventListSelector {
 			selectedTimes.trimToSize();
 			selectedEnergies.trimToSize();
 			logger.info(selectedTimes.size()+" events were selected. Fraction selected is "+((double) selectedTimes.size()/evlist.nEvents()));
-			return new EventList(selectedTimes.elements(), selectedEnergies.elements());
+			return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements());
 		    }
 
 		}
@@ -189,7 +189,7 @@ public final class EventListSelector {
     }
 
 
-    public static EventList selectEventsOnPattern(EventList evlist, int min, int max) throws EventListException {
+    public static AstroEventList selectEventsOnPattern(AstroEventList evlist, int min, int max) throws EventListException {
 	logger.info("Selecting events on pattern values between "+min+" and "+max+" (inclusively)");
 	logger.info("There are "+evlist.nEvents()+" events");
 	if ( evlist.patternsAreSet() ) {
@@ -222,7 +222,7 @@ public final class EventListSelector {
 	    selectedFlags.trimToSize();
 	    selectedPatterns.trimToSize();
 	    logger.info(selectedTimes.size()+" events were selected. Fraction selected is "+((double) selectedTimes.size()/evlist.nEvents()));
-	    return new EventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements(), selectedPatterns.elements());
+	    return new AstroEventList(selectedTimes.elements(), selectedEnergies.elements(), selectedXCoords.elements(), selectedYCoords.elements(), selectedFlags.elements(), selectedPatterns.elements());
 	}
 	else {
 	    throw new EventListException("Patterns are not defined: Cannot select on pattern.");
@@ -230,7 +230,7 @@ public final class EventListSelector {
     }
 
 
-    public static double[] getArrivalTimesFromTo(EventList evlist, double t1, double t2) {
+    public static double[] getArrivalTimesFromTo(AstroEventList evlist, double t1, double t2) {
 	DoubleArrayList selected = new DoubleArrayList();
 	double[] arrivalTimes = evlist.getArrivalTimes();
 	int i=0;
@@ -249,7 +249,7 @@ public final class EventListSelector {
 	return selected.elements();
     }
     
-    public static double[] getArrivalTimesRandomSegment(EventList evlist, double segmentLength) throws EventListException {
+    public static double[] getArrivalTimesRandomSegment(AstroEventList evlist, double segmentLength) throws EventListException {
 	double durationOfEventList = evlist.duration();
 	if ( durationOfEventList < segmentLength ) {
 	    throw new EventListException("The requested segment is longer than the entire event list");
@@ -260,7 +260,7 @@ public final class EventListSelector {
 	return getArrivalTimesFromTo(evlist, from, to);
     }
 
-    // public static  double[] getRandomArrivalTimes(EventList evlist, int nEvents) throws EventListException, BinningException, TimeSeriesException  {
+    // public static  double[] getRandomArrivalTimes(AstroEventList evlist, int nEvents) throws EventListException, BinningException, TimeSeriesException  {
 	// double mean = evlist.nEvents()/evlist.duration();
 	// double binTime = 1/(2*mean);
 	// TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist.getArrivalTimes(), binTime);
@@ -273,7 +273,7 @@ public final class EventListSelector {
     // }
 
 
-    public static double[] getArrivalTimesInEnergyRange(EventList evlist, double min, double max) throws EventListException {
+    public static double[] getArrivalTimesInEnergyRange(AstroEventList evlist, double min, double max) throws EventListException {
 	if ( evlist.energiesAreSet() ) {
 	    double[] arrivalTimes = evlist.getArrivalTimes();
 	    double[] energies = evlist.getEnergies();
@@ -292,7 +292,7 @@ public final class EventListSelector {
 	}
     }
 
-    public static double[] getArrivalTimesInCoordinateRange(EventList evlist, double xmin, double xmax, double ymin, double ymax) throws EventListException {
+    public static double[] getArrivalTimesInCoordinateRange(AstroEventList evlist, double xmin, double xmax, double ymin, double ymax) throws EventListException {
 	if ( evlist.coordsAreSet() ) {
 	    double[] arrivalTimes = evlist.getArrivalTimes();
 	    int[] xCoords = evlist.getXCoords();
@@ -314,7 +314,7 @@ public final class EventListSelector {
 	}
     }
 
-    public static double[] getArrivalTimesInFlagRange(EventList evlist, int min, int max) throws EventListException {
+    public static double[] getArrivalTimesInFlagRange(AstroEventList evlist, int min, int max) throws EventListException {
 	if ( evlist.flagsAreSet() ) {
 	    double[] arrivalTimes = evlist.getArrivalTimes();
 	    int[] flags = evlist.getFlags();
@@ -333,7 +333,7 @@ public final class EventListSelector {
 	}
     }
 
-    public static double[] getArrivalTimesInPatternRange(EventList evlist, int min, int max) throws EventListException {
+    public static double[] getArrivalTimesInPatternRange(AstroEventList evlist, int min, int max) throws EventListException {
 	if ( evlist.patternsAreSet() ) {
 	    double[] arrivalTimes = evlist.getArrivalTimes();
 	    int[] patterns = evlist.getPatterns();

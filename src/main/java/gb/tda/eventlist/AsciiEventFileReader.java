@@ -12,7 +12,7 @@ public class AsciiEventFileReader implements IEventFileReader{
 
     private static Logger logger  = Logger.getLogger(AsciiEventFileReader.class.getName());
 
-    public EventList read(String evlistFilename) throws AsciiEventFileException, EventListException, IOException {
+    public AstroEventList read(String evlistFilename) throws AsciiEventFileException, EventListException, IOException {
 
 		AsciiDataFileReader dataFile = null;
 		try {
@@ -27,13 +27,13 @@ public class AsciiEventFileReader implements IEventFileReader{
 		if ( ncols == 1 ) {
 
 		    double[] times = dataFile.getDblCol(0);
-		    return new EventList(times); 
+		    return new AstroEventList(times); 
 		}
 		else if ( ncols == 2 ) {
 
 		    double[] times = dataFile.getDblCol(0);
 		    double[] energies = dataFile.getDblCol(1);
-		    return new EventList(times, energies);
+		    return new AstroEventList(times, energies);
 		}
 		else if ( ncols == 4 ) {
 		    
@@ -41,7 +41,7 @@ public class AsciiEventFileReader implements IEventFileReader{
 		    double[] energies = dataFile.getDblCol(1);
 		    int[] xCoords = dataFile.getIntCol(2);
 		    int[] yCoords = dataFile.getIntCol(3);
-		    return new EventList(times, energies, xCoords, yCoords);
+		    return new AstroEventList(times, energies, xCoords, yCoords);
 		}
 		else {
 		    throw new AsciiEventFileException("Not a known ASCII event file."
