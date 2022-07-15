@@ -5,7 +5,7 @@ import cern.colt.list.DoubleArrayList;
 import cern.jet.stat.Descriptive;
 import org.apache.log4j.Logger;
 import gb.tda.binner.Binner;
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.io.AsciiDataFileReader;
 import gb.tda.io.AsciiDataFileWriter;
 import gb.tda.likelihood.InverseExponentialLikelihood;
@@ -23,7 +23,7 @@ public final class EventListTransientDetectorWithGrouping {
     private static Logger logger  = Logger.getLogger(EventListTransientDetector.class);    
     private static double startTime = System.currentTimeMillis();
     
-    public static void detectTransient(EventList[] evlist_array) throws Exception {
+    public static void detectTransient(AstroEventList[] evlist_array) throws Exception {
 	
 		// Define variables
 		DoubleArrayList ratesList = new DoubleArrayList();
@@ -50,7 +50,7 @@ public final class EventListTransientDetectorWithGrouping {
 		int evlistCounter = 0;
 		double detectionLikelihood = 0;
 		
-		for (EventList evlist : evlist_array) {
+		for (AstroEventList evlist : evlist_array) {
 
 		    evlistCounter++;
 		    double[] arrivalTimes = evlist.getArrivalTimes();
@@ -185,7 +185,7 @@ public final class EventListTransientDetectorWithGrouping {
 		}
     }
 
-    private static double computeGroupingTimescale(EventList evlist) throws Exception {
+    private static double computeGroupingTimescale(AstroEventList evlist) throws Exception {
 		double mean = evlist.meanRate();
 		double bintime = 5/mean;
 		TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist, bintime);
@@ -224,21 +224,21 @@ public final class EventListTransientDetectorWithGrouping {
 
     
     public static void detectTransient(String filename) throws Exception {
-		detectTransient(new EventList(filename));
+		detectTransient(new AstroEventList(filename));
     }        
 
     public static void detectTransient(String[] filenames) throws Exception {
-		EventList[] evlist_array = new EventList[filenames.length];
+		AstroEventList[] evlist_array = new AstroEventList[filenames.length];
 		int i = 0;
 		for (String filename : filenames) {
-		    evlist_array[i] = new EventList(filename);
+		    evlist_array[i] = new AstroEventList(filename);
 		    i++;
 		}
 		detectTransient(evlist_array);
     }
 
-    public static void detectTransient(EventList evlist) throws Exception {
-		detectTransient(new EventList[] {evlist});
+    public static void detectTransient(AstroEventList evlist) throws Exception {
+		detectTransient(new AstroEventList[] {evlist});
     }
 
     

@@ -2,7 +2,7 @@ package gb.tda.transients;
 
 import cern.colt.list.DoubleArrayList;
 import gb.tda.binner.Binner;
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.io.AsciiDataFileReader;
 import gb.tda.io.AsciiDataFileWriter;
 import gb.tda.likelihood.InverseExponentialLikelihood;
@@ -42,7 +42,7 @@ public final class TimeSeriesTransientDetector {
 
 		    timeseriesCounter++;
 		    double[] rates = timeseries.getRates();
-		    double[] errors = timeseries.getErrorsOnRates();
+		    double[] errors = timeseries.getUncertainties();
 		    double mean = timeseries.meanRate();
 		    double[] binCentres = timeseries.getBinCentres();
 		    

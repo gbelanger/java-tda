@@ -4,7 +4,7 @@ import cern.jet.random.Poisson;
 import cern.jet.random.engine.MersenneTwister64;
 import gb.codetda.binner.BinningUtils;
 import gb.codetda.binner.Resampler;;
-import gb.codetda.eventlist.EventList;
+import gb.codetda.eventlist.AstroEventList;
 import gb.codetda.periodogram.AggregatePeriodogram;
 import gb.codetda.periodogram.AveragePeriodogram;
 import gb.codetda.periodogram.FFTPeriodogram;
@@ -62,17 +62,17 @@ public class TimeMappingEffect {
 	for ( int i=0; i < n; i++ ) {
 
 // 	    double[] times = RedNoiseGenerator.generateArrivalTimes(mean, duration, alpha);
-// 	    EventList evlist = new EventList(times);
+// 	    AstroEventList evlist = new AstroEventList(times);
 // 	    FFTPeriodogram psd = PeriodogramMaker.makePlainFFTPeriodogram(evlist);
 // 	    avgShort.add(psd);
 
 // 	    times = RedNoiseGenerator.generateArrivalTimes(mean, 10*duration, alpha);
-// 	    evlist = new EventList(times);
+// 	    evlist = new AstroEventList(times);
 // 	    psd = PeriodogramMaker.makePlainFFTPeriodogram(evlist);
 // 	    avgMed.add(psd);
 
 // 	    times = RedNoiseGenerator.generateArrivalTimes(mean, 100*duration, alpha);
-// 	    evlist = new EventList(times);
+// 	    evlist = new AstroEventList(times);
 // 	    psd = PeriodogramMaker.makePlainFFTPeriodogram(evlist);
 // 	    avgLong.add(psd);
 
@@ -102,7 +102,7 @@ public class TimeMappingEffect {
 		times[nevents-1] = times[0] + duration;  //  Adjust actual duration to specified duration
 
 		//  Make FFTPeriodogram and add to AggregatePeriodogram 
-		EventList evlist = new EventList(times);
+		AstroEventList evlist = new AstroEventList(times);
 		FFTPeriodogram psd = PeriodogramMaker.makePlainFFTPeriodogram(evlist);
 		if ( factor == resamplingFactors[0] ) {
 		    avgLong.add(psd);

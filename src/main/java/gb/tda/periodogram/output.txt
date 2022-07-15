@@ -1,20 +1,20 @@
 [INFO] - 09-12-2015 12:34:42 - (gb.esac.eventlist.EventFileReader: 16) : Reading file crab_pn.ds
 [INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.FitsEventFileReader: 79) : There is no X or Y column
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 224) : Arrival times are set:
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 225) :   nEvents = 626387
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 226) :   tStart = 2.572946167817524E8
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 227) :   tStop = 2.5730241798431394E8
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 228) :   duration = 7801.202561527491
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 229) :   mean rate = 80.29364640383754
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 230) :   minEventSpacing = 6.854534149169922E-7
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 234) :   maxEventSpacing = 0.17380023002624512
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 235) :   meanEventSpacing = 0.012454305430720819
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 237) : Energies are set:
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 238) :   eMin = 154.0
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 239) :   eMax = 24824.0
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 240) :   eMean = 1961.4203503584845
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.EventList: 257) : EventList is ready
-[INFO] - 09-12-2015 12:34:43 - (gb.esac.periodogram.PeriodogramMaker: 644) : Making ModifiedRayleighPeriodogram from EventList
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 224) : Arrival times are set:
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 225) :   nEvents = 626387
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 226) :   tStart = 2.572946167817524E8
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 227) :   tStop = 2.5730241798431394E8
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 228) :   duration = 7801.202561527491
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 229) :   mean rate = 80.29364640383754
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 230) :   minEventSpacing = 6.854534149169922E-7
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 234) :   maxEventSpacing = 0.17380023002624512
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 235) :   meanEventSpacing = 0.012454305430720819
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 237) : Energies are set:
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 238) :   eMin = 154.0
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 239) :   eMax = 24824.0
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 240) :   eMean = 1961.4203503584845
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.eventlist.AstroEventList: 257) : AstroEventList is ready
+[INFO] - 09-12-2015 12:34:43 - (gb.esac.periodogram.PeriodogramMaker: 644) : Making ModifiedRayleighPeriodogram from AstroEventList
 [INFO] - 09-12-2015 12:34:43 - (gb.esac.periodogram.PeriodogramMaker: 645) :   harmonic = 1
 [INFO] - 09-12-2015 12:34:43 - (gb.esac.periodogram.PeriodogramMaker: 646) :   sampling = 41
 [INFO] - 09-12-2015 12:34:43 - (gb.esac.periodogram.PeriodogramMaker: 649) :   nuMin = 29.7734
@@ -31,7 +31,7 @@
 [INFO] - 09-12-2015 12:34:58 - (gb.esac.periodogram.Periodogram: 119) : Avg power = 211.47581202484665
 [INFO] - 09-12-2015 12:34:58 - (gb.esac.periodogram.Periodogram: 120) : Max power = 653.574243096811 (at f = 29.77356477638055)
 Peak location = 29.77356477638055	 Peak height = 653.574243096811	 HWHM = 5.940297418405294E-5
-[INFO] - 09-12-2015 12:34:58 - (gb.esac.periodogram.PeriodogramMaker: 644) : Making ModifiedRayleighPeriodogram from EventList
+[INFO] - 09-12-2015 12:34:58 - (gb.esac.periodogram.PeriodogramMaker: 644) : Making ModifiedRayleighPeriodogram from AstroEventList
 [INFO] - 09-12-2015 12:34:58 - (gb.esac.periodogram.PeriodogramMaker: 645) :   harmonic = 2
 [INFO] - 09-12-2015 12:34:58 - (gb.esac.periodogram.PeriodogramMaker: 646) :   sampling = 41
 [INFO] - 09-12-2015 12:34:58 - (gb.esac.periodogram.PeriodogramMaker: 649) :   nuMin = 29.7734
@@ -48,7 +48,7 @@ Peak location = 29.77356477638055	 Peak height = 653.574243096811	 HWHM = 5.9402
 [INFO] - 09-12-2015 12:35:13 - (gb.esac.periodogram.Periodogram: 119) : Avg power = 239.35066792634117
 [INFO] - 09-12-2015 12:35:13 - (gb.esac.periodogram.Periodogram: 120) : Max power = 1456.7413134804574 (at f = 29.773567902852875)
 Peak location = 29.773567902852875	 Peak height = 1456.7413134804574	 HWHM = 2.970148709202647E-5
-[INFO] - 09-12-2015 12:35:13 - (gb.esac.periodogram.PeriodogramMaker: 644) : Making ModifiedRayleighPeriodogram from EventList
+[INFO] - 09-12-2015 12:35:13 - (gb.esac.periodogram.PeriodogramMaker: 644) : Making ModifiedRayleighPeriodogram from AstroEventList
 [INFO] - 09-12-2015 12:35:13 - (gb.esac.periodogram.PeriodogramMaker: 645) :   harmonic = 3
 [INFO] - 09-12-2015 12:35:13 - (gb.esac.periodogram.PeriodogramMaker: 646) :   sampling = 41
 [INFO] - 09-12-2015 12:35:13 - (gb.esac.periodogram.PeriodogramMaker: 649) :   nuMin = 29.7734
@@ -65,7 +65,7 @@ Peak location = 29.773567902852875	 Peak height = 1456.7413134804574	 HWHM = 2.9
 [INFO] - 09-12-2015 12:35:28 - (gb.esac.periodogram.Periodogram: 119) : Avg power = 131.0582415853521
 [INFO] - 09-12-2015 12:35:28 - (gb.esac.periodogram.Periodogram: 120) : Max power = 1170.0051650771686 (at f = 29.7735710293252)
 Peak location = 29.7735710293252	 Peak height = 1170.0051650771686	 HWHM = 1.8758833952858822E-5
-[INFO] - 09-12-2015 12:35:28 - (gb.esac.periodogram.PeriodogramMaker: 644) : Making ModifiedRayleighPeriodogram from EventList
+[INFO] - 09-12-2015 12:35:28 - (gb.esac.periodogram.PeriodogramMaker: 644) : Making ModifiedRayleighPeriodogram from AstroEventList
 [INFO] - 09-12-2015 12:35:28 - (gb.esac.periodogram.PeriodogramMaker: 645) :   harmonic = 4
 [INFO] - 09-12-2015 12:35:28 - (gb.esac.periodogram.PeriodogramMaker: 646) :   sampling = 41
 [INFO] - 09-12-2015 12:35:28 - (gb.esac.periodogram.PeriodogramMaker: 649) :   nuMin = 29.7734
@@ -82,7 +82,7 @@ Peak location = 29.7735710293252	 Peak height = 1170.0051650771686	 HWHM = 1.875
 [INFO] - 09-12-2015 12:35:44 - (gb.esac.periodogram.Periodogram: 119) : Avg power = 17.16196716900035
 [INFO] - 09-12-2015 12:35:44 - (gb.esac.periodogram.Periodogram: 120) : Max power = 175.91574496516 (at f = 29.7735710293252)
 Peak location = 29.7735710293252	 Peak height = 175.91574496516	 HWHM = 1.4069125464644117E-5
-[INFO] - 09-12-2015 12:35:44 - (gb.esac.periodogram.PeriodogramMaker: 644) : Making ModifiedRayleighPeriodogram from EventList
+[INFO] - 09-12-2015 12:35:44 - (gb.esac.periodogram.PeriodogramMaker: 644) : Making ModifiedRayleighPeriodogram from AstroEventList
 [INFO] - 09-12-2015 12:35:44 - (gb.esac.periodogram.PeriodogramMaker: 645) :   harmonic = 5
 [INFO] - 09-12-2015 12:35:44 - (gb.esac.periodogram.PeriodogramMaker: 646) :   sampling = 41
 [INFO] - 09-12-2015 12:35:44 - (gb.esac.periodogram.PeriodogramMaker: 649) :   nuMin = 29.7734

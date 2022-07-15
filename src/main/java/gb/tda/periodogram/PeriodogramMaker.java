@@ -4,7 +4,7 @@ package gb.tda.periodogram;
 //import gb.tda.io.AsciiDataFileWriter;
 import cern.colt.list.DoubleArrayList;
 import gb.tda.binner.BinningException;
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.likelihood.ExponentialLikelihood;
 import gb.tda.timeseries.TimeSeries;
 import gb.tda.timeseries.TimeSeriesException;
@@ -206,7 +206,7 @@ public final class PeriodogramMaker {
 	    double minBinWidth = timeSeries.minBinWidth();
 	    ts = TimeSeriesResampler.resample(ts, minBinWidth);
 	}
-	return makeUnnormalizedWindowedFFTPeriodogram(ts.getBinHeights(), ts.duration(), windowName, samplingFactor);
+	return makeUnnormalizedWindowedFFTPeriodogram(ts.getIntensities(), ts.duration(), windowName, samplingFactor);
     }
 
     //  Oversampled Windowed FFTPeriodogram
@@ -229,7 +229,7 @@ public final class PeriodogramMaker {
     /**
      * <code>makeOversampledWindowedFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param windowName a <code>String</code> value
      * @param normName a <code>String</code> value
      * @param samplingFactor an <code>int</code> value
@@ -237,7 +237,7 @@ public final class PeriodogramMaker {
      * @exception TimeSeriesFileException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static FFTPeriodogram makeOversampledWindowedFFTPeriodogram(EventList evlist, String windowName, String normName, int samplingFactor) throws TimeSeriesException, PeriodogramException, BinningException {
+    public static FFTPeriodogram makeOversampledWindowedFFTPeriodogram(AstroEventList evlist, String windowName, String normName, int samplingFactor) throws TimeSeriesException, PeriodogramException, BinningException {
 	return makeOversampledWindowedFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(evlist), windowName, normName, samplingFactor);
     }
 
@@ -260,14 +260,14 @@ public final class PeriodogramMaker {
     /**
      * <code>makeWindowedFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param windowName a <code>String</code> value
      * @param normName a <code>String</code> value
      * @return a <code>FFTPeriodogram</code> value
      * @exception TimeSeriesFileException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static FFTPeriodogram makeWindowedFFTPeriodogram(EventList evlist, String windowName, String normName) throws TimeSeriesException, PeriodogramException, BinningException {
+    public static FFTPeriodogram makeWindowedFFTPeriodogram(AstroEventList evlist, String windowName, String normName) throws TimeSeriesException, PeriodogramException, BinningException {
 	return makeWindowedFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(evlist), windowName, normName);
     }
 
@@ -287,13 +287,13 @@ public final class PeriodogramMaker {
     /**
      * <code>makeWindowedFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param windowName a <code>String</code> value
      * @return a <code>FFTPeriodogram</code> value
      * @exception TimeSeriesFileException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static FFTPeriodogram makeWindowedFFTPeriodogram(EventList evlist, String windowName) throws TimeSeriesException, PeriodogramException {
+    public static FFTPeriodogram makeWindowedFFTPeriodogram(AstroEventList evlist, String windowName) throws TimeSeriesException, PeriodogramException {
 	String normName = "leahy";
 	return makeWindowedFFTPeriodogram(evlist, windowName);
     }
@@ -317,14 +317,14 @@ public final class PeriodogramMaker {
     /**
      * <code>makeOversampledPlainFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param normName a <code>String</code> value
      * @param samplingFactor an <code>int</code> value
      * @return a <code>FFTPeriodogram</code> value
      * @exception TimeSeriesFileException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static  FFTPeriodogram makeOversampledPlainFFTPeriodogram(EventList evlist, String normName, int samplingFactor) throws TimeSeriesException, PeriodogramException, BinningException {
+    public static  FFTPeriodogram makeOversampledPlainFFTPeriodogram(AstroEventList evlist, String normName, int samplingFactor) throws TimeSeriesException, PeriodogramException, BinningException {
 	String windowName = "rectangular";
 	return makeOversampledPlainFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(evlist), normName, samplingFactor);
     }
@@ -345,13 +345,13 @@ public final class PeriodogramMaker {
     /**
      * <code>makeOversampledPlainFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param samplingFactor an <code>int</code> value
      * @return a <code>FFTPeriodogram</code> value
      * @exception TimeSeriesFileException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static  FFTPeriodogram makeOversampledPlainFFTPeriodogram(EventList evlist, int samplingFactor) throws TimeSeriesException, PeriodogramException, BinningException {
+    public static  FFTPeriodogram makeOversampledPlainFFTPeriodogram(AstroEventList evlist, int samplingFactor) throws TimeSeriesException, PeriodogramException, BinningException {
 	return makeOversampledPlainFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(evlist), samplingFactor);
     }
 
@@ -373,13 +373,13 @@ public final class PeriodogramMaker {
     /**
      * <code>makePlainFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param normName a <code>String</code> value
      * @return a <code>FFTPeriodogram</code> value
      * @exception TimeSeriesFileException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static  FFTPeriodogram makePlainFFTPeriodogram(EventList evlist, String normName) throws TimeSeriesException, PeriodogramException, BinningException {
+    public static  FFTPeriodogram makePlainFFTPeriodogram(AstroEventList evlist, String normName) throws TimeSeriesException, PeriodogramException, BinningException {
 	return makePlainFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(evlist), normName);
     }
 
@@ -398,12 +398,12 @@ public final class PeriodogramMaker {
     /**
      * <code>makePlainFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @return a <code>FFTPeriodogram</code> value
      * @exception TimeSeriesException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static  FFTPeriodogram makePlainFFTPeriodogram(EventList evlist) throws TimeSeriesException, PeriodogramException, BinningException {
+    public static  FFTPeriodogram makePlainFFTPeriodogram(AstroEventList evlist) throws TimeSeriesException, PeriodogramException, BinningException {
 	return makePlainFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(evlist));
     }
 
@@ -427,7 +427,7 @@ public final class PeriodogramMaker {
     /**
      * <code>makeOversampledWindowedRateFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param windowName a <code>String</code> value
      * @param normName a <code>String</code> value
      * @param samplingFactor an <code>int</code> value
@@ -435,7 +435,7 @@ public final class PeriodogramMaker {
      * @exception TimeSeriesException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static  FFTPeriodogram makeOversampledWindowedRateFFTPeriodogram(EventList evlist, String windowName, String normName, int samplingFactor) throws TimeSeriesException, PeriodogramException, BinningException {
+    public static  FFTPeriodogram makeOversampledWindowedRateFFTPeriodogram(AstroEventList evlist, String windowName, String normName, int samplingFactor) throws TimeSeriesException, PeriodogramException, BinningException {
 	return makeOversampledWindowedRateFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(evlist), windowName, normName, samplingFactor);
     }
 
@@ -456,14 +456,14 @@ public final class PeriodogramMaker {
     /**
      * <code>makeWindowedRateFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param windowName a <code>String</code> value
      * @param normName a <code>String</code> value
      * @return a <code>FFTPeriodogram</code> value
      * @exception TimeSeriesException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static  FFTPeriodogram makeWindowedRateFFTPeriodogram(EventList evlist, String windowName, String normName) throws TimeSeriesException, PeriodogramException, BinningException {
+    public static  FFTPeriodogram makeWindowedRateFFTPeriodogram(AstroEventList evlist, String windowName, String normName) throws TimeSeriesException, PeriodogramException, BinningException {
 	int sampling = 1;
 	return makeWindowedRateFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(evlist), windowName, normName);
     }
@@ -484,13 +484,13 @@ public final class PeriodogramMaker {
     /**
      * <code>makePlainRateFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param normName a <code>String</code> value
      * @return a <code>FFTPeriodogram</code> value
      * @exception TimeSeriesException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static  FFTPeriodogram makePlainRateFFTPeriodogram(EventList evlist, String normName) throws TimeSeriesException, PeriodogramException, BinningException {
+    public static  FFTPeriodogram makePlainRateFFTPeriodogram(AstroEventList evlist, String normName) throws TimeSeriesException, PeriodogramException, BinningException {
 	String windowName = "rectangular";
 	return makeWindowedRateFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(evlist), windowName, normName);
     }
@@ -510,12 +510,12 @@ public final class PeriodogramMaker {
     /**
      * <code>makePlainRateFFTPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @return a <code>FFTPeriodogram</code> value
      * @exception TimeSeriesException if an error occurs
      * @exception PeriodogramException if an error occurs
      */
-    public static  FFTPeriodogram makePlainRateFFTPeriodogram(EventList evlist) throws TimeSeriesException, PeriodogramException, BinningException {
+    public static  FFTPeriodogram makePlainRateFFTPeriodogram(AstroEventList evlist) throws TimeSeriesException, PeriodogramException, BinningException {
 	String normName = "leahy";
 	return makePlainRateFFTPeriodogram(TimeSeriesMaker.makeTimeSeries(evlist), normName);
     }
@@ -588,11 +588,11 @@ public final class PeriodogramMaker {
     /**
      * <code>makeModifiedRayleighPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @return a <code>ModifiedRayleighPeriodogram</code> value
      * @exception PeriodogramException if an error occurs
      */
-    public static ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(EventList evlist) throws PeriodogramException {
+    public static ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(AstroEventList evlist) throws PeriodogramException {
 	int harmonic = 1;
 	return makeModifiedRayleighPeriodogram(evlist, harmonic);
     }
@@ -600,12 +600,12 @@ public final class PeriodogramMaker {
     /**
      * <code>makeModifiedRayleighPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param harmonic an <code>int</code> value
      * @return a <code>ModifiedRayleighPeriodogram</code> value
      * @exception PeriodogramException if an error occurs
      */
-    public static ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(EventList evlist, int harmonic) throws PeriodogramException {
+    public static ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(AstroEventList evlist, int harmonic) throws PeriodogramException {
 	double duration = evlist.duration();
 	double nuMin = 1/duration;
 	double nyquistFrequency = 2*evlist.minEventSpacing();
@@ -619,14 +619,14 @@ public final class PeriodogramMaker {
     /**
      * <code>makeModifiedRayleighPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param nuMin a <code>double</code> value
      * @param nuMax a <code>double</code> value
      * @param samplingFactor an <code>int</code> value
      * @return a <code>ModifiedRayleighPeriodogram</code> value
      * @exception PeriodogramException if an error occurs
      */
-    public static  ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(EventList evlist, double nuMin, double nuMax, int samplingFactor) throws PeriodogramException {
+    public static  ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(AstroEventList evlist, double nuMin, double nuMax, int samplingFactor) throws PeriodogramException {
 	int harmonic = 1;
 	return makeModifiedRayleighPeriodogram(evlist, nuMin, nuMax, samplingFactor, harmonic);
     }
@@ -634,7 +634,7 @@ public final class PeriodogramMaker {
     /**
      * <code>makeModifiedRayleighPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param nuMin a <code>double</code> value
      * @param nuMax a <code>double</code> value
      * @param samplingFactor an <code>int</code> value
@@ -642,8 +642,8 @@ public final class PeriodogramMaker {
      * @return a <code>ModifiedRayleighPeriodogram</code> value
      * @exception PeriodogramException if an error occurs
      */
-    public static  ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(EventList evlist, double nuMin, double nuMax, int samplingFactor, int harmonic) throws PeriodogramException {
-	logger.info("Making ModifiedRayleighPeriodogram from EventList");
+    public static  ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(AstroEventList evlist, double nuMin, double nuMax, int samplingFactor, int harmonic) throws PeriodogramException {
+	logger.info("Making ModifiedRayleighPeriodogram from AstroEventList");
 	logger.info("  harmonic = "+harmonic);
 	logger.info("  sampling = "+samplingFactor);
 	int sampling = checkSamplingFactor(samplingFactor);
@@ -659,22 +659,22 @@ public final class PeriodogramMaker {
 	return makeModifiedRayleighPeriodogram(evlist, testFreqs, samplingFactor, harmonic);
     }
 
-    public static ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(EventList evlist, double[] testFreqs, int samplingFactor) throws PeriodogramException {
+    public static ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(AstroEventList evlist, double[] testFreqs, int samplingFactor) throws PeriodogramException {
 	int harmonic = 1;
 	return makeModifiedRayleighPeriodogram(evlist, testFreqs, samplingFactor, harmonic);
     }
 
-    public static ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(EventList evlist, double[] testFreqs, int samplingFactor, int harmonic) throws PeriodogramException {
+    public static ModifiedRayleighPeriodogram makeModifiedRayleighPeriodogram(AstroEventList evlist, double[] testFreqs, int samplingFactor, int harmonic) throws PeriodogramException {
 	double[] powers = calculateModifiedRayleighPowers(evlist, testFreqs, harmonic);
 	return new ModifiedRayleighPeriodogram(testFreqs, powers, samplingFactor, harmonic);
     }
 
-    public static double[] calculateModifiedRayleighPowers(EventList evlist, double[] testFreqs) {
+    public static double[] calculateModifiedRayleighPowers(AstroEventList evlist, double[] testFreqs) {
 	int harmonic = 1;
 	return calculateModifiedRayleighPowers(evlist, testFreqs, harmonic);
     }
 
-    public static double[] calculateModifiedRayleighPowers(EventList evlist, double[] testFreqs, int harmonic) {
+    public static double[] calculateModifiedRayleighPowers(AstroEventList evlist, double[] testFreqs, int harmonic) {
 	logger.info("Calculating modified Rayleigh powers");
 	double[] arrivalTimes = evlist.getArrivalTimes();
 	int nTrials = testFreqs.length;
@@ -686,7 +686,7 @@ public final class PeriodogramMaker {
 	return powers;
     }
 
-    public static double[][] calculateModifiedRayleighPowerComponents(EventList evlist, double[] testFreqs, int harmonic) {
+    public static double[][] calculateModifiedRayleighPowerComponents(AstroEventList evlist, double[] testFreqs, int harmonic) {
 	double[] arrivalTimes = evlist.getArrivalTimes();
 	int nTrials = testFreqs.length;
 	double[] powers = new double[nTrials];
@@ -774,9 +774,9 @@ public final class PeriodogramMaker {
 	double[] binCentres = lc.getBinCentres();
 	double[] rates = lc.getRates();
 	double[] errors = new double[rates.length];
-	if ( lc.errorsAreSet() ) {
+	if ( lc.uncertaintiesAreSet() ) {
 	    logger.info("Time series errors are set: using defined uncertainties on rates");
-	    errors = lc.getErrorsOnRates();
+	    errors = lc.getUncertainties();
 	}
 	else {
 	    logger.info("Time series errors are not set: using unweighted power calculation (errors[i]=1.0)");
@@ -850,11 +850,11 @@ public final class PeriodogramMaker {
     /**
      * <code>makeRayleighPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @return a <code>RayleighPeriodogram</code> value
      * @exception PeriodogramException if an error occurs
      */
-    public static RayleighPeriodogram makeRayleighPeriodogram(EventList evlist) throws PeriodogramException {
+    public static RayleighPeriodogram makeRayleighPeriodogram(AstroEventList evlist) throws PeriodogramException {
 	double duration = evlist.duration();
 	double nuMin = 1/duration;
 	double effectiveNyquistFrequency = 2*evlist.meanRate();
@@ -866,15 +866,15 @@ public final class PeriodogramMaker {
     /**
      * <code>makeRayleighPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param nuMin a <code>double</code> value
      * @param nuMax a <code>double</code> value
      * @param samplingFactor an <code>int</code> value
      * @return a <code>RayleighPeriodogram</code> value
      * @exception PeriodogramException if an error occurs
      */
-    public static  RayleighPeriodogram makeRayleighPeriodogram(EventList evlist, double nuMin, double nuMax, int samplingFactor) throws PeriodogramException {
-	logger.info("Making RayleighPeriodogram from EventList with sampling factor of "+samplingFactor);
+    public static  RayleighPeriodogram makeRayleighPeriodogram(AstroEventList evlist, double nuMin, double nuMax, int samplingFactor) throws PeriodogramException {
+	logger.info("Making RayleighPeriodogram from AstroEventList with sampling factor of "+samplingFactor);
 	double duration = evlist.duration();
 	double dtMin = evlist.minEventSpacing();
 	double[] nuMinAndNuMax = checkNuMinAndNuMax(duration, dtMin, nuMin, nuMax);
@@ -933,7 +933,7 @@ public final class PeriodogramMaker {
 	//  Calculate powers
 	double[] binCentres = lc.getBinCentres();
 	double[] rates = lc.getRates();
-	double[] errors = lc.getErrorsOnRates();
+	double[] errors = lc.getUncertainties();
 	double[] powers = new double[nTrials];
 	int nHarmonics = 1;
 	for ( int i=0; i < nTrials; i++ ) {
@@ -946,7 +946,7 @@ public final class PeriodogramMaker {
     /**
      * <code>makeModifiedZPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param nuMin a <code>double</code> value
      * @param nuMax a <code>double</code> value
      * @param samplingFactor an <code>int</code> value
@@ -954,7 +954,7 @@ public final class PeriodogramMaker {
      * @return a <code>ModifiedZPeriodogram</code> value
      * @exception PeriodogramException if an error occurs
      */
-    public static  ModifiedZPeriodogram makeModifiedZPeriodogram(EventList evlist, double nuMin, double nuMax, int samplingFactor, int nHarmonics) throws PeriodogramException {
+    public static  ModifiedZPeriodogram makeModifiedZPeriodogram(AstroEventList evlist, double nuMin, double nuMax, int samplingFactor, int nHarmonics) throws PeriodogramException {
 	double duration = evlist.duration();
 	double dtMin = evlist.minEventSpacing();
 	double[] nuMinAndNuMax = checkNuMinAndNuMax(duration, dtMin, nuMin, nuMax);
@@ -976,7 +976,7 @@ public final class PeriodogramMaker {
     /**
      * <code>makeZPeriodogram</code>
      *
-     * @param evlist an <code>EventList</code> value
+     * @param evlist an <code>AstroEventList</code> value
      * @param nuMin a <code>double</code> value
      * @param nuMax a <code>double</code> value
      * @param samplingFactor an <code>int</code> value
@@ -984,7 +984,7 @@ public final class PeriodogramMaker {
      * @return a <code>ZPeriodogram</code> value
      * @exception PeriodogramException if an error occurs
      */
-    public static  ZPeriodogram makeZPeriodogram(EventList evlist, double nuMin, double nuMax, int samplingFactor, int nHarmonics) throws PeriodogramException {
+    public static  ZPeriodogram makeZPeriodogram(AstroEventList evlist, double nuMin, double nuMax, int samplingFactor, int nHarmonics) throws PeriodogramException {
 	double duration = evlist.duration();
 	double dtMin = evlist.minEventSpacing();
 	double[] nuMinAndNuMax = checkNuMinAndNuMax(duration, dtMin, nuMin, nuMax);
@@ -1026,7 +1026,7 @@ public final class PeriodogramMaker {
 	//  Calculate powers
 	double[] binCentres = lc.getBinCentres();
 	double[] rates = lc.getRates();
-	double[] errors = lc.getErrorsOnRates();
+	double[] errors = lc.getUncertainties();
 	double[] powers = new double[nTrials];
 	for ( int i=0; i < nTrials; i++ ) {
 	    double period = 1.0/testFreqs[i];

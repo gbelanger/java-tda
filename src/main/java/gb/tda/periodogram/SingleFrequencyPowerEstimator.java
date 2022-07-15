@@ -1,7 +1,7 @@
 package gb.tda.periodogram;
 
 import Jama.Matrix;
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 
 
 public class SingleFrequencyPowerEstimator {
@@ -16,7 +16,7 @@ public class SingleFrequencyPowerEstimator {
 	double frequency = Double.valueOf(args[1]);
 	int harmonic = Integer.valueOf(args[2]);
 
-	EventList evlist = new EventList(filename);
+	AstroEventList evlist = new AstroEventList(filename);
 	double period = 1d/frequency;
 	double power = getCorrectedPowerForThisHarmonic(evlist.getArrivalTimes(), period, harmonic);
 	System.out.println(frequency+"	"+power);

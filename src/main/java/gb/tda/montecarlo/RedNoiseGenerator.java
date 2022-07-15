@@ -23,7 +23,7 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import gb.tda.timeseries.TimeSeriesMaker;
 import gb.tda.timeseries.TimeSeries;
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.binner.Binner;
 
 
@@ -144,11 +144,11 @@ public final class RedNoiseGenerator {
 		    try {
 			print_tkRates(timmerRates, duration, dt);
 			print_tkHistos(lcHisto, cdfHisto);
-			EventList evlist = new EventList(times);
+			AstroEventList evlist = new AstroEventList(times);
 			evlist.writeTimesAsQDP("tk_times_cdf.qdp");
 			// Draw from TK rates
 			double[] times2 = DistributionFunc.getRandomFromRates(cdfHisto, nevents, timmerRates);
-			EventList evlist2 = new EventList(times2);
+			AstroEventList evlist2 = new AstroEventList(times2);
 			evlist2.writeTimesAsQDP("tk_times_rates.qdp");
 		    }
 		    catch (Exception e) {new Exception(e);}
