@@ -20,7 +20,7 @@ class AresTimeSeriesFileReader implements ITimeSeriesFileReader {
 
     private static Logger logger  = Logger.getLogger(AresTimeSeriesFileReader.class);
     
-    public ITimeSeries readTimeSeriesFile(String filename) throws TimeSeriesFileException, TimeSeriesException, BinningException, IOException {
+    public ITimeSeries read(String filename) throws TimeSeriesFileException, TimeSeriesException, BinningException, IOException {
 
         // Read input data
         Scanner scanner = new Scanner(filename);

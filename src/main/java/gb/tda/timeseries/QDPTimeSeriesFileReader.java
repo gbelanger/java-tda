@@ -38,7 +38,7 @@ public class QDPTimeSeriesFileReader extends AsciiTimeSeriesFileReader {
     private double energyRangeMax;
     private double exposureOnTarget;
     
-    public ITimeSeries read(String filename) throws TimeSeriesFileException, TimeSeriesException, BinningException, IOException  {
+    public IBinnedTimeSeries read(String filename) throws TimeSeriesFileException, TimeSeriesException, BinningException, IOException  {
         AsciiDataFileReader dataFile;
 		try {
 			dataFile = new AsciiDataFileReader(filename);
@@ -62,7 +62,7 @@ public class QDPTimeSeriesFileReader extends AsciiTimeSeriesFileReader {
 				double[] decsOfPointings = dataFile.getDblCol(6);
 				double[] exposuresOnTarget = dataFile.getDblCol(7);
 				double[] effectivePointingDurations = dataFile.getDblCol(8);
-				CodedMaskTimeSeries ts = TimeSeriesFactory.makeCodedMaskTimeSeries(targetName, targetRA, targetDec, energyRangeMin, energyRangeMax, telescope, instrument, maxDistForFullCoding, binEdges, effectivePointingDurations, rates, errors, rasOfPointings, decsOfPointings, exposuresOnTarget);
+				CodedMaskTimeSeries ts = CodedMaskTimeSeriesFactory.create(targetName, targetRA, targetDec, energyRangeMin, energyRangeMax, telescope, instrument, maxDistForFullCoding, binEdges, effectivePointingDurations, rates, errors, rasOfPointings, decsOfPointings, exposuresOnTarget);
 				return ts;
 			}
 			catch (ArrayIndexOutOfBoundsException e) {
@@ -70,7 +70,7 @@ public class QDPTimeSeriesFileReader extends AsciiTimeSeriesFileReader {
 				for (int i=0; i < dtOver2.length; i++) {
 					effectivePointingDurations[i] = 2*dtOver2[i];
 				}
-				CodedMaskTimeSeries ts = TimeSeriesFactory.makeCodedMaskTimeSeries(targetName, targetRA, targetDec, energyRangeMin, energyRangeMax, telescope, instrument, maxDistForFullCoding, binEdges, effectivePointingDurations, rates, errors, distToPointingAxis);
+				CodedMaskTimeSeries ts = CodedMaskTimeSeriesFactory.create(targetName, targetRA, targetDec, energyRangeMin, energyRangeMax, telescope, instrument, maxDistForFullCoding, binEdges, effectivePointingDurations, rates, errors, distToPointingAxis);
 				ts.setExposureOnTarget(this.exposureOnTarget);
 				return ts;
 			}

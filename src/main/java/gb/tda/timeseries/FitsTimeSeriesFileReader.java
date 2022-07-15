@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import javax.print.attribute.HashDocAttributeSet;
-
 import nom.tam.fits.BasicHDU;
 import nom.tam.fits.UndefinedHDU;
 import nom.tam.fits.BinaryTableHDU;
@@ -16,12 +14,11 @@ import nom.tam.fits.Header;
 import nom.tam.fits.HeaderCard;
 import nom.tam.fits.TruncatedFileException;
 import org.apache.log4j.Logger;
-
-import gb.tda.binner.BinningUtils;
 import gb.tda.eventlist.AstroEventList;
 import gb.tda.eventlist.EventListException;
 import gb.tda.eventlist.FitsEventFileReader;
 import gb.tda.tools.Converter;
+import gb.tda.tools.MinMax;
 
 /**
  * Class <code>FitsTimeSeriesFileReader</code> reads a light curve file in FITS format.
@@ -60,8 +57,8 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 		    hdu = getBinaryTableHDU(hdus, hduName);
 		    logger.info("There is an EVENTS HDU: file is an event file");
 		    try {
-				AstroEventList evlist = (new FitsEventFileReader()).readEventFile(filename);
-				return TimeSeriesFactory.makeTimeSeries(evlist);
+				AstroEventList evlist = (new FitsEventFileReader()).read(filename);
+				return AstroTimeSeriesFactory.create(evlist);
 		    }
 		    catch (Exception e) {
 				throw new FitsTimeSeriesFileException("Problem reading event list", e);
@@ -74,6 +71,7 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 		    double[] errorsOnRates = getDoubleDataCol(hdu, colNames[1]);
 		    double[] halfBinWidths = getHalfBinWidths(hdu);
 		    double[] binCentres = getBinCentres(getTimeCol(hdu), halfBinWidths);
+			double[] binEdges = BinningUtils.getBinEdgesFromBinCentresAndHalfWidths(binCentres,halfBinWidths);
 			// Look for ANGDIST (for CodedMaskTimeSeries)
 			try {
 				String colName = "ANGDIST";
@@ -87,14 +85,13 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 				String telescope = header.getStringValue("TELESCOP");
 				String inst = header.getStringValue("INSTRUME");
 				double maxDist = MinMax.getMax(angdist);
-				double[] binEdges = BinningUtils.getBinEdgesFromBinCentresAndHalfWidths(binCentres,halfBinWidths);
 				double[] effExp = getDoubleDataCol(hdu, "TIMEDEL");
 				BinaryTableHDU gtiHDU = findGTIHDU(hdus);
 				double[] expo = getDoubleDataCol(gtiHDU, "LIVETIME");
 				return CodedMaskTimeSeriesFactory.create(target,ra,dec,emin,emax,telescope,inst,maxDist,binEdges,expo,rates,errorsOnRates,angdist);
 			}
 			catch (NullPointerException e2) {
-				return TimeSeriesFactory.makeTimeSeries(binCentres, halfBinWidths, rates, errorsOnRates);
+				return BinnedTimeSeriesFactory.create(binEdges, rates, errorsOnRates);
 			}
 		}
     }
@@ -165,9 +162,9 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
     }
     
     private String[] getRateAndErrorColNames(BinaryTableHDU hdu) throws NullPointerException {
-		String timeColName;
-		String rateColName;
-		String errorColName;
+		String timeColName = null;
+		String rateColName = null;
+		String errorColName = null;
 		int nCols = hdu.getNCols();
 		for (int j=0; j < nCols; j++) {
 			String colName = hdu.getColumnName(j); 
@@ -343,6 +340,5 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 		    throw new FitsTimeSeriesFileException("There is no GTI HDU.");
 		}
     }
-
 
 }

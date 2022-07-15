@@ -22,7 +22,7 @@ public class AstroTimeSeriesFactory extends BinnedTimeSeriesFactory {
         return new AstroTimeSeries(ts);
     }
 
-    public static AstroTimeSeries create(String filename) throws Exception, IOException, TimeSeriesFileException {
+    public static ITimeSeries create(String filename) throws Exception, IOException, TimeSeriesFileException {
         return TimeSeriesFileReader.read(filename);
     }
 

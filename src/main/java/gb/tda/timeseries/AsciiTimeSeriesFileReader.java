@@ -2,13 +2,11 @@ package gb.tda.timeseries;
 
 import java.io.IOException;
 import org.apache.log4j.Logger;
-
-import gb.tda.eventlist.AsciiEventFileException;
 import gb.tda.eventlist.AsciiEventFileReader;
-import gb.tda.eventlist.AstroEventList;
+import gb.tda.eventlist.AsciiEventFileException;
 import gb.tda.eventlist.EventListException;
-import gb.tda.io.AsciiDataFileFormatException;
 import gb.tda.io.AsciiDataFileReader;
+import gb.tda.io.AsciiDataFileFormatException;
 
 /**
  * Class <code>AsciiTimeSeriesFileReader</code> reads a times series file in ASCII format.
@@ -31,9 +29,11 @@ import gb.tda.io.AsciiDataFileReader;
  * @author G. Belanger
  *
  */
-class AsciiTimeSeriesFileReader implements ITimeSeriesFileReader {
+public class AsciiTimeSeriesFileReader implements ITimeSeriesFileReader {
+
     private static final Logger logger  = Logger.getLogger(AsciiTimeSeriesFileReader.class);
-    public IBinnedTimeSeries read(String filename) throws TimeSeriesFileException, TimeSeriesException, BinningException, IOException  {
+
+	public ITimeSeries read(String filename) throws TimeSeriesFileException, TimeSeriesException, BinningException, IOException  {
 		AsciiDataFileReader dataFile;
 		try {
 			dataFile = new AsciiDataFileReader(filename);
@@ -47,7 +47,7 @@ class AsciiTimeSeriesFileReader implements ITimeSeriesFileReader {
 		if (ncols == 1) {
 			//  If there is only 1 column, assume event list
 			try {
-				return BinnedTimeSeriesFactory.create(new AsciiEventFileReader().readEventFile(filename));
+				return BinnedTimeSeriesFactory.create(new AsciiEventFileReader().read(filename));
 			}
 			catch (AsciiEventFileException e) {
 				throw new AsciiTimeSeriesFileException("Problem reading ASCII data file", e);
@@ -58,22 +58,18 @@ class AsciiTimeSeriesFileReader implements ITimeSeriesFileReader {
 		}
 		else {
 			// Two or more columns
-			double[] binCentres = dataFile.getDblCol(0);
+			double[] times = dataFile.getDblCol(0);
 			double[] intensities = dataFile.getDblCol(1);
 			double[] binEdges;
-			try {
-				binEdges = BinningUtils.getBinEdgesFromBinCentres(binCentres);
-			} catch (BinningException e) {
-				throw new TimeSeriesFileException("Cannot construct bin edges", e);
-			}
 			if (ncols == 2) {
-				return BinnedTimeSeriesFactory.create(binEdges, intensities);
+				return BasicTimeSeriesFactory.create(times, intensities);
 			}
 			else if (ncols == 3) {
 				double[] uncertainties = dataFile.getDblCol(2);
-				return BinnedTimeSeriesFactory.create(binEdges, intensities, uncertainties);
+				return BasicTimeSeriesFactory.create(times, intensities, uncertainties);
 			}
 			else if (ncols == 4) {
+				double[] binCentres = dataFile.getDblCol(0);
 				double[] dtOver2 = dataFile.getDblCol(1);
 				try {
 					binEdges = BinningUtils.getBinEdgesFromBinCentresAndHalfWidths(binCentres, dtOver2);

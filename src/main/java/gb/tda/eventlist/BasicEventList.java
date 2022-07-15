@@ -25,7 +25,7 @@ public class BasicEventList implements IEventList {
 
     //  Constructors
 
-    private BasicEventList() {}
+	BasicEventList() {}
 
     public BasicEventList(String filename) throws AsciiDataFileFormatException, EventFileException, EventListException, IOException {
 		IEventList evlist = EventFileReader.read(filename);
@@ -40,7 +40,7 @@ public class BasicEventList implements IEventList {
 
 	// Private setters
 
-    private void setArrivalTimes(double[] times) throws EventListException {
+	void setArrivalTimes(double[] times) throws EventListException {
 		this.arrivalTimes = new double[times.length];
 		this.interArrivalTimes = new double[times.length-1];
 		for (int i=0; i < times.length-1; i++) {
