@@ -136,7 +136,7 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 	double[][] modBins = getModifiedBinning(ts);
 	double[] modBinCentres = modBins[0];
 	double[] modHalfBinWidths = modBins[1];
-	double[] modBinHeights = getModifiedIntensities(ts, ts.getBinHeights());
+	double[] modBinHeights = getModifiedIntensities(ts, ts.getIntensities());
 	return new double[][] {modBinCentres, modHalfBinWidths, modBinHeights};
     }
 
@@ -144,7 +144,7 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 	double[][] modBins = getModifiedBinning(ts);
 	double[] modBinCentres = modBins[0];
 	double[] modHalfBinWidths = modBins[1];
-	double[] modBinHeights = getModifiedIntensities(ts, ts.getBinHeights());
+	double[] modBinHeights = getModifiedIntensities(ts, ts.getIntensities());
 	double[] modFunction = getModifiedIntensities(ts, function);
 	return new double[][] {modBinCentres, modHalfBinWidths, modBinHeights, modFunction};
     }
@@ -153,7 +153,7 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
     // 	double[][] modBins = getModifiedBinning(ts);
     // 	double[] modBinCentres = modBins[0];
     // 	double[] modHalfBinWidths = modBins[1];
-    // 	double[] modBinHeights = getModifiedIntensities(ts, ts.getBinHeights());
+    // 	double[] modBinHeights = getModifiedIntensities(ts, ts.getIntensities());
     // 	double[] modSampling = getModifiedSampling(ts);
     // 	return new double[][] {modBinCentres, modHalfBinWidths, modBinHeights, modSampling};
     // }
@@ -197,9 +197,9 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 //         // Additional information we need to store in the file but won't be plotted
 //         double[] c1 = ts.getBinCentres();
 //         double[] c2 = ts.getHalfBinWidths();
-//         double[] c3 = ts.getBinHeights();
+//         double[] c3 = ts.getIntensities();
 //         double[] c4 = ts.getRates();
-//         double[] c5 = ts.getErrorsOnRates();
+//         double[] c5 = ts.getUncertainties();
 //         double[] c6 = ((CodedMaskTimeSeries)ts).getDistToPointingAxis();
 //         double[] c7 = ((CodedMaskTimeSeries)ts).getRasOfPointings();
 //         double[] c8 = ((CodedMaskTimeSeries)ts).getDecsOfPointings();
@@ -259,9 +259,9 @@ final class JSTimeSeriesFileWriter implements ITimeSeriesFileWriter {
 //         // Additional information we need to store in the file but won't be plotted
 //         double[] c1 = ts.getBinCentres();
 //         double[] c2 = ts.getHalfBinWidths();
-//         double[] c3 = ts.getBinHeights();
+//         double[] c3 = ts.getIntensities();
 //         double[] c4 = ts.getRates();
-//         double[] c5 = ts.getErrorsOnRates();
+//         double[] c5 = ts.getUncertainties();
 //         double[] c6 = ((CodedMaskTimeSeries)ts).getDistToPointingAxis();
 //         double[] c7 = ((CodedMaskTimeSeries)ts).getRasOfPointings();
 //         double[] c8 = ((CodedMaskTimeSeries)ts).getDecsOfPointings();

@@ -6,17 +6,15 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
 import gb.tda.tools.StringUtils;
-import gb.tda.binner.BinningException;
-import gb.tda.binner.BinningUtils;
 import gb.tda.eventlist.AsciiEventFileException;
 import gb.tda.eventlist.AsciiEventFileReader;
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.eventlist.EventListException;
 import gb.tda.io.AsciiDataFileFormatException;
 import gb.tda.io.AsciiDataFileReader;
 
 /**
- * Class <code>QDPTimeSeriesFileReader</code> reads a times series or Coded Mask Time Series file in ASCII-QDP format.
+ * Class <code>QDPTimeSeriesFileReader</code> reads a times series file in ASCII-QDP format.
  * The Time Series reader is very simple an only additionally reads the tStart header in the label.
  * The Coded Mask Reader requires 5 columns to read the file, setting the columns to the arrays binCentres, dtOver2, rates, errorOnRates and distToPointingAxis.
  *
@@ -40,7 +38,7 @@ public class QDPTimeSeriesFileReader extends AsciiTimeSeriesFileReader {
     private double energyRangeMax;
     private double exposureOnTarget;
     
-    public ITimeSeries readTimeSeriesFile(String filename) throws TimeSeriesFileException, TimeSeriesException, BinningException, IOException  {
+    public ITimeSeries read(String filename) throws TimeSeriesFileException, TimeSeriesException, BinningException, IOException  {
         AsciiDataFileReader dataFile;
 		try {
 			dataFile = new AsciiDataFileReader(filename);

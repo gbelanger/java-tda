@@ -18,7 +18,7 @@ import nom.tam.fits.TruncatedFileException;
 import org.apache.log4j.Logger;
 
 import gb.tda.binner.BinningUtils;
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.eventlist.EventListException;
 import gb.tda.eventlist.FitsEventFileReader;
 import gb.tda.tools.Converter;
@@ -50,7 +50,7 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
     private static Logger logger  = Logger.getLogger(FitsTimeSeriesFileReader.class);
     private static double zero = 1e-13;
 
-    public ITimeSeries readTimeSeriesFile(String filename) throws  TimeSeriesFileException, TimeSeriesException, IOException, BinningException {
+    public ITimeSeries read(String filename) throws TimeSeriesFileException, TimeSeriesException, IOException, BinningException {
 		//  Open the FITS file and retrieve all the HDUs
 		BasicHDU<?>[] hdus = getAllHDUs(filename);
 		BinaryTableHDU hdu;
@@ -60,7 +60,7 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 		    hdu = getBinaryTableHDU(hdus, hduName);
 		    logger.info("There is an EVENTS HDU: file is an event file");
 		    try {
-				EventList evlist = (new FitsEventFileReader()).readEventFile(filename);
+				AstroEventList evlist = (new FitsEventFileReader()).readEventFile(filename);
 				return TimeSeriesFactory.makeTimeSeries(evlist);
 		    }
 		    catch ( Exception e ) {
@@ -91,7 +91,7 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 				double[] effExp = getDoubleDataCol(hdu, "TIMEDEL");
 				BinaryTableHDU gtiHDU = findGTIHDU(hdus);
 				double[] expo = getDoubleDataCol(gtiHDU, "LIVETIME");
-				return TimeSeriesFactory.makeCodedMaskTimeSeries(target,ra,dec,emin,emax,telescope,inst,maxDist,binEdges,expo,rates,errorsOnRates,angdist);
+				return CodedMaskTimeSeriesFactory.create(target,ra,dec,emin,emax,telescope,inst,maxDist,binEdges,expo,rates,errorsOnRates,angdist);
 			}
 			catch ( NullPointerException e2 ) {
 				return TimeSeriesFactory.makeTimeSeries(binCentres, halfBinWidths, rates, errorsOnRates);

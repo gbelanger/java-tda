@@ -4,18 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import org.apache.log4j.Logger;
 
-import gb.tda.binner.BinningException;
-
-
 public class TimeSeriesFileReader {
-
     private static Logger logger  = Logger.getLogger(TimeSeriesFileReader.class);
 
 	// Define the specific format readers
 	// Fits reader must come first because .fits is actually an ascii file with a special header
     private static ITimeSeriesFileReader[] formats = {new FitsTimeSeriesFileReader(), new QDPTimeSeriesFileReader()}; 
-
-	static ITimeSeries readTimeSeriesFile(String filename) throws TimeSeriesFileException { 
+	static ITimeSeries read(String filename) throws TimeSeriesFileException {
 		logger.info("Reading file "+(new File(filename)).getPath());
 		Exception e = new Exception();
 		for ( ITimeSeriesFileReader reader : formats ) {
