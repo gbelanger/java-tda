@@ -1,6 +1,6 @@
 //package gb.codetda.transients;
 
-//import gb.codetda.eventlist.EventList;
+//import gb.codetda.eventlist.AstroEventList;
 //import gb.codetda.montecarlo.WhiteNoiseGenerator;
 //import gb.codetda.montecarlo.RedNoiseGenerator;
 

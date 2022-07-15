@@ -1,6 +1,6 @@
 package gb.tda.periodogram;
 
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.montecarlo.RedNoiseGenerator;
 import gb.tda.timeseries.TimeSeries;
 import gb.tda.timeseries.TimeSeriesMaker;
@@ -35,7 +35,7 @@ public class TestAggregatePeriodogram {
 	    for ( int i=0; i < durations.length; i++ ) {
 		duration = durations[i];		
 		for ( int j=0; j < n; j++ ) {
-		    EventList evlist = new EventList(RedNoiseGenerator.generateArrivalTimes(mean, duration, alpha));
+		    AstroEventList evlist = new AstroEventList(RedNoiseGenerator.generateArrivalTimes(mean, duration, alpha));
 		    double binTime = 1d;
 		    TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist, binTime);
 		    //Periodogram p = PeriodogramMaker.makeModifiedRayleighPeriodogram(ts);

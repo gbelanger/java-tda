@@ -1,6 +1,6 @@
 package gb.tda.periodogram;
 
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.montecarlo.RedNoiseGenerator;
 import gb.tda.montecarlo.WhiteNoiseGenerator;
 import gb.tda.timeseries.TimeSeries;
@@ -26,11 +26,11 @@ public class TestPeriodogram {
 	//filename = "simEvlist.fits";
 
 	//filename = "crab_pn.ds";
-	//EventList evlist = new EventList(filename);
+	//AstroEventList evlist = new AstroEventList(filename);
 
 	// int nBins = 1024;
 	//TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist, nBins);
-	//ts = TimeSeriesMaker.makeTimeSeries(ts.getBinCentres(), ts.getRates(), ts.getErrorsOnRates());
+	//ts = TimeSeriesMaker.makeTimeSeries(ts.getBinCentres(), ts.getRates(), ts.getUncertainties());
 	
 	//ts = TimeSeriesUtils.fillGaps(ts);
   	//FFTPeriodogram fft = PeriodogramMaker.makePlainFFTPeriodogram(ts);
@@ -117,7 +117,7 @@ public class TestPeriodogram {
 	//System.out.println(wz2[0]+"	"+wz2[1]);
 
 	// filename = "evlist_pulsed.qdp";
-	// evlist = new EventList(filename);
+	// evlist = new AstroEventList(filename);
 	// ts = TimeSeriesMaker.makeTimeSeries(evlist, nBins);
   	// fft = PeriodogramMaker.makePlainFFTPeriodogram(ts);
 	// r2 = PeriodogramMaker.makeModifiedRayleighPeriodogram(ts);
@@ -131,8 +131,8 @@ public class TestPeriodogram {
 // 	double meanRate = ts.meanRate();
 // 	int nBins = ts.nBins();
 // 	double alpha = 2.6;
-// 	EventList evlist = new EventList(RedNoiseGenerator.generateArrivalTimes(meanRate, duration, alpha));
-// 	//EventList evlist = new EventList(RedNoiseGenerator.generateArrivalTimes(meanRate, duration, alpha, nBins));
+// 	AstroEventList evlist = new AstroEventList(RedNoiseGenerator.generateArrivalTimes(meanRate, duration, alpha));
+// 	//AstroEventList evlist = new AstroEventList(RedNoiseGenerator.generateArrivalTimes(meanRate, duration, alpha, nBins));
 // 	nBins = 128;
 // 	ts = TimeSeriesMaker.makeTimeSeries(evlist, nBins);
 
@@ -154,7 +154,7 @@ public class TestPeriodogram {
 // 	int nBins = ts.nBins();
 // 	WindowFunction smoother = new WindowFunction("Blackman");
 // 	double[] windowFunction = smoother.getFunction(nBins);
-// 	double[] windowed_counts = smoother.apply(ts.getBinHeights());
+// 	double[] windowed_counts = smoother.apply(ts.getIntensities());
 // 	TimeSeries new_ts = TimeSeriesMaker.makeTimeSeries(ts.getBinEdges(), windowed_counts);
 // 	ray = PeriodogramMaker.makeModifiedRayleighPeriodogram(new_ts, nuMin, nuMax, 10);
 //   	ray.writeAsQDP("ray-psd-windowed.qdp");

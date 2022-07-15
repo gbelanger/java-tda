@@ -7,7 +7,7 @@ import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.stat.Probability;
 import gb.esac.io.DataFileWriter;
 import gb.esac.timing.ArrivalTimes;
-import gb.esac.timing.EventList;
+import gb.esac.timing.AstroEventList;
 import gb.esac.timing.FFTPeriodogram;
 import gb.esac.timing.LightCurve;
 import gb.esac.timing.LightCurveMaker;
@@ -166,7 +166,7 @@ public class TestAliasing {
 // 	}
 // 	newTimes.trimToSize();
 
-// 	EventList evlistWithGaps = new EventList(newTimes.elements());
+// 	AstroEventList evlistWithGaps = new AstroEventList(newTimes.elements());
 // 	LightCurve lcGaps = lcMaker.makeLightCurve(evlistWithGaps, dt);
 // 	FFTPeriodogram psd_gaps = null;
 // 	FFTPeriodogram psdSum_gaps = psdMaker.makeFFTPeriodogram(lcGaps, "leahy");
@@ -223,7 +223,7 @@ public class TestAliasing {
 // 		tLimit = Math.min(tLimit, tMax);
 // 	    }
 // 	    timesWithGaps.trimToSize();
-// 	    evlistWithGaps = new EventList(timesWithGaps.elements());
+// 	    evlistWithGaps = new AstroEventList(timesWithGaps.elements());
 // 	    lcGaps = lcMaker.makeLightCurve(evlistWithGaps, dt);
 // 	    psd_gaps = psdMaker.makeFFTPeriodogram(lcGaps, "variance");
 // 	    psdSum_gaps.addPeriodogram(psd_gaps);

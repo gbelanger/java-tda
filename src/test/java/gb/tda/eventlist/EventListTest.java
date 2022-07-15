@@ -22,7 +22,7 @@ public class EventListTest {
 //  	filename="empty.dat";
 // 	filename="evlist_H_0614+091.fits";
 // 	filename = "simEvlist.fits";
- 	EventList evlist = new EventList(filename);
+ 	AstroEventList evlist = new AstroEventList(filename);
 
 	int nbins = 100;
 	TimeSeries lc = TimeSeriesMaker.makeTimeSeries(evlist, nbins);
@@ -30,11 +30,11 @@ public class EventListTest {
 
 // 	logger.info("");
 //  	filename = "timeAndEnergy.dat";
-//  	evlist = new EventList(filename);
+//  	evlist = new AstroEventList(filename);
 
 // 	logger.info("");
 //  	filename = "timeEnergyXandY.dat";
-//  	evlist = new EventList(filename);
+//  	evlist = new AstroEventList(filename);
 
 
 // 	double[] t = evlist.getArrivalTimes();
@@ -65,11 +65,11 @@ public class EventListTest {
 // 	evlist.writeEnergiesVsTimeAsQDP("evlist-energies.qdp");
 // 	evlist.writeXYCoordsAsQDP("evlist-coords.qdp");
 
-// 	EventList evlist2 = new EventList(evlist.getArrivalTimes());
+// 	AstroEventList evlist2 = new AstroEventList(evlist.getArrivalTimes());
 
-// 	EventList evlist3 = new EventList(evlist.getArrivalTimes(), evlist.getEnergies());
+// 	AstroEventList evlist3 = new AstroEventList(evlist.getArrivalTimes(), evlist.getEnergies());
 
-// 	EventList evlist4 = new EventList(evlist.getArrivalTimes(), evlist.getEnergies(), evlist.getXCoords(), evlist.getYCoords());
+// 	AstroEventList evlist4 = new AstroEventList(evlist.getArrivalTimes(), evlist.getEnergies(), evlist.getXCoords(), evlist.getYCoords());
 
 
     }

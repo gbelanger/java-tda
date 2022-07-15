@@ -1,6 +1,6 @@
 package gb.esac.test;
 
-import gb.esac.eventlist.EventList;
+import gb.esac.eventlist.AstroEventList;
 import gb.esac.montecarlo.RedNoiseGenerator;
 import gb.esac.periodogram.FFTPeriodogram;
 import gb.esac.periodogram.PeriodogramMaker;
@@ -42,7 +42,7 @@ public class TestRedNoiseLeak {
 	//  Generate arrival times
   	double[] t = RedNoiseGenerator.generateArrivalTimes(meanRate, duration, alpha);
  	int nSegments = (int) Math.floor(duration/lengthOfSegment);
- 	EventList evlist = new EventList(t);
+ 	AstroEventList evlist = new AstroEventList(t);
  	TimeSeries lc_full = TimeSeriesMaker.makeTimeSeries(evlist);
 	double binTime = lc_full.getBinWidth();
 

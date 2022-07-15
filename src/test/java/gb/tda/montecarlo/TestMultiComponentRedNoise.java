@@ -1,6 +1,6 @@
 package gb.tda.montecarlo;
 
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.periodogram.FFTPeriodogram;
 import gb.tda.periodogram.PeriodogramMaker;
 import gb.tda.timeseries.TimeSeries;
@@ -32,7 +32,7 @@ public class TestMultiComponentRedNoise {
 		//double[] times = RedNoiseGenerator.generateTwoComponentModulatedArrivalTimes(mean, duration, alpha1, alpha2, nuBreak1, period, pulsedFraction);
 		//double[] times = RedNoiseGenerator.generateThreeComponentModulatedArrivalTimes(mean, duration, alpha1, alpha2, alpha3, nuBreak1, nuBreak2, period, pulsedFraction);		
 
-		EventList evlist = new EventList(times);
+		AstroEventList evlist = new AstroEventList(times);
 		TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist, 10d);
 		ts.writeCountsAsQDP("ts-multiCompRedNoise.qdp");
 		FFTPeriodogram fft = PeriodogramMaker.makePlainFFTPeriodogram(ts);//, "Blackman", "Leahy");

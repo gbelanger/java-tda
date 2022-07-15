@@ -1,6 +1,6 @@
 package gb.tda.montecarlo;
 
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.eventlist.EventListSelector;
 import gb.tda.periodogram.AggregatePeriodogram;
 import gb.tda.periodogram.AveragePeriodogram;
@@ -42,8 +42,8 @@ public class TestComponentDensity {
 	AggregatePeriodogram avgPsd = new AggregatePeriodogram();
 	for ( int i=0; i < nSpecs; i++ ) {
 	    double[] arrivalTimes = RedNoiseGenerator.generateArrivalTimes(mean, tTot, alpha, nFreqsPerIFS);
-	    EventList evlist = new EventList(arrivalTimes);
-	    evlist = new EventList(EventListSelector.getArrivalTimesRandomSegment(evlist, tObs));
+	    AstroEventList evlist = new AstroEventList(arrivalTimes);
+	    evlist = new AstroEventList(EventListSelector.getArrivalTimesRandomSegment(evlist, tObs));
 	    FFTPeriodogram psd = PeriodogramMaker.makeOversampledWindowedFFTPeriodogram(evlist, windowName, normName, sampling);
 	    avgPsd.add(psd);
 	    logger.info("Added periodogram "+(i+1)+" (of "+nSpecs+") to AggregatePeriodogram");

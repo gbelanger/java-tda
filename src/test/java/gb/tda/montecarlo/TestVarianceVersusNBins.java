@@ -9,7 +9,7 @@ import gb.esac.timing.TimingException;
 import gb.esac.tools.BinningException;
 import gb.esac.tools.Stats;
 import gb.esac.io.DataFileWriter;
-import gb.esac.timing.EventList;
+import gb.esac.timing.AstroEventList;
 import gb.esac.timing.ArrivalTimes;
 import gb.esac.timing.LightCurveMaker;
 import gb.esac.timing.PeriodogramMaker;
@@ -40,7 +40,7 @@ public class TestVarianceVersusNBins {
 	double duration = 1e5;
 	double alpha = 2;
 	double[] t = ArrivalTimes.generateRedArrivalTimes(meanRate, duration, alpha);
-	EventList evlist = new EventList(t);
+	AstroEventList evlist = new AstroEventList(t);
 	LightCurveMaker lcMaker = new LightCurveMaker();
 	LightCurve lc = null;
 

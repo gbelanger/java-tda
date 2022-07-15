@@ -135,7 +135,7 @@ public class ResamplerTest {
 
 
 	TimeSeries ts = (TimeSeries) TimeSeriesMaker.makeTimeSeries("/Users/gbelanger/javaProgs/flare.fits");
-	double[] counts = ts.getBinHeights();
+	double[] counts = ts.getIntensities();
 	double[] oldBinEdges = ts.getBinEdges();
 	double binWidth = 120.0;
 	double[] newBinEdges = BinningUtils.getBinEdges(oldBinEdges[0], oldBinEdges[oldBinEdges.length-1], binWidth);

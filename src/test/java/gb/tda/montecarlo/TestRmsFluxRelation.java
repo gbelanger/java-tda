@@ -7,7 +7,7 @@ import cern.jet.random.engine.MersenneTwister64;
 import gb.esac.aida.functions.LogNormalFunction;
 import gb.esac.binner.Binner;
 import gb.esac.binner.BinningUtils;
-import gb.esac.eventlist.EventList;
+import gb.esac.eventlist.AstroEventList;
 import gb.esac.io.AsciiDataFileWriter;
 import gb.esac.montecarlo.RedNoiseGenerator;
 import gb.esac.periodogram.FFTPeriodogram;
@@ -50,8 +50,8 @@ public class TestRmsFluxRelation {
 	String filename;
 	//filename = "/Users/gbelanger/javaProgs/simEvlist-SaxJ1808_simu1.fits";
 
-	//EventList evlist = new EventList(filename);
-   // 	EventList evlist = new EventList(RedNoiseGenerator.generateArrivalTimes(meanRate, duration, alpha));
+	//AstroEventList evlist = new AstroEventList(filename);
+   // 	AstroEventList evlist = new AstroEventList(RedNoiseGenerator.generateArrivalTimes(meanRate, duration, alpha));
 //    	double dt = 0.016;
 //    	TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist, dt);
 
@@ -59,7 +59,7 @@ public class TestRmsFluxRelation {
    	//filename = "/Users/gbelanger/Documents/astroData/rxte/saxj1808_lightcurve_16msec.lc";
  	//filename = "/Users/gbelanger/Documents/astroData/rxte/cygx1_lightcurve_16msec.lc";
 	filename = "all-times.qdp";
-	EventList evlist = new EventList(filename);
+	AstroEventList evlist = new AstroEventList(filename);
 	duration = evlist.duration();
 	meanRate = evlist.meanRate();
 	double[] times_all = evlist.getArrivalTimes();
@@ -72,8 +72,8 @@ public class TestRmsFluxRelation {
 
 
  	//  Make PDF of the bin heights
- 	double[] binHeights = ts.getBinHeights();
-	double meanBinHeight = ts.meanBinHeight();
+ 	double[] binHeights = ts.getIntensities();
+	double meanBinHeight = ts.meanIntensity();
        	double[] normBinHeights = DataUtils.normalise(binHeights, 1/meanBinHeight);
 	int min = (int) ts.minBinHeight();
 	int max = (int) ts.maxBinHeight();
@@ -130,7 +130,7 @@ public class TestRmsFluxRelation {
 	    //  With event list
 	    //double[] times = evlist.getArrivalTimesFromTo(from, to);
 	    //double flux = times.length/lengthOfSegment + Math.random()/1e8;
-	    //TimeSeries lc = TimeSeriesMaker.makeTimeSeries(new EventList(times), dt);
+	    //TimeSeries lc = TimeSeriesMaker.makeTimeSeries(new AstroEventList(times), dt);
 	    
 	    //  With light curve
 	    TimeSeries seg = null;

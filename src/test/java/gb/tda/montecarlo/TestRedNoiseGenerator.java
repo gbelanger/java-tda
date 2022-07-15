@@ -3,7 +3,7 @@ package gb.tda.montecarlo;
 import gb.tda.periodogram.FFTPeriodogram;
 import gb.tda.timeseries.TimeSeriesMaker;
 import gb.tda.timeseries.TimeSeries;
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.periodogram.PeriodogramMaker;
 import gb.tda.io.AsciiDataFileWriter;
 import gb.tda.binner.Binner;
@@ -22,7 +22,7 @@ public class TestRedNoiseGenerator {
 	boolean generate = true;
 	if (generate) {
 	    double[] times = RedNoiseGenerator.generateArrivalTimes(mean, duration, alpha);
-	    EventList evlist = new EventList(times);
+	    AstroEventList evlist = new AstroEventList(times);
 	    TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist, bintime);
 	    FFTPeriodogram fft = PeriodogramMaker.makePlainFFTPeriodogram(ts);
 	    evlist.writeTimesAsQDP("evlist.qdp");
@@ -32,8 +32,8 @@ public class TestRedNoiseGenerator {
 	
 	boolean compare = true;
 	if (compare) {
-	    EventList evlist_cdf = new EventList("tk_times_cdf.qdp");
-	    EventList evlist_rates = new EventList("tk_times_rates.qdp");
+	    AstroEventList evlist_cdf = new AstroEventList("tk_times_cdf.qdp");
+	    AstroEventList evlist_rates = new AstroEventList("tk_times_rates.qdp");
 	    TimeSeries ts_cdf = TimeSeriesMaker.makeTimeSeries(evlist_cdf, bintime);
 	    TimeSeries ts_rates = TimeSeriesMaker.makeTimeSeries(evlist_rates, bintime);
 	    ts_cdf.writeCountsAsQDP("ts_cdf.qdp");

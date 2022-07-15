@@ -1,6 +1,6 @@
 package gb.tda.binner;
 
-//import gb.codetda.eventlist.EventList;
+//import gb.codetda.eventlist.AstroEventList;
 //import gb.codetda.montecarlo.WhiteNoiseGenerator;
 import java.io.IOException;
 import org.apache.log4j.Logger;
@@ -23,7 +23,7 @@ public class BinnerTest {
 	double mean = 5;
 	double duration = 40;
 	double[] times = WhiteNoiseGenerator.generateArrivalTimes(mean, duration);
-	EventList evlist = new EventList(times);
+	AstroEventList evlist = new AstroEventList(times);
 	evlist.writeTimesAsQDP("times.qdp");
 	binDataMethodOneTest(times);
 	binDataMethodTwoTest(times);

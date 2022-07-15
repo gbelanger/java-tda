@@ -43,7 +43,7 @@ public class TestTimeSeries {
 	//lc = (TimeSeries) TimeSeriesResampler.resample(lc, ts.nBins()/32);
 	
 	WindowFunction window = new WindowFunction("Hann");
-	double[] function = DataUtils.scale(window.getFunction(ts.nBins()), ts.meanBinHeight());
+	double[] function = DataUtils.scale(window.getFunction(ts.nBins()), ts.meanIntensity());
 
 	// Test QDPWriter 
 	
@@ -96,7 +96,7 @@ public class TestTimeSeries {
         //ts.writeRatesAsJS("lc_rates.tsv");
         //ts.writeRatesAndSamplingAsJS("lc_rates_samp.tsv");
         
-	CodedMaskTimeSeries ts2 = TimeSeriesMaker.makeCodedMaskTimeSeries(targetRA, targetDec, 20, 35, "INTEGRAL", "ISGRI", 4.5, ts.getBinEdges(), dt, ts.getRates(), ts.getErrorsOnRates(), ras, decs, onTarget);
+	CodedMaskTimeSeries ts2 = TimeSeriesMaker.makeCodedMaskTimeSeries(targetRA, targetDec, 20, 35, "INTEGRAL", "ISGRI", 4.5, ts.getBinEdges(), dt, ts.getRates(), ts.getUncertainties(), ras, decs, onTarget);
 	ts2.setTargetName("SAX J1808");
 	ts2.setdateStartEnd("1998-04-18","1998-04-18");
 	ts2.settimeStartStop("03:08:32","09:21:52");
