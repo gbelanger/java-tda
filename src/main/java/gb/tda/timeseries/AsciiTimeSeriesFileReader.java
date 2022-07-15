@@ -42,21 +42,6 @@ class AsciiTimeSeriesFileReader implements ITimeSeriesFileReader {
 			throw new AsciiTimeSeriesFileException("Problem reading ASCII data file", e);
 		}
 
-//        // Read the tStart time from the label so the information isn't lost when we read and re-read the files
-//		String[] header = dataFile.getHeader();
-//		String stringsToFind = "LAB X Time (s) since MJD ";
-//		int j=0;
-//		boolean found = header[j].contains(stringsToFind);
-//		while (! found) {
-//			j++;
-//			found = header[j].contains(stringsToFind);
-//		}
-//		int tStartRow = j;
-//		String tStartStr = header[tStartRow].substring((header[tStartRow].indexOf(stringsToFind))+stringsToFind.length());
-//		double tStart = Double.parseDouble(tStartStr);
-
-		// NOT USING TSTART YET
-
 		// Read the data
 		int ncols = dataFile.getNDataCols();
 		if (ncols == 1) {
