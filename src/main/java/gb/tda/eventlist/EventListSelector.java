@@ -7,12 +7,8 @@ import cern.colt.list.IntArrayList;
 import hep.aida.ref.histogram.Histogram1D;
 import org.apache.log4j.Logger;
 
-import gb.tda.binner.BinningException;
-//import gb.tda.timeseries.TimeSeries;
-//import gb.tda.timeseries.TimeSeriesException;
-//import gb.tda.timeseries.TimeSeriesMaker;
-import gb.tda.tools.Converter;
-import gb.tda.tools.DistributionFunc;
+//import gb.tda.tools.Converter;
+//import gb.tda.tools.DistributionFunc;
 
 public final class EventListSelector {
 
@@ -22,7 +18,6 @@ public final class EventListSelector {
 		if (!evlist.flagsAreSet()) {
 			throw new EventListException("Flags are not defined: Cannot select on flag.");
 		}
-
 		logger.info("Selecting events on flag values between "+min+" and "+max+" (inclusively)");
 		logger.info("There are "+evlist.nEvents()+" events");
 		int[] flags = evlist.getFlags();
@@ -41,12 +36,12 @@ public final class EventListSelector {
 			IntArrayList selectedPatterns = new IntArrayList();
 			for ( int i=0; i < evlist.nEvents(); i++ ) {
 				if ( flags[i] >= min && flags[i] <= max ) {
-				selectedTimes.add(times[i]);
-				selectedEnergies.add(energies[i]);
-				selectedXCoords.add(xCoords[i]);
-				selectedYCoords.add(yCoords[i]);
-				selectedFlags.add(flags[i]);
-				selectedPatterns.add(patterns[i]);
+					selectedTimes.add(times[i]);
+					selectedEnergies.add(energies[i]);
+					selectedXCoords.add(xCoords[i]);
+					selectedYCoords.add(yCoords[i]);
+					selectedFlags.add(flags[i]);
+					selectedPatterns.add(patterns[i]);
 				}
 			}
 			selectedTimes.trimToSize();
@@ -82,7 +77,6 @@ public final class EventListSelector {
 		if (!evlist.energiesAreSet()) {
 			throw new EventListException("Energies are not defined: Cannot select on energy.");
 		}
-
 		logger.info("Selecting events on energy values between "+min+" and "+max+" (inclusively)");
 		logger.info("There are "+evlist.nEvents()+" events");
 		double[] times = evlist.getArrivalTimes();
@@ -247,20 +241,19 @@ public final class EventListSelector {
 		return getArrivalTimesFromTo(evlist, from, to);
 	}
 
-    // public static  double[] getRandomArrivalTimes(IEventList evlist, int nEvents) throws EventListException, BinningException, TimeSeriesException  {
-	// double mean = evlist.nEvents()/evlist.duration();
-	// double binTime = 1/(2*mean);
-	// TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist.getArrivalTimes(), binTime);
-	// double tzero = ts.tStart();
-	// Histogram1D lcHisto = Converter.array2histo("light curve", tzero, binTime, ts.getRates());
-	// Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
-	// double[] times = DistributionFunc.getRandom(cdfHisto, nEvents);
-	// Arrays.sort(times);
-	// return times;
-    // }
+//     public static  double[] getRandomArrivalTimes(IEventList evlist, int nEvents) throws EventListException, BinningException, TimeSeriesException  {
+//		 double mean = evlist.nEvents()/evlist.duration();
+//		 double binTime = 1/(2*mean);
+//		 TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist.getArrivalTimes(), binTime);
+//		 double tzero = ts.tStart();
+//		 Histogram1D lcHisto = Converter.array2histo("light curve", tzero, binTime, ts.getRates());
+//		 Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
+//		 double[] times = DistributionFunc.getRandom(cdfHisto, nEvents);
+//		 Arrays.sort(times);
+//		 return times;
+//     }
 
-
-    public static double[] getArrivalTimesInEnergyRange(AstroEventList evlist, double min, double max) throws EventListException {
+	 public static double[] getArrivalTimesInEnergyRange(AstroEventList evlist, double min, double max) throws EventListException {
 		if ( evlist.energiesAreSet() ) {
 			double[] arrivalTimes = evlist.getArrivalTimes();
 			double[] energies = evlist.getEnergies();
