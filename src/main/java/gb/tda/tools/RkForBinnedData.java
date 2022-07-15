@@ -1,6 +1,6 @@
 package gb.tda.tools;
 
-import gb.tda.eventlist.EventList;
+import gb.tda.eventlist.AstroEventList;
 import gb.tda.periodogram.PeriodogramMaker;
 import gb.tda.periodogram.ModifiedRayleighPeriodogram;
 
@@ -8,7 +8,7 @@ public class RkForBinnedData {
 
     public static void main(String[] args) throws Exception {
 		String filename = "oversamplingArtefacts_evlist.fits";
-		EventList evlist = new EventList(filename);
+		AstroEventList evlist = new AstroEventList(filename);
 		double nuMin = 1e-4;
 		double nuMax = 1e-2;
 		int sampling = 21;
