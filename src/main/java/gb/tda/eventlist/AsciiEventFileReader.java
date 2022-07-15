@@ -12,7 +12,7 @@ public class AsciiEventFileReader implements IEventFileReader{
 
     private static Logger logger  = Logger.getLogger(AsciiEventFileReader.class.getName());
 
-    public EventList readEventFile(String evlistFilename) throws AsciiEventFileException, EventListException, IOException {
+    public EventList read(String evlistFilename) throws AsciiEventFileException, EventListException, IOException {
 
 		AsciiDataFileReader dataFile = null;
 		try {

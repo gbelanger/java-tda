@@ -11,27 +11,31 @@ final class EventListWriter {
 	// - write in FITS format
 
     private static Logger logger  = Logger.getLogger(EventListWriter.class.getName());
-    
-    static void writeTimesAsQDP(EventList evlist, String filename) throws IOException {
+
+	static void writeAsQDP(IEventList evlist, String filename) throws IOException {
 		double[] y = new double[evlist.nEvents()];
-		for (int i = 0; i < evlist.nEvents(); i++) { 
-		    y[i] = 0.15;
+		for (int i = 0; i < evlist.nEvents(); i++) {
+			y[i] = 0.15;
 		}
 		AsciiDataFileWriter out = new AsciiDataFileWriter(filename);
 		String[] header = new String[] {
-		    "DEV /XS",
-		    "LAB T", "LAB F",
-		    "TIME OFF",
-		    "LINE OFF",
-		    "MA 39 ON 1", "MA SIZE 5",
-		    "LW 4", "CS 1.3",
-		    "LAB X Time (s)",
-		    "VIEW 0.1 0.2 0.9 0.8",
-		    "SKIP SINGLE",
-		    "!"
+				"DEV /XS",
+				"LAB T", "LAB F",
+				"TIME OFF",
+				"LINE OFF",
+				"MA 39 ON 1", "MA SIZE 5",
+				"LW 4", "CS 1.3",
+				"LAB X Time (s)",
+				"VIEW 0.1 0.2 0.9 0.8",
+				"SKIP SINGLE",
+				"!"
 		};
 		out.writeData(header, evlist.getArrivalTimes(), y);
 		logger.info("Event list arrival times written to "+filename);
+	}
+
+    static void writeTimesAsQDP(EventList evlist, String filename) throws IOException {
+		writeAsQDP(evlist, filename);
     }
 
     static void writeEnergiesVsTimeAsQDP(EventList evlist, String filename) throws IOException, EventListException {

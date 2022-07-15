@@ -21,7 +21,7 @@ public class FitsEventFileReader implements IEventFileReader {
 
     private static Logger logger  = Logger.getLogger(FitsEventFileReader.class.getName());
 
-    public EventList readEventFile(String filename) throws EventFileException, EventListException, IOException {
+    public EventList read(String filename) throws EventFileException, EventListException, IOException {
 
 		//  Open the FITS file and retrieve all the HDUs
 		BasicHDU<?>[] hdus = getAllHDUs(filename);

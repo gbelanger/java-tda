@@ -5,6 +5,6 @@ import java.io.IOException;
 
 public interface IEventFileReader {
 
-    EventList readEventFile(String filename) throws EventFileException, EventListException, IOException ;
+    IEventList read(String filename) throws EventFileException, EventListException, IOException ;
 
 }

@@ -11,12 +11,12 @@ public class EventFileReader {
     private static Logger logger  = Logger.getLogger(EventFileReader.class.getName());
     private static IEventFileReader[] formats = {new FitsEventFileReader(), new AsciiEventFileReader()};
 
-    static EventList readEventFile(String filename) throws EventFileException, EventListException, IOException {
+    static IEventList read(String filename) throws EventFileException, EventListException, IOException {
 		logger.info("Reading file "+(new File(filename)).getPath());		
 		for ( IEventFileReader reader : formats ) {
 		    try {
-				return reader.readEventFile(filename);
-			    }
+				return reader.read(filename);
+			}
 		    catch ( EventFileFormatException e ) {}
 		}
 		throw new EventFileException("File is not a FITS or ASCII event file.");

@@ -12,21 +12,10 @@ import cern.colt.list.DoubleArrayList;
 import org.apache.log4j.Logger;
 
 
-public class EventList {
+public class EventList extends BasicEventList {
 
     private static Logger logger  = Logger.getLogger(EventList.class.getName());
 
-    private int nEvents;
-    private double tStart;
-    private double tStop;
-    private double duration;
-    private double meanRate;
-    private double minEventSpacing;
-    private double maxEventSpacing;
-    private double meanEventSpacing;
-
-    private double[] arrivalTimes;
-    private double[] interArrivalTimes;
     private double[] energies;
     private double eMin;
     private double eMax;
@@ -56,8 +45,7 @@ public class EventList {
     private EventList() {}
 
     public EventList(String filename) throws AsciiDataFileFormatException, EventFileException, EventListException, IOException {
-		EventList evlist = EventFileReader.readEventFile(filename);
-		setArrivalTimes(evlist.getArrivalTimes());
+		EventList evlist = (EventList) EventFileReader.read(filename);
 		if ( evlist.energiesAreSet() ) {
 		    setEnergies(evlist.getEnergies());
 		}
@@ -362,6 +350,5 @@ public class EventList {
     public void writeXYCoordsAsQDP(String filename) throws IOException, EventListException {
 		EventListWriter.writeXYCoordsAsQDP(this,filename);
     }
-
     
 }
