@@ -16,7 +16,7 @@ import nom.tam.util.ArrayFuncs;
  *
  **/
 
-public final class Converter {
+public final class PrimitivesConverter {
 
     public static double[] days2sec(final double[] times) {
 		double[] t = new double[times.length];

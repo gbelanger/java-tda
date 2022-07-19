@@ -106,7 +106,7 @@ public final class FitsUtils {
 		double[][] data = null;
 		try { 
 		    float[][] dataFlt = (float[][]) imaHDU.getKernel(); 
-		    data = Converter.float2double(dataFlt);
+		    data = PrimitivesConverter.float2double(dataFlt);
 		}
 		catch (ClassCastException e) {
 		    try { data = (double[][]) imaHDU.getKernel(); }
