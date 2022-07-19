@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import cern.colt.list.DoubleArrayList;
-import gb.tda.tools.PrimitivesConverter;
+import gb.tda.utils.PrimitivesConverter;
 import gb.tda.tools.LeastSquaresFitter;
 import org.apache.log4j.Logger;
 

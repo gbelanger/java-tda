@@ -1,7 +1,7 @@
 package gb.tda.periodogram;
 
 import cern.jet.math.Bessel;
-import gb.tda.tools.BasicStats;
+import gb.tda.utils.BasicStats;
 import java.util.Arrays;
 import org.apache.log4j.Logger;
 

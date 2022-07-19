@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import gb.tda.binner.BinningException;
-import gb.tda.tools.BasicStats;
-import gb.tda.tools.DataUtils;
-import gb.tda.tools.MinMax;
+import gb.tda.utils.BasicStats;
+import gb.tda.utils.DataUtils;
+import gb.tda.utils.MinMax;
 import org.apache.log4j.Logger;
 
 
