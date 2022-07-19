@@ -1,9 +1,9 @@
 package gb.tda.likelihood;
 
+import java.util.Date;
 import cern.jet.random.Binomial;
 import cern.jet.stat.Gamma;
 import cern.jet.random.engine.MersenneTwister64;
-import java.util.Date;
 
 public class HypergeometricLikelihood extends ThreeParameterLikelihood {
 

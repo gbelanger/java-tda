@@ -63,7 +63,7 @@ class Testing_Header {
 */
          
          // Just For reference
-         // public static CodedMaskTimeSeries makeCodedMaskTimeSeries(double targetRA, double targetDec, double emin, double emax, String instrument, double maxDistForFullCoding, double[] binEdges, double[] effectivePointingDurations, double[] rates, double[] errors, double[] rasOfPointings, double[] decsOfPointings, double[] effectiveExposures) throws BinningException
+         // public static CodedMaskTimeSeries makeCodedMaskTimeSeries(double targetRA, double targetDec, double emin, double emax, String instrument, double maxDistForFullCoding, double[] binEdges, double[] effectivePointingDurations, double[] rates, double[] errors, double[] rasOfPointings, double[] decsOfPointings, double[] effectiveExposures) throws IllegalArgumentException
         
         String[] header = dataFile.getHeader();
         String stringsToFind = "LAB X Time (s) since MJD ";

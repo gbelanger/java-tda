@@ -1,7 +1,7 @@
 package gb.tda.tools;
 
 import cern.colt.list.DoubleArrayList;
-//import gb.codetda.binner.IllegalArgumentException;
+//import gb.codetda.binner.BinningException;
 //import gb.codetda.binner.BinningUtils;
 
 
@@ -92,7 +92,7 @@ public final class MathUtils {
 	return f_norm;
     }
 
-    public static double[] getXAxisOfConvolutionForSymmetricFunctions(double[] x_f, double[] x_g) throws IllegalArgumentException {
+    public static double[] getXAxisOfConvolutionForSymmetricFunctions(double[] x_f, double[] x_g) throws BinningException {
 	int nf = x_f.length;
 	int ng = x_g.length;
 	// f
@@ -107,7 +107,7 @@ public final class MathUtils {
 	double dx_g = xSpan_g/(ng-1);
 	double diff = Math.abs(dx_f - dx_g);
 	// if (diff > 1e-3*Math.max(dx_f, dx_g)) {
-	//     throw new IllegalArgumentException("Bin size for f (dx_f="+dx_f+") and g (dx_g="+dx_g+") is not equal");
+	//     throw new BinningException("Bin size for f (dx_f="+dx_f+") and g (dx_g="+dx_g+") is not equal");
 	// }
 	// fg
 	double dx = Math.min(dx_f, dx_g);
@@ -119,10 +119,10 @@ public final class MathUtils {
 	return xAxis_fg;
     }
 
-//     public static double[][] convolve(double[] f, double[] x_f, double[] g, double[] x_g) throws IllegalArgumentException {
+//     public static double[][] convolve(double[] f, double[] x_f, double[] g, double[] x_g) throws BinningException {
 
 // 	if (f.length != x_f.length || g.length != x_g.length)
-// 	    throw new IllegalArgumentException("Number of elements in function and axis is not equal");
+// 	    throw new BinningException("Number of elements in function and axis is not equal");
 // 	double[] y = convolve(f, g);
 // 	double[] x = getXAxisOfConvolution(x_f, x_g);
 // 	double[][] xy = new double[2][y.length];

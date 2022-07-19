@@ -11,9 +11,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import org.apache.log4j.Logger;
-
-import gb.tda.tools.BasicStats;
-import gb.tda.tools.MinMax;
+import gb.tda.utils.BasicStats;
+import gb.tda.utils.MinMax;
 
 /**
 * The class <code>AsciiDataFileWriter</code> is used to write data as ASCI files in QDP format.
@@ -40,7 +39,6 @@ public class AsciiDataFileWriter {
     this.filename = this.file.getPath();
     printWriter = new PrintWriter(new BufferedWriter(new FileWriter(filename), bufferSize));
   }
-
 
   // All Methods
  
@@ -246,7 +244,6 @@ public class AsciiDataFileWriter {
     double yMax = max;
     return new double[] { yMin, yMax };
   }
-
 
   //  Make header methods
 

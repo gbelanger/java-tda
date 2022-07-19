@@ -2,7 +2,7 @@ package gb.tda.binner;
 
 public class IntensityBinResamplerTester {
 
-    public static void main(String[] args) throws BinningException {
+    public static void main(String[] args) throws IllegalArgumentException {
 
 		//  Create 3 simple intensity bins
 		double[] leftEdges = new double[] {0, 1};//, 2};

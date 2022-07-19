@@ -16,7 +16,7 @@ public class BinTester {
 
     private static Logger logger  = Logger.getLogger(BinTester.class);
 
-    public static void main(String[] args) throws BinningException {
+    public static void main(String[] args) throws IllegalArgumentException {
 
 	double number = Double.NaN + 2;
 	System.out.println(number);

@@ -4,9 +4,7 @@ import cern.jet.random.Poisson;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.stat.Gamma;
 //import org.apache.commons.math3.special.Gamma;  // no difference: both stop at 170 (gamma of 8.58e307)
-import gb.tda.binner.BinningException;
-import gb.tda.binner.BinningUtils;
-import gb.tda.tools.BasicStats;
+import gb.tda.utils.BasicStats;
 
 public class PoissonLikelihood extends OneParameterLikelihood {
 
@@ -29,8 +27,8 @@ public class PoissonLikelihood extends OneParameterLikelihood {
 		return data*Math.log(parameterValue) - parameterValue - Math.log(Gamma.gamma(data+1));
     }
     
-    public double getLogLikelihoodOfModel(double[] model, double[] data) throws BinningException {
-		BinningUtils.checkArrayLengthsAreEqual(model, data);
+    public double getLogLikelihoodOfModel(double[] model, double[] data) throws IllegalArgumentException {
+		Utils.checkArrayLengthsAreEqual(model, data);
 		double logLikelihood = 0;
 		for (int i=0; i <  data.length; i++) {
 		    logLikelihood += getLogLikelihood(model[i], data[i]);
@@ -38,13 +36,13 @@ public class PoissonLikelihood extends OneParameterLikelihood {
 		return logLikelihood;
     }
 
-    public double getCStatistic(double[] model, double[] data) throws BinningException {
-		BinningUtils.checkArrayLengthsAreEqual(model, data);
+    public double getCStatistic(double[] model, double[] data) throws IllegalArgumentException {
+		Utils.checkArrayLengthsAreEqual(model, data);
 		double cStat = 0;
 		for (int i=0; i <  data.length; i++) {
 		    cStat += data[i]*Math.log(model[i]) - model[i];
 		}
-		return -2*cStat;
+		return -2 * cStat;
     }
 
 }

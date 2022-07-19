@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 import gb.tda.eventlist.AstroEventList;
 import gb.tda.eventlist.EventListException;
 import gb.tda.eventlist.FitsEventFileReader;
-import gb.tda.tools.Converter;
+import gb.tda.tools.PrimitivesConverter;
 import gb.tda.tools.MinMax;
 
 /**
@@ -140,14 +140,14 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 				try {
 					float[] fltData = (float[]) hdu.getColumn(colName);
 					logger.info("Returning double (converted from float) data column "+colName);		    
-					col = Converter.float2double(fltData);
+					col = PrimitivesConverter.float2double(fltData);
 					return col;
 				}
 				catch (ClassCastException e2) {
 					try {
 						int[] intData = (int[]) hdu.getColumn(colName);
 						logger.info("Returning double (converted from int) data column "+colName);
-						col = Converter.int2double(intData);
+						col = PrimitivesConverter.int2double(intData);
 						return col; 
 					}
 					catch (ClassCastException e3) {

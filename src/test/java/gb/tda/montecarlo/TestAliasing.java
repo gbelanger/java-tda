@@ -17,7 +17,7 @@ import gb.esac.timing.TimingException;
 import gb.esac.timing.TimmerKonig;
 import gb.esac.tools.Analysis;
 import gb.esac.tools.Binner;
-import gb.esac.tools.BinningException;
+import gb.esac.tools.IllegalArgumentException;
 import gb.esac.tools.Stats;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -44,11 +44,11 @@ public class TestAliasing {
      * @param args a <code>String</code> value
      * @exception TimingException if an error occurs
      * @exception IOException if an error occurs
-     * @exception BinningException if an error occurs
+     * @exception IllegalArgumentException if an error occurs
      * @exception Exception if an error occurs
      */
 
-    public static void main(String[] args) throws TimingException, IOException, BinningException, Exception   {
+    public static void main(String[] args) throws TimingException, IOException, IllegalArgumentException, Exception   {
 
 	//  logger
 	PropertyConfigurator.configure("/Users/gbelanger/javaProgs/gb/esac/logger.config");

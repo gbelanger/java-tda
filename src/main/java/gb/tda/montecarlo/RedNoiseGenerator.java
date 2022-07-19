@@ -10,7 +10,7 @@ import gb.tda.io.AsciiDataFileWriter;
 import gb.tda.periodogram.PeriodogramUtils;
 import gb.tda.timeseries.TimeSeriesException;
 import gb.tda.tools.Complex;
-import gb.tda.tools.Converter;
+import gb.tda.tools.PrimitivesConverter;
 import gb.tda.tools.DistributionFunc;
 import hep.aida.ref.histogram.Histogram1D;
 import java.io.BufferedWriter;
@@ -108,7 +108,7 @@ public final class RedNoiseGenerator {
 
 		//  Construct CDF from rates time series
 		double tzero = 0;
-		Histogram1D lcHisto = Converter.array2histo("light curve", tzero, dt, timmerRates);
+		Histogram1D lcHisto = PrimitivesConverter.array2histo("light curve", tzero, dt, timmerRates);
 		Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
 		
 		//  Define the pseudo-random number of events to be drawn
@@ -213,7 +213,7 @@ public final class RedNoiseGenerator {
 		double tzero = 0;
 		double nTimeBins = 2*nFreqs;
 		double tkBinTime = duration/nTimeBins;
-		Histogram1D lcHisto = Converter.array2histo("light curve", tzero, tkBinTime, timmerRates);
+		Histogram1D lcHisto = PrimitivesConverter.array2histo("light curve", tzero, tkBinTime, timmerRates);
 		Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
 		double[] times = DistributionFunc.getRandom(cdfHisto, nevents);
 		Arrays.sort(times);
@@ -280,7 +280,7 @@ public final class RedNoiseGenerator {
 		double tzero = 0;
 		double nTimeBins =  2*nFreqs;
 		double tkBinTime = duration/nTimeBins;
-		Histogram1D lcHisto = Converter.array2histo("light curve", tzero, tkBinTime, timmerRates);
+		Histogram1D lcHisto = PrimitivesConverter.array2histo("light curve", tzero, tkBinTime, timmerRates);
 		Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
 		double[] times = DistributionFunc.getRandom(cdfHisto, nevents);
 		Arrays.sort(times);

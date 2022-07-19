@@ -1,7 +1,6 @@
 package gb.tda.eventlist;
 
 import java.util.Arrays;
-
 import cern.colt.list.DoubleArrayList;
 import cern.colt.list.IntArrayList;
 import hep.aida.ref.histogram.Histogram1D;

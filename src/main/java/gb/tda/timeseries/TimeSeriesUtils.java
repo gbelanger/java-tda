@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import gb.tda.periodogram.WindowFunction;
 import gb.tda.periodogram.WindowFunctionException;
-import gb.tda.tools.Converter;
+import gb.tda.tools.PrimitivesConverter;
 import gb.tda.tools.DataSmoother;
 import gb.tda.tools.DistributionFunc;
 
@@ -71,7 +71,7 @@ public final class TimeSeriesUtils {
     public static double[] getRandomArrivalTimes(IBinnedTimeSeries ts, int nEvents) {
 		double tzero = ts.tStart();
 		double binTime = ts.duration()/ts.nBins();
-		Histogram1D lcHisto = Converter.array2histo("light curve", tzero, binTime, ts.getIntensities());
+		Histogram1D lcHisto = PrimitivesConverter.array2histo("light curve", tzero, binTime, ts.getIntensities());
 		Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
 		double[] times = DistributionFunc.getRandom(cdfHisto, nEvents);
 		Arrays.sort(times);

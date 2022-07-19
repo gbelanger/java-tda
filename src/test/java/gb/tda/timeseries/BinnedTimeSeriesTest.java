@@ -4,7 +4,7 @@ public class BinnedTimeSeriesTest {
 
     private static org.apache.log4j.Logger logger = Logger.getLogger(BinnedTimeSeriesTest.class);
 
-    public static void main(String[] args) throws BinningException {
+    public static void main(String[] args) throws IllegalArgumentException {
         // Define dummy data
         double tstart = 5;
         double[] binCentres = new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};

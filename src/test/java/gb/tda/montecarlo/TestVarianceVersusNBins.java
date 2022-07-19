@@ -6,7 +6,7 @@ import java.util.Vector;
 import gb.esac.timing.LightCurve;
 import gb.esac.timing.FFTPeriodogram;
 import gb.esac.timing.TimingException;
-import gb.esac.tools.BinningException;
+import gb.esac.tools.IllegalArgumentException;
 import gb.esac.tools.Stats;
 import gb.esac.io.DataFileWriter;
 import gb.esac.timing.AstroEventList;
@@ -24,7 +24,7 @@ public class TestVarianceVersusNBins {
 
     static Logger logger = Logger.getLogger(TestVarianceVersusNBins.class);
 
-    public static void main(String[] args) throws IOException, TimingException, BinningException  {
+    public static void main(String[] args) throws IOException, TimingException, IllegalArgumentException  {
 
 
 	PropertyConfigurator.configure("/Users/gbelanger/javaProgs/gb/esac/logger.config");

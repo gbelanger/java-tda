@@ -4,9 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import gb.tda.io.AsciiDataFileWriter;
-import gb.tda.tools.MinMax;
+import gb.tda.utils.MinMax;
 
 public abstract class Likelihood {
 

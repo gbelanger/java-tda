@@ -280,7 +280,7 @@ public final class FitsUtils {
 	    wcsTransform = new WCSTransform(myHeader);
 	    ccdXY = wcsTransform.wcs2pix(radec.getX(), radec.getY());
 	}
-	catch (IllegalArgumentException e) {
+	catch (BinningException e) {
 
 	    ////  Get reference pixel RA and DEC values
 	    Point2D.Double refRadec = getRefRadec(fitsHeader);
@@ -480,7 +480,7 @@ public final class FitsUtils {
 	    wcsTransform = new WCSTransform(myHeader);
 	    radec = wcsTransform.pix2wcs(physX, physY);
 	}
-	catch (IllegalArgumentException e) {
+	catch (BinningException e) {
 
 	    ////  Get reference pixel RA and DEC values
 	    Point2D.Double refRadec = getRefRadec(fitsHeader);
@@ -550,7 +550,7 @@ public final class FitsUtils {
 	    for (int i=0; i < physX.length; i++) 
 		radec[i] = wcsTransform.pix2wcs(physX[i], physY[i]);
 	}
-	catch (IllegalArgumentException e) {
+	catch (BinningException e) {
 
 	    ////  Get reference pixel RA and DEC values
 	    Point2D.Double refRadec = getRefRadec(fitsHeader);
@@ -648,7 +648,7 @@ public final class FitsUtils {
 	    wcsTransform = new WCSTransform(myHeader);
 	    xy = wcsTransform.wcs2pix(ra, dec);
 	}
-	catch (IllegalArgumentException e) { //  Enters here when not FITS image
+	catch (BinningException e) { //  Enters here when not FITS image
 
 	    ////  Get reference pixel RA and DEC values
 	    Point2D.Double refRadec = getRefRadec(fitsHeader);
@@ -717,7 +717,7 @@ public final class FitsUtils {
 	    for (int i=0; i < ra.length; i++) 
 		xy[i] = wcsTransform.wcs2pix(ra[i], dec[i]);
 	}
-	catch (IllegalArgumentException e) {
+	catch (BinningException e) {
 
 	    ////  Get reference pixel RA and DEC values
 	    Point2D.Double refRadec = getRefRadec(fitsHeader);

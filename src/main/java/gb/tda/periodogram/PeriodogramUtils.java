@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import cern.colt.list.DoubleArrayList;
-import gb.tda.tools.Converter;
+import gb.tda.tools.PrimitivesConverter;
 import gb.tda.tools.LeastSquaresFitter;
 import org.apache.log4j.Logger;
 
@@ -280,8 +280,8 @@ public final class PeriodogramUtils {
      */
     public static double[] fitPowerLawInLogSpace(Periodogram psd) {
 	logger.info("Fitting power-law in log space");
-	double[] freqsInLogSpace = Converter.lin2logSpace(psd.getFreqs());
-	double[] powsInLogSpace =  Converter.lin2logSpace(psd.getPowers());
+	double[] freqsInLogSpace = PrimitivesConverter.lin2logSpace(psd.getFreqs());
+	double[] powsInLogSpace =  PrimitivesConverter.lin2logSpace(psd.getPowers());
 	return LeastSquaresFitter.fitLine(freqsInLogSpace, powsInLogSpace);
     }
 

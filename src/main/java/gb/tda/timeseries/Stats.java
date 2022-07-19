@@ -362,7 +362,7 @@ public final class Stats {
     // }
 
     // public static double[] getRunningAvgAndVar(float[] data) {
-	// return getRunningAvgAndVar(Converter.float2double(data));
+	// return getRunningAvgAndVar(PrimitivesConverter.float2double(data));
     // }
 
     public static double[] getRunningAvgAndVar(double[] data) {
@@ -547,7 +547,7 @@ public final class Stats {
     }
 	
     // public static double getErrOnWMean(float[] error) {
-	// return getErrOnWMean(Converter.float2double(error));
+	// return getErrOnWMean(PrimitivesConverter.float2double(error));
     // }
 	
     // public static double getErrOnWMean(float[][] error) {
@@ -556,7 +556,7 @@ public final class Stats {
     // }
 	
     // public static double getErrOnWMean(int[] error) {
-	// 	return getErrOnWMean(Converter.int2double(error));
+	// 	return getErrOnWMean(PrimitivesConverter.int2double(error));
 	// 	// 	int n = data.length;
 	// 	// 	double var = getVariance(data);
 	// 	// 	double neff = getNeffective(data, error);
@@ -576,7 +576,7 @@ public final class Stats {
     }
 	
     // public static double getTotalSignif(float[] data, float[] error) {
-	// return getTotalSignif(Converter.float2double(data), Converter.float2double(error));
+	// return getTotalSignif(PrimitivesConverter.float2double(data), PrimitivesConverter.float2double(error));
     // }
 
     public static double getNeffective(double[] data, double[] error) {		

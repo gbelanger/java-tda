@@ -9,13 +9,13 @@
 **/
 
 
-public class BinningException extends Exception {
+public class IllegalArgumentException extends Exception {
 
-    public BinningException () {
+    public IllegalArgumentException () {
         super();
     }
 
-    public BinningException (String msg) {
+    public IllegalArgumentException (String msg) {
         super(msg);
     }
 

@@ -13,7 +13,7 @@ package gb.tda.binner;
 
 public class BinningUtilsTest {
 
-    public static void main(String[] args) throws BinningException {
+    public static void main(String[] args) throws IllegalArgumentException {
 
 	double xmin = 0;
 	double xmax = 100;

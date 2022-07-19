@@ -31,7 +31,7 @@ public class CodedMaskTimeSeriesFactory {
             }
         }
         if (binEdges.length != 2*rates.length) {
-            throw new IllegalArgumentException("Incompatible array lengths: binEdges.length != 2*rates.length");
+            throw new BinningException("Incompatible array lengths: binEdges.length != 2*rates.length");
         }
         Point2D.Double targetRaDec = new Point2D.Double(targetRA, targetDec);
         Point2D.Double energyMinMax = new Point2D.Double(emin, emax);
@@ -110,11 +110,11 @@ public class CodedMaskTimeSeriesFactory {
         int[] arrayLengths = new int[] {effectivePointingDurations.length, rates.length, errors.length, distToPointingAxis.length};
         for (int i=0; i < arrayLengths.length; i++) {
             if (arrayLengths[i] != arrayLengths[0]) {
-                throw new IllegalArgumentException("Incompatible input array lengths");
+                throw new BinningException("Incompatible input array lengths");
             }
         }
         if (binEdges.length != 2*rates.length) {
-            throw new IllegalArgumentException("Incompatible bin edges with input data");
+            throw new BinningException("Incompatible bin edges with input data");
         }
         Point2D.Double targetRaDec = new Point2D.Double(targetRA, targetDec);
         Point2D.Double energyMinMax = new Point2D.Double(emin, emax);

@@ -11,7 +11,7 @@ import gb.tda.periodogram.FFTPeriodogram;
 import gb.tda.periodogram.PeriodogramMaker;
 import gb.tda.timeseries.TimeSeries;
 import gb.tda.timeseries.TimeSeriesResampler;
-import gb.tda.tools.Converter;
+import gb.tda.tools.PrimitivesConverter;
 import gb.tda.tools.DistributionFunc;
 import hep.aida.ref.histogram.Histogram1D;
 import java.io.BufferedWriter;
@@ -96,7 +96,7 @@ public class TimeMappingEffect {
 		//  Map these rates onto a time line of T=duration
 		double tzero = 0;
 		tkBinTime = duration/timmerRates.length;
-		Histogram1D lcHisto = Converter.array2histo("light curve", tzero, tkBinTime, timmerRates);
+		Histogram1D lcHisto = PrimitivesConverter.array2histo("light curve", tzero, tkBinTime, timmerRates);
 		Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
 		double[] times = DistributionFunc.getRandom(cdfHisto, nevents);
 		Arrays.sort(times);

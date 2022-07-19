@@ -17,7 +17,7 @@ import gb.esac.timeseries.TimeSeriesMaker;
 import gb.esac.timeseries.TimeSeriesOperations;
 import gb.esac.timeseries.TimeSeriesResampler;
 import gb.esac.tools.BasicStats;
-import gb.esac.tools.Converter;
+import gb.esac.tools.PrimitivesConverter;
 import gb.esac.tools.DataUtils;
 import gb.esac.tools.MinMax;
 import hep.aida.IAnalysisFactory;
@@ -90,7 +90,7 @@ public class TestRmsFluxRelation {
 // 	IFitter fitter = fitF.createFitter("Chi2", "jminuit");
 
 // 	IFunction logN = new LogNormalFunction("Log-Normal Function");
-// 	double[] logBinHeights = Converter.lin2logSpace(binHeights);
+// 	double[] logBinHeights = PrimitivesConverter.lin2logSpace(binHeights);
 // 	double mu = BasicStats.getMean(logBinHeights);
 // 	double sig = Math.sqrt(BasicStats.getVariance(logBinHeights));
 // 	double norm = 1e3;
