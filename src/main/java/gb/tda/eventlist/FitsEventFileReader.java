@@ -13,8 +13,7 @@ import nom.tam.fits.TruncatedFileException;
 import nom.tam.util.ArrayFuncs;
 import nom.tam.util.BufferedDataInputStream;
 import org.apache.log4j.Logger;
-
-import gb.tda.tools.Converter;
+import gb.tda.utils.PrimitivesConverter;
 
 
 public class FitsEventFileReader implements IEventFileReader {
@@ -53,13 +52,13 @@ public class FitsEventFileReader implements IEventFileReader {
 		boolean energyCol = false;
 		try {
 		    short[] energ = (short[]) hdu.getColumn("PI");
-		    energies = Converter.short2double(energ);
+		    energies = PrimitivesConverter.short2double(energ);
 		    energyCol = true;
 		}
 		catch (FitsException e) { 
 		    try {
 			short[] energ = (short[]) hdu.getColumn("PHA");
-			energies = Converter.short2double(energ);
+			energies = PrimitivesConverter.short2double(energ);
 			energyCol = true;
 		    }
 		    catch (FitsException e2) {
@@ -189,7 +188,7 @@ public class FitsEventFileReader implements IEventFileReader {
 		    catch (ClassCastException e) {
 			try{
 			    float[] flt = (float[]) hdu.getColumn(colNumber);
-			    col = Converter.float2double(flt);
+			    col = PrimitivesConverter.float2double(flt);
 			    return col;
 			}
 			catch (ClassCastException e2) {
@@ -213,7 +212,7 @@ public class FitsEventFileReader implements IEventFileReader {
 		    catch (ClassCastException e) {
 			try{
 			    float[] flt = (float[]) hdu.getColumn(colName);
-			    col = Converter.float2double(flt);
+			    col = PrimitivesConverter.float2double(flt);
 			    return col;
 			}
 			catch (ClassCastException e2) {
