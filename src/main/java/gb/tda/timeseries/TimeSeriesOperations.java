@@ -5,7 +5,7 @@ import java.util.Arrays;
 import cern.colt.list.DoubleArrayList;
 import org.apache.log4j.Logger;
 
-import gb.tda.tools.MinMax;
+import gb.tda.utils.MinMax;
 
 
 public final class TimeSeriesOperations {

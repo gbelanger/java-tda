@@ -9,7 +9,7 @@ import gb.tda.binner.BinningUtils;
 import gb.tda.binner.Rebinner;
 import gb.tda.binner.Resampler;
 import gb.tda.binner.IntensityBinResampler;
-import gb.tda.tools.MinMax;
+import gb.tda.utils.MinMax;
 
 
 public final class TimeSeriesResampler {

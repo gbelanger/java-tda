@@ -17,8 +17,8 @@ import org.apache.log4j.Logger;
 import gb.tda.eventlist.AstroEventList;
 import gb.tda.eventlist.EventListException;
 import gb.tda.eventlist.FitsEventFileReader;
-import gb.tda.tools.PrimitivesConverter;
-import gb.tda.tools.MinMax;
+import gb.tda.utils.PrimitivesConverter;
+import gb.tda.utils.MinMax;
 
 /**
  * Class <code>FitsTimeSeriesFileReader</code> reads a light curve file in FITS format.
