@@ -184,11 +184,10 @@ public final class BinningUtils {
 		return getBinCentresFromBinEdges(getBinEdges(xmin, xmax, nBins));
     }
 
-    public static void checkArrayLengthsAreEqual(double[] array1, double[] array2) throws BinningException {
+    public static void checkArrayLengthsAreEqual(double[] array1, double[] array2) throws IllegalArgumentException {
 		if (array1.length != array2.length) {
-		    throw new BinningException("Number of elements is different: array1.length ("+array1.length+") != array2.length ("+array2.length+")");
+		    throw new IllegalArgumentException("Number of elements is different: array1.length ("+array1.length+") != array2.length ("+array2.length+")");
 		}
     }
-
 
 }
