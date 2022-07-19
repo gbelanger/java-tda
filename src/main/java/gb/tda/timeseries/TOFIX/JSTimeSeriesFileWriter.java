@@ -13,8 +13,8 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import gb.tda.binner.BinningUtils;
 import gb.tda.io.AsciiDataFileWriter;
-import gb.tda.tools.BasicStats;
-import gb.tda.tools.MinMax;
+import gb.tda.utils.BasicStats;
+import gb.tda.utils.MinMax;
 
 /**
  * Class <code>JSTimeSeriesFileWriter</code> writes <code>ITimeSeries</code> objects in FITS format.

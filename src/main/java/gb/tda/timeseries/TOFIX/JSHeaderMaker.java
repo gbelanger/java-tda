@@ -11,8 +11,8 @@ import org.apache.log4j.Logger;
 
 import gb.tda.binner.BinningUtils;
 import gb.tda.io.AsciiDataFileWriter;
-import gb.tda.tools.BasicStats;
-import gb.tda.tools.MinMax;
+import gb.tda.utils.BasicStats;
+import gb.tda.utils.MinMax;
 
 /**
  * 
