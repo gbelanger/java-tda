@@ -124,13 +124,13 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 	CodedMaskTimeSeries(IAstroTimeSeries ts, double maxDistForFullCoding, double[] effectivePointingDurations, double[] distToPointingAxis) {
 		super(ts);
 		if (Double.isNaN(maxDistForFullCoding)) {
-			throw new BinningException("CodedMaskTimeSeries requires attribute maxDistForFullCoding (double)");
+			throw new IllegalArgumentException("CodedMaskTimeSeries requires attribute maxDistForFullCoding (double)");
 		}
 		if (effectivePointingDurations == null) {
-			throw new BinningException("CodedMaskTimeSeries requires effective durations of pointings (double[])");
+			throw new IllegalArgumentException("CodedMaskTimeSeries requires effective durations of pointings (double[])");
 		}
 		if (distToPointingAxis == null) {
-			throw new BinningException("CodedMaskTimeSeries requires angle information for each pointing (double[])");
+			throw new IllegalArgumentException("CodedMaskTimeSeries requires angle information for each pointing (double[])");
 		}
 		setMaxDistForFullCoding(maxDistForFullCoding);
 		setPointingDurations(effectivePointingDurations);
@@ -141,13 +141,13 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 	CodedMaskTimeSeries(double maxDistForFullCoding, double[] binEdges, double[] effectivePointingDurations, double[] rates, double[] errors, double[] distToPointingAxis) {
 		super();
 		if (Double.isNaN(maxDistForFullCoding)) {
-		    throw new BinningException("CodedMaskTimeSeries requires attribute maxDistForFullCoding (double)");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attribute maxDistForFullCoding (double)");
 		}
 		if (effectivePointingDurations == null) {
-		    throw new BinningException("CodedMaskTimeSeries requires effective durations of pointings (double[])");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires effective durations of pointings (double[])");
 		}
 		if (distToPointingAxis == null) {
-		    throw new BinningException("CodedMaskTimeSeries requires angle information for each pointing (double[])");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires angle information for each pointing (double[])");
 		}
 		double tStart = binEdges[0];
 		setBinEdges(tStart, binEdges);
@@ -162,26 +162,26 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
 
 	CodedMaskTimeSeries(Point2D.Double targetRaDec, Point2D.Double energyRangeMinMax, String telescope, String instrument, double maxDistForFullCoding,
     	double tStart, double[] binEdges, double[] effectivePointingDurations, double[] rates, double[] errors, 
-    	Point2D.Double[] raDecsOfPointings, double[] exposuresOnTarget) throws BinningException {
+    	Point2D.Double[] raDecsOfPointings, double[] exposuresOnTarget) throws IllegalArgumentException {
 
 		super();
 		if (Double.isNaN(targetRaDec.getX()) || Double.isNaN(targetRaDec.getY())) {
-		    throw new BinningException("CodedMaskTimeSeries requires attributes: targetRA, targetDec");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attributes: targetRA, targetDec");
 		}
 		if (Double.isNaN(energyRangeMinMax.getX()) || Double.isNaN(energyRangeMinMax.getY())) {
-		    throw new BinningException("CodedMaskTimeSeries requires attributes: energyRangeMin, energyRangeMax");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attributes: energyRangeMin, energyRangeMax");
 		}
 		if (Double.isNaN(maxDistForFullCoding)) {
-		    throw new BinningException("CodedMaskTimeSeries requires attribute maxDistForFullCoding");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attribute maxDistForFullCoding");
 		}
 		if (effectivePointingDurations == null) {
-		    throw new BinningException("CodedMaskTimeSeries requires effective durations of pointings");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires effective durations of pointings");
 		}
 		if (raDecsOfPointings == null) {
-		    throw new BinningException("CodedMaskTimeSeries requires angle information for each pointings");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires angle information for each pointings");
 		}
 		if (exposuresOnTarget == null) {
-		    throw new BinningException("CodedMaskTimeSeries requires effective exposures on target");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires effective exposures on target");
 		}
         setBinEdges(tStart, binEdges);
 		setIntensities(rates);
@@ -202,23 +202,23 @@ public class CodedMaskTimeSeries extends AbstractAstroTimeSeries {
     
     //  Constructor that defines distances to pointing axis, WITHOUT: RA, Dec of pointings, and exposures on target
     CodedMaskTimeSeries(Point2D.Double targetRaDec, Point2D.Double energyRangeMinMax,  String telescope, String instrument, double maxDistForFullCoding, 
-    	double tStart, double[] binEdges, double[] effectivePointingDurations, double[] rates, double[] errors, double[] distToPointingAxis) throws BinningException {
+    	double tStart, double[] binEdges, double[] effectivePointingDurations, double[] rates, double[] errors, double[] distToPointingAxis) throws IllegalArgumentException {
 		super();
 
 		if (Double.isNaN(targetRaDec.getX()) || Double.isNaN(targetRaDec.getY())) {
-		    throw new BinningException("CodedMaskTimeSeries requires attributes: targetRA, targetDec");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attributes: targetRA, targetDec");
 		}
 		if (Double.isNaN(energyRangeMinMax.getX()) || Double.isNaN(energyRangeMinMax.getY())) {
-		    throw new BinningException("CodedMaskTimeSeries requires attributes: energyRangeMin, energyRangeMax");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attributes: energyRangeMin, energyRangeMax");
 		}
 		if (Double.isNaN(maxDistForFullCoding)) {
-		    throw new BinningException("CodedMaskTimeSeries requires attribute maxDistForFullCoding");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires attribute maxDistForFullCoding");
 		}
 		if (effectivePointingDurations == null) {
-		    throw new BinningException("CodedMaskTimeSeries requires effective durations of pointings");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires effective durations of pointings");
 		}
 		if (distToPointingAxis == null) {
-		    throw new BinningException("CodedMaskTimeSeries requires angle information for each pointing");
+		    throw new IllegalArgumentException("CodedMaskTimeSeries requires angle information for each pointing");
 		}
         setBinEdges(tStart, binEdges);
 		setIntensities(rates);
