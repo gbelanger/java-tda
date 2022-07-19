@@ -23,6 +23,7 @@ public interface ITimeSeries {
     //  Intensities
     void setIntensities(double[] intensities);
     double[] getIntensities();
+    double[] getMeanSubtractedIntensities();
     double sumOfIntensities();
     double minIntensity();
     double maxIntensity();
