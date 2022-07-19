@@ -7,8 +7,7 @@ import hep.aida.IHistogramFactory;
 import hep.aida.ITree;
 import java.util.Arrays;
 import org.apache.log4j.Logger;
-
-import gb.tda.tools.MinMax;
+import gb.tda.utils.MinMax;
 
 /**
 
@@ -164,33 +163,28 @@ public final class Binner {
   }
 
   public static IHistogram1D makeHisto(double[] data) {
-    double min = MinMax.getMin(data);
-    double max = MinMax.getMax(data);
+    double[] minMax = MinMax.getMinMax(data);
     int nBins = data.length;
-    return makeHisto(data, min, max, nBins);
+    return makeHisto(data, minMax[0], minMax[1], nBins);
   }
   public static IHistogram1D makeHisto(float[] data) {
-    double min = MinMax.getMin(data);
-    double max = MinMax.getMax(data);
+    float[] minMax = MinMax.getMinMax(data);
     int nBins = data.length;
-    return makeHisto(data, min, max, nBins);
+    return makeHisto(data, minMax[0], minMax[1], nBins);
   }
 
   public static IHistogram1D makeHisto(double[] data, int nBins) {
-    double min = MinMax.getMin(data);
-    double max = MinMax.getMax(data);
-    return makeHisto(data, min, max, nBins);
+    double[] minMax = MinMax.getMinMax(data);
+    return makeHisto(data, minMax[0], minMax[1], nBins);
   }
   public static IHistogram1D makeHisto(float[] data, int nBins) {
-    double min = MinMax.getMin(data);
-    double max = MinMax.getMax(data);
-    return makeHisto(data, min, max, nBins);
+    float[] minMax = MinMax.getMinMax(data);
+    return makeHisto(data, minMax[0], minMax[1], nBins);
   }
 
   public static IHistogram1D makePDF(double[] data, int nBins) {
-    double min = MinMax.getMin(data);
-    double max = MinMax.getMax(data);
-    IHistogram1D pdf = makeHisto(data, min, max, nBins);
+    double[] minMax = MinMax.getMinMax(data);
+    IHistogram1D pdf = makeHisto(data, minMax[0], minMax[1], nBins);
     double sum = pdf.sumBinHeights() * pdf.axis().binWidth(0);
     pdf.scale(1d/sum);
     return pdf;
