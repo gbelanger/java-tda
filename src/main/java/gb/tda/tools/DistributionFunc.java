@@ -1,17 +1,18 @@
 package gb.tda.tools;
 
-import cern.jet.random.Uniform;
-import cern.jet.random.engine.MersenneTwister64;
-//import gb.codetda.io.AsciiDataFileWriter;
-import hep.aida.ref.histogram.FixedAxis;
-import hep.aida.ref.histogram.Histogram1D;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import hep.aida.ref.histogram.FixedAxis;
+import hep.aida.ref.histogram.Histogram1D;
 import cern.jet.random.Exponential;
-import org.apache.log4j.Logger;
 import cern.colt.list.DoubleArrayList;
-
+import cern.jet.random.Uniform;
+import cern.jet.random.engine.MersenneTwister64;
+import org.apache.log4j.Logger;
+import gb.tda.utils.BasicStats;
+import gb.tda.utils.MinMax;
+import gb.tda.utils.DataUtils;
 	
 /**
  *

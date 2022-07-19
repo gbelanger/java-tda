@@ -8,6 +8,8 @@ import hep.aida.ref.histogram.Histogram1D;
 import hep.aida.ref.histogram.Histogram2D;
 import hep.aida.ref.histogram.VariableAxis;
 import nom.tam.util.ArrayFuncs;
+import gb.tda.utils.BasicStats;
+
 
 /**
  *
@@ -16,7 +18,7 @@ import nom.tam.util.ArrayFuncs;
  *
  **/
 
-public final class PrimitivesConverter {
+public final class Converter {
 
     public static double[] days2sec(final double[] times) {
 		double[] t = new double[times.length];

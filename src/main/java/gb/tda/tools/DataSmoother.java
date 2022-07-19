@@ -2,6 +2,9 @@ package gb.tda.tools;
 
 //import gb.codetda.periodogram.WindowFunctionException;
 import org.apache.log4j.Logger;
+import gb.tda.utils.BasicStats;
+import gb.tda.utils.MinMax;
+import gb.tda.utils.DataUtils;
 
 
 public final class DataSmoother {
