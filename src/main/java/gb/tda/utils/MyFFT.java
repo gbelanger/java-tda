@@ -1,4 +1,4 @@
-package gb.tda.tools;
+package gb.tda.utils;
 
 /*
  * $Id: MyFFT.java,v 1.3 2005/05/23 12:51:48 rene Exp $
