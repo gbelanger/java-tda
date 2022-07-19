@@ -1,4 +1,4 @@
-package gb.tda.tools;
+package gb.tda.utils;
 
 /*************************************************************************
  *  Compilation:  javac Complex.java
@@ -50,37 +50,34 @@ public class Complex {
     public static Complex[] realDoubleArrayToComplexArray(double[] realNumbers) {
 
 	int nRealNumbers = realNumbers.length;
-	Complex[] complexArray = new Complex[nRealNumbers];
-	for (int i=0; i < nRealNumbers; i++)
-	    complexArray[i] = new Complex(realNumbers[i], 0);
-	return complexArray;
+        Complex[] complexArray = new Complex[nRealNumbers];
+        for (int i=0; i < nRealNumbers; i++)
+            complexArray[i] = new Complex(realNumbers[i], 0);
+        return complexArray;
     }
 
     public static double[] normSquared(Complex[] complexArray) {
-
-	int nNumbers = complexArray.length;
-	double[] normsSquared = new double[nNumbers];
-	for (int i=0; i < nNumbers; i++) {
-  	    double abs = complexArray[i].abs();
-  	    normsSquared[i] = abs*abs;
-	}
-	return normsSquared;
+        int nNumbers = complexArray.length;
+        double[] normsSquared = new double[nNumbers];
+        for (int i=0; i < nNumbers; i++) {
+            double abs = complexArray[i].abs();
+            normsSquared[i] = abs*abs;
+        }
+        return normsSquared;
     }
 
     public static double[] norm(Complex[] complexArray) {
-
-	int nNumbers = complexArray.length;
-	double[] norms = new double[nNumbers];
-	for (int i=0; i < nNumbers; i++) {
- 	    norms[i] = complexArray[i].abs();
-	}
-	return norms;
+        int nNumbers = complexArray.length;
+        double[] norms = new double[nNumbers];
+        for (int i=0; i < nNumbers; i++) {
+            norms[i] = complexArray[i].abs();
+        }
+        return norms;
     }
 
     // return abs/modulus/magnitude and angle/phase/argument
     public double abs()   { return Math.hypot(re, im); }  // Math.sqrt(re*re + im*im)
     public double phase() { return Math.atan2(im, re); }  // between -pi and pi
-
 
     // return a new Complex object whose value is (this + b)
     public Complex plus(Complex b) {
@@ -113,7 +110,7 @@ public class Complex {
     }
 
     // return a new Complex object whose value is the conjugate of this
-    public Complex conjugate() {  return new Complex(re, -im); }
+    public Complex conjugate() { return new Complex(re, -im); }
 
     // return a new Complex object whose value is the reciprocal of this
     public Complex reciprocal() {
@@ -150,8 +147,6 @@ public class Complex {
     public Complex tan() {
         return sin().divides(cos());
     }
-    
-
 
     // a static version of plus
     public static Complex plus(Complex a, Complex b) {
@@ -162,8 +157,8 @@ public class Complex {
     }
 
 
-
 //     // sample client for testing
+
 //     public static void main(String[] args) {
 //         Complex a = new Complex(5.0, 6.0);
 //         Complex b = new Complex(-3.0, 4.0);
@@ -182,6 +177,5 @@ public class Complex {
 //         System.out.println("|a|          = " + a.abs());
 //         System.out.println("tan(a)       = " + a.tan());
 //     }
-
 
 }

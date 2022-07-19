@@ -8,13 +8,6 @@ import hep.aida.ref.histogram.Histogram2D;
 import hep.aida.ref.histogram.VariableAxis;
 import nom.tam.util.ArrayFuncs;
 
-/**
- *
- *  @version    April 2017 (last modified)
- *  @author 	Guillaume Belanger (ESAC, Spain)
- *
- **/
-
 public final class PrimitivesConverter {
 
     public static double[] days2sec(final double[] times) {
