@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import org.apache.log4j.Logger;
 import gb.tda.io.AsciiDataFileFormatException;
-import gb.tda.tools.BasicStats;
+import gb.tda.utils.BasicStats;
 import gb.tda.utils.MinMax;
 
 public class BasicEventList implements IEventList {
