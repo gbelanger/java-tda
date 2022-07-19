@@ -21,8 +21,8 @@ public final class MinMax {
 		double min = Double.MAX_VALUE;
 		for (int i=0; i < data.length; i++) {
 			if (!Double.isNaN(data[i])) {
-			max = Math.max(max, data[i]);
-			min = Math.min(min, data[i]);
+				max = Math.max(max, data[i]);
+				min = Math.min(min, data[i]);
 			}
 		}
 		if (min == Double.MAX_VALUE) min = Double.NaN;
@@ -30,7 +30,21 @@ public final class MinMax {
 		return new double[] {min, max};
     }
 
-    public static double getMax(double[] data) {
+	public static float[] getMinMax(float[] data) {
+		float max = -Float.MAX_VALUE;
+		float min = Float.MAX_VALUE;
+		for (int i=0; i < data.length; i++) {
+			if (!Float.isNaN(data[i])) {
+				max = Math.max(max, data[i]);
+				min = Math.min(min, data[i]);
+			}
+		}
+		if (min == Float.MAX_VALUE) min = Float.NaN;
+		if (max == -Float.MAX_VALUE) max = Float.NaN;
+		return new float[] {min, max};
+	}
+
+	public static double getMax(double[] data) {
 	double max = -Double.MAX_VALUE;
 		for (int i=0; i < data.length; i++) {
 			if (!Double.isNaN(data[i])) max = Math.max(max, data[i]);
@@ -92,9 +106,7 @@ public final class MinMax {
     public static double getMin(double[] data) {
 		double min = Double.MAX_VALUE;
 		for (int i=0; i < data.length; i++) {
-			if (!Double.isNaN(data[i])) {
-			min = Math.min(min, data[i]);
-			}
+			if (!Double.isNaN(data[i])) min = Math.min(min, data[i]);
 		}
 		return min;
     }
@@ -160,6 +172,5 @@ public final class MinMax {
 			if (!Float.isNaN(flatData[i])) min = Math.min(min, flatData[i]);
 		return min;
     }
-
 
 }
