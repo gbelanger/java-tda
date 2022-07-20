@@ -34,7 +34,7 @@ final class EventListWriter {
 		logger.info("Event list arrival times written to "+filename);
 	}
 
-    static void writeTimesAsQDP(AstroEventList evlist, String filename) throws IOException {
+    static void writeTimesAsQDP(IEventList evlist, String filename) throws IOException {
 		writeAsQDP(evlist, filename);
     }
 
