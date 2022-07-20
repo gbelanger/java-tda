@@ -12,16 +12,14 @@ import cern.jet.random.Poisson;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
 import hep.aida.ref.histogram.Histogram1D;
-import gb.tda.binner.BinningException;
-import gb.tda.binner.BinningUtils;
 import gb.tda.binner.Binner;
 import gb.tda.io.AsciiDataFileWriter;
+import gb.tda.timeseries.CountsTimeSeriesFactory;
+import gb.tda.timeseries.CountsTimeSeries;
 import gb.tda.timeseries.TimeSeriesException;
-import gb.tda.timeseries.TimeSeriesMaker;
-import gb.tda.timeseries.TimeSeries;
-import gb.tda.eventlist.AstroEventList;
+import gb.tda.eventlist.BasicEventList;
 import gb.tda.utils.Complex;
-import gb.tda.utils.PrimitivesConverter;
+import gb.tda.tools.Converter;
 import gb.tda.tools.DistributionFunc;
 
 
@@ -34,9 +32,6 @@ import gb.tda.tools.DistributionFunc;
  * redder the noise. At the lower limit, red noise with a spectral index of 0
  * is just white noise.
  *
- * @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>
- * @version January 2020 (last modified)
- *
  */
 
 public final class RedNoiseGenerator {
@@ -46,23 +41,23 @@ public final class RedNoiseGenerator {
 	static DecimalFormat number = new DecimalFormat("0.0##");
 	static DecimalFormat freq = new DecimalFormat("0.0##E00");
 
-	public static double[] generateArrivalTimes(final double meanRate, final double duration, final double alpha) throws BinningException, TimeSeriesException {
+	public static double[] generateArrivalTimes(final double meanRate, final double duration, final double alpha) throws IllegalArgumentException, TimeSeriesException {
 		MersenneTwister64 engine = new MersenneTwister64(new java.util.Date());
 		int nFreqsPerIFS = 1;
 		return generateArrivalTimes(meanRate, duration, alpha, nFreqsPerIFS, engine);
 	}
 
-	public static double[] generateArrivalTimes(final double meanRate, final double duration, final double alpha, final int nFreqsPerIFS) throws BinningException, TimeSeriesException {
+	public static double[] generateArrivalTimes(final double meanRate, final double duration, final double alpha, final int nFreqsPerIFS) throws IllegalArgumentException, TimeSeriesException {
 		MersenneTwister64 engine = new MersenneTwister64(new java.util.Date());
 		return generateArrivalTimes(meanRate, duration, alpha, nFreqsPerIFS, engine);
 	}
 
-	public static double[] generateArrivalTimes(final double meanRate, final double duration, final double alpha, final RandomEngine engine) throws BinningException, TimeSeriesException {
+	public static double[] generateArrivalTimes(final double meanRate, final double duration, final double alpha, final RandomEngine engine) throws IllegalArgumentException, TimeSeriesException {
 		int nFreqsPerIFS = 1;
 		return generateArrivalTimes(meanRate, duration, alpha, nFreqsPerIFS, engine);
 	}
 
-	public static double[] generateArrivalTimes(final double meanRate, final double duration, final double alpha, final int nFreqsPerIFS, final RandomEngine engine) throws BinningException, TimeSeriesException {
+	public static double[] generateArrivalTimes(final double meanRate, final double duration, final double alpha, final int nFreqsPerIFS, final RandomEngine engine) throws IllegalArgumentException, TimeSeriesException {
 		if (alpha == 0) {
 			return WhiteNoiseGenerator.generateArrivalTimes(meanRate, duration, engine);
 		}
@@ -106,7 +101,7 @@ public final class RedNoiseGenerator {
 
 		//  Construct CDF from rates time series
 		double tzero = 0;
-		Histogram1D lcHisto = PrimitivesConverter.array2histo("light curve", tzero, dt, timmerRates);
+		Histogram1D lcHisto = Converter.array2histo("light curve", tzero, dt, timmerRates);
 		Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
 
 		//  Define the pseudo-random number of events to be drawn
@@ -142,12 +137,12 @@ public final class RedNoiseGenerator {
 			try {
 				print_tkRates(timmerRates, duration, dt);
 				print_tkHistos(lcHisto, cdfHisto);
-				AstroEventList evlist = new AstroEventList(times);
-				evlist.writeTimesAsQDP("tk_times_cdf.qdp");
+				BasicEventList evlist = new BasicEventList(times);
+				evlist.writeAsQDP("tk_times_cdf.qdp");
 				// Draw from TK rates
 				double[] times2 = DistributionFunc.getRandomFromRates(cdfHisto, nevents, timmerRates);
-				AstroEventList evlist2 = new AstroEventList(times2);
-				evlist2.writeTimesAsQDP("tk_times_rates.qdp");
+				BasicEventList evlist2 = new BasicEventList(times2);
+				evlist2.writeAsQDP("tk_times_rates.qdp");
 			}
 			catch (Exception e) {new Exception(e);}
 		}
@@ -155,12 +150,12 @@ public final class RedNoiseGenerator {
 	}
 
 
-	public static double[] generateTwoComponentArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double nuBreak) throws BinningException, TimeSeriesException {
+	public static double[] generateTwoComponentArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double nuBreak) throws IllegalArgumentException, TimeSeriesException {
 		int nFreqsPerIFS = 1;
 		return generateTwoComponentArrivalTimes(meanRate, duration, alpha1, alpha2, nuBreak, nFreqsPerIFS);
 	}
 
-	public static double[] generateTwoComponentArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double nuBreak, final int nFreqsPerIFS) throws BinningException, TimeSeriesException {
+	public static double[] generateTwoComponentArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double nuBreak, final int nFreqsPerIFS) throws IllegalArgumentException, TimeSeriesException {
 		logger.info("Generating two-component red noise arrival times");
 		logger.info("  Mean rate (specified) = "+meanRate+" cps");
 		logger.info("  Duration = "+duration+" s");
@@ -182,7 +177,7 @@ public final class RedNoiseGenerator {
 			nFreqs = nNewBins;
 		}
 		nuMax = nuMin + df*(nFreqs);
-		double[] frequencies = PeriodogramUtils.getFourierFrequencies(nuMin, nuMax, df);
+		double[] frequencies = Utils.getFourierFrequencies(nuMin, nuMax, df);
 		double powAtNuMin = meanRate*duration;
 		Complex[] fourierComponents = TimmerKonig.getFourierComponentsForFrequencies(frequencies, alpha1, alpha2, nuBreak);
 		double[] timmerRates = TimmerKonig.getRatesFromFourierComponents(fourierComponents);
@@ -211,7 +206,7 @@ public final class RedNoiseGenerator {
 		double tzero = 0;
 		double nTimeBins = 2*nFreqs;
 		double tkBinTime = duration/nTimeBins;
-		Histogram1D lcHisto = PrimitivesConverter.array2histo("light curve", tzero, tkBinTime, timmerRates);
+		Histogram1D lcHisto = Converter.array2histo("light curve", tzero, tkBinTime, timmerRates);
 		Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
 		double[] times = DistributionFunc.getRandom(cdfHisto, nevents);
 		Arrays.sort(times);
@@ -236,7 +231,7 @@ public final class RedNoiseGenerator {
 
 
 
-	public static double[] generateThreeComponentArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double alpha3, final double nuBreak1, final double nuBreak2) throws BinningException, TimeSeriesException {
+	public static double[] generateThreeComponentArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double alpha3, final double nuBreak1, final double nuBreak2) throws IllegalArgumentException, TimeSeriesException {
 		int nFreqsPerIFS = 1;
 		logger.info("Generating three-component red noise arrival times");
 		logger.info("  Mean rate (specified) = "+meanRate);
@@ -261,7 +256,7 @@ public final class RedNoiseGenerator {
 			nFreqs = nNewBins;
 		}
 		nuMax = nuMin + df*nFreqs;
-		double[] frequencies = PeriodogramUtils.getFourierFrequencies(nuMin, nuMax, df);
+		double[] frequencies = Utils.getFourierFrequencies(nuMin, nuMax, df);
 		double powAtNuMin = meanRate*duration;
 		Complex[] fourierComponents = TimmerKonig.getFourierComponentsForFrequencies(frequencies, alpha1, alpha2, alpha3, nuBreak1, nuBreak2);
 		double[] timmerRates = TimmerKonig.getRatesFromFourierComponents(fourierComponents);
@@ -278,7 +273,7 @@ public final class RedNoiseGenerator {
 		double tzero = 0;
 		double nTimeBins =  2*nFreqs;
 		double tkBinTime = duration/nTimeBins;
-		Histogram1D lcHisto = PrimitivesConverter.array2histo("light curve", tzero, tkBinTime, timmerRates);
+		Histogram1D lcHisto = Converter.array2histo("light curve", tzero, tkBinTime, timmerRates);
 		Histogram1D cdfHisto = DistributionFunc.getCDFHisto(lcHisto);
 		double[] times = DistributionFunc.getRandom(cdfHisto, nevents);
 		Arrays.sort(times);
@@ -295,22 +290,22 @@ public final class RedNoiseGenerator {
 
 	//// Single-component Red Noise Modulated Arrival Times
 
-	public static double[] generateModulatedArrivalTimes(final double meanRate, final double duration, final double alpha, final double period, final double pulsedFrac) throws BinningException,  TimeSeriesException {
+	public static double[] generateModulatedArrivalTimes(final double meanRate, final double duration, final double alpha, final double period, final double pulsedFrac) throws IllegalArgumentException,  TimeSeriesException {
 		int nFreqsPerIFS = 1;
 		return generateModulatedArrivalTimes(meanRate, duration, alpha, nFreqsPerIFS, period, pulsedFrac);
 	}
 
-	public static double[] generateModulatedArrivalTimes(final double meanRate, final double duration, final double alpha, final int nFreqsPerIFS, final double period, final double pulsedFrac) throws BinningException, TimeSeriesException {
+	public static double[] generateModulatedArrivalTimes(final double meanRate, final double duration, final double alpha, final int nFreqsPerIFS, final double period, final double pulsedFrac) throws IllegalArgumentException, TimeSeriesException {
 		MersenneTwister64 engine = new MersenneTwister64(new java.util.Date());
 		return generateModulatedArrivalTimes(meanRate, duration, alpha, nFreqsPerIFS, period, pulsedFrac, engine);
 	}
 
-	public static double[] generateModulatedArrivalTimes(final double meanRate, final double duration, final double alpha, final double period, final double pulsedFrac, final RandomEngine engine) throws BinningException, TimeSeriesException {
+	public static double[] generateModulatedArrivalTimes(final double meanRate, final double duration, final double alpha, final double period, final double pulsedFrac, final RandomEngine engine) throws IllegalArgumentException, TimeSeriesException {
 		int nFreqsPerIFS = 1;
 		return generateModulatedArrivalTimes(meanRate, duration, alpha, nFreqsPerIFS, period, pulsedFrac, engine);
 	}
 
-	public static double[] generateModulatedArrivalTimes(final double meanRate, final double duration, final double alpha, final int nFreqsPerIFS, final double period, final double pulsedFrac, final RandomEngine engine) throws BinningException, TimeSeriesException {
+	public static double[] generateModulatedArrivalTimes(final double meanRate, final double duration, final double alpha, final int nFreqsPerIFS, final double period, final double pulsedFrac, final RandomEngine engine) throws IllegalArgumentException, TimeSeriesException {
 		if (alpha == 0.0) {
 			return WhiteNoiseGenerator.generateModulatedArrivalTimes(meanRate, duration, period, pulsedFrac, engine);
 		}
@@ -353,17 +348,17 @@ public final class RedNoiseGenerator {
 
 	//// Two-component Red Noise Modulated Arrival Times
 
-	public static double[] generateTwoComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double nuBreak, final double period, final double pulsedFrac) throws BinningException, TimeSeriesException {
+	public static double[] generateTwoComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double nuBreak, final double period, final double pulsedFrac) throws IllegalArgumentException, TimeSeriesException {
 		int nFreqsPerIFS = 1;
 		return generateTwoComponentModulatedArrivalTimes(meanRate, duration, alpha1, alpha2, nuBreak, nFreqsPerIFS, period, pulsedFrac);
 	}
 
-	public static double[] generateTwoComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double nuBreak, final int nFreqsPerIFS, final double period, final double pulsedFrac) throws BinningException, TimeSeriesException {
+	public static double[] generateTwoComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double nuBreak, final int nFreqsPerIFS, final double period, final double pulsedFrac) throws IllegalArgumentException, TimeSeriesException {
 		MersenneTwister64 engine = new MersenneTwister64(new java.util.Date());
 		return generateTwoComponentModulatedArrivalTimes(meanRate, duration, alpha1, alpha2, nuBreak, nFreqsPerIFS, period, pulsedFrac, engine);
 	}
 
-	public static double[] generateTwoComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double nuBreak, final int nFreqsPerIFS, final double period, final double pulsedFrac, final RandomEngine engine) throws BinningException, TimeSeriesException {
+	public static double[] generateTwoComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double nuBreak, final int nFreqsPerIFS, final double period, final double pulsedFrac, final RandomEngine engine) throws IllegalArgumentException, TimeSeriesException {
 		if (alpha1 == 0.0 && alpha2 == 0.0) {
 			return WhiteNoiseGenerator.generateModulatedArrivalTimes(meanRate, duration, period, pulsedFrac, engine);
 		}
@@ -408,17 +403,17 @@ public final class RedNoiseGenerator {
 	}
 
 
-	public static double[] generateThreeComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double alpha3, final double nuBreak1, final double nuBreak2, final double period, final double pulsedFrac) throws BinningException, TimeSeriesException {
+	public static double[] generateThreeComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double alpha3, final double nuBreak1, final double nuBreak2, final double period, final double pulsedFrac) throws IllegalArgumentException, TimeSeriesException {
 		int nFreqsPerIFS = 1;
 		return generateThreeComponentModulatedArrivalTimes(meanRate, duration, alpha1, alpha2, alpha3, nuBreak1, nuBreak2, nFreqsPerIFS, period, pulsedFrac);
 	}
 
-	public static double[] generateThreeComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double alpha3, final double nuBreak1, final double nuBreak2, final int nFreqsPerIFS, final double period, final double pulsedFrac) throws BinningException, TimeSeriesException {
+	public static double[] generateThreeComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double alpha3, final double nuBreak1, final double nuBreak2, final int nFreqsPerIFS, final double period, final double pulsedFrac) throws IllegalArgumentException, TimeSeriesException {
 		MersenneTwister64 engine = new MersenneTwister64(new java.util.Date());
 		return generateThreeComponentModulatedArrivalTimes(meanRate, duration, alpha1, alpha2, alpha3, nuBreak1, nuBreak2, nFreqsPerIFS, period, pulsedFrac, engine);
 	}
 
-	public static double[] generateThreeComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double alpha3, final double nuBreak1, final double nuBreak2, final int nFreqsPerIFS, final double period, final double pulsedFrac, final RandomEngine engine) throws BinningException, TimeSeriesException {
+	public static double[] generateThreeComponentModulatedArrivalTimes(final double meanRate, final double duration, final double alpha1, final double alpha2, final double alpha3, final double nuBreak1, final double nuBreak2, final int nFreqsPerIFS, final double period, final double pulsedFrac, final RandomEngine engine) throws IllegalArgumentException, TimeSeriesException {
 		if (alpha1 == 0.0 && alpha2 == 0.0 && alpha3 == 0.0) {
 			return WhiteNoiseGenerator.generateModulatedArrivalTimes(meanRate, duration, period, pulsedFrac, engine);
 		}
@@ -490,15 +485,15 @@ public final class RedNoiseGenerator {
 
 
 	//  For testing purposes
-	private static void print_tkRates(double[] timmerRates, double duration, double dt) throws BinningException {
-		double[] binEdges = BinningUtils.getBinEdges(0, duration, timmerRates.length);
+	private static void print_tkRates(double[] timmerRates, double duration, double dt) throws Exception {
+		double[] binEdges = Utils.getBinEdges(0, duration, timmerRates.length);
 		double[] counts = new double[timmerRates.length];
 		for (int i=0; i<counts.length; i++) {
 			counts[i] = timmerRates[i]*dt;
 		}
-		TimeSeries ts = TimeSeriesMaker.makeTimeSeries(binEdges, counts);
+		CountsTimeSeries cts = CountsTimeSeriesFactory.create(binEdges, counts);
 		try {
-			ts.writeCountsAsQDP("tk_rates.qdp");
+			cts.writeAsQDP("tk_rates.qdp");
 			AsciiDataFileWriter hist = new AsciiDataFileWriter("tk_rates_histo.qdp");
 			hist.writeHisto(Binner.makeHisto(timmerRates, timmerRates.length/50), "Rate");
 		}
@@ -514,15 +509,6 @@ public final class RedNoiseGenerator {
 			histo.writeHisto(cdfHisto, "Time (s)", "cdf");
 		}
 		catch (IOException e) {}
-	}
-
-	private static double[] getFourierFrequencies(double nuMin, double nuMax, double df) {
-		int nFreqs = (int) Math.round((nuMax-nuMin)/df);
-		double[] frequencies = new double[nFreqs];
-		for (int i=0; i < nFreqs; i++) {
-			frequencies[i] = nuMin + i*df;
-		}
-		return frequencies;
 	}
 
 }

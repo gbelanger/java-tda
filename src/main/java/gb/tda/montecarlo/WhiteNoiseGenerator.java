@@ -2,7 +2,6 @@ package gb.tda.montecarlo;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
-
 import cern.colt.list.DoubleArrayList;
 import cern.jet.random.engine.RandomEngine;
 import cern.jet.random.engine.MersenneTwister64;
@@ -10,16 +9,22 @@ import cern.jet.random.Exponential;
 import cern.jet.random.Poisson;
 import cern.jet.random.Normal;
 import cern.jet.random.Uniform;
-
 import org.apache.log4j.Logger;
 
-
 /**
- * The class <code>WhiteNoiseGenerator</code> is used to simulate white noise.  The term "white noise" refers to a signal that has equal power at all frequencies, and thus the power spectrum of white noise is flat. White noise is uncorrelated or memory-less noise, which means that each event occurs independently, with no memory of the occurence time of the previous event: this is a Poisson process. As such, the distribution of inter-arrival times follows the single parameter exponential distribution with mean given by the inverse of the mean count rate (the decay constant is equal to the mean count rate). The methods of this class generate white noise in the form of arrival times, either with a constant mean or a sinusoidally modulated mean.
- *
- * @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>
- * @version 1.0 (May 2010, ESAC)
+ * The class <code>WhiteNoiseGenerator</code> is used to simulate white noise.
+ * The term "white noise" refers to a signal that has equal power at all frequencies,
+ * and thus the power spectrum of white noise is flat.
+ * White noise is uncorrelated or memory-less noise,
+ * which means that each event occurs independently,
+ * with no memory of the occurence time of the previous event: this is a Poisson process.
+ * As such, the distribution of inter-arrival times follows the single parameter
+ * exponential distribution with mean given by the inverse of the mean count rate
+ * (the decay constant is equal to the mean count rate).
+ * The methods of this class generate white noise in the form of arrival times,
+ * either with a constant mean or a sinusoidally modulated mean.
  */
+
 public final class WhiteNoiseGenerator {
 
     static Logger logger = Logger.getLogger(WhiteNoiseGenerator.class);

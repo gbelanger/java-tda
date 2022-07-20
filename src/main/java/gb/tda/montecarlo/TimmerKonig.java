@@ -1,25 +1,20 @@
 package gb.tda.montecarlo;
 
-import cern.jet.random.Normal;
-import cern.jet.random.engine.MersenneTwister64;
-import gb.tda.binner.BinningException;
-import gb.tda.binner.BinningUtils;
-import gb.tda.io.AsciiDataFileWriter;
-import gb.tda.periodogram.PeriodogramUtils;
-import gb.tda.timeseries.TimeSeries;
-import gb.tda.timeseries.TimeSeriesMaker;
-import gb.tda.tools.BasicStats;
-import gb.tda.tools.Complex;
-import gb.tda.tools.FFT;
 import java.text.DecimalFormat;
 import java.util.Date;
+import cern.jet.random.Normal;
+import cern.jet.random.engine.MersenneTwister64;
 import org.apache.log4j.Logger;
-
+import gb.tda.io.AsciiDataFileWriter;
+import gb.tda.timeseries.CountsTimeSeries;
+import gb.tda.timeseries.CountsTimeSeriesFactory;
+import gb.tda.utils.BasicStats;
+import gb.tda.utils.Complex;
+import gb.tda.utils.FFT;
 
 public final class TimmerKonig {
 
 	private static Logger logger  = Logger.getLogger(TimmerKonig.class);
-
 
 	/**
 	 Method <code>generateComponentsFromSpectrum</code> implements the Timmer-Konig algorithm.
@@ -96,7 +91,6 @@ public final class TimmerKonig {
 		return generateComponentsFromSpectrum(spec);
 	}
 
-
 	private static Complex[] generateComponents(final double[] frequencies, final double alpha1, final double alpha2, final double alpha3, final double nuBreak1, final double nuBreak2) {
 		//  Generate the three components of the spectrum
 		double[] spec = new double[frequencies.length];
@@ -138,12 +132,12 @@ public final class TimmerKonig {
 
 
 	/**  getFourierComponents  **/
-	public static Complex[] getFourierComponents(final double mean, final double duration, final double alpha) throws BinningException {
+	public static Complex[] getFourierComponents(final double mean, final double duration, final double alpha) throws IllegalArgumentException {
 		int nFreqsPerIFS = 1;
 		return getFourierComponents(mean, duration, alpha, nFreqsPerIFS);
 	}
 
-	public static Complex[] getFourierComponents(final double mean, final double duration, final double alpha, final int nFreqsPerIFS) throws BinningException {
+	public static Complex[] getFourierComponents(final double mean, final double duration, final double alpha, final int nFreqsPerIFS) throws IllegalArgumentException {
 		double nuMin = 1d/duration;
 		double nuMax = 2d*mean;
 		return getFourierComponentsForFrequencies(alpha, nuMin, nuMax, nFreqsPerIFS);
@@ -151,22 +145,22 @@ public final class TimmerKonig {
 
 
 	/**  getFourierComponentsForFrequencies  **/
-	public static Complex[] getFourierComponentsForFrequencies(final double alpha, final double nuMin, final double nuMax) throws BinningException {
+	public static Complex[] getFourierComponentsForFrequencies(final double alpha, final double nuMin, final double nuMax) throws IllegalArgumentException {
 		int nFreqsPerIFS = 1;
 		return getFourierComponentsForFrequencies(alpha, nuMin, nuMax, nFreqsPerIFS);
 	}
 
-	public static Complex[] getFourierComponentsForFrequencies(final double alpha, final double nuMin, final double nuMax, int nFreqsPerIFS) throws BinningException {
+	public static Complex[] getFourierComponentsForFrequencies(final double alpha, final double nuMin, final double nuMax, int nFreqsPerIFS) throws IllegalArgumentException {
 		double df = nuMin/nFreqsPerIFS;
 		return getFourierComponentsForFrequencies(alpha, nuMin, nuMax, df);
 	}
 
-	public static Complex[] getFourierComponentsForFrequencies(final double alpha, final double nuMin, final double nuMax, final double df) throws BinningException {
-		double[] frequencies = PeriodogramUtils.getFourierFrequencies(nuMin, nuMax, df);
+	public static Complex[] getFourierComponentsForFrequencies(final double alpha, final double nuMin, final double nuMax, final double df) throws IllegalArgumentException {
+		double[] frequencies = Utils.getFourierFrequencies(nuMin, nuMax, df);
 		return generateComponents(frequencies, alpha);
 	}
 
-	public static Complex[] getFourierComponentsForFrequencies(final double[] frequencies, final double alpha) throws BinningException {
+	public static Complex[] getFourierComponentsForFrequencies(final double[] frequencies, final double alpha) throws IllegalArgumentException {
 		return generateComponents(frequencies, alpha);
 	}
 
@@ -177,7 +171,6 @@ public final class TimmerKonig {
 	public static Complex[] getFourierComponentsForFrequencies(final double[] frequencies, final double alpha1, final double alpha2, final double alpha3, final double nuBreak1, final double nuBreak2) {
 		return generateComponents(frequencies, alpha1, alpha2, alpha3, nuBreak1, nuBreak2);
 	}
-
 
 	/**
 	 * The method <code>getRates</code> calls getFourierComponents and
@@ -192,14 +185,14 @@ public final class TimmerKonig {
 	 * @param duration a <code>double</code> value
 	 * @param alpha a <code>double</code> value
 	 * @return a <code>double[]</code> value
-	 * @exception BinningException if an error occurs
+	 * @exception IllegalArgumentException if an error occurs
 	 */
-	public static double[] getRates(final double mean, final double duration, final double alpha) throws BinningException {
+	public static double[] getRates(final double mean, final double duration, final double alpha) throws IllegalArgumentException {
 		int nFreqsPerIFS = 1;
 		return getRates(mean, duration, alpha, nFreqsPerIFS);
 	}
 
-	public static double[] getRates(final double mean, final double duration, final double alpha, final int nFreqsPerIFS) throws BinningException {
+	public static double[] getRates(final double mean, final double duration, final double alpha, final int nFreqsPerIFS) throws IllegalArgumentException {
 		double nuMin = 1/duration;
 		double nuMax = 2*mean;
 		double df = nuMin/nFreqsPerIFS;
@@ -223,10 +216,10 @@ public final class TimmerKonig {
 		return rates;
 	}
 
-	public static double[] getRatesFromFourierComponents(final Complex[] fourierComp) throws BinningException {
+	public static double[] getRatesFromFourierComponents(final Complex[] fourierComp) throws IllegalArgumentException {
 		int n = fourierComp.length;
 		if (! isPowerOfTwo(n)) {
-			throw new BinningException("Number of Fourier components ("+n+") is not a power of 2.");
+			throw new IllegalArgumentException("Number of Fourier components ("+n+") is not a power of 2.");
 		}
 
 		//  Inverse Fourier transform the components to get the light curve
@@ -247,31 +240,28 @@ public final class TimmerKonig {
 			isPowerOfTwo = false;
 		}
 		return isPowerOfTwo;
-
 	}
 
-
-	public static TimeSeries getTimeSeries(final double mean, final double duration, final double alpha) throws BinningException {
+	public static CountsTimeSeries getTimeSeries(final double mean, final double duration, final double alpha) throws IllegalArgumentException {
 		double[] rates = getRates(mean, duration, alpha, 1);
 		return getTimeSeries(rates, duration);
 	}
 
-	public static TimeSeries getTimeSeries(final double mean, final double duration, final double alpha, final int nFreqsPerIFS) throws BinningException {
+	public static CountsTimeSeries getTimeSeries(final double mean, final double duration, final double alpha, final int nFreqsPerIFS) throws IllegalArgumentException {
 		double[] rates = getRates(mean, duration, alpha, nFreqsPerIFS);
 		return getTimeSeries(rates, duration);
 	}
 
-	private static TimeSeries getTimeSeries(final double[] rates, final double duration) throws BinningException {
+	private static CountsTimeSeries getTimeSeries(final double[] rates, final double duration) throws IllegalArgumentException {
 		int nTimeBins = rates.length;
-		double[] binEdges  = BinningUtils.getBinEdges(0, duration, nTimeBins);
+		double[] binEdges  = Utils.getBinEdges(0, duration, nTimeBins);
 		double binWidth = duration/nTimeBins;
 		double[] counts = new double[rates.length];
 		for (int i = 0; i < rates.length; i++) {
-			counts[i] = rates[i]*binWidth;
+			counts[i] = rates[i] * binWidth;
 		}
-		return TimeSeriesMaker.makeTimeSeries(binEdges, counts);
+		return CountsTimeSeriesFactory.create(binEdges, counts);
 	}
-
 
 	/**
 	 * The method <code>getPowers</code> calls getFourierComponents and returns the corresponding powers.
@@ -280,9 +270,9 @@ public final class TimmerKonig {
 	 * @param duration a <code>double</code> value
 	 * @param nTimeBins an <code>int</code> value
 	 * @return a <code>double[]</code> value
-	 * @exception BinningException if an error occurs
+	 * @exception IllegalArgumentException if an error occurs
 	 */
-	public static double[] getPowers(final double mean, final double duration, final double alpha, final int nTimeBins) throws BinningException {
+	public static double[] getPowers(final double mean, final double duration, final double alpha, final int nTimeBins) throws IllegalArgumentException {
 		Complex[] fourierComp = getFourierComponents(mean, duration, alpha, nTimeBins);
 		return getPowers(fourierComp);
 	}
@@ -290,7 +280,6 @@ public final class TimmerKonig {
 	public static double[] getPowers(final Complex[] fourierComp) {
 		return Complex.normSquared(fourierComp);
 	}
-
 
 	private static Complex[] scale(final Complex[] fourierComponents, final double scalingFactor) {
 		Complex[] result = new Complex[fourierComponents.length];
