@@ -5,25 +5,26 @@ import cern.colt.list.DoubleArrayList;
 import cern.jet.stat.Descriptive;
 import org.apache.log4j.Logger;
 import gb.tda.binner.Binner;
-import gb.tda.eventlist.AstroEventList;
+import gb.tda.eventlist.IEventList;
+import gb.tda.eventlist.BasicEventList;
 import gb.tda.io.AsciiDataFileReader;
 import gb.tda.io.AsciiDataFileWriter;
 import gb.tda.likelihood.InverseExponentialLikelihood;
-import gb.tda.timeseries.TimeSeries;
-import gb.tda.timeseries.TimeSeriesMaker;
 import gb.tda.periodogram.FFTPeriodogram;
-import gb.tda.periodogram.PeriodogramMaker;
-import gb.tda.tools.BasicStats;
-import gb.tda.tools.DataUtils;
-import gb.tda.tools.MinMax;
+import gb.tda.periodogram.FFTPeriodogramFactory;
+import gb.tda.timeseries.BinnedTimeSeries;
+import gb.tda.timeseries.BinnedTimeSeriesFactory;
+import gb.tda.utils.BasicStats;
+import gb.tda.utils.DataUtils;
+import gb.tda.utils.MinMax;
 import gb.tda.tools.LikelihoodFitter;
 
 public final class EventListTransientDetectorWithGrouping {
 
-    private static Logger logger  = Logger.getLogger(EventListTransientDetector.class);    
+    private static Logger logger  = Logger.getLogger(EventListTransientDetectorWithGrouping.class);    
     private static double startTime = System.currentTimeMillis();
     
-    public static void detectTransient(AstroEventList[] evlist_array) throws Exception {
+    public static void detectTransient(IEventList[] evlist_array) throws Exception {
 	
 		// Define variables
 		DoubleArrayList ratesList = new DoubleArrayList();
@@ -50,7 +51,7 @@ public final class EventListTransientDetectorWithGrouping {
 		int evlistCounter = 0;
 		double detectionLikelihood = 0;
 		
-		for (AstroEventList evlist : evlist_array) {
+		for (IEventList evlist : evlist_array) {
 
 		    evlistCounter++;
 		    double[] arrivalTimes = evlist.getArrivalTimes();
@@ -60,11 +61,11 @@ public final class EventListTransientDetectorWithGrouping {
 		    // Define the groupging timescale
 		    double groupTimescale = computeGroupingTimescale(evlist);
 		    int groupSize = (int) Math.round(mean*groupTimescale);
-		    TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist,groupTimescale/2);
+		    BinnedTimeSeries ts = (BinnedTimeSeries) BinnedTimeSeriesFactory.create(evlist,groupTimescale/2);
 
 		    if (makePlots) {
 		    	// Time series binned at grouping time scale
-		    	ts.writeCountsAsQDP("results/ts.qdp");
+		    	ts.writeAsQDP("results/ts.qdp");
 		    	// Histogram of interarrival times
 			    AsciiDataFileWriter out1 = new AsciiDataFileWriter("results/histoDeltaTs_evlist"+evlistCounter+".qdp");
 			    out1.writeHisto(Binner.makePDF(interArrivalTimes, 0, 6*mean, 30), "Delta T (s)");
@@ -185,11 +186,11 @@ public final class EventListTransientDetectorWithGrouping {
 		}
     }
 
-    private static double computeGroupingTimescale(AstroEventList evlist) throws Exception {
+    private static double computeGroupingTimescale(IEventList evlist) throws Exception {
 		double mean = evlist.meanRate();
 		double bintime = 5/mean;
-		TimeSeries ts = TimeSeriesMaker.makeTimeSeries(evlist, bintime);
-		FFTPeriodogram psd = PeriodogramMaker.makePlainFFTPeriodogram(ts);
+		BinnedTimeSeries ts = (BinnedTimeSeries) BinnedTimeSeriesFactory.create(evlist, bintime);
+		FFTPeriodogram psd = FFTPeriodogramFactory.makePlainFFTPeriodogram(ts);
 		psd.writeAsQDP("results/psd.qdp");
 		double[] fitResults = LikelihoodFitter.fitPowerLawWithFloor(psd.getFreqs(),psd.getPowers());
 		double norm = fitResults[0];
@@ -224,21 +225,21 @@ public final class EventListTransientDetectorWithGrouping {
 
     
     public static void detectTransient(String filename) throws Exception {
-		detectTransient(new AstroEventList(filename));
+		detectTransient(new BasicEventList(filename));
     }        
 
     public static void detectTransient(String[] filenames) throws Exception {
-		AstroEventList[] evlist_array = new AstroEventList[filenames.length];
+		IEventList[] evlist_array = new IEventList[filenames.length];
 		int i = 0;
 		for (String filename : filenames) {
-		    evlist_array[i] = new AstroEventList(filename);
+		    evlist_array[i] = new BasicEventList(filename);
 		    i++;
 		}
 		detectTransient(evlist_array);
     }
 
-    public static void detectTransient(AstroEventList evlist) throws Exception {
-		detectTransient(new AstroEventList[] {evlist});
+    public static void detectTransient(IEventList evlist) throws Exception {
+		detectTransient(new IEventList[] {evlist});
     }
 
     
