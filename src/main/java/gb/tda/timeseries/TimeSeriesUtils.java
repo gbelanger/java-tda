@@ -604,14 +604,8 @@ public final class TimeSeriesUtils {
 // // 	pw.close();
 // // 	System.out.println("Log  : Result written to "+outName);
 
-
-
 // 	double estimatedIndex = 0;
-
 // 	return estimatedIndex;
-
 //     }
-
-
 
 }
