@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  * @version 1.0 (Nov 2010, ESAC)
  * @version 2.0 (Oct 2013, ESAC)
  */
-public class RayleighPeriodogram extends Periodogram {
+public class RayleighPeriodogram extends AbstractPeriodogram {
 
     private static Logger logger  = Logger.getLogger(RayleighPeriodogram.class);
 

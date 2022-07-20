@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>
  * @version 1.0 (Nov 2010, ESAC)
  */
-public class ZPeriodogram extends Periodogram {
+public class ZPeriodogram extends AbstractPeriodogram {
 
     private static Logger logger  = Logger.getLogger(ZPeriodogram.class);
 

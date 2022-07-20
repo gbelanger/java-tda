@@ -119,9 +119,9 @@ public abstract class AbstractPeriodogram {
 	}
 
 	// ABSTRACT METHODS
-	abstract Periodogram modifyFreqs(double[] newFreqs);
-	abstract Periodogram modifyPowers(double[] newPowers);
-	abstract Periodogram modifyFreqsAndPowers(double[] newFreqs, double[] newPowers);
+	abstract AbstractPeriodogram modifyFreqs(double[] newFreqs);
+	abstract AbstractPeriodogram modifyPowers(double[] newPowers);
+	abstract AbstractPeriodogram modifyFreqsAndPowers(double[] newFreqs, double[] newPowers);
 
 	// PUBLIC
 	public double nuMin() { return this.nuMin; }
@@ -159,7 +159,7 @@ public abstract class AbstractPeriodogram {
 		return getIntegratedPower(this.nuMin, this.nuMax);
 	}
 
-	public Periodogram add(double constant) {
+	public AbstractPeriodogram add(double constant) {
 		double[] newPowers = new double[this.nBins()];
 		for (int i=0; i < this.nBins(); i++) {
 			newPowers[i] = this.powers[i] + constant;
@@ -167,7 +167,7 @@ public abstract class AbstractPeriodogram {
 		return modifyPowers(newPowers);
 	}
 
-	public Periodogram add(Periodogram periodogram) throws PeriodogramException {
+	public AbstractPeriodogram add(AbstractPeriodogram periodogram) throws PeriodogramException {
 		if (this.nBins != periodogram.nBins()) {
 			throw new PeriodogramException("Cannot combine periodograms: different number of bins ("+this.nBins+" != "+periodogram.nBins()+").");
 		}
@@ -181,12 +181,12 @@ public abstract class AbstractPeriodogram {
 		return modifyPowers(newPowers);
 	}
 
-	public Periodogram subtract(double constant) {
+	public AbstractPeriodogram subtract(double constant) {
 		double minusConstant = -constant;
 		return add(minusConstant);
 	}
 
-	public Periodogram subtract(Periodogram periodogram) throws PeriodogramException {
+	public AbstractPeriodogram subtract(AbstractPeriodogram periodogram) throws PeriodogramException {
 		if (this.nBins != periodogram.nBins()) {
 			throw new PeriodogramException("Cannot combine periodograms: different number of bins ("+this.nBins+" != "+periodogram.nBins()+").");
 		}
@@ -200,7 +200,7 @@ public abstract class AbstractPeriodogram {
 		return modifyPowers(newPowers);
 	}
 
-	public Periodogram scale(double constant) {
+	public AbstractPeriodogram scale(double constant) {
 		logger.info("Scaling periodogram by factor: "+constant);
 		double[] newPowers = new double[this.nBins()];
 		for (int i=0; i < this.nBins(); i++) {
@@ -209,7 +209,7 @@ public abstract class AbstractPeriodogram {
 		return modifyPowers(newPowers);
 	}
 
-	public Periodogram scale(double[] scalingFactors) {
+	public AbstractPeriodogram scale(double[] scalingFactors) {
 		logger.info("Scaling each power by different scaling factor");
 		double[] newPowers = new double[this.nBins()];
 		for (int i=0; i < this.nBins(); i++) {
@@ -218,11 +218,11 @@ public abstract class AbstractPeriodogram {
 		return modifyPowers(newPowers);
 	}
 
-	public Periodogram rebin(double rebinFactor, String binningType) throws BinningException {
+	public AbstractPeriodogram rebin(double rebinFactor, String binningType) throws BinningException {
 		return PeriodogramBinner.rebin(this, rebinFactor, binningType);
 	}
 
-	public Periodogram dropFirstFrequency() {
+	public AbstractPeriodogram dropFirstFrequency() {
 		double[] newFreqs = Arrays.copyOfRange(this.freqs, 1, freqs.length);
 		double[] newPowers = Arrays.copyOfRange(this.powers, 1, powers.length);
 		return modifyFreqsAndPowers(newFreqs, newPowers);
@@ -253,7 +253,7 @@ public abstract class AbstractPeriodogram {
 		PeriodogramWriter.writeAsQDP(this, func1, func2, func3, lab1, lab2, lab3, filename);
 	}
 
-	public void writeAsQDP(Periodogram[] psdArray, String filename) throws IOException {
+	public void writeAsQDP(AbstractPeriodogram[] psdArray, String filename) throws IOException {
 		PeriodogramWriter.writeAsQDP(this, psdArray, filename);
 	}
 

@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, European Space Astronomy Centre, SRE-O, Villanueva de la Canada (Madrid), Spain
  * @version 1.0 (Aug 2015)
  */
-public class FFTPeriodogram extends Periodogram {
+public class FFTPeriodogram extends AbstractPeriodogram {
 
     private static Logger logger  = Logger.getLogger(FFTPeriodogram.class);
     private String normalization;

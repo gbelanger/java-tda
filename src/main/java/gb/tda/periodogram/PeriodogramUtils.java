@@ -264,7 +264,7 @@ public final class PeriodogramUtils {
      *
      * @return a <code>double[]</code> that contains 4 numbers: the best fit slope, error on slope, ordinate and error on ordinate in this order.
      */
-    public static double[] fitPowerLawInLogSpace(Periodogram psd) {
+    public static double[] fitPowerLawInLogSpace(AbstractPeriodogram psd) {
 	logger.info("Fitting power-law in log space");
 	double[] freqsInLogSpace = PrimitivesConverter.lin2logSpace(psd.getFreqs());
 	double[] powsInLogSpace =  PrimitivesConverter.lin2logSpace(psd.getPowers());
@@ -276,7 +276,7 @@ public final class PeriodogramUtils {
      *
      * @return a <code>double[]</code> that contains 2 numbers: the best fit index and the normalization constant in this order.
      */
-    public static double[] fitPowerLawInLinearSpace(Periodogram psd) {
+    public static double[] fitPowerLawInLinearSpace(AbstractPeriodogram psd) {
 	logger.info("Fitting power-law in linear space");
 	double[] fitResult = LeastSquaresFitter.fitPowerLaw(psd.getFreqs(), psd.getPowers());
 	double index = fitResult[0];

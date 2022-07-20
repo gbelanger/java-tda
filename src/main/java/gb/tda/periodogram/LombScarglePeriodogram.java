@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>
  * @version 1.0 (May 2014, ESAC)
  */
-public class LombScarglePeriodogram extends Periodogram {
+public class LombScarglePeriodogram extends AbstractPeriodogram {
 
     private static Logger logger  = Logger.getLogger(LombScarglePeriodogram.class);
 

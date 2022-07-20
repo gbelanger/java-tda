@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
  * @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>
  * @version 1.0 (Nov 2010, ESAC)
  */
-public class AveragePeriodogram extends Periodogram {
+public class AveragePeriodogram extends AbstractPeriodogram {
 
     private static Logger logger  = Logger.getLogger(AveragePeriodogram.class);
 

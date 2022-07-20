@@ -24,7 +24,7 @@ public class LikelihoodPeriodogramFactory {
         return new LikelihoodPeriodogram(freqs, inverseLikelihoods, dataPeriodogram.samplingFactor());
     }
 
-    public static LikelihoodPeriodogram create(AbstractPeriodogram dataPeriodogram, Periodogram modelPeriodogram) throws PeriodogramException {
+    public static LikelihoodPeriodogram create(AbstractPeriodogram dataPeriodogram, AbstractPeriodogram modelPeriodogram) throws PeriodogramException {
         double[] dataFreqs = dataPeriodogram.getFreqs();
         double[] dataPowers = dataPeriodogram.getPowers();
         double[] modelFreqs = modelPeriodogram.getFreqs();

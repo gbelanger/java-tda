@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>
  * @version 1.0 (Apr 2014, ESAC)
  */
-public class LikelihoodPeriodogram extends Periodogram {
+public class LikelihoodPeriodogram extends AbstractPeriodogram {
 
     private static Logger logger  = Logger.getLogger(LikelihoodPeriodogram.class);
 

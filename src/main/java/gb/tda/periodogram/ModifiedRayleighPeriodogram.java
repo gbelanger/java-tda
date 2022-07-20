@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  * @version 1.1 (Oct 2013, ESAC) 
  * @version 1.3 (Dec 2013, ESAC) # Added harmonic definition and constructor
  */
-public class ModifiedRayleighPeriodogram extends Periodogram {
+public class ModifiedRayleighPeriodogram extends AbstractPeriodogram {
 
     private static Logger logger  = Logger.getLogger(ModifiedRayleighPeriodogram.class);
     private int harmonic;

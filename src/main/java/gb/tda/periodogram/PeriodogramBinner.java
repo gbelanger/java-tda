@@ -10,7 +10,7 @@ final class PeriodogramBinner {
 
 	private static Logger logger  = Logger.getLogger(PeriodogramBinner.class);
 
-	static Periodogram rebin(AbstractPeriodogram psd, double rebinFactor, String binningType) throws BinningException {
+	static AbstractPeriodogram rebin(AbstractPeriodogram psd, double rebinFactor, String binningType) throws BinningException {
 		if (rebinFactor <= 1) {
 			throw new BinningException("The rebinning factor must be > 1");
 		}
