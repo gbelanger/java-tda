@@ -1,8 +1,7 @@
 package gb.tda.timeseries;
 
-import org.apache.log4j.Logger;
-
 import java.awt.geom.Point2D;
+import org.apache.log4j.Logger;
 
 public class CodedMaskTimeSeriesFactory {
     private static final Logger logger  = Logger.getLogger(CodedMaskTimeSeriesFactory.class);
@@ -134,11 +133,10 @@ public class CodedMaskTimeSeriesFactory {
             double[] rates, double[] errors,
             double[] distToPointingAxis
     ) throws BinningException {
-
         CodedMaskTimeSeries ts = create(targetRA, targetDec, emin, emax, telescope, instrument, maxDistForFullCoding,
                 binEdges, effectivePointingDurations, rates, errors, distToPointingAxis);
         ts.setTargetName(targetName);
         return ts;
     }
-    
+
 }

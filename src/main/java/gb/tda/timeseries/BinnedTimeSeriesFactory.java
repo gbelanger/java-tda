@@ -1,11 +1,11 @@
 package gb.tda.timeseries;
 
+import org.apache.log4j.Logger;
 import gb.tda.eventlist.IEventList;
 import gb.tda.eventlist.BasicEventList;
 import gb.tda.eventlist.EventListSelector;
 import gb.tda.eventlist.EventListException;
 import gb.tda.binner.Binner;
-import org.apache.log4j.Logger;
 
 public class BinnedTimeSeriesFactory {
     private static final Logger logger  = Logger.getLogger(BinnedTimeSeriesFactory.class);
