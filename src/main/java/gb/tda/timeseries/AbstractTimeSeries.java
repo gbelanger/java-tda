@@ -315,9 +315,9 @@ public abstract class AbstractTimeSeries implements ITimeSeries {
     @Override public boolean uncertaintiesAreSet() { return this.uncertaintiesAreSet; }
     
     //  Write as QDP
-//     public void writeAsQDP(String filename) throws IOException {
-//         QDPTimeSeriesFileWriter.write(this, filename);
-//     }
+     public void writeAsQDP(String filename) throws Exception {
+         QDPTimeSeriesFileWriter.writeToFile(this, filename);
+     }
     // public void writeAsQDP(double[] function, String filename) throws IOException, TimeSeriesFileFormatException {
     //     QDPTimeSeriesFileWriter.writeIntensities(this, function, filename);
     // }
