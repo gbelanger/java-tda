@@ -37,7 +37,6 @@ public final class PeriodogramUtils {
 		return frequencies;
 	}
 
-
 	/**
 	 * The method <code>getFourierFrequencies</code> returns the Fourier frequencies in a frequency interval using the specified oversampling. There is oversampling between the nuMin and nuMax that define the lower and upper bounds of the testable frequency range. This means that for the full Fourier range with nuMin=1/duration and nuMax = 1/2dt, the number of test frequencies will be given by nIF * oversampling - oversampling.
 	 *
@@ -71,7 +70,6 @@ public final class PeriodogramUtils {
 		return freqs.elements();
 	}
 
-
 	public static double[] getFourierFrequencies(double nuMin, double nuMax, double df) {
 		int nFreqs = (int) Math.round((nuMax-nuMin)/df);
 		double[] frequencies = new double[nFreqs];
@@ -80,7 +78,6 @@ public final class PeriodogramUtils {
 		}
 		return frequencies;
 	}
-
 
 	/**
 	 * The method <code>getFourierPeriods</code> returns the periods that correspond to the frequencies returned by getFourierTestFrequencies, but in reverse order so that the periods are ascending.
@@ -103,7 +100,6 @@ public final class PeriodogramUtils {
 		return testPeriods;
 	}
 
-
 	/**
 	 * The method <code>getPhases</code> uses the specified period to convert each time to its corresponding phase between 0 and 1.
 	 *
@@ -122,12 +118,10 @@ public final class PeriodogramUtils {
 		return phases;
 	}
 
-
 	// public static double[] getPhases(double[] times, double period, double phaseShift) {
 	// 	double[] phases = getPhases(times, period);
 	// 	return shiftPhases(phases, phaseShift);
 	// }
-
 
 	public static double[] getPhases(double[] times, double[] periods) throws PeriodogramException {
 		if (times.length != periods.length) {
@@ -143,7 +137,6 @@ public final class PeriodogramUtils {
 		return phases;
 	}
 
-
 	public static double[] getPhases(double[] times, double slope, double intercept) throws PeriodogramException {
 		double[] periods = new double[times.length];
 		for (int i=0; i < times.length; i++) {
@@ -151,7 +144,6 @@ public final class PeriodogramUtils {
 		}
 		return getPhases(times, periods);
 	}
-
 
 	public static double[] getPhases(double[] times, double tZero, double nu, double nuDot, double nuDotDot) {
 		double[] phases = new double[times.length];
@@ -187,11 +179,9 @@ public final class PeriodogramUtils {
 		return shiftedPhases;
 	}
 
-
 	public static int nIFS(double duration, double nuMin, double nuMax) {
 		return (int) Math.floor(duration*(nuMax - nuMin));
 	}
-
 
 	public static double[] getIFSEdgesInFreqSpace(double nuMin, double nuMax, double duration, double sampling, double ifsOffset) {
 		//  Determine the number of IFS in interval
