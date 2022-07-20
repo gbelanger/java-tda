@@ -13,7 +13,7 @@ final class PeriodogramWriter {
 
     private static Logger logger  = Logger.getLogger(PeriodogramWriter.class);
 
-    public static void writeAsQDP(Periodogram main, String[] header, String filename) {
+    public static void writeAsQDP(AbstractPeriodogram main, String[] header, String filename) {
 	double[] freqs = main.getFreqs();
 	double[] powers = main.getPowers();	
 	AsciiDataFileWriter out = null;
@@ -28,7 +28,7 @@ final class PeriodogramWriter {
 	logger.info("Periodogram written (as QDP) to "+filename);
     }
 
-    public static void writeAsQDP(Periodogram main, double[] function, String filename) {
+    public static void writeAsQDP(AbstractPeriodogram main, double[] function, String filename) {
 	double[] freqs = main.getFreqs();
 	double[] powers = main.getPowers();	
 	AsciiDataFileWriter out = null;
@@ -43,7 +43,7 @@ final class PeriodogramWriter {
 	logger.info("Periodogram written (as QDP) to "+filename);
     }
 
-    public static void writeAsQDP(Periodogram main, double[] func1, double[] func2, String filename) {
+    public static void writeAsQDP(AbstractPeriodogram main, double[] func1, double[] func2, String filename) {
 	double[] freqs = main.getFreqs();
 	double[] powers = main.getPowers();	
 	AsciiDataFileWriter out = null;
@@ -58,7 +58,7 @@ final class PeriodogramWriter {
 	logger.info("Periodogram written (as QDP) to "+filename);
     }
 
-    public static void writeAsQDP(Periodogram main, Periodogram[] psdArray, String filename) throws IOException {
+    public static void writeAsQDP(AbstractPeriodogram main, Periodogram[] psdArray, String filename) throws IOException {
 	double[] freqs = main.getFreqs();
 	double[] powers = main.getPowers();
   	PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
@@ -83,7 +83,7 @@ final class PeriodogramWriter {
 	logger.info("Periodogram array written (as QDP) to "+filename);
     }
 
-    public static void writeAsQDP(Periodogram main, double[] func1, double[] func2, String lab1, String lab2, String dataLab, String panel, String filename) {
+    public static void writeAsQDP(AbstractPeriodogram main, double[] func1, double[] func2, String lab1, String lab2, String dataLab, String panel, String filename) {
 	double[] freqs = main.getFreqs();
 	double[] powers = main.getPowers();	
 	String[] header = getHeaderWithDataPanelAndTwoFunctionLabels(dataLab, panel, lab1, lab2);
@@ -99,7 +99,7 @@ final class PeriodogramWriter {
 	logger.info("Periodogram written (as QDP) to "+filename);
     }
 
-    public static void writeAsQDP(Periodogram main, String filename) {
+    public static void writeAsQDP(AbstractPeriodogram main, String filename) {
 	if (main.binWidthIsConstant()) {
 	    writeAsQDP(main, header1, filename);
 	}
@@ -108,7 +108,7 @@ final class PeriodogramWriter {
 	}
     }
 
-    public static void writeAsQDP(Periodogram main, double[] func1, double[] func2, double[] func3, String lab1, String lab2, String lab3, String filename) {
+    public static void writeAsQDP(AbstractPeriodogram main, double[] func1, double[] func2, double[] func3, String lab1, String lab2, String lab3, String filename) {
 	double[] freqs = main.getFreqs();
 	double[] powers = main.getPowers();	
 	String[] header = getHeaderForThreePanelPlot(lab1, lab2, lab3);

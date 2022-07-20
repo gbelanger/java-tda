@@ -2,25 +2,15 @@ package gb.tda.periodogram;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
-
 import cern.colt.list.DoubleArrayList;
 import gb.tda.utils.PrimitivesConverter;
 import gb.tda.tools.LeastSquaresFitter;
 import org.apache.log4j.Logger;
 
-
-/**
- * Class <code>PeriodogramUtils</code> 
- *
- * @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, ESA/ESAC
- * @version 1.0  (last modified: Apr 2019)
- *
- */
 public final class PeriodogramUtils {
 
     private static Logger logger  = Logger.getLogger(PeriodogramUtils.class);
     private static DecimalFormat exp = new DecimalFormat("0.0000#E00");
-
     
     /**
      * The method <code>getFFTFrequencies</code> returns the independent frequencies (IF) for the specifies duration and number of bins. The Fourier spacing is defined by df=1/duration. The number of independent Fourier spacings (IFS) in the interval between nuMin and nuMax is given by nIFS = (nuMax-nuMin)/df = duration*(nuMax-nuMin). The minium and maximum frequencies that can be tested are respectively nuMin = 1/duration and the Nyquist frequency given by nuMax = 1/2dt, where dt is the sampling frequency (bin time) of the time series. Given that dt = duration/nbins, we can also write nuMax = nbins/2*duration, and thus only need to specify one of the two quantities nbins and dt. The number of the IFS is then nIFS = duration*(nbins/2*duration - 1/duration) = nbins/2 -1. Therefore the number of IF is nbins/2 given that nuMin and nuMax are respectively the lower and the upper bounds of the testable frequency range.
@@ -226,7 +216,6 @@ public final class PeriodogramUtils {
 	//System.out.println(n+" "+ifsEdgesInFreqSpace[n]); 
 	return ifsEdgesInFreqSpace;
     }
-
     
     public static double[] getIFSEdgesInPeriodSpace(double pmin, double pmax, double duration, double sampling, double ifsOffset) {
 	double numin = 1/pmax;
@@ -241,7 +230,6 @@ public final class PeriodogramUtils {
 	return ifsEdgesInPeriodSpace;
     }
 
-    
     /**
      * Method <code>getIntegratedPower</code> calculated the integral of the Periodogram: sum of binWidths[i]*power[i].
      *
@@ -249,7 +237,7 @@ public final class PeriodogramUtils {
      * @param nuStop a <code>double</code> that defines the upper integration limit
      * @return a <code>double</code> the integral of the Periodogram between nuStart and nuStop
      */
-    public static double getIntegratedPower(Periodogram periodogram, double nuStart, double nuStop) {
+    public static double getIntegratedPower(AbstractPeriodogram periodogram, double nuStart, double nuStop) {
 	double integral = 0;
 	// Skip all frequencies before nuStart
 	int i=0;
@@ -266,12 +254,10 @@ public final class PeriodogramUtils {
 	}
 	return integral;
     }
-    
 
-    public static double getIntegratedPower(Periodogram periodogram) {
+    public static double getIntegratedPower(AbstractPeriodogram periodogram) {
 	return getIntegratedPower(periodogram, periodogram.nuMin(), periodogram.nuMax());
     }
-
     
     /**
      * The method <code>fitPowerLawInLogSpace</code> performs a least squares fit to the periodogram in log-log space, i.e., a line y=mx+b where y if the power, and x is the frequency.
@@ -285,7 +271,6 @@ public final class PeriodogramUtils {
 	return LeastSquaresFitter.fitLine(freqsInLogSpace, powsInLogSpace);
     }
 
-    
     /**
      * The method <code>fitPowerLawInLinearSpace</code> performs a least squares fit to the peridogram in linear space, i.e., a power law y=n*x^alpha.
      *
@@ -299,5 +284,31 @@ public final class PeriodogramUtils {
 	return new double[] {index, normalization};
     }
 
+	public static double[] checkNuMinAndNuMax(double duration, double dtMin, double nuMin, double nuMax) {
+		//  Check nuMin
+		double min = 1/duration;
+		if (nuMin < min) {
+			logger.warn("  Specified nuMin < 1/duration: "+nuMin+" < "+min+". Resetting to 1/duration.");
+			nuMin = min;
+		}
+		//  Check nuMax
+		double nyquistFrequency = 1/(2*dtMin);
+		//nyquistFrequency -= Math.ulp(nyquistFrequency);
+		double max = nyquistFrequency;
+		if (nuMax > max) {
+			logger.warn("  Specified nuMax > Nyquist frequency = 1/(2*dtMin): "+nuMax+" > "+max+". Resetting to Nyquist frequency.");
+			nuMax = nyquistFrequency;
+		}
+		return new double[] {nuMin, nuMax};
+	}
+
+	public static int checkSamplingFactor(int samplingFactor) {
+		int sampling = samplingFactor;
+		if (samplingFactor < 1) {
+			logger.warn("  Specified sampling factor < 1. Resetting to 1.");
+			sampling = 1;
+		}
+		return sampling;
+	}
 
 }
