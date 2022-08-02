@@ -1,6 +1,7 @@
-import org.apache.log4j.Logger;
+package gb.tda.timeseries;
 
 import java.awt.geom.Point2D;
+import org.apache.log4j.Logger;
 
 public class QDPTimeSeriesFileWriterTest {
 

@@ -27,7 +27,7 @@ public final class BinningUtils {
     }
 
     public static double[] getBinEdges(double xmin, double xmax, double binWidth) throws BinningException {
-		logger.info("Constructing bin edges from xmin, xmax, binWidth");
+		logger.info("Computing bin edges from xmin, xmax, binWidth");
 		if (xmin >= xmax) {
 		    throw new BinningException("Cannot construct bin edges: xmax >= xmin");
 		}
@@ -53,7 +53,7 @@ public final class BinningUtils {
     }
 
     public static double[] getBinEdges(double xmin, double[] binWidths) throws BinningException {
-		logger.info("Constructing bin edges from xmin and binWidths[]");
+		logger.info("Computing bin edges from xmin and binWidths[]");
 		DoubleArrayList edges = new DoubleArrayList();
 		double leftEdge = xmin - 0.5*Math.ulp(xmin);  //  move back the first left edge by 0.5 ULP
 		double rightEdge = leftEdge + binWidths[0];
@@ -71,7 +71,7 @@ public final class BinningUtils {
     }
     
     public static double[] getBinEdges(double[] leftEdges, double[] rightEdges) throws BinningException {
-		logger.info("Constructing bin edges from leftEdges[] and rightEdges[]");
+		logger.info("Computing bin edges from leftEdges[] and rightEdges[]");
 		if (leftEdges.length != rightEdges.length) {
 		    throw new BinningException("Left and right bin edges array lengths not equal");
 		}
@@ -84,7 +84,7 @@ public final class BinningUtils {
     }
     
     public static double[] getBinEdgesInLogSpace(double xmin, double xmax, int nbins) throws BinningException {
-		logger.info("Constructing logarithmically spaced bin edges from xmin, xmax, nbins");
+		logger.info("Computing logarithmically spaced bin edges from xmin, xmax, nbins");
 		if (xmin <= 0 || xmax <= 0) {
 		    throw new BinningException("Cannot contruct log bin edges: xmin <= 0 or xmax <= 0");
 		}
@@ -104,7 +104,7 @@ public final class BinningUtils {
     }
     
     public static double[] getBinEdgesFromBinCentres(double[] binCentres) throws BinningException {
-		logger.info("Constructing bin edges from binCentres[]");
+		logger.info("Computing bin edges from binCentres[]");
 		int nBins = binCentres.length;
 		if (nBins < 2) {
 		    throw new BinningException("Cannot construct bin edges: there is only one bin");
@@ -128,7 +128,7 @@ public final class BinningUtils {
     }
 
     public static double[] getBinEdgesFromBinCentresAndHalfWidths(double[] binCentres, double[] halfBinWidths) throws BinningException {
-		logger.info("Constructing bin edges from binCentres[] and halfBinWidths[]");
+		logger.info("Computing bin edges from binCentres[] and halfBinWidths[]");
 		if (binCentres.length != halfBinWidths.length) {
 		    throw new BinningException("Incompatible array lengths: binCentres.length != halfBinWidths.length");
 		}

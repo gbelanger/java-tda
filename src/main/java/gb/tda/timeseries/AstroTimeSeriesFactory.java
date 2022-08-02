@@ -22,10 +22,6 @@ public class AstroTimeSeriesFactory extends BinnedTimeSeriesFactory {
         return new AstroTimeSeries(ts);
     }
 
-    public static ITimeSeries create(String filename) throws Exception, IOException, TimeSeriesFileException {
-        return TimeSeriesFileReader.read(filename);
-    }
-
     public static IBinnedTimeSeries create(AstroEventList evlist, int nBins, double emin, double emax) throws EventListException, TimeSeriesException {
         double[] selectedArrivalTimes = EventListSelector.getArrivalTimesInEnergyRange(evlist, emin, emax);
         logger.info("Making TimeSeries from AstroEventList using nBins = "+nBins+" and [emin, emax] = ["+emin+", "+emax+"]");

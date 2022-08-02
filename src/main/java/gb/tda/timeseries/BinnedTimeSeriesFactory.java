@@ -9,7 +9,11 @@ import gb.tda.binner.Binner;
 
 public class BinnedTimeSeriesFactory {
     private static final Logger logger  = Logger.getLogger(BinnedTimeSeriesFactory.class);
-    
+
+    public static ITimeSeries create(String filename) throws TimeSeriesFileException {
+        return TimeSeriesFileReader.read(filename);
+    }
+
     public static IBinnedTimeSeries create(IBinnedTimeSeries ts) {
         return new BinnedTimeSeries(ts);
     }

@@ -65,6 +65,7 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 		    }
 		}
 		catch (NullPointerException e) {
+			// Look for RATE and ERROR columns
 		    hdu = findTimeSeriesHDU(hdus);
 		    String[] colNames = getRateAndErrorColNames(hdu);
 		    double[] rates = getDoubleDataCol(hdu, colNames[0]);
@@ -90,7 +91,7 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 				double[] expo = getDoubleDataCol(gtiHDU, "LIVETIME");
 				return CodedMaskTimeSeriesFactory.create(target,ra,dec,emin,emax,telescope,inst,maxDist,binEdges,expo,rates,errorsOnRates,angdist);
 			}
-			catch (NullPointerException e2) {
+			catch (Exception e2) {
 				return BinnedTimeSeriesFactory.create(binEdges, rates, errorsOnRates);
 			}
 		}
@@ -157,7 +158,7 @@ public class FitsTimeSeriesFileReader implements ITimeSeriesFileReader {
 			}
 		}
 		catch (FitsException e) {
-			throw new TimeSeriesFileException("Problem in getDoubleDataCol", e);
+			throw new FitsTimeSeriesFileException("Problem in getDoubleDataCol", e);
 		}
     }
     

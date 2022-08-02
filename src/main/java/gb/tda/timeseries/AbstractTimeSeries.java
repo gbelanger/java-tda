@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.io.FileWriter;
 import java.awt.geom.Point2D;
-
 import cern.jet.stat.Descriptive;
 import cern.colt.list.DoubleArrayList;
 import nom.tam.fits.FitsException;
 import org.apache.log4j.Logger;
+import gb.tda.utils.BasicStats;
 
 /** 
  Abstract class <code>AbstractTimeSeries</code> implements <code>ITimeSeries</code>.
@@ -238,10 +238,7 @@ public abstract class AbstractTimeSeries implements ITimeSeries {
     }
     
     private void setStatsOnUncertainties() {
-        this.weightedMeanIntensity = this.meanIntensity;	    
-    	if (this.uncertaintiesAreSet) {
-    	    this.weightedMeanIntensity = Descriptive.weightedMean(new DoubleArrayList(this.intensities), new DoubleArrayList(this.weights));
-    	}
+        this.weightedMeanIntensity = BasicStats.getWMean(this.intensities, this.uncertainties);
         this.errorOnWeightedMeanIntensity = Math.sqrt(1. / this.sumOfWeights);
         this.timeAtMinUncertainty = this.times[Utils.getIndex(this.minUncertainty, this.uncertainties)];
         this.timeAtMaxUncertainty = this.times[Utils.getIndex(this.maxUncertainty, this.uncertainties)];
