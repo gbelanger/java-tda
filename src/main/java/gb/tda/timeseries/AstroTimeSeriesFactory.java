@@ -6,9 +6,13 @@ import gb.tda.eventlist.AstroEventList;
 import gb.tda.eventlist.EventListSelector;
 import gb.tda.eventlist.EventListException;
 
-public class AstroTimeSeriesFactory extends BinnedTimeSeriesFactory {
+public class AstroTimeSeriesFactory implements ITimeSeriesFactory {
 
     private static final Logger logger  = Logger.getLogger(AstroTimeSeriesFactory.class);
+
+//    public static AstroTimeSeries create(String filename) throws TimeSeriesFileException {
+//        return (AstroTimeSeries) ITimeSeriesFactory.create(filename);
+//    }
 
     public static AstroTimeSeries create(IAstroTimeSeries ts) {
         return new AstroTimeSeries(ts);

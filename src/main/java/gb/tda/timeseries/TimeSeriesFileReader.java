@@ -28,6 +28,6 @@ public class TimeSeriesFileReader {
 			catch (BinningException e3) { e = e3; }
 			catch (IOException e4) { e = e4;}
 		}
-		throw new TimeSeriesFileException("Unknown format: not FITS, ASCII or QDP.", e);
+		throw new TimeSeriesFileException("Unknown format: not FITS, ASCII, or QDP.", e);
     }
 }

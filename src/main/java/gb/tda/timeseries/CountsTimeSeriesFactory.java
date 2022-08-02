@@ -2,8 +2,13 @@ package gb.tda.timeseries;
 
 import org.apache.log4j.Logger;
 
-public class CountsTimeSeriesFactory {
+public class CountsTimeSeriesFactory implements ITimeSeriesFactory {
+
     private static final Logger logger  = Logger.getLogger(CountsTimeSeriesFactory.class);
+
+    public static CountsTimeSeries create(String filename) throws TimeSeriesFileException {
+        return (CountsTimeSeries) ITimeSeriesFactory.create(filename);
+    }
 
     public static CountsTimeSeries create(ICountsTimeSeries ts) {
         return new CountsTimeSeries(ts);

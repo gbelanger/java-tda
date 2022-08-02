@@ -3,8 +3,13 @@ package gb.tda.timeseries;
 import java.awt.geom.Point2D;
 import org.apache.log4j.Logger;
 
-public class CodedMaskTimeSeriesFactory {
+public class CodedMaskTimeSeriesFactory implements ITimeSeriesFactory {
+
     private static final Logger logger  = Logger.getLogger(CodedMaskTimeSeriesFactory.class);
+
+    public static CodedMaskTimeSeries create(String filename) throws TimeSeriesFileException {
+        return (CodedMaskTimeSeries) ITimeSeriesFactory.create(filename);
+    }
 
     public static CodedMaskTimeSeries create(CodedMaskTimeSeries ts) {
         return new CodedMaskTimeSeries(ts);

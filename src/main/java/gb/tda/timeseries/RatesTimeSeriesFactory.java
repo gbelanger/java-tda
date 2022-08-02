@@ -5,8 +5,13 @@ import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 
-public class RatesTimeSeriesFactory {
+public class RatesTimeSeriesFactory implements ITimeSeriesFactory {
+
     private static final Logger logger  = Logger.getLogger(RatesTimeSeriesFactory.class);
+
+    public static RatesTimeSeries create(String filename) throws TimeSeriesFileException {
+        return (RatesTimeSeries) ITimeSeriesFactory.create(filename);
+    }
 
     public static RatesTimeSeries create(IRatesTimeSeries ts) {
         return new RatesTimeSeries(ts);

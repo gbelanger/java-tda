@@ -7,11 +7,12 @@ import gb.tda.eventlist.EventListSelector;
 import gb.tda.eventlist.EventListException;
 import gb.tda.binner.Binner;
 
-public class BinnedTimeSeriesFactory {
+public class BinnedTimeSeriesFactory implements ITimeSeriesFactory {
+
     private static final Logger logger  = Logger.getLogger(BinnedTimeSeriesFactory.class);
 
-    public static ITimeSeries create(String filename) throws TimeSeriesFileException {
-        return TimeSeriesFileReader.read(filename);
+    public static BinnedTimeSeries create(String filename) throws TimeSeriesFileException {
+        return (BinnedTimeSeries) ITimeSeriesFactory.create(filename);
     }
 
     public static IBinnedTimeSeries create(IBinnedTimeSeries ts) {

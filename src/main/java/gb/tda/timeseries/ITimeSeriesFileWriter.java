@@ -3,6 +3,7 @@ package gb.tda.timeseries;
 import java.text.DecimalFormat;
 
 public interface ITimeSeriesFileWriter {
+
     int bufferSize = 256000;
     DecimalFormat noDigits = new DecimalFormat("0");
     DecimalFormat oneDigit = new DecimalFormat("0.0");
