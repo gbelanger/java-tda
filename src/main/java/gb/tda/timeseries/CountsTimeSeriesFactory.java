@@ -14,20 +14,24 @@ public class CountsTimeSeriesFactory implements ITimeSeriesFactory {
         return new CountsTimeSeries(ts);
     }
 
-    public static CountsTimeSeries create(double[] binEdges, double[] intensities) {
-        double tstart = binEdges[0];
-        return create(tstart, binEdges, intensities);
+    public static CountsTimeSeries create(double[] binCentres, double[] counts) throws TimeSeriesException, BinningException {
+        logger.info("Making CountsTimeSeries from binCentres and counts");
+        logger.warn("Assuming adjacent bins");
+        double[] halfBinWidths = BinningUtils.getHalfBinWidthsFromBinCentres(binCentres);
+        return create(binCentres, halfBinWidths, counts);
     }
 
-    public static CountsTimeSeries create(double tstart, double[] binEdges, double[] intensities) {
-        return new CountsTimeSeries(tstart, binEdges, intensities);
+    public static CountsTimeSeries create(double[] binCentres, double halfBinWidth, double[] counts) throws TimeSeriesException, BinningException {
+        double[] halfBinWidths = new double[binCentres.length];
+        for (int i=0; i < binCentres.length; i++) {
+            halfBinWidths[i] = halfBinWidth;
+        }
+        return create(binCentres, halfBinWidths, counts);
     }
 
-    public static CountsTimeSeries create(double[] binEdges, double[] intensities, double[] uncertainties) {
-        return new CountsTimeSeries(binEdges, intensities, uncertainties);
+    public static CountsTimeSeries create(double[] binCentres, double[] halfBinWidths, double[] counts) throws TimeSeriesException, BinningException {
+        double[] binEdges = BinningUtils.getBinEdgesFromBinCentresAndHalfWidths(binCentres, halfBinWidths);
+        return new CountsTimeSeries(binEdges, counts);
     }
 
-    public static CountsTimeSeries create(double tstart, double[] binEdges, double[] intensities, double[] uncertainties) {
-        return new CountsTimeSeries(tstart, binEdges, intensities, uncertainties);
-    }
 }

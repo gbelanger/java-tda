@@ -17,10 +17,6 @@ public class RatesTimeSeriesFactory implements ITimeSeriesFactory {
         return new RatesTimeSeries(ts);
     }
 
-    /**
-     * Construct a  <code>RatesTimeSeries</code> from bin centres, rates and errors on rates. 
-     * We assume that the bins are adjacent and that the first two bins are of equal width.
-     */
     public static RatesTimeSeries create(double[] binCentres, double[] rates, double[] errorsOnRates) throws TimeSeriesException, BinningException {
         logger.info("Making RatesTimeSeries from binCentres, rates and errors");
         logger.warn("Assuming adjacent bins");
@@ -28,10 +24,24 @@ public class RatesTimeSeriesFactory implements ITimeSeriesFactory {
         return create(binCentres, halfBinWidths, rates, errorsOnRates);
     }
 
-    /**
-     * Construct a  <code>RatesTimeSeries</code> from bin centres, halfBinWidths, rates and errors on rates. 
-     * We assume that the bins are adjacent and that the first two bins are of equal width.
-     */
+    public static RatesTimeSeries create(double[] binCentres, double halfBinWidth, double[] rates, double[] errorsOnRates) throws TimeSeriesException {
+        double[] halfBinWidths = new double[binCentres.length];
+        for (int i=0; i < binCentres.length; i++) {
+            halfBinWidths[i] = halfBinWidth;
+        }
+        return create(binCentres, halfBinWidths, rates, errorsOnRates);
+    }
+
+    public static RatesTimeSeries create(double[] binCentres, double halfBinWidth, double[] rates, double errorOnRates) throws TimeSeriesException {
+        double[] halfBinWidths = new double[binCentres.length];
+        double[] errorsOnRates = new double[binCentres.length];
+        for (int i=0; i < binCentres.length; i++) {
+            halfBinWidths[i] = halfBinWidth;
+            errorsOnRates[i] = errorOnRates;
+        }
+        return create(binCentres, halfBinWidths, rates, errorsOnRates);
+    }
+
     public static RatesTimeSeries create(double[] binCentres, double[] halfBinWidths, double[] rates, double[] errorsOnRates) throws TimeSeriesException {
         logger.info("Making RatesTimeSeries from binCentres, halfBinWidths, rates and errors");
         double firstHalfBinWidth = halfBinWidths[0];
@@ -75,24 +85,6 @@ public class RatesTimeSeriesFactory implements ITimeSeriesFactory {
             ts = (RatesTimeSeries) TimeSeriesUtils.dropLeadingAndTrailingNaNs(ts);
         }
         return ts;
-    }
-
-    public static RatesTimeSeries create(double[] binCentres, double halfBinWidth, double[] rates, double[] errorsOnRates) throws TimeSeriesException {
-        double[] halfBinWidths = new double[binCentres.length];
-        for (int i=0; i < binCentres.length; i++) {
-            halfBinWidths[i] = halfBinWidth;
-        }
-        return create(binCentres, halfBinWidths, rates, errorsOnRates);
-    }
-
-    public static RatesTimeSeries create(double[] binCentres, double halfBinWidth, double[] rates, double errorOnRates) throws TimeSeriesException {
-        double[] halfBinWidths = new double[binCentres.length];
-        double[] errorsOnRates = new double[binCentres.length];
-        for (int i=0; i < binCentres.length; i++) {
-            halfBinWidths[i] = halfBinWidth;
-            errorsOnRates[i] = errorOnRates;
-        }
-        return create(binCentres, halfBinWidths, rates, errorsOnRates);
     }
 
 }
