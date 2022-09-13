@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 public class TimeSeriesFileReader {
+
     private static Logger logger  = Logger.getLogger(TimeSeriesFileReader.class);
 
 	// Define the specific format readers

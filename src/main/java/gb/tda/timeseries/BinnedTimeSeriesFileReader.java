@@ -24,11 +24,6 @@ public class BinnedTimeSeriesFileReader implements ITimeSeriesFileReader {
             throw new AsciiTimeSeriesFileException("Problem reading file", e);
         }
 
-        // Define possible data columns
-        double[] binCentres = null;
-        double[] intensities = null;
-        double[] uncertainties = null;
-
         // Read the data
         int ncols = dataFile.getNDataCols();
         if (ncols == 1) {
@@ -45,33 +40,35 @@ public class BinnedTimeSeriesFileReader implements ITimeSeriesFileReader {
         }
         else {
             // Two or more columns
-            times = dataFile.getDblCol(0);
-            intensities = dataFile.getDblCol(1);
-            double[] binEdges;
+            double[] binCentres = dataFile.getDblCol(0);
+            double[] binEdges = BinningUtils.getBinEdgesFromBinCentres(binCentres);
             if (ncols == 2) {
-                return BasicTimeSeriesFactory.create(times, intensities);
+                double[] intensities = dataFile.getDblCol(1);
+                return BinnedTimeSeriesFactory.create(binEdges, intensities);
             }
             else if (ncols == 3) {
+                double[] intensities = dataFile.getDblCol(1);
                 double[] uncertainties = dataFile.getDblCol(2);
-                return BasicTimeSeriesFactory.create(times, intensities, uncertainties);
+                return BinnedTimeSeriesFactory.create(binEdges, intensities, uncertainties);
             }
             else if (ncols == 4) {
-                double[] binCentres = dataFile.getDblCol(0);
-                double[] dtOver2 = dataFile.getDblCol(1);
+                double[] halfBinWidths = dataFile.getDblCol(1);
+                double[] intensities = dataFile.getDblCol(2);
+                double[] uncertainties = dataFile.getDblCol(3);
                 try {
-                    binEdges = BinningUtils.getBinEdgesFromBinCentresAndHalfWidths(binCentres, dtOver2);
+                    binEdges = BinningUtils.getBinEdgesFromBinCentresAndHalfWidths(binCentres, halfBinWidths);
                 } catch (BinningException e) {
                     throw new TimeSeriesFileException("Cannot construct bin edges", e);
                 }
-                intensities = dataFile.getDblCol(2);
-                double[] uncertainties = dataFile.getDblCol(3);
                 return BinnedTimeSeriesFactory.create(binEdges, intensities, uncertainties);
             }
             else {
-                throw new AsciiTimeSeriesFileException("Not an ASCII time series file. " +
-                        "Format can be:  1 col = arrival times;  " +
-                        "2 cols = binCentres and intensities;   3 cols = binCentres, intensities and errors; " +
-                        "4 cols (or more) = binCentres, halfBinWidths, intensities, errors");
+                throw new AsciiTimeSeriesFileException(
+                        "\n\tNot a BinnedTimeSeries file. BinnedTimeSeriesFileReader accepts 4 formats: " +
+                                "\n\t - 1 col = event times;" +
+                                "\n\t - 2 cols = binCentres, intensities;" +
+                                "\n\t - 3 cols = binCentres, intensities, errors;" +
+                                "\n\t - 4 cols = binCentres, halfBinWidths, intensities, errors.");
             }
         }
     }

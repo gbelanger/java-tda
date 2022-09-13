@@ -13,31 +13,12 @@ import gb.tda.eventlist.EventListException;
 import gb.tda.io.AsciiDataFileFormatException;
 import gb.tda.io.AsciiDataFileReader;
 
-/**
- * Class <code>QDPTimeSeriesFileReader</code> reads a times series file in ASCII-QDP format.
- * The Time Series reader is very simple an only additionally reads the tStart header in the label.
- * The Coded Mask Reader requires 5 columns to read the file, setting the columns to the arrays binCentres, dtOver2, rates, errorOnRates and distToPointingAxis.
- *
- * The TimeSeries will have bins defined by the binCentres and corresponding half-widths.
- *
- * @author G. Belanger
- */
-
 public class QDPTimeSeriesFileReader extends AsciiTimeSeriesFileReader {
     
     private static final Logger logger = Logger.getLogger(QDPTimeSeriesFileReader.class);
 
 	// Time series attributes
-    private String targetName;
-    private double targetRA;
-    private double targetDec;
-    private String instrument;
-    private String telescope;
-    private double maxDistForFullCoding;
-    private double energyRangeMin;
-    private double energyRangeMax;
-    private double exposureOnTarget;
-    
+
     public IBinnedTimeSeries read(String filename) throws TimeSeriesFileException, TimeSeriesException, BinningException, IOException  {
         AsciiDataFileReader dataFile;
 		try {
