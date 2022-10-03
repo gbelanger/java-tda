@@ -60,10 +60,10 @@ final class FitsHeaderMaker {
         hdr.addValue("TTYPE2", "TIMEDEL", "size of time bin");
     	hdr.addValue("TFORM3", "1D", "data format of field: 8-byte DOUBLE");
     	hdr.addValue("TUNIT3", "counts/s", "physical unit of the field");
-    	hdr.addValue("TTYPE3", "RATES", "intensity in counts per second");
+    	hdr.addValue("TTYPE3", "RATE", "intensity in counts per second");
     	hdr.addValue("TFORM4", "1D", "data format of field: 8-byte DOUBLE");
     	hdr.addValue("TUNIT4", "counts/s", "physical unit of the field");
-    	hdr.addValue("TTYPE4", "ERRORS", "uncertainty on intensity (RATES)");
+    	hdr.addValue("TTYPE4", "ERROR", "uncertainty on intensity (RATES)");
     	if (ts instanceof CodedMaskTimeSeries) {	
             hdr.addValue("TFORM5", "1D", "data format of field: 8-byte DOUBLE");
             hdr.addValue("TUNIT5", "degree", "physical unit of the field");
