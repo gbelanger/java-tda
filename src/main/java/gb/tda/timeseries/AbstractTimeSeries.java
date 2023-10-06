@@ -36,6 +36,7 @@ public abstract class AbstractTimeSeries implements ITimeSeries {
     // times
     String timeUnit = "s";
     double[] times;
+    double[] timeIntervals;
     double tStart = Double.NaN;
     double tStop = Double.NaN;
     double tMid = Double.NaN;
@@ -152,8 +153,16 @@ public abstract class AbstractTimeSeries implements ITimeSeries {
         this.tStop = this.tStart + this.duration;
         this.tMid = (this.tStart + this.tStop)/2;
         printTimesInfo();
+        setIntensities(times);
     }
-    
+
+    void setTimeIntervals(double[] times) {
+        this.timeIntervals = new double[times.length-1];
+        for (int i = 0 ; i < times.length ; i++) {
+            this.timeIntervals[i] = times[i+1] - times[i];
+        }
+    }
+
     public void setIntensities(double[] intensities) {
         this.intensities = new double[this.nElements];
         double minIntensity = Double.MAX_VALUE;
@@ -261,7 +270,12 @@ public abstract class AbstractTimeSeries implements ITimeSeries {
     @Override public double tStop() { return this.tStop; }
     public double tMid() { return this.tMid; }
     @Override public double duration() { return this.duration; }
-    @Override public double[] getTimes() { return Arrays.copyOf(this.times, this.times.length); }
+    @Override public double[] getTimes() {
+        return Arrays.copyOf(this.times, this.times.length);
+    }
+    @Override public double[] getTimeIntervals() {
+        return Arrays.copyOf(this.timeIntervals, this.timeIntervals.length);
+    }
     public double timeAtMinIntensity() { return this.timeAtMinIntensity; }
     public double timeAtMaxIntensity() { return this.timeAtMaxIntensity; }
         
