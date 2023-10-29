@@ -7,7 +7,7 @@ import hep.aida.IHistogramFactory;
 import hep.aida.ITree;
 import java.util.Arrays;
 import org.apache.log4j.Logger;
-import gb.tda.utils.MinMax;
+import gb.tda.tools.MinMax;
 
 /**
 

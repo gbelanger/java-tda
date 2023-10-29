@@ -1,0 +1,95 @@
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'java-library'
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+
+    maven {
+        url "https://java.freehep.org/maven2"
+        metadataSources {
+            artifact() //Look directly for artifact
+        }
+    }
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+dependencies {
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.data:spring-data-redis'
+    implementation 'org.springframework.kafka:spring-kafka:2.9.0'
+    implementation 'io.lettuce:lettuce-core:6.2.3.RELEASE'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    // implementation 'com.lmax:disruptor:3.4.2'
+
+    implementation 'mysql:mysql-connector-java'
+
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'biz.paluch.logging:logstash-gelf:1.15.0'
+
+    api 'org.apache.commons:commons-math3:3.6.1'
+    implementation 'com.opencsv:opencsv:5.7.1'
+    implementation 'org.apache.commons:commons-lang3:3.5'
+
+    implementation 'colt:colt:1.2.0'
+//    implementation 'io.jenetics:colt:2.0.0'
+//    implementation 'net.sourceforge.parallelcolt:parallelcolt:0.10.1'
+    implementation 'gov.nasa.gsfc.heasarc:nom-tam-fits:1.15.2'
+    implementation 'jsky:coords:2.6'
+//    implementation 'org.opencadc:jsky:1.0.0'
+    implementation 'gov.nist.math:jama:1.0.3'
+    implementation 'org.freehep:freehep-base:2.0'
+    implementation 'org.freehep.math:minuit:3.5'
+    implementation 'hep.aida.ref:optimizer:2.0'
+    implementation 'hep.aida.ref:histogram:2.0'
+    implementation 'org.openide.util:openide-lookup:7.7.0'
+    implementation 'hep.aida:aida:3.3.1'
+    implementation 'hep.aida:aida-dev:3.3'
+    implementation 'org.freehep:freehep-jaida:3.4.13'
+
+//    implementation files('lib/freehep-util-3.5.jar')
+}
+
+// application {
+//     mainClass = 'ai.kalibra.sleep.service.ServiceApp'
+// }
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version)
+//                "Main-Class": "ai.kalibra.sleep.service.ServiceApp"
+                }
+}
+
+//task(runSleepSummary, dependsOn: 'classes', type: JavaExec) {
+//   mainClass = 'ai.kalibra.sleep.RunSleepSummary'
+//   classpath = sourceSets.main.runtimeClasspath
+//}
+
+
+bootRun {
+    systemProperties System.properties
+}
